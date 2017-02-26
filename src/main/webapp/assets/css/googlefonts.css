@@ -1,0 +1,60 @@
+@font-face {
+  font-family: 'Crete Round';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Crete Round Italic'), local('CreteRound-Italic'), url(/assets/fonts/5xAt7XK2vkUdjhGtt98undkZXW4sYc4BjuAIFc1SXII.woff) format('woff');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Lato Light'), local('Lato-Light'), url(/assets/fonts/KT3KS9Aol4WfR6Vas8kNcg.woff) format('woff');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Lato Regular'), local('Lato-Regular'), url(/assets/fonts/9k-RPmcnxYEPm8CNFsH2gg.woff) format('woff');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Lato Bold'), local('Lato-Bold'), url(/assets/fonts/wkfQbvfT_02e2IWO3yYueQ.woff) format('woff');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Lato Italic'), local('Lato-Italic'), url(/assets/fonts/oUan5VrEkpzIazlUe5ieaA.woff) format('woff');
+}
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Raleway Light'), local('Raleway-Light'), url(/assets/fonts/Ctzj9b56b8RgXW8FAriRsxEYwM7FgeyaSgU71cLG0.woff) format('woff');
+}
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Raleway'), url(/assets/fonts/IczWvq5y_Cwwv_rBjOtT0w.woff) format('woff');
+}
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 500;
+  src: local('Raleway Medium'), local('Raleway-Medium'), url(/assets/fonts/CcKI4k9un7TZVWzRVT-T8xsxEYwM7FgeyaSgU71cLG0.woff) format('woff');
+}
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Raleway SemiBold'), local('Raleway-SemiBold'), url(/assets/fonts/xkvoNo9fC8O2RDydKj12bxsxEYwM7FgeyaSgU71cLG0.woff) format('woff');
+}
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Raleway Bold'), local('Raleway-Bold'), url(/assets/fonts/JbtMzqLaYbbbCL9X6EvaIxsxEYwM7FgeyaSgU71cLG0.woff) format('woff');
+}
