@@ -46,6 +46,12 @@
 			</props>
 		</property>
 		
+		<property name="packagesToScan">
+			<list>
+				<value>com.ctrends.taskmanager.model.tman</value>
+			</list>
+		</property>
+		
 	</bean>
 	
     <bean id="multipartResolver"
