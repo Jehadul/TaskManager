@@ -2,6 +2,7 @@ package com.ctrends.taskmanager.bean;
 
 import java.util.UUID;
 
+
 public class WSResponse {
 	private String outcome;
 	private String message;
