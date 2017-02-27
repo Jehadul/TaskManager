@@ -7,7 +7,7 @@
 	<packaging>war</packaging>
 	<version>1.0-SNAPSHOT</version>
 	<name>taskmanager</name>
-	<url>http://www.ctrends-software.com/ctrendsee/</url>
+	<url>http://www.ctrends-software.com/taskmanager/</url>
 
 	<licenses>
 		<license>
@@ -492,7 +492,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>ctrendsee</finalName>
+		<finalName>taskmanager</finalName>
 		<plugins>
 
 			<plugin>
@@ -519,5 +519,5 @@
 		</plugins>
 	</build>
 
-	<artifactId>ctrends</artifactId>
+	<artifactId>taskmanager</artifactId>
 </project>
