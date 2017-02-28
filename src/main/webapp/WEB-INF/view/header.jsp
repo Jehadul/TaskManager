@@ -144,8 +144,8 @@
 					<!-- end: NAVBAR HEADER -->
 					<!-- start: NAVBAR COLLAPSE -->
 					<div class="navbar-collapse collapse">
-						<div class="col-md-auto"><img class="margin-top-8" width="80" height="50" src="assets/logo/${data.emp.companyCode}.png" /></div>
-						<div class="col-md-auto"><h4 class="margin-top-25">${data.emp.companyName}</h4></div>
+						<div class="col-md-auto"><img class="margin-top-8" width="80" height="50" src="assets/logo/CTS.png" /></div>
+						<div class="col-md-auto"><h4 class="margin-top-25">CTrends Software and Services</h4></div>
 						<div class="col-md-auto pull-right">
 							<ul class="nav navbar-right">
 								<!-- start: MESSAGES -->
