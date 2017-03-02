@@ -39,6 +39,10 @@
 						 :     <b>${map.tasks.moduleCode}</b>
 					</div>
 					<div class="form-group">
+						<cts:Label name="Product Name" labelFor="product_code"/>
+						:     <b>${map.tasks.productCode}</b>
+					</div>
+					<div class="form-group">
 						<cts:Label name="Description" labelFor="description"/>
 						 :     <b>${map.tasks.description}</b>
 					</div>
