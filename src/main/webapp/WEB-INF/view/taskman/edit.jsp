@@ -52,13 +52,31 @@
 									</c:forEach>
 								</select>			
 					   </div>
-						
+					   
 						<div class="form-group">
 							<label for="module_code" class="control-label">Module Name</label>
 								<select id="module_code" class="form-control required" name="module_code">
 									<c:forEach items="${map.moduleCodes}" var="item">
 									<c:choose>
 										<c:when test="${item.getKey() == map.tasks.moduleCode}">
+											<option selected value="${item.getKey()}">${item.getValue()}</option>
+										</c:when>
+										<c:otherwise>
+											<option value="${item.getKey()}">${item.getValue()}</option>
+										</c:otherwise>
+										
+									</c:choose>	
+									</c:forEach>
+								</select>			
+					   </div>
+					   
+					   <div class="form-group">
+							<label for="suite_code" class="control-label">Product Name</label>
+								
+								<select id="product_code" class="form-control required" name="product_code">
+									<c:forEach items="${map.productCodes}" var="item">
+									<c:choose>
+										<c:when test="${item.getKey() == map.tasks.productCode}">
 											<option selected value="${item.getKey()}">${item.getValue()}</option>
 										</c:when>
 										<c:otherwise>
