@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ctrends.taskmanager.model.taskmanage.Module;
 import com.ctrends.taskmanager.model.taskmanage.Suite;
+import com.ctrends.taskmanager.model.taskmanage.product.Product;
 import com.ctrends.taskmanager.model.tman.Tasks;
 
 @Repository("tasksDao")
@@ -89,6 +90,14 @@ public class TasksDao implements ITasksDao {
 		List<Module> modList = query.list();
 		
 		return modList;
+	}
+	@Transactional
+	@Override
+	public List<Product> getAllProducts() {
+		Query query=sessionfactory.getCurrentSession().createQuery("From Product");
+		List<Product> productLi=query.list();
+		productLi.get(0);
+		return productLi;
 	}
 
 
