@@ -29,6 +29,7 @@ public class TasksService implements ITasksService {
 		Tasks tasks=new Tasks();
 		tasks.setSuiteCode(requestMap.get("suite_code")[0]);
 		tasks.setModuleCode(requestMap.get("module_code")[0]);
+		tasks.setProductCode(requestMap.get("product_code")[0]);
 		tasks.setDescription(requestMap.get("description")[0]);
 		tasks.setStoryCode(requestMap.get("story_code")[0]);
 	    
@@ -61,9 +62,9 @@ public class TasksService implements ITasksService {
 		System.out.println(":::::"+requestMap.get("id")[0]);
 		Tasks tasks = tasksDao.getDocById(UUID.fromString(requestMap.get("id")[0]));
 		
-		tasks.setCompanyCode(requestMap.get("suite_code")[0]);
-		tasks.setDoaTypeCode(requestMap.get("module_code")[0]);	
-		
+		tasks.setSuiteCode(requestMap.get("suite_code")[0]);
+		tasks.setModuleCode(requestMap.get("module_code")[0]);	
+		tasks.setProductCode(requestMap.get("product_code")[0]);	
 		//tasks.setModuleCode(requestMap.get("module_code")[0]);
 		tasks.setDescription(requestMap.get("description")[0]);
 		tasks.setStoryCode(requestMap.get("story_code")[0]);
