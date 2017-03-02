@@ -41,6 +41,17 @@ public class Tasks {
 	@Column(name="suite_code")
 	private String suiteCode;
 	
+	@Column(name="product_code")
+	private String productCode;
+	
+	public String getProductCode() {
+		return productCode;
+	}
+
+	public void setProductCode(String productCode) {
+		this.productCode = productCode;
+	}
+
 	@Column(name="suite_name")
 	private String suiteName;
 	
