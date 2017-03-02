@@ -18,24 +18,24 @@
 	</section>
 
 	<div class="container-fluid container-fullw bg-white">
-		<cts:AjaxForm action="sys/aa/privilege/updateprivs" dataHandler="showMessage" >
+		<cts:AjaxForm action="/taskman/tman/tasks/store" dataHandler="showMessage" >
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 			<div class="main-control">
 				<div class="row">
 					<div class="col-md-6">
-						<div class="form-group">
+						<%-- <div class="form-group">
 							<cts:Label labelFor="product_name" name="Product Name"/>
 							<cts:Select list="${data.productCodes}"  name="priv_grp_code" value="${data.privGroupCode }" cssClass="required" emptyValue="--SELECT--"/>
 							<cts:Hidden name="product_name"/>
-						</div>
+						</div> --%>
 						<div class="form-group">
 							<cts:Label labelFor="suite_code" name="Suite Name"/>
 							<cts:Select list="${data.suiteCodes}"  name="suite_code" value="${data.suiteCode }" cssClass="required" emptyValue="--SELECT--"/>
 							<cts:Hidden name="suite_name"/>
 						</div>
-						<div class="form-group">
+						 <div class="form-group">
 							<cts:Label labelFor="module_code" name="Module Name"/>
-							<cts:Select list="${data.moduleCodes}"  name="module_code" value="${data.moduleCode }" cssClass="required" emptyValue="--SELECT--"/>
+							<cts:Select list="${data.moduleCodes}"  name="module_code" value="${data.moduleCode}" cssClass="required" emptyValue="--SELECT--"/>
 							<cts:Hidden name="module_name"/>
 						</div>
 						<div class="form-group">
@@ -49,12 +49,12 @@
 							<cts:TextBox name="story_code" cssClass="dirty-check required" readonly=""/>
 						</div>
 						<div class="form-group">						
-							<cts:Label name="Title" labelFor="title"/>
-							<cts:TextBox name="title" cssClass="dirty-check required" readonly=""/>
+							<cts:Label name="Task Title" labelFor="task_title"/>
+							<cts:TextBox name="task_title" cssClass="dirty-check required" readonly=""/>
 						</div>
 						<div class="form-group">
-							<cts:Label name="Estimate" labelFor="father1"/>
-							<cts:TextBox name="father1" cssClass="dirty-check required" readonly=""/>
+							<cts:Label name="Estimated Time" labelFor="estimated_time"/>
+							<cts:TextBox name="estimated_time" cssClass="dirty-check required" readonly=""/>
 						</div>
 						<div class="form-group">						
 							<cts:Label name="Assignee" labelFor="assignee"/>
@@ -83,6 +83,7 @@
 	</div>
 </div>
 <script>
+InitHandlers();
 	$('#suite_code').on('change', function(){
 		var newSuiteCode = $("#suite_code").val();
 		LoadMainContent("/taskman/tman/tasks/create/?suite_code=" + newSuiteCode);
@@ -92,7 +93,21 @@
 	$('#module_code').on('change', function(){
 		var newSuiteCode = $("#suite_code").val();
 		var newModuleCode = $("#module_code").val();
-		LoadMainContent("/taskman/tman/tasks/create/?suite_code=" + newSuiteCode + "&" + "module_code=" + newModuleCode);
+		//LoadMainContent("/taskman/tman/tasks/create/?suite_code=" + newSuiteCode + "&" + "module_code=" + newModuleCode);
 	
 	});
+	 
+	function showMessage(data) {
+		if (data.outcome == 'success') {
+			ShowSuccessMsg('Program created', data.message);
+			isDirty = false;
+			LoadMainContent('/taskman/tman/tasks/show/' + data.id );
+		} else {
+			ShowErrorMsg('Program was not created', data.msg);
+			var msg = ConcatWithBR(data.error);
+			$(".alert").html(msg);
+			$(".alert").removeClass("hidden");
+		}
+	}
+	
 </script>
