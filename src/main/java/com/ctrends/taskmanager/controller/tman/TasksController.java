@@ -26,9 +26,12 @@ import com.ctrends.taskmanager.controller.tman.ITasksController;
 import com.ctrends.taskmanager.dao.tman.ITasksDao;
 import com.ctrends.taskmanager.model.taskmanage.Module;
 import com.ctrends.taskmanager.model.taskmanage.Suite;
+import com.ctrends.taskmanager.model.taskmanage.product.Product;
 import com.ctrends.taskmanager.model.tman.Tasks;
+import com.ctrends.taskmanager.service.sys_aa.ISuiteService;
+import com.ctrends.taskmanager.service.sys_aa.SuiteService;
 import com.ctrends.taskmanager.service.tman.ITasksService;
-import com.ctrends.taskmanager.service.tman.TasksService;
+
 import com.google.gson.GsonBuilder;
 
 @Repository("tasksController")
@@ -39,6 +42,8 @@ public class TasksController implements ITasksController {
 	@Autowired
 	ITasksDao taskDao;
 	
+	@Autowired
+	ISuiteService suiteService;
 	
 	@Autowired
 	private ITasksService tasksService;
@@ -118,22 +123,46 @@ public class TasksController implements ITasksController {
 	@ResponseBody
 	@Override
 	public ModelAndView edit(@PathVariable(value = "id") UUID id) {
-		/*Map<String, Object> map = new HashMap<>();
-		List<Suite> suiteList = suiteService.getAll();
-		Map<String, String> companyCodes = new HashMap<String,String>();
-		for (int i = 0; i < companyList.size(); i++) {
-			companyCodes.put(companyList.get(i).getCompanyCode(), companyList.get(i).getCompanyName());
-		}
-		DoaType dType = doaTypeService.getById(id);
-		map.put("companyCodes", companyCodes);
-		map.put("mode", "doc");
-		map.put("dType", dType);
-		map.put("companyCodes", companyCodes);
-		GsonBuilder gson = new GsonBuilder();
-		Gson g = gson.create();*/
-		//return new ModelAndView("tman/tasks/edit", "map", map);
 		
-	return null;
+		Map<String, Object> map = new HashMap<>();
+		
+		List<Suite> suiteLi=taskDao.getAllSuites();
+		
+		
+		Map<String, String> suiteCodes = new HashMap<String, String>();
+			for (int i = 0; i < suiteLi.size(); i++) {
+				suiteCodes.put(suiteLi.get(i).getSuiteCode(), suiteLi.get(i).getSuiteShortName());
+			}
+		
+		List<Module> moduleLi=taskDao.getAllModules();
+		
+		Map<String, String> moduleCodes = new HashMap<String, String>();
+		for (int i = 0; i < moduleLi.size(); i++) {
+			moduleCodes.put(moduleLi.get(i).getModCode(), moduleLi.get(i).getModShortName());
+		}
+		
+		
+		List<Product> productLi=taskDao.getAllProducts();
+		
+		
+		Map<String, String> productCodes = new HashMap<String, String>();
+			for (int i = 0; i < productLi.size(); i++) {
+				productCodes.put(productLi.get(i).getProductCode(), productLi.get(i).getProductName());
+			}
+		
+		Tasks tasks = tasksService.getById(id);
+		
+		map.put("mode", "doc");
+		map.put("tasks", tasks);
+		map.put("suiteCodes", suiteCodes);
+		map.put("moduleCodes", moduleCodes);
+		map.put("productCodes", productCodes);
+		
+		GsonBuilder gson = new GsonBuilder();
+		Gson g = gson.create();
+		
+		return new ModelAndView("taskman/edit", "map", map);
+		
 	}
 
 	@Override
@@ -168,9 +197,9 @@ public class TasksController implements ITasksController {
 	@Override
 	public WSResponse update(HttpServletRequest request) {
 		Map<String, String[]> tasks = request.getParameterMap();
-
+		
 		Map<String, String> data = tasksService.update(tasks);
-
+		
 		return new WSResponse("success", "Submitted Successfully", UUID.fromString(data.get("id")), null, data.get("mode"), data);
 
 	}
@@ -184,13 +213,21 @@ public class TasksController implements ITasksController {
 	@RequestMapping(value = "/create1", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Override
 	public ModelAndView create(HttpServletRequest request) {
-	Map<String, Object> data = new HashMap<String, Object>();
 		
-		String moduleCode = request.getParameter("module_code");
+		Map<String, Object> data = new HashMap<String, Object>();
+		
 		String suiteCode = request.getParameter("suite_code");
+		String moduleCode = request.getParameter("module_code");
+		String productCode = request.getParameter("product_code");
+		
+		
+		
 		
 		List<Suite> suiteLi=taskDao.getAllSuites();
 		List<Module> moduleLi=taskDao.getAllModules();
+		List<Product> productLi=taskDao.getAllProducts();
+		
+		
 		
 		Map<String, String> suiteCodes = new HashMap<String, String>();
 		for (int i = 0; i < suiteLi.size(); i++) {
@@ -203,16 +240,16 @@ public class TasksController implements ITasksController {
 		}
 		
 		Map<String, String> productCodes = new HashMap<String, String>();
-			productCodes.put("pro1", "Product 1");
-			productCodes.put("pro2", "Product 2");
-			productCodes.put("pro3", "Product 3");
-			productCodes.put("pro4", "Product 4");
+		for (int i = 0; i < productLi.size(); i++) {
+			productCodes.put(productLi.get(i).getProductCode(), productLi.get(i).getProductName());
+		}
 		
 		data.put("suiteCodes", suiteCodes);
 		data.put("moduleCodes", moduleCodes);
 		data.put("productCodes", productCodes);
 		data.put("moduleCode", moduleCode);
 		data.put("suiteCode", suiteCode);
+		data.put("productCode", productCode);
 		
 		return new ModelAndView("taskman/create", "data", data);
 		
