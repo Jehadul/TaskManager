@@ -49,6 +49,8 @@
 		<property name="packagesToScan">
 			<list>
 				<value>com.ctrends.taskmanager.model.tman</value>
+				<value>com.ctrends.taskmanager.model.taskmanage</value>
+				
 			</list>
 		</property>
 		
