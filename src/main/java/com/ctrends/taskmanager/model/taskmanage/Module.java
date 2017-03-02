@@ -39,6 +39,17 @@ public class Module {
 
 	@Column(name ="mod_code")
 	private String modCode;
+	
+	@Column(name ="module_code")
+	private String moduleCode;
+
+	public String getModuleCode() {
+		return moduleCode;
+	}
+
+	public void setModuleCode(String moduleCode) {
+		this.moduleCode = moduleCode;
+	}
 
 	@Column(name ="mod_short_name")
 	private String modShortName;
