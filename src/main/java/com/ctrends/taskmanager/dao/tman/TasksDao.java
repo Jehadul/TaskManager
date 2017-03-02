@@ -27,10 +27,13 @@ public class TasksDao implements ITasksDao {
 		return null;
 	}
 
+	@Transactional
 	@Override
 	public Tasks getDocById(UUID id) {
-		// TODO Auto-generated method stub
-		return null;
+		Query query = sessionfactory.getCurrentSession().createQuery("From Tasks WHERE id = :id");
+		query.setParameter("id", id);
+		List<Tasks> pt = query.list();
+		return pt.get(0);
 	}
 
 	@Override
@@ -39,10 +42,12 @@ public class TasksDao implements ITasksDao {
 		return null;
 	}
 
+	@Transactional
 	@Override
 	public UUID insertDoc(Tasks doc) {
-		// TODO Auto-generated method stub
-		return null;
+		UUID id = (UUID) sessionfactory.getCurrentSession().save(doc);
+		sessionfactory.getCurrentSession().flush();
+		return id;
 	}
 
 	@Override
