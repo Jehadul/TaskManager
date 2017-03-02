@@ -97,8 +97,10 @@
 	$(function() {
 		$("#suite_code").focus();
 	});
+	
 	$('#edit_btn').on("click",function(){
 		LoadMainContent('/taskman/tman/tasks/edit/' + "${map.tasks.id}");			
 	});
+	
 	
 </script>
