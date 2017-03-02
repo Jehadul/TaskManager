@@ -25,6 +25,17 @@ public class Suite {
 	@Column(name="suite_seq", nullable = false)
 	private int suiteSeq;
 
+	@Column(name="suite_name")
+	private String suiteName;
+	
+	public String getSuiteName() {
+		return suiteName;
+	}
+
+	public void setSuiteName(String suiteName) {
+		this.suiteName = suiteName;
+	}
+
 	@Column(name="suite_code")
 	private String suiteCode;
 
