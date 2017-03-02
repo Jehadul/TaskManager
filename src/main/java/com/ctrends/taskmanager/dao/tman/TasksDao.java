@@ -49,11 +49,12 @@ public class TasksDao implements ITasksDao {
 		sessionfactory.getCurrentSession().flush();
 		return id;
 	}
-
+	@Transactional
 	@Override
 	public UUID updateDoc(Tasks doc) {
-		// TODO Auto-generated method stub
-		return null;
+		sessionfactory.getCurrentSession().saveOrUpdate(doc);
+		sessionfactory.getCurrentSession().flush();
+		return doc.getId();
 	}
 
 	@Override
