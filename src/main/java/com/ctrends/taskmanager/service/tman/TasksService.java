@@ -28,9 +28,10 @@ public class TasksService implements ITasksService {
 		suite.setSuiteCode(requestMap.get("suite_code")[0]);*/
 		Tasks tasks=new Tasks();
 		tasks.setSuiteCode(requestMap.get("suite_code")[0]);
+		tasks.setModuleCode(requestMap.get("module_code")[0]);
 		tasks.setDescription(requestMap.get("description")[0]);
 		tasks.setStoryCode(requestMap.get("story_code")[0]);
-	    tasks.setModuleCode(requestMap.get("module_code")[0]);
+	    
 		tasks.setTaskTitle(requestMap.get("task_title")[0]);
 		tasks.setEstimatedTime(requestMap.get("estimated_time")[0]);
 		tasks.setAsignee(requestMap.get("assignee")[0]);
@@ -50,10 +51,31 @@ public class TasksService implements ITasksService {
 		return tasksDao.getDocById(id);
 	}
 
+	
+	
+	
 	@Override
 	public Map<String, String> update(Map<String, String[]> requestMap) {
-		// TODO Auto-generated method stub
-		return null;
+		Map<String, String> data = new HashMap<String, String>();
+		
+		System.out.println(":::::"+requestMap.get("id")[0]);
+		Tasks tasks = tasksDao.getDocById(UUID.fromString(requestMap.get("id")[0]));
+		
+		tasks.setCompanyCode(requestMap.get("suite_code")[0]);
+		tasks.setDoaTypeCode(requestMap.get("module_code")[0]);	
+		
+		//tasks.setModuleCode(requestMap.get("module_code")[0]);
+		tasks.setDescription(requestMap.get("description")[0]);
+		tasks.setStoryCode(requestMap.get("story_code")[0]);
+	    
+		tasks.setTaskTitle(requestMap.get("task_title")[0]);
+		tasks.setEstimatedTime(requestMap.get("estimated_time")[0]);
+		tasks.setAsignee(requestMap.get("assignee")[0]);		
+		
+		
+		UUID id = tasksDao.updateDoc(tasks);
+		data.put("id", id.toString());
+		return data;
 	}
 
 	@Override
