@@ -23,11 +23,11 @@
 			<div class="main-control">
 				<div class="row">
 					<div class="col-md-6">
-						<%-- <div class="form-group">
-							<cts:Label labelFor="product_name" name="Product Name"/>
-							<cts:Select list="${data.productCodes}"  name="priv_grp_code" value="${data.privGroupCode }" cssClass="required" emptyValue="--SELECT--"/>
+						<div class="form-group">
+							<cts:Label labelFor="product_code" name="Product Name"/>
+							<cts:Select list="${data.productCodes}"  name="product_code" value="${data.productCode }" cssClass="required" emptyValue="--SELECT--"/>
 							<cts:Hidden name="product_name"/>
-						</div> --%>
+						</div>
 						<div class="form-group">
 							<cts:Label labelFor="suite_code" name="Suite Name"/>
 							<cts:Select list="${data.suiteCodes}"  name="suite_code" value="${data.suiteCode }" cssClass="required" emptyValue="--SELECT--"/>
