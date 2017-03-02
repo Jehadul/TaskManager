@@ -80,10 +80,11 @@ public class TasksController implements ITasksController {
 	
 	@RequestMapping(value = "/create", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ModelAndView editmodules(HttpServletRequest request) throws Exception
-    {   
+    {  
 		Map<String,Object> data = new HashMap<String,Object>();
         String suiteCode = request.getParameter("suite_code");
-        
+        String productCode = request.getParameter("product_code");
+        String moduleCode = request.getParameter("module_code");
         Map<String,Object> map = new LinkedHashMap<String,Object>();
         
  		if (suiteCode == null || suiteCode.isEmpty()) {
@@ -93,6 +94,8 @@ public class TasksController implements ITasksController {
         List<Module> modules = taskDao.getBySuit(suiteCode);
 
 		List<Suite> suiteLi=taskDao.getAllSuites();
+		
+		List<Product> productLi=taskDao.getAllProducts();
 		
 		Map<String, String> suiteCodes = new HashMap<String, String>();
 		for (int i = 0; i < suiteLi.size(); i++) {
@@ -105,18 +108,19 @@ public class TasksController implements ITasksController {
 		}
 		
 		Map<String, String> productCodes = new HashMap<String, String>();
-			productCodes.put("pro1", "Product 1");
-			productCodes.put("pro2", "Product 2");
-			productCodes.put("pro3", "Product 3");
-			productCodes.put("pro4", "Product 4");
+		for (int i = 0; i < productLi.size(); i++) {
+			productCodes.put(productLi.get(i).getProductCode(), productLi.get(i).getProductName());
+		}
 		
 		data.put("suiteCodes", suiteCodes);
 		data.put("moduleCodes", moduleCodes);
 		data.put("productCodes", productCodes);
-		data.put("suiteLi", map);
-        data.put("suiteCode", suiteCode);
-        
+		data.put("moduleCode", moduleCode);
+		data.put("suiteCode", suiteCode);
+		data.put("productCode", productCode);
+		
 		return new ModelAndView("taskman/create", "data", data);
+		
     }
 
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -214,7 +218,7 @@ public class TasksController implements ITasksController {
 	@Override
 	public ModelAndView create(HttpServletRequest request) {
 		
-		Map<String, Object> data = new HashMap<String, Object>();
+		/*Map<String, Object> data = new HashMap<String, Object>();
 		
 		String suiteCode = request.getParameter("suite_code");
 		String moduleCode = request.getParameter("module_code");
@@ -251,7 +255,8 @@ public class TasksController implements ITasksController {
 		data.put("suiteCode", suiteCode);
 		data.put("productCode", productCode);
 		
-		return new ModelAndView("taskman/create", "data", data);
+		return new ModelAndView("taskman/create", "data", data);*/
+		return null;
 		
 	}
 
