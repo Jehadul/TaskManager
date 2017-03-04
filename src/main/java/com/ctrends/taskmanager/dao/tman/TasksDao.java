@@ -60,8 +60,9 @@ public class TasksDao implements ITasksDao {
 
 	@Override
 	public UUID deleteDoc(UUID id) {
-		// TODO Auto-generated method stub
-		return null;
+		Query query=sessionfactory.getCurrentSession().createQuery("delete from Tasks WHERE id = :id");
+		query.setParameter("id", id);
+		return id;
 	}
 
 	@Transactional
