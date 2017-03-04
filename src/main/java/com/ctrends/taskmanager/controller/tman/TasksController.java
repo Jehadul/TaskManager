@@ -165,6 +165,28 @@ public class TasksController implements ITasksController {
 		return new ModelAndView("taskman/edit", "map", map);
 		
 	}
+	
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ModelAndView delete(@PathVariable(value = "id") UUID id) {
+	/*	Map<String, String[]> map = request.getParameterMap();
+		UUID id=tasksService.delete(map);
+		GsonBuilder gson = new GsonBuilder();
+		Gson g = gson.create();*/
+		
+		Map<String, Object> data = new HashMap<String, Object>();
+		List<Tasks> taskli=tasksService.getAll();
+		
+		
+		/*map.put("task", "");
+		map.put("mode", "doc");*/
+		GsonBuilder gson = new GsonBuilder();
+		Gson g = gson.create();
+		
+		data.put("taskli", taskli);
+		
+		return new ModelAndView("taskman/delete", "data", data);
+	}
 
 	@Override
 	public ModelAndView showSearch(HttpServletRequest request) {
