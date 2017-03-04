@@ -23,11 +23,7 @@
 			<div class="main-control">
 				<div class="row">
 					<div class="col-md-6">
-						<div class="form-group">
-							<cts:Label labelFor="product_code" name="Product Name"/>
-							<cts:Select list="${data.productCodes}"  name="product_code" value="${data.productCode }" cssClass="required" emptyValue="--SELECT--"/>
-							<cts:Hidden name="product_name"/>
-						</div>
+						
 						<div class="form-group">
 							<cts:Label labelFor="suite_code" name="Suite Name"/>
 							<cts:Select list="${data.suiteCodes}"  name="suite_code" value="${data.suiteCode }" cssClass="required" emptyValue="--SELECT--"/>
@@ -37,6 +33,11 @@
 							<cts:Label labelFor="module_code" name="Module Name"/>
 							<cts:Select list="${data.moduleCodes}"  name="module_code" value="${data.moduleCode}" cssClass="required" emptyValue="--SELECT--"/>
 							<cts:Hidden name="module_name"/>
+						</div>
+						<div class="form-group">
+							<cts:Label labelFor="product_code" name="Product Name"/>
+							<cts:Select list="${data.productCodes}"  name="product_code" value="${data.productCode }" cssClass="required" emptyValue="--SELECT--"/>
+							<cts:Hidden name="product_name"/>
 						</div>
 						<div class="form-group">
 								<cts:Label name="Description" labelFor="description"/>
@@ -99,7 +100,7 @@ InitHandlers();
 	 
 	function showMessage(data) {
 		if (data.outcome == 'success') {
-			ShowSuccessMsg('Program created', data.message);
+			ShowSuccessMsg('Tasks created', data.message);
 			isDirty = false;
 			LoadMainContent('/taskman/tman/tasks/show/' + data.id );
 		} else {
