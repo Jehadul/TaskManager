@@ -75,7 +75,7 @@
 					</div>
 					<div class="col-md-4">
 						<button id="submit" class="btn btn-save pull-right" type="submit">
-									<span class="fa fa-save"></span> &nbspSave
+									<span class="fa fa-save"></span> &nbsp;Save
 						</button>
 					</div>
 				</div>
