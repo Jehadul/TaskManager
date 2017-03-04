@@ -43,8 +43,8 @@ public class TasksService implements ITasksService {
 
 	@Override
 	public List<Tasks> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Tasks> taskLi=tasksDao.getAllDoc();
+		return taskLi;
 	}
 
 	@Override
