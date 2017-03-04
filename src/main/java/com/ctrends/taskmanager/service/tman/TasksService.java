@@ -85,4 +85,12 @@ public class TasksService implements ITasksService {
 		return null;
 	}
 
+	@Override
+	public List<Tasks> find(Map<String, String> params) {
+		List<Tasks> searchResult = tasksDao.getDocs(params);
+		//System.out.println("............."+searchResult+"zihad");
+		return searchResult;
+	}
+
+
 }
