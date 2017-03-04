@@ -87,8 +87,11 @@
 				</div>
 
 				<div class="col-md-4">
-					<button id="edit_btn" class="btn btn-save pull-right" type="submit">
-						<span class="fa fa-save"></span> Edit
+					<button id="edit_btn" class="btn btn-save" type="submit">
+						<span class="fa fa-edit"></span> Edit
+					</button>
+					<button id="del_btn" class="btn btn-del" type="submit">
+						<span class="fa fa-trash"></span> Delete
 					</button>
 				</div>
 			</div>
@@ -104,6 +107,9 @@
 	
 	$('#edit_btn').on("click",function(){
 		LoadMainContent('/taskman/tman/tasks/edit/' + "${map.tasks.id}");			
+	});
+	$('#del_btn').on("click",function(){
+		LoadMainContent('/taskman/tman/tasks/delete/' + "${map.tasks.id}");			
 	});
 	
 	
