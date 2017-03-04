@@ -76,9 +76,9 @@
 		html += '			</thead>';
 		html += '			<tbody>';
 		for (var i = 0; i < data.length; i++) { //alert(data[i].title)
-			html += '			<tr><td><a href="/taskman/tman/tasks/show/' + data[i].id +'" data-ajax="true">' + data[i].title
+			html += '			<tr><td><a href="/taskman/tman/tasks/show/' + data[i].id +'" data-ajax="true">' + data[i].taskTitle
 					+ '</a></td>';
-			html += '				<td>' + data[i].asign + '</td>';
+			html += '				<td>' + data[i].asignee + '</td>';
 			html += '				<td>';
 			if (action == "SELECT") {
 				var actionCallback = GetParameterByName(modalUrl,
