@@ -28,8 +28,7 @@ import com.ctrends.taskmanager.model.taskmanage.Module;
 import com.ctrends.taskmanager.model.taskmanage.Suite;
 import com.ctrends.taskmanager.model.taskmanage.product.Product;
 import com.ctrends.taskmanager.model.tman.Tasks;
-import com.ctrends.taskmanager.service.sys_aa.ISuiteService;
-import com.ctrends.taskmanager.service.sys_aa.SuiteService;
+
 import com.ctrends.taskmanager.service.tman.ITasksService;
 
 import com.google.gson.GsonBuilder;
@@ -42,9 +41,7 @@ public class TasksController implements ITasksController {
 	@Autowired
 	ITasksDao taskDao;
 	
-	@Autowired
-	ISuiteService suiteService;
-	
+
 	@Autowired
 	private ITasksService tasksService;
 
