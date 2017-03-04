@@ -37,10 +37,22 @@ public class TasksDao implements ITasksDao {
 		return pt.get(0);
 	}
 
+	@Transactional
 	@Override
 	public List<Tasks> getDocs(Map<String, String> params) {
-		// TODO Auto-generated method stub
-		return null;
+		Query query = sessionfactory.getCurrentSession()
+				.createQuery("from Tasks where taskTitle like :taskTitle and "+"asignee like :asignee");
+
+		
+		query.setParameter("taskTitle", "%" + params.get("taskTitle") + "%");
+		query.setParameter("asignee", "%" + params.get("asignee") + "%");
+		
+
+		List<Tasks> tasksList = query.list();
+				
+		return tasksList;
+				
+	
 	}
 
 	@Transactional
