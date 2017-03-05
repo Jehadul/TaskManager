@@ -60,10 +60,13 @@ public class TasksDao implements ITasksDao {
 		return doc.getId();
 	}
 
+	@Transactional
 	@Override
 	public UUID deleteDoc(UUID id) {
-		Query query=sessionfactory.getCurrentSession().createQuery("delete from Tasks WHERE id = :id");
-		query.setParameter("id", id);
+		Tasks app =	(Tasks)sessionfactory.getCurrentSession()
+				.load(Tasks.class, id);
+		sessionfactory.getCurrentSession().delete(app);
+		sessionfactory.getCurrentSession().flush();
 		return id;
 	}
 
