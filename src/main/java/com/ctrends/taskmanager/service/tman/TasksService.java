@@ -81,8 +81,7 @@ public class TasksService implements ITasksService {
 
 	@Override
 	public UUID delete(Map<String, String[]> requestMap) {
-		UUID id=UUID.fromString(requestMap.get("id")[0]);
-		tasksDao.deleteDoc(id);
+		UUID id = tasksDao.deleteDoc(UUID.fromString(requestMap.get("id")[0]));
 		return id;
 	}
 
