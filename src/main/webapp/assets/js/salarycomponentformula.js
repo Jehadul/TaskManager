@@ -1,7 +1,5 @@
 InitHandlers();
 	DataGrid();
-	var salcoFormula = {!!$salcoFormula!!};
-	var  salaryComponents = {!!$salaryComponents!!}; //alert(a);
 	
 	$("#entry_method,#controlling_component_name,#multiplication_fact,#extra_amount").on("change", function(){
 	 	if($("#entry_method").val()=="Dependent"){ 
