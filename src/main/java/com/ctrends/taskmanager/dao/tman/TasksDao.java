@@ -44,17 +44,13 @@ public class TasksDao implements ITasksDao {
 	public List<Tasks> getDocs(Map<String, String> params) {
 		Query query = sessionfactory.getCurrentSession()
 				.createQuery("from Tasks where taskTitle like :taskTitle and "+"asignee like :asignee");
-
 		
 		query.setParameter("taskTitle", "%" + params.get("taskTitle") + "%");
 		query.setParameter("asignee", "%" + params.get("asignee") + "%");
 		
-
 		List<Tasks> tasksList = query.list();
 				
-		return tasksList;
-				
-	
+		return tasksList;					
 	}
 
 	@Transactional
