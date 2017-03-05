@@ -176,14 +176,13 @@ public class TasksController implements ITasksController {
 		
 		Map<String, Object> data = new HashMap<String, Object>();
 		List<Tasks> taskli=tasksService.getAll();
+		Tasks tasks = tasksService.getById(id);
 		
-		
-		/*map.put("task", "");
-		map.put("mode", "doc");*/
 		GsonBuilder gson = new GsonBuilder();
 		Gson g = gson.create();
 		
 		data.put("taskli", taskli);
+		data.put("tasks", tasks);
 		
 		return new ModelAndView("taskman/delete", "data", data);
 	}
@@ -227,11 +226,14 @@ public class TasksController implements ITasksController {
 
 	}
 
+	@RequestMapping(value ="/destroy", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Override
 	public WSResponse destroy(HttpServletRequest request) {
-		// TODO Auto-generated method stub
-		return null;
+		Map<String, String[]> tasks = request.getParameterMap();
+		UUID id = tasksService.delete(tasks);
+		return new WSResponse("success","task deleted successfully", id,null,"doc", null) ;
 	}
+	
 	
 	@RequestMapping(value = "/create1", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Override
