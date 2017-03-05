@@ -22,10 +22,12 @@ public class TasksDao implements ITasksDao {
 	@Autowired
 	private SessionFactory sessionfactory;
 	
+	@Transactional
 	@Override
 	public List<Tasks> getAllDoc() {
-		// TODO Auto-generated method stub
-		return null;
+		Query query=sessionfactory.getCurrentSession().createQuery("From Tasks");
+		List<Tasks> tasksLi=query.list();
+		return tasksLi;
 	}
 
 	@Transactional
@@ -37,10 +39,22 @@ public class TasksDao implements ITasksDao {
 		return pt.get(0);
 	}
 
+	@Transactional
 	@Override
 	public List<Tasks> getDocs(Map<String, String> params) {
-		// TODO Auto-generated method stub
-		return null;
+		Query query = sessionfactory.getCurrentSession()
+				.createQuery("from Tasks where taskTitle like :taskTitle and "+"asignee like :asignee");
+
+		
+		query.setParameter("taskTitle", "%" + params.get("taskTitle") + "%");
+		query.setParameter("asignee", "%" + params.get("asignee") + "%");
+		
+
+		List<Tasks> tasksList = query.list();
+				
+		return tasksList;
+				
+	
 	}
 
 	@Transactional
@@ -60,8 +74,9 @@ public class TasksDao implements ITasksDao {
 
 	@Override
 	public UUID deleteDoc(UUID id) {
-		// TODO Auto-generated method stub
-		return null;
+		Query query=sessionfactory.getCurrentSession().createQuery("delete from Tasks WHERE id = :id");
+		query.setParameter("id", id);
+		return id;
 	}
 
 	@Transactional
@@ -69,7 +84,6 @@ public class TasksDao implements ITasksDao {
 	public List<Suite> getAllSuites() {
 		Query query=sessionfactory.getCurrentSession().createQuery("From Suite");
 		List<Suite> suiteLi=query.list();
-		suiteLi.get(0);
 		return suiteLi;
 	}
 
@@ -78,7 +92,6 @@ public class TasksDao implements ITasksDao {
 	public List<Module> getAllModules() {
 		Query query=sessionfactory.getCurrentSession().createQuery("From Module");
 		List<Module> moduleLi=query.list();
-		moduleLi.get(0);
 		return moduleLi;
 	}
 

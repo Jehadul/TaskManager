@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.google.gson.annotations.SerializedName;
+
 @Entity
 @Table(name = "tman_tasks")
 public class Tasks {
@@ -31,7 +33,7 @@ public class Tasks {
 	
 	@Column(name = "remaining_time")
 	private String remainingTime;
-	
+
 	@Column(name = "asignee")
 	private String asignee;
 	
