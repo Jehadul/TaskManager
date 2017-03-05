@@ -10,8 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.google.gson.annotations.SerializedName;
-
 @Entity
 @Table(name = "tman_tasks")
 public class Tasks {
@@ -33,7 +31,7 @@ public class Tasks {
 	
 	@Column(name = "remaining_time")
 	private String remainingTime;
-
+	
 	@Column(name = "asignee")
 	private String asignee;
 	
@@ -45,64 +43,16 @@ public class Tasks {
 	
 	@Column(name="product_code")
 	private String productCode;
-	
-	public String getProductCode() {
-		return productCode;
-	}
-
-	public void setProductCode(String productCode) {
-		this.productCode = productCode;
-	}
 
 	@Column(name="suite_name")
 	private String suiteName;
 	
-	public String getSuiteName() {
-		return suiteName;
-	}
-
-	public void setSuiteName(String suiteName) {
-		this.suiteName = suiteName;
-	}
-
-	public String getSuiteCode() {
-		return suiteCode;
-	}
-
-	public void setSuiteCode(String suiteCode) {
-		this.suiteCode = suiteCode;
-	}
-
 	@Column(name="story_code")
 	private String storyCode;
 	
 	@Column(name="module_code")
 	private String moduleCode;
 	
-	public String getModuleCode() {
-		return moduleCode;
-	}
-
-	public void setModuleCode(String moduleCode) {
-		this.moduleCode = moduleCode;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public String getStoryCode() {
-		return storyCode;
-	}
-
-	public void setStoryCode(String storyCode) {
-		this.storyCode = storyCode;
-	}
-
 	@Column(name="doa_type_code")
 	private String doaTypeCode;
 
@@ -322,6 +272,54 @@ public class Tasks {
 
 	public void setAsignee(String asignee) {
 		this.asignee = asignee;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getSuiteCode() {
+		return suiteCode;
+	}
+
+	public void setSuiteCode(String suiteCode) {
+		this.suiteCode = suiteCode;
+	}
+
+	public String getProductCode() {
+		return productCode;
+	}
+
+	public void setProductCode(String productCode) {
+		this.productCode = productCode;
+	}
+
+	public String getSuiteName() {
+		return suiteName;
+	}
+
+	public void setSuiteName(String suiteName) {
+		this.suiteName = suiteName;
+	}
+
+	public String getStoryCode() {
+		return storyCode;
+	}
+
+	public void setStoryCode(String storyCode) {
+		this.storyCode = storyCode;
+	}
+
+	public String getModuleCode() {
+		return moduleCode;
+	}
+
+	public void setModuleCode(String moduleCode) {
+		this.moduleCode = moduleCode;
 	}
 
 	public String getDoaTypeCode() {
@@ -779,8 +777,6 @@ public class Tasks {
 	public void setCostcenterName(String costcenterName) {
 		this.costcenterName = costcenterName;
 	}
-	
-	
-	
 
+	
 }

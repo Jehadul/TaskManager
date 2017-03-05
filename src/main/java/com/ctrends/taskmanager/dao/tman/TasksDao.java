@@ -39,9 +39,9 @@ public class TasksDao implements ITasksDao {
 		return pt.get(0);
 	}
 
-	@Transactional
 	@Override
 	public List<Tasks> getDocs(Map<String, String> params) {
+
 		Query query = sessionfactory.getCurrentSession()
 				.createQuery("from Tasks where taskTitle like :taskTitle and "+"asignee like :asignee");
 		
@@ -51,6 +51,8 @@ public class TasksDao implements ITasksDao {
 		List<Tasks> tasksList = query.list();
 				
 		return tasksList;					
+
+
 	}
 
 	@Transactional
@@ -68,10 +70,13 @@ public class TasksDao implements ITasksDao {
 		return doc.getId();
 	}
 
+	@Transactional
 	@Override
 	public UUID deleteDoc(UUID id) {
-		Query query=sessionfactory.getCurrentSession().createQuery("delete from Tasks WHERE id = :id");
-		query.setParameter("id", id);
+		Tasks app =	(Tasks)sessionfactory.getCurrentSession()
+				.load(Tasks.class, id);
+		sessionfactory.getCurrentSession().delete(app);
+		sessionfactory.getCurrentSession().flush();
 		return id;
 	}
 

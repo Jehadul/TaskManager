@@ -81,17 +81,8 @@ public class TasksService implements ITasksService {
 
 	@Override
 	public UUID delete(Map<String, String[]> requestMap) {
-		UUID id=UUID.fromString(requestMap.get("id")[0]);
-		tasksDao.deleteDoc(id);
+		UUID id = tasksDao.deleteDoc(UUID.fromString(requestMap.get("id")[0]));
 		return id;
 	}
-
-	@Override
-	public List<Tasks> find(Map<String, String> params) {
-		List<Tasks> searchResult = tasksDao.getDocs(params);
-		//System.out.println("............."+searchResult+"zihad");
-		return searchResult;
-	}
-
 
 }
