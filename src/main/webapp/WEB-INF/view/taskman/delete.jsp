@@ -23,6 +23,7 @@
 						id="task_search_result">
 						<thead>
 							<tr>
+								<th></th>
 								<th>Suite Code</th>
 								<th>Module Code</th>
 								<th>Product Code</th>
