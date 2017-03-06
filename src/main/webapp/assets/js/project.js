@@ -17,6 +17,7 @@ var inputTableHtml = function(selector){
 	return html;
 };
 
+
 var makeWbsPreviewHtml = function(){
 	var html = "";
 	$(".wbs-block").each(function(i, item){
