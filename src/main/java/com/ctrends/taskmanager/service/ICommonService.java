@@ -8,6 +8,7 @@ public interface ICommonService<T> {
 	 public Map<String, String> insert(Map<String, String[]> requestMap);   
 	 public List<T> getAll();  
 	 public T getById(UUID id);  
-	 public Map<String, String> update(Map<String,String[]> requestMap);  
+	 public Map<String, String> update(Map<String,String[]> requestMap); 
+	 public Map<String, String> updateTasklist(Map<String,String[]> requestMap); 
 	 public UUID delete(Map<String, String[]> requestMap);  
 }

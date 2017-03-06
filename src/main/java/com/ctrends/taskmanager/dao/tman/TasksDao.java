@@ -38,7 +38,8 @@ public class TasksDao implements ITasksDao {
 		List<Tasks> pt = query.list();
 		return pt.get(0);
 	}
-
+	
+	@Transactional
 	@Override
 	public List<Tasks> getDocs(Map<String, String> params) {
 
