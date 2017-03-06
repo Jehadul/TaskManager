@@ -23,6 +23,7 @@
 						id="task_search_result">
 						<thead>
 							<tr>
+								<th></th>
 								<th>Suite Code</th>
 								<th>Module Code</th>
 								<th>Product Code</th>
@@ -38,7 +39,7 @@
 							<c:forEach var="task" items="${data.taskli}">
 								<tr>
 									<td><input type="hidden" name="id" class="task_id"
-										value="${task.getId()}" /></td>
+										value="${task.getId()}" /></td> 
 									<td><c:out value="${task.getSuiteCode()}" /></td>
 									<td><c:out value="${task.getModuleCode()}" /></td>
 									<td><c:out value="${task.getProductCode()}" /></td>
@@ -51,7 +52,7 @@
 										<button type="button" onclick="delRow(this);" class="btn-del btn btn-xs">
 											<span class="fa fa-trash"></span>
 										</button>
-									<input type="hidden" name="id[]" class="task_id" value="${task.getId()}" />	
+									<%-- <input type="hidden" name="task_id[]" class="task_id" value="${task.getId()}" /> --%>	
 									<input type="hidden" name="suite_code[]" class="suite_code" value="${task.getSuiteCode()}"/>
 									<input type="hidden" name="module_code[]" class="module_code" value="${task.getModuleCode()}" />
 									<input type="hidden" name="product_code[]" class="product_code" value="${task.getProductCode()}"/>
