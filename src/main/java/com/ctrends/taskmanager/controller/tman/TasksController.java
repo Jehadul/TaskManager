@@ -84,50 +84,6 @@ public class TasksController implements ITasksController {
 		return null;
 	}
 	
-	@RequestMapping(value = "/create1", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ModelAndView editmodules(HttpServletRequest request) throws Exception
-    {  
-		Map<String,Object> data = new HashMap<String,Object>();
-        String suiteCode = request.getParameter("suite_code");
-        String productCode = request.getParameter("product_code");
-        String moduleCode = request.getParameter("module_code");
-        Map<String,Object> map = new LinkedHashMap<String,Object>();
-        
- 		if (suiteCode == null || suiteCode.isEmpty()) {
-			map.put("", "--SELECT--");
-		} 
-
-        List<Module> modules = taskDao.getBySuit(suiteCode);
-
-		List<Suite> suiteLi=taskDao.getAllSuites();
-		
-		List<Product> productLi=taskDao.getAllProducts();
-		
-		Map<String, String> suiteCodes = new HashMap<String, String>();
-		for (int i = 0; i < suiteLi.size(); i++) {
-			suiteCodes.put(suiteLi.get(i).getSuiteCode(), suiteLi.get(i).getSuiteShortName());
-		}
-		
-		Map<String, String> moduleCodes = new HashMap<String, String>();
-		for (int i = 0; i < modules.size(); i++) {
-			moduleCodes.put(modules.get(i).getModCode(), modules.get(i).getModShortName());
-		}
-		
-		Map<String, String> productCodes = new HashMap<String, String>();
-		for (int i = 0; i < productLi.size(); i++) {
-			productCodes.put(productLi.get(i).getProductCode(), productLi.get(i).getProductName());
-		}
-		
-		data.put("suiteCodes", suiteCodes);
-		data.put("moduleCodes", moduleCodes);
-		data.put("productCodes", productCodes);
-		data.put("moduleCode", moduleCode);
-		data.put("suiteCode", suiteCode);
-		data.put("productCode", productCode);
-		
-		return new ModelAndView("taskman/create", "data", data);
-		
-    }
 
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
@@ -178,11 +134,7 @@ public class TasksController implements ITasksController {
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ModelAndView delete(@PathVariable(value = "id") UUID id) {
-	/*	Map<String, String[]> map = request.getParameterMap();
-		UUID id=tasksService.delete(map);
-		GsonBuilder gson = new GsonBuilder();
-		Gson g = gson.create();*/
-		
+	
 		Map<String, Object> data = new HashMap<String, Object>();
 		List<Tasks> taskli=tasksService.getAll();
 		Tasks tasks = tasksService.getById(id);
