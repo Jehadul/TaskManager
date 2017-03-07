@@ -35,9 +35,9 @@
 							<cts:Hidden name="module_name"/>
 						</div>
 						<div class="form-group">
-							<cts:Label labelFor="product_code" name="Product Name"/>
-							<cts:Select list="${data.productCodes}"  name="product_code" value="${data.productCode }" cssClass="required" emptyValue="--SELECT--"/>
-							<cts:Hidden name="product_name"/>
+							<cts:Label labelFor="priv_grp_code" name="Product Name"/>
+							<cts:Select list="${data.privgroups}"  name="priv_grp_name" value="${data.privGrpCode }" cssClass="required" emptyValue="--SELECT--"/>
+							<cts:Hidden name="priv_grp_name"/>
 						</div>
 						<div class="form-group">
 								<cts:Label name="Description" labelFor="description"/>
@@ -94,7 +94,7 @@ InitHandlers();
 	$('#module_code').on('change', function(){
 		var newSuiteCode = $("#suite_code").val();
 		var newModuleCode = $("#module_code").val();
-		//LoadMainContent("/taskman/tman/tasks/create/?suite_code=" + newSuiteCode + "&" + "module_code=" + newModuleCode);
+		LoadMainContent("/taskman/tman/tasks/create/?suite_code=" + newSuiteCode + "&" + "module_code=" + newModuleCode);
 	
 	});
 	 
@@ -104,7 +104,7 @@ InitHandlers();
 			isDirty = false;
 			LoadMainContent('/taskman/tman/tasks/show/' + data.id );
 		} else {
-			ShowErrorMsg('Program was not created', data.msg);
+			ShowErrorMsg('Tasks was not created', data.msg);
 			var msg = ConcatWithBR(data.error);
 			$(".alert").html(msg);
 			$(".alert").removeClass("hidden");
