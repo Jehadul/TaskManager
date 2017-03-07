@@ -150,43 +150,7 @@ public class TasksController implements ITasksController {
 		
 		return new ModelAndView("taskman/delete", "data", data);
 	}
-/*
-	@RequestMapping(value = "/searchtasklist", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ModelAndView showSearch(@Context HttpServletRequest request) {
-		String actionTypeCode = request.getParameter("action_type_code");
-		Map<String, Object> data = new HashMap<String, Object>();
 
-		data.put("action_type_code", actionTypeCode);
-		return new ModelAndView("taskman/searchtasklist", "data", data);
-	}
-
-	@RequestMapping(value = "/tasklistsearch", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public String search(@Context HttpServletRequest request) {
-
-		Map<String, String> searchingKey = new HashMap<String, String>();
-		
-		// if user input is null than convart it into empty String
-		if(request.getParameter("task_title")==null){
-			searchingKey.put("taskTitle", "");
-		}else{
-			searchingKey.put("taskTitle", request.getParameter("task_title"));
-		}
-		
-		if(request.getParameter("asignee")==null){
-			searchingKey.put("asignee", "");
-		}else{
-			searchingKey.put("asignee", request.getParameter("asignee"));
-		}
-		
-	    // searching data list
-		List<Tasks> data = tasksService.find(searchingKey);
-		//jeson convert
-		GsonBuilder gBuilder = new GsonBuilder();
-		Gson gson = gBuilder.create();
-		
-		return gson.toJson(data);
-	}
-*/
 	@Override
 	public WSResponse get(UUID id) {
 		// TODO Auto-generated method stub
