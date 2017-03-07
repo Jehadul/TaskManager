@@ -25,6 +25,11 @@ public class Tasks {
 	@Column(name = "estimated_time")
 	private String estimatedTime;
 	
+	@Column(name="priv_grp_code")
+	private int privGrpCode;
+
+	@Column(name="priv_grp_name")
+	private String privGrpName;
 	
 	@Column(name = "spent_time")
 	private String spentTime;
@@ -41,9 +46,6 @@ public class Tasks {
 	@Column(name="suite_code")
 	private String suiteCode;
 	
-	@Column(name="product_code")
-	private String productCode;
-
 	@Column(name="suite_name")
 	private String suiteName;
 	
@@ -288,14 +290,6 @@ public class Tasks {
 
 	public void setSuiteCode(String suiteCode) {
 		this.suiteCode = suiteCode;
-	}
-
-	public String getProductCode() {
-		return productCode;
-	}
-
-	public void setProductCode(String productCode) {
-		this.productCode = productCode;
 	}
 
 	public String getSuiteName() {
@@ -777,6 +771,24 @@ public class Tasks {
 	public void setCostcenterName(String costcenterName) {
 		this.costcenterName = costcenterName;
 	}
+
+	public int getPrivGrpCode() {
+		return privGrpCode;
+	}
+
+	public void setPrivGrpCode(int privGrpCode) {
+		this.privGrpCode = privGrpCode;
+	}
+
+	public String getPrivGrpName() {
+		return privGrpName;
+	}
+
+	public void setPrivGrpName(String privGrpName) {
+		this.privGrpName = privGrpName;
+	}
+	
+	
 
 	
 }
