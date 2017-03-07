@@ -20,11 +20,11 @@
 				<legend> Task List&nbsp;&nbsp; </legend>
 				<div class="table-responsive">
 					<table class="table table-striped table-hover"
-						id="task_search_result">
+						id="task_sort_result">
 							<thead>
 								<tr>
 								<th></th>
-								<th onclick="sortTable(0)">Task Title <i class="fa fa-fw fa-sort"></i></th>
+								<th>Task Title</th>
 								<th>Estimated Time</th>
 								<th>Spent Time</th>
 								<th>Remaining Time</th>
@@ -35,20 +35,21 @@
 						<tbody>
 							<c:forEach var="task" items="${data.taskli}">
 								<tr>
-									<td><input type="hidden" name="id" class="task_id"
-										value="${task.getId()}" /></td>
+									<td><input type="hidden" name="id" class="task_id" value="${task.getId()}" /></td>
 									<td><c:out value="${task.getTaskTitle()}" /></td>
 									<td><c:out value="${task.getEstimatedTime()}" /></td>
 									<td><c:out value="${task.getSpentTime()}" /></td>
 									<td><c:out value="${task.getRemainingTime()}" /></td>
 									<td><c:out value="${task.getAsignee()}" /></td>
 									<td>
+										<button type="button" class="btn-edit btn btn-xs">
+											<span class="fa fa-edit"></span>
+										</button>
+										
 										<button type="button" onclick="delRow(this);" class="btn-del btn btn-xs">
 											<span class="fa fa-trash"></span>
 										</button>
-										<button type="button" class="btn-edit btn btn-xs" id="btn-edit">
-											<span class="fa fa-edit"></span>
-										</button>
+										
 									<input type="hidden" name="id[]" class="task_id" value="${task.getId()}" />	
 									<input type="hidden" name="task_title[]" class="task_title" value="${task.getTaskTitle()}" />
 									<input type="hidden" name="estimated_time[]" class="estimated_time" value="${task.getEstimatedTime()}" />
@@ -69,6 +70,8 @@
 <script>
 	InitHandlers();
 	
+	InitDataTable("#task_sort_result");
+	
 	var delRow = function(el){
 		swal({
 			title: "Are you sure?",
@@ -85,70 +88,9 @@
 	};
 	
 
-	$('#btn-edit').on("click",function(){
+	$('.btn-edit').on("click",function(){
 		LoadMainContent('/taskman/tman/tasks/editTasklist/' + $(".task_id").val());			
 	});
 	
-/* 	$('#task_search_result').DataTable( {
-	      "aoColumns": [
-	           null,
-	           null,
-	           { "orderSequence": [ "asc" ] },
-	           { "orderSequence": [ "desc", "asc", "asc" ] },
-	           { "orderSequence": [ "desc" ] },
-	           null
-	       ]
-	   }); */
-
-	 
-	// for sorting
-   function sortTable(n) {
-	   var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-	   table = document.getElementById("task_search_result");
-	   switching = true;
-
-	   dir = "asc"; 
-
-	   while (switching) {
-
-	     switching = false;
-	     rows = table.getElementsByTagName("TR");
-
-	     for (i = 1; i < (rows.length - 1); i++) {
-
-	       shouldSwitch = false;
-
-	       x = rows[i].getElementsByTagName("TD")[n];
-	       y = rows[i + 1].getElementsByTagName("TD")[n];
-
-	       if (dir == "asc") {
-	         if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-
-	           shouldSwitch= true;
-	           break;
-	         }
-	       } else if (dir == "desc") {
-	         if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-
-	           shouldSwitch= true;
-	           break;
-	         }
-	       }
-	     }
-	     if (shouldSwitch) {
-
-	       rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-	       switching = true;
-
-	       switchcount ++;      
-	     } else {
-
-	       if (switchcount == 0 && dir == "asc") {
-	         dir = "desc";
-	         switching = true;
-	       }
-	     }
-	   }
-	 }
 
 </script>
