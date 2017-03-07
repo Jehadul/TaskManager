@@ -23,18 +23,6 @@
 			<div class="main-control">
 				<div class="row">
 					<div class="col-md-6">
-						<%-- <div class="form-group">
-							<cts:Label labelFor="product_name" name="Product Name"/>
-							<cts:Select list="${map.productCodes}"  name="priv_grp_code" value="" cssClass="required" emptyValue="--SELECT--"/>
-							
-						</div>  --%>
-						<%-- <div class="form-group">
-							<cts:Label labelFor="suite_code" name="Suite Name"/>
-							<cts:Select list="${map.suiteCodes}"  name="suite_code" value="${map.suiteCode}" cssClass="required" emptyValue="--SELECT--"/>
-							
-						</div> --%>
-						
-						
 						<div class="form-group">
 							<label for="suite_code" class="control-label">Suite Name</label>
 								<cts:Hidden name="id" value="${map.tasks.id}"/>
@@ -50,7 +38,8 @@
 										
 									</c:choose>	
 									</c:forEach>
-								</select>			
+								</select>	
+								<cts:Hidden name="suite_name"/>		
 					   </div>
 					   
 						<div class="form-group">
@@ -67,7 +56,8 @@
 										
 									</c:choose>	
 									</c:forEach>
-								</select>			
+								</select>
+								<cts:Hidden name="module_name"/>			
 					   </div>
 					   
 					   <div class="form-group">
@@ -85,13 +75,9 @@
 										
 									</c:choose>	
 									</c:forEach>
-								</select>			
+								</select>	
+								<cts:Hidden name="priv_grp_name"/>		
 					   </div>
-						<%-- <div class="form-group">
-							<cts:Label labelFor="module_code" name="Module Name"/>
-							<cts:Select list="${map.moduleCodes}"  name="module_code" value="" cssClass="required" emptyValue="--SELECT--"/>
-							
-						</div> --%>
 						<div class="form-group">
 								<cts:Label name="Description" labelFor="description"/>
 								<cts:TextArea name="description" value="${map.tasks.description}" cssClass="dirty-check required" readonly="" rows="3" cols=""/>
