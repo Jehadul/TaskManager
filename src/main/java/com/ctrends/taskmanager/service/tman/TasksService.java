@@ -29,7 +29,6 @@ public class TasksService implements ITasksService {
 		Tasks tasks=new Tasks();
 		tasks.setSuiteCode(requestMap.get("suite_code")[0]);
 		tasks.setModuleCode(requestMap.get("module_code")[0]);
-		tasks.setProductCode(requestMap.get("product_code")[0]);
 		tasks.setDescription(requestMap.get("description")[0]);
 		tasks.setStoryCode(requestMap.get("story_code")[0]);
 	    
@@ -64,7 +63,7 @@ public class TasksService implements ITasksService {
 		
 		tasks.setSuiteCode(requestMap.get("suite_code")[0]);
 		tasks.setModuleCode(requestMap.get("module_code")[0]);	
-		tasks.setProductCode(requestMap.get("product_code")[0]);	
+		//tasks.setModuleCode(requestMap.get("priv_grp_code")[0]);
 		tasks.setDescription(requestMap.get("description")[0]);
 		tasks.setStoryCode(requestMap.get("story_code")[0]);
 	    
