@@ -55,6 +55,9 @@ public class Tasks {
 	@Column(name="module_code")
 	private String moduleCode;
 	
+	@Column(name="module_name")
+	private String moduleName;
+	
 	@Column(name="doa_type_code")
 	private String doaTypeCode;
 
@@ -786,6 +789,14 @@ public class Tasks {
 
 	public void setPrivGrpName(String privGrpName) {
 		this.privGrpName = privGrpName;
+	}
+
+	public String getModuleName() {
+		return moduleName;
+	}
+
+	public void setModuleName(String moduleName) {
+		this.moduleName = moduleName;
 	}
 	
 	
