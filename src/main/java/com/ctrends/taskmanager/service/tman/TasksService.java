@@ -24,11 +24,10 @@ public class TasksService implements ITasksService {
 	public Map<String, String> insert(Map<String, String[]> requestMap) {
 		Map<String, String> data = new HashMap<String,String>();
 		
-		/*Suite suite	=new Suite();
-		suite.setSuiteCode(requestMap.get("suite_code")[0]);*/
 		Tasks tasks=new Tasks();
 		tasks.setSuiteCode(requestMap.get("suite_code")[0]);
 		tasks.setModuleCode(requestMap.get("module_code")[0]);
+		tasks.setPrivGrpCode(Integer.parseInt(requestMap.get("priv_grp_code")[0]));
 		tasks.setDescription(requestMap.get("description")[0]);
 		tasks.setStoryCode(requestMap.get("story_code")[0]);
 	    
@@ -63,7 +62,7 @@ public class TasksService implements ITasksService {
 		
 		tasks.setSuiteCode(requestMap.get("suite_code")[0]);
 		tasks.setModuleCode(requestMap.get("module_code")[0]);	
-		//tasks.setModuleCode(requestMap.get("priv_grp_code")[0]);
+		tasks.setPrivGrpCode(Integer.parseInt(requestMap.get("priv_grp_code")[0]));
 		tasks.setDescription(requestMap.get("description")[0]);
 		tasks.setStoryCode(requestMap.get("story_code")[0]);
 	    
