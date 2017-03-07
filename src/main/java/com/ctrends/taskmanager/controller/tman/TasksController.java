@@ -241,24 +241,31 @@ public class TasksController implements ITasksController {
 		
 		Map<String,Object> data = new HashMap<String,Object>();
         String suiteCode = request.getParameter("suite_code");
-        String productCode = request.getParameter("priv_grp_code");
+        String privGroupCode = request.getParameter("priv_grp_code");
         String moduleCode = request.getParameter("module_code");
         Map<String,Object> map = new LinkedHashMap<String,Object>();
         
- 		if (suiteCode == null || suiteCode.isEmpty()) {
-			map.put("", "--SELECT--");
-		} 
-
-        List<Module> modules = taskDao.getBySuit(suiteCode);
-
-		List<Suite> suiteLi=taskDao.getAllSuites();
+        List<Suite> suiteLi=taskDao.getAllSuites();
 		
-		Map<String, String> suiteCodes = new HashMap<String, String>();
+		Map<String, String> suiteCodes = new LinkedHashMap<String, String>();
+		
+		if (suiteCode == null || suiteCode.isEmpty()) {
+			suiteCodes.put("", "--SELECT--");
+		}
+		
 		for (int i = 0; i < suiteLi.size(); i++) {
 			suiteCodes.put(suiteLi.get(i).getSuiteCode(), suiteLi.get(i).getSuiteShortName());
 		}
 		
+
+        List<Module> modules = taskDao.getBySuit(suiteCode);
+		
 		Map<String, String> moduleCodes = new HashMap<String, String>();
+		
+		if (moduleCode == null || moduleCode.isEmpty()) {
+			moduleCodes.put("", "--SELECT--");
+		}
+		
 		for (int i = 0; i < modules.size(); i++) {
 			moduleCodes.put(modules.get(i).getModCode(), modules.get(i).getModShortName());
 		}
@@ -266,6 +273,11 @@ public class TasksController implements ITasksController {
 		List<PrivGroup> privGrpLi=taskDao.getPrivGroup(suiteCode, moduleCode);
 		
 		Map<String, String> privgroups = new LinkedHashMap<String, String>();
+		
+		if (privGroupCode == null || privGroupCode.isEmpty()) {
+			privgroups.put("", "--SELECT--");
+		}
+		
 			for (int i = 0; i < privGrpLi.size(); i++) {
 				privgroups.put(String.valueOf(privGrpLi.get(i).getPrivGrpCode()), privGrpLi.get(i).getPrivGrpName());
 			}
@@ -273,9 +285,9 @@ public class TasksController implements ITasksController {
 		data.put("suiteCodes", suiteCodes);
 		data.put("moduleCodes", moduleCodes);
 		data.put("privgroups", privgroups);
-		data.put("moduleCode", moduleCode);
 		data.put("suiteCode", suiteCode);
-		data.put("productCode", productCode);
+		data.put("privGroupCode", privGroupCode);
+		data.put("moduleCode", moduleCode);
 		
 		return new ModelAndView("taskman/create", "data", data);
 		
