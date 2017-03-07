@@ -26,18 +26,18 @@
 						
 						<div class="form-group">
 							<cts:Label labelFor="suite_code" name="Suite Name"/>
-							<cts:Select list="${data.suiteCodes}"  name="suite_code" value="${data.suiteCode }" cssClass="required" emptyValue="--SELECT--"/>
+							<cts:Select list="${data.suiteCodes}"  name="suite_code" value="${data.suiteCode }" cssClass="required"/>
 							<cts:Hidden name="suite_name"/>
 						</div>
 						 <div class="form-group">
 							<cts:Label labelFor="module_code" name="Module Name"/>
-							<cts:Select list="${data.moduleCodes}"  name="module_code" value="${data.moduleCode}" cssClass="required" emptyValue="--SELECT--"/>
+							<cts:Select list="${data.moduleCodes}"  name="module_code" value="${data.moduleCode}" cssClass="required"/>
 							<cts:Hidden name="module_name"/>
 						</div>
 						<div class="form-group">
-							<cts:Label labelFor="product_code" name="Product Name"/>
-							<cts:Select list="${data.productCodes}"  name="product_code" value="${data.productCode }" cssClass="required" emptyValue="--SELECT--"/>
-							<cts:Hidden name="product_name"/>
+							<cts:Label labelFor="priv_grp_code" name="Privilege Group"/>
+							<cts:Select list="${data.privgroups}"  name="priv_grp_code" value="${data.privGrpCode }" cssClass="required"/>
+							<cts:Hidden name="priv_grp_name"/>
 						</div>
 						<div class="form-group">
 								<cts:Label name="Description" labelFor="description"/>
@@ -94,8 +94,15 @@ InitHandlers();
 	$('#module_code').on('change', function(){
 		var newSuiteCode = $("#suite_code").val();
 		var newModuleCode = $("#module_code").val();
-		//LoadMainContent("/taskman/tman/tasks/create/?suite_code=" + newSuiteCode + "&" + "module_code=" + newModuleCode);
+		LoadMainContent("/taskman/tman/tasks/create/?suite_code=" + newSuiteCode + "&" + "module_code=" + newModuleCode);
 	
+	});
+	
+	$('#priv_grp_code').on('change', function(){
+		var newSuiteCode = $("#suite_code").val();
+		var newModuleCode = $("#module_code").val();
+		var newPrivGroupCode = $("#priv_grp_code").val();
+		LoadMainContent("/taskman/tman/tasks/create/?suite_code=" + newSuiteCode + "&" + "module_code=" + newModuleCode + "&" + "priv_grp_code=" + newPrivGroupCode);
 	});
 	 
 	function showMessage(data) {
@@ -104,7 +111,7 @@ InitHandlers();
 			isDirty = false;
 			LoadMainContent('/taskman/tman/tasks/show/' + data.id );
 		} else {
-			ShowErrorMsg('Program was not created', data.msg);
+			ShowErrorMsg('Tasks was not created', data.msg);
 			var msg = ConcatWithBR(data.error);
 			$(".alert").html(msg);
 			$(".alert").removeClass("hidden");

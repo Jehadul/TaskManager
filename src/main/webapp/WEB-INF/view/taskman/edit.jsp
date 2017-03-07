@@ -71,12 +71,12 @@
 					   </div>
 					   
 					   <div class="form-group">
-							<label for="suite_code" class="control-label">Product Name</label>
+							<label for="suite_code" class="control-label">Privilege Group</label>
 								
-								<select id="product_code" class="form-control required" name="product_code">
-									<c:forEach items="${map.productCodes}" var="item">
+								<select id="priv_grp_code" class="form-control required" name="priv_grp_code">
+									<c:forEach items="${map.privGrpCodes}" var="item">
 									<c:choose>
-										<c:when test="${item.getKey() == map.tasks.productCode}">
+										<c:when test="${item.getKey() == map.tasks.privGrpCode}">
 											<option selected value="${item.getKey()}">${item.getValue()}</option>
 										</c:when>
 										<c:otherwise>
@@ -169,6 +169,7 @@
 	$('#module_code').on('change', function(){
 		var newSuiteCode = $("#suite_code").val();
 		var newModuleCode = $("#module_code").val();
-		
+		LoadMainContent("/taskman/tman/tasks/create/?suite_code=" + newSuiteCode + "&" + "module_code=" + newModuleCode);
+	
 	});
 </script>

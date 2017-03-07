@@ -26,7 +26,7 @@
 								<th></th>
 								<th>Suite Code</th>
 								<th>Module Code</th>
-								<th>Product Code</th>
+								<th>Privilege Group</th>
 								<th>Description</th>
 								<th>Story Code</th>
 								<th>Task Title</th>
@@ -42,7 +42,7 @@
 										value="${task.getId()}" /></td> 
 									<td><c:out value="${task.getSuiteCode()}" /></td>
 									<td><c:out value="${task.getModuleCode()}" /></td>
-									<td><c:out value="${task.getProductCode()}" /></td>
+									<td><c:out value="${task.getPrivGrpName()}" /></td>
 									<td><c:out value="${task.getDescription()}" /></td>
 									<td><c:out value="${task.getStoryCode()}" /></td>
 									<td><c:out value="${task.getTaskTitle()}" /></td>
@@ -52,10 +52,10 @@
 										<button type="button" onclick="delRow(this);" class="btn-del btn btn-xs">
 											<span class="fa fa-trash"></span>
 										</button>
-									<%-- <input type="hidden" name="task_id[]" class="task_id" value="${task.getId()}" /> --%>	
+									<input type="hidden" name="id[]" class="task_id" value="${task.getId()}" />	
 									<input type="hidden" name="suite_code[]" class="suite_code" value="${task.getSuiteCode()}"/>
 									<input type="hidden" name="module_code[]" class="module_code" value="${task.getModuleCode()}" />
-									<input type="hidden" name="product_code[]" class="product_code" value="${task.getProductCode()}"/>
+									<input type="hidden" name="priv_grp_code[]" class="priv_grp_code" value="${task.getPrivGrpName()}"/>
 									<input type="hidden" name="description[]" class="description" value="${task.getDescription()}" />
 									<input type="hidden" name="story_code[]" class="story_code" value="${task.getStoryCode()}" />
 									<input type="hidden" name="task_title[]" class="task_title" value="${task.getTaskTitle()}" />

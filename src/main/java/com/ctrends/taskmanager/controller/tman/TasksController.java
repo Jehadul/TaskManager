@@ -26,8 +26,8 @@ import com.ctrends.taskmanager.bean.WSResponse;
 import com.ctrends.taskmanager.controller.tman.ITasksController;
 import com.ctrends.taskmanager.dao.tman.ITasksDao;
 import com.ctrends.taskmanager.model.taskmanage.Module;
+import com.ctrends.taskmanager.model.taskmanage.PrivGroup;
 import com.ctrends.taskmanager.model.taskmanage.Suite;
-import com.ctrends.taskmanager.model.taskmanage.product.Product;
 import com.ctrends.taskmanager.model.tman.Tasks;
 
 import com.ctrends.taskmanager.service.tman.ITasksService;
@@ -46,6 +46,10 @@ public class TasksController implements ITasksController {
 	@Autowired
 	private ITasksService tasksService;
 
+	public String requestValueCheck(HttpServletRequest request) {
+		String r = request.getParameter("id");
+		return r;
+	}
 	
 	@RequestMapping(value = "/tasklist", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
@@ -108,12 +112,11 @@ public class TasksController implements ITasksController {
 		}
 		
 		
-		List<Product> productLi=taskDao.getAllProducts();
+		List<PrivGroup> privGrpLi=taskDao.getAllPrivGrps();
 		
-		
-		Map<String, String> productCodes = new HashMap<String, String>();
-			for (int i = 0; i < productLi.size(); i++) {
-				productCodes.put(productLi.get(i).getProductCode(), productLi.get(i).getProductName());
+		Map<Integer, String> privGrpCodes = new HashMap<Integer, String>();
+			for (int i = 0; i < privGrpLi.size(); i++) {
+				privGrpCodes.put(privGrpLi.get(i).getPrivGrpCode(), privGrpLi.get(i).getPrivGrpName());
 			}
 		
 		Tasks tasks = tasksService.getById(id);
@@ -122,7 +125,7 @@ public class TasksController implements ITasksController {
 		map.put("tasks", tasks);
 		map.put("suiteCodes", suiteCodes);
 		map.put("moduleCodes", moduleCodes);
-		map.put("productCodes", productCodes);
+		map.put("privGrpCodes", privGrpCodes);
 		
 		GsonBuilder gson = new GsonBuilder();
 		Gson g = gson.create();
@@ -202,41 +205,53 @@ public class TasksController implements ITasksController {
 		
 		Map<String,Object> data = new HashMap<String,Object>();
         String suiteCode = request.getParameter("suite_code");
-        String productCode = request.getParameter("product_code");
+        String privGroupCode = request.getParameter("priv_grp_code");
         String moduleCode = request.getParameter("module_code");
         Map<String,Object> map = new LinkedHashMap<String,Object>();
         
- 		if (suiteCode == null || suiteCode.isEmpty()) {
-			map.put("", "--SELECT--");
-		} 
-
-        List<Module> modules = taskDao.getBySuit(suiteCode);
-
-		List<Suite> suiteLi=taskDao.getAllSuites();
+        List<Suite> suiteLi=taskDao.getAllSuites();
 		
-		List<Product> productLi=taskDao.getAllProducts();
+		Map<String, String> suiteCodes = new LinkedHashMap<String, String>();
 		
-		Map<String, String> suiteCodes = new HashMap<String, String>();
+		if (suiteCode == null || suiteCode.isEmpty()) {
+			suiteCodes.put("", "--SELECT--");
+		}
+		
 		for (int i = 0; i < suiteLi.size(); i++) {
 			suiteCodes.put(suiteLi.get(i).getSuiteCode(), suiteLi.get(i).getSuiteShortName());
 		}
 		
+
+        List<Module> modules = taskDao.getBySuit(suiteCode);
+		
 		Map<String, String> moduleCodes = new HashMap<String, String>();
+		
+		if (moduleCode == null || moduleCode.isEmpty()) {
+			moduleCodes.put("", "--SELECT--");
+		}
+		
 		for (int i = 0; i < modules.size(); i++) {
 			moduleCodes.put(modules.get(i).getModCode(), modules.get(i).getModShortName());
 		}
 		
-		Map<String, String> productCodes = new HashMap<String, String>();
-		for (int i = 0; i < productLi.size(); i++) {
-			productCodes.put(productLi.get(i).getProductCode(), productLi.get(i).getProductName());
+		List<PrivGroup> privGrpLi=taskDao.getPrivGroup(suiteCode, moduleCode);
+		
+		Map<String, String> privgroups = new LinkedHashMap<String, String>();
+		
+		if (privGroupCode == null || privGroupCode.isEmpty()) {
+			privgroups.put("", "--SELECT--");
 		}
+		
+			for (int i = 0; i < privGrpLi.size(); i++) {
+				privgroups.put(String.valueOf(privGrpLi.get(i).getPrivGrpCode()), privGrpLi.get(i).getPrivGrpName());
+			}
 		
 		data.put("suiteCodes", suiteCodes);
 		data.put("moduleCodes", moduleCodes);
-		data.put("productCodes", productCodes);
-		data.put("moduleCode", moduleCode);
+		data.put("privgroups", privgroups);
 		data.put("suiteCode", suiteCode);
-		data.put("productCode", productCode);
+		data.put("privGroupCode", privGroupCode);
+		data.put("moduleCode", moduleCode);
 		
 		return new ModelAndView("taskman/create", "data", data);
 		
