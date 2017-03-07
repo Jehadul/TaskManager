@@ -12,8 +12,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ctrends.taskmanager.model.taskmanage.Module;
+import com.ctrends.taskmanager.model.taskmanage.PrivGroup;
 import com.ctrends.taskmanager.model.taskmanage.Suite;
-import com.ctrends.taskmanager.model.taskmanage.product.Product;
 import com.ctrends.taskmanager.model.tman.Tasks;
 
 @Repository("tasksDao")
@@ -106,14 +106,26 @@ public class TasksDao implements ITasksDao {
 		
 		return modList;
 	}
+
 	@Transactional
 	@Override
-	public List<Product> getAllProducts() {
-		Query query=sessionfactory.getCurrentSession().createQuery("From Product");
-		List<Product> productLi=query.list();
-		productLi.get(0);
-		return productLi;
+	public List<PrivGroup> getAllPrivGrps() {
+		Query query=sessionfactory.getCurrentSession().createQuery("From PrivGroup");
+		List<PrivGroup> privgrpLi=query.list();
+		return privgrpLi;
 	}
+	
+	@Transactional
+	@Override
+	public List<PrivGroup> getPrivGroup(String suiteCode, String modeCode) {
+		String hqlQuery = "from PrivGroup where suiteCode =:suiteCode and  modCode =:modCode order by privGrpCode";
+		Query query = sessionfactory.getCurrentSession().createQuery(hqlQuery);
+		query.setParameter("suiteCode", suiteCode);
+		query.setParameter("modCode", modeCode);
+		List<PrivGroup> privGroup = query.list();
+		return privGroup;
+	}
+	
 
 
 }
