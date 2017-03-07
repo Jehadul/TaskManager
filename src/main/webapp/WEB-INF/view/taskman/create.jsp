@@ -85,6 +85,11 @@
 </div>
 <script>
 InitHandlers();
+
+	$("input[name='suite_name']").val($("#suite_code option:selected").text());
+	$("input[name='module_name']").val($("#module_code option:selected").text());
+	$("input[name='priv_grp_name']").val($("#priv_grp_code option:selected").text());
+
 	$('#suite_code').on('change', function(){
 		var newSuiteCode = $("#suite_code").val();
 		LoadMainContent("/taskman/tman/tasks/create/?suite_code=" + newSuiteCode);

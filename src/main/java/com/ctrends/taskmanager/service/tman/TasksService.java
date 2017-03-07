@@ -26,8 +26,11 @@ public class TasksService implements ITasksService {
 		
 		Tasks tasks=new Tasks();
 		tasks.setSuiteCode(requestMap.get("suite_code")[0]);
+		tasks.setSuiteName(requestMap.get("suite_name")[0]);
 		tasks.setModuleCode(requestMap.get("module_code")[0]);
+		tasks.setModuleName(requestMap.get("module_name")[0]);
 		tasks.setPrivGrpCode(Integer.parseInt(requestMap.get("priv_grp_code")[0]));
+		tasks.setPrivGrpName(requestMap.get("priv_grp_name")[0]);
 		tasks.setDescription(requestMap.get("description")[0]);
 		tasks.setStoryCode(requestMap.get("story_code")[0]);
 	    
@@ -61,7 +64,11 @@ public class TasksService implements ITasksService {
 		Tasks tasks = tasksDao.getDocById(UUID.fromString(requestMap.get("id")[0]));
 		
 		tasks.setSuiteCode(requestMap.get("suite_code")[0]);
-		tasks.setModuleCode(requestMap.get("module_code")[0]);	
+		tasks.setSuiteName(requestMap.get("suite_name")[0]);
+		tasks.setModuleCode(requestMap.get("module_code")[0]);
+		tasks.setModuleName(requestMap.get("module_name")[0]);
+		tasks.setPrivGrpCode(Integer.parseInt(requestMap.get("priv_grp_code")[0]));
+		tasks.setPrivGrpName(requestMap.get("priv_grp_name")[0]);	
 		tasks.setPrivGrpCode(Integer.parseInt(requestMap.get("priv_grp_code")[0]));
 		tasks.setDescription(requestMap.get("description")[0]);
 		tasks.setStoryCode(requestMap.get("story_code")[0]);
