@@ -14,7 +14,7 @@
 	</section>
 
 	<div class="container-fluid container-fullw bg-white">
-		<cts:AjaxForm dataHandler="" action="/taskman/tman/tasks/destroy" cssClass="delete_form">
+		<cts:AjaxForm dataHandler="" action="/taskman/tman/tasks/destroy" cssClass="ajax delete_form">
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 			<fieldset>
 				<legend> Task List&nbsp;&nbsp; </legend>
@@ -69,44 +69,12 @@
 				</div>
 			</fieldset>
 		</cts:AjaxForm>
-		<%-- <form method="POST" action="/taskman/tman/tasks/destroy" class="ajax delete_form">
-			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-			<cts:Hidden name="id" value="${data.tasks.id}"/>
-		</form> --%>
+
 	</div>
 </div>
 <script>
 	InitHandlers();
 
-	/* $(".btn-del").on("click", function() {
-		swal({
-			title : "Are you sure?",
-			text : "Are you sure to delete this task?",
-			type : "warning",
-			showCancelButton : true,
-			confirmButtonColor : "#007AFF",
-			confirmButtonText : "Yes, delete it!",
-			closeOnConfirm : true
-		}, function() {
-			$(this).closest("tr").remove();
-			//$(".delete_form").submit();
-		});
-	}); */
-
-/* 	function showMessage(data) {
-		if (data.outcome == 'success') {
-			isDirty = false;
-			ShowSuccessMsg('Tasks Deleted', data.msg);
-
-			LoadMainContent('/taskman/tman/tasks/destroy/' + data.id);
-		} else {
-			ShowErrorMsg('Tasks was not deleted', data.msg);
-			var msg = ConcatWithBR(data.error);
-			$(".alert").html(msg);
-			$(".alert").removeClass("hidden");
-		}
-	} */
-	
 	var delRow = function(el){
 		swal({
 			title: "Are you sure?",
@@ -118,7 +86,7 @@
 			closeOnConfirm: true
 		}, function() {
 			$(el).closest("tr").remove();
-			$(".delete_form").submit();
+			console.log($(".delete_form").submit());
 		});
 	};
 </script>

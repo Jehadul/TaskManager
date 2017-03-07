@@ -56,12 +56,12 @@ public class TasksController implements ITasksController {
 	public ModelAndView index() {
 		
 		Map<String, Object> data = new HashMap<String, Object>();
-		List<Tasks> taskli=tasksService.getAll();
+		List<Tasks> tasklist=tasksService.getAll();
 		
 		GsonBuilder gson = new GsonBuilder();
 		Gson g = gson.create();
 		
-		data.put("taskli", taskli);
+		data.put("tasklist", tasklist);
 		
 		return new ModelAndView("taskman/tasklist", "data", data);
 	}

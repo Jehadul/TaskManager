@@ -33,7 +33,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="task" items="${data.taskli}">
+							<c:forEach var="task" items="${data.tasklist}">
 								<tr>
 									<td><input type="hidden" name="id" class="task_id" value="${task.getId()}" /></td>
 									<td><c:out value="${task.getTaskTitle()}" /></td>
@@ -42,7 +42,7 @@
 									<td><c:out value="${task.getRemainingTime()}" /></td>
 									<td><c:out value="${task.getAsignee()}" /></td>
 									<td>
-										<button type="button" class="btn-edit btn btn-xs">
+										<button type="button" onclick="editRow(this);" class="btn-edit btn btn-xs">
 											<span class="fa fa-edit"></span>
 										</button>
 										
@@ -53,8 +53,8 @@
 									<input type="hidden" name="id[]" class="task_id" value="${task.getId()}" />	
 									<input type="hidden" name="task_title[]" class="task_title" value="${task.getTaskTitle()}" />
 									<input type="hidden" name="estimated_time[]" class="estimated_time" value="${task.getEstimatedTime()}" />
-									<input type="hidden" name="spent_time[]" class="spent_time" value="${task.getEstimatedTime()}" />
-									<input type="hidden" name="remaining_time[]" class="remaining_time" value="${task.getEstimatedTime()}" />
+									<input type="hidden" name="spent_time[]" class="spent_time" value="${task.getSpentTime()}" />
+									<input type="hidden" name="remaining_time[]" class="remaining_time" value="${task.getRemainingTime()}" />
 									<input type="hidden" name="assignee[]" class="assignee" value="${task.getAsignee()}" />
 									</td>
 								</tr>
@@ -88,8 +88,13 @@
 	};
 	
 
-	$('.btn-edit').on("click",function(){
-		LoadMainContent('/taskman/tman/tasks/editTasklist/' + $(".task_id").val());			
+	$('.btn-edit').on("click",function(){/* console.log($(".task_id").val()) */
+		 var currentRow = $(this).closest("tr");
+		 currentRow.addClass("current-row");
+		 
+		 var taskId = currentRow.find(".task_id").val();
+		 
+		LoadMainContent('/taskman/tman/tasks/editTasklist/' + taskId);			
 	});
 	
 
