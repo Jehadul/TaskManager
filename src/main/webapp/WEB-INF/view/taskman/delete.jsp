@@ -86,7 +86,7 @@
 			closeOnConfirm: true
 		}, function() {
 			$(el).closest("tr").remove();
-			console.log($(".delete_form").submit());
+			$(".delete_form").submit();
 		});
 	};
 </script>
