@@ -75,7 +75,7 @@ public class TasksControllerTest {
 	
 	@Test 
 	public void testDelete(){
-		ModelAndView ar = tasksController.delete(id);
+		ModelAndView ar = tasksController.delete();
 		assertTrue(ar.hasView());
 	}
 	
