@@ -107,7 +107,6 @@ InitHandlers();
 		var newSuiteCode = $("#suite_code").val();
 		var newModuleCode = $("#module_code").val();
 		var newPrivGroupCode = $("#priv_grp_code").val();
-		
 		LoadMainContent("/taskman/tman/tasks/create/?suite_code=" + newSuiteCode + "&" + "module_code=" + newModuleCode + "&" + "priv_grp_code=" + newPrivGroupCode);
 	}); 
 	
