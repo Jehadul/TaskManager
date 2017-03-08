@@ -85,7 +85,7 @@
 			confirmButtonText: "Yes, delete it!",
 			closeOnConfirm: true
 		}, function() {
-
+			$("input[name='id']").val($(el).closest("tr").find(".task_id").val());
 			$(el).closest("tr").remove();
 			$(".delete_form").submit();
 		});
