@@ -14,7 +14,7 @@
 	</section>
 
 	<div class="container-fluid container-fullw bg-white">
-		<cts:AjaxForm dataHandler="" action="" cssClass="list_form">
+		<cts:AjaxForm dataHandler="" action="/taskman/tman/tasks/destroy" cssClass="ajax delete_form">
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 			<fieldset>
 				<legend> Task List&nbsp;&nbsp; </legend>
@@ -49,6 +49,9 @@
 										<button type="button" onclick="delRow(this);" class="btn-del btn btn-xs">
 											<span class="fa fa-trash"></span>
 										</button>
+										<button type="button" onclick="upRow(this);" class="btn-up btn btn-xs"><span class="fa fa-arrow-up"></span></button> 
+										<button type="button" onclick="downRow(this);" class="btn-down btn btn-xs"><span class="fa fa-arrow-down"></span></button>
+							
 										
 									<input type="hidden" name="id[]" class="task_id" value="${task.getId()}" />	
 									<input type="hidden" name="task_title[]" class="task_title" value="${task.getTaskTitle()}" />
@@ -82,6 +85,7 @@
 			confirmButtonText: "Yes, delete it!",
 			closeOnConfirm: true
 		}, function() {
+
 			$(el).closest("tr").remove();
 			$(".delete_form").submit();
 		});
@@ -96,6 +100,19 @@
 		 
 		LoadMainContent('/taskman/tman/tasks/editTasklist/' + taskId);			
 	});
+	
+	 var upRow = function(el){
+	        var row = $(el).closest("tr");
+	        row.insertBefore(row.prev());
+			isDirty = true;
+	    };
+
+
+	    var downRow = function(el){
+	        var row = $(el).closest("tr");
+	        row.insertAfter(row.next());
+			isDirty = true;
+	    };
 	
 
 </script>
