@@ -69,7 +69,6 @@ public class TasksService implements ITasksService {
 		tasks.setModuleName(requestMap.get("module_name")[0]);
 		tasks.setPrivGrpCode(Integer.parseInt(requestMap.get("priv_grp_code")[0]));
 		tasks.setPrivGrpName(requestMap.get("priv_grp_name")[0]);	
-		tasks.setPrivGrpCode(Integer.parseInt(requestMap.get("priv_grp_code")[0]));
 		tasks.setDescription(requestMap.get("description")[0]);
 		tasks.setStoryCode(requestMap.get("story_code")[0]);
 	    
