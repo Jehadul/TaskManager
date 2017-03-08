@@ -56,12 +56,12 @@ public class TasksController implements ITasksController {
 	public ModelAndView index() {
 		
 		Map<String, Object> data = new HashMap<String, Object>();
-		List<Tasks> tasklist=tasksService.getAll();
+		List<Tasks> taskli=tasksService.getAll();
 		
 		GsonBuilder gson = new GsonBuilder();
 		Gson g = gson.create();
 		
-		data.put("tasklist", tasklist);
+		data.put("taskli", taskli);
 		
 		return new ModelAndView("taskman/tasklist", "data", data);
 	}
@@ -94,7 +94,7 @@ public class TasksController implements ITasksController {
 	@Override
 	public ModelAndView edit(@PathVariable(value = "id") UUID id) {
 		
-		Map<String, Object> map = new HashMap<>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		
 		List<Suite> suiteLi=taskDao.getAllSuites();
 		
@@ -134,20 +134,15 @@ public class TasksController implements ITasksController {
 		
 	}
 	
-	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/delete", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ModelAndView delete(@PathVariable(value = "id") UUID id) {
+	public ModelAndView delete() {
 	
 		Map<String, Object> data = new HashMap<String, Object>();
 		List<Tasks> taskli=tasksService.getAll();
-		Tasks tasks = tasksService.getById(id);
-		
-		GsonBuilder gson = new GsonBuilder();
-		Gson g = gson.create();
-		
 		data.put("taskli", taskli);
-		data.put("tasks", tasks);
-		
+		/*GsonBuilder gson = new GsonBuilder();
+		Gson g = gson.create();*/
 		return new ModelAndView("taskman/delete", "data", data);
 	}
 
@@ -205,16 +200,15 @@ public class TasksController implements ITasksController {
 		
 		Map<String,Object> data = new HashMap<String,Object>();
         String suiteCode = request.getParameter("suite_code");
-        String privGroupCode = request.getParameter("priv_grp_code");
         String moduleCode = request.getParameter("module_code");
-        Map<String,Object> map = new LinkedHashMap<String,Object>();
+        String privGroupCode = request.getParameter("priv_grp_code");
         
         List<Suite> suiteLi=taskDao.getAllSuites();
 		
 		Map<String, String> suiteCodes = new LinkedHashMap<String, String>();
 		
 		if (suiteCode == null || suiteCode.isEmpty()) {
-			suiteCodes.put("", "--SELECT--");
+			suiteCodes.put("-1", "--SELECT--");
 		}
 		
 		for (int i = 0; i < suiteLi.size(); i++) {
@@ -224,10 +218,10 @@ public class TasksController implements ITasksController {
 
         List<Module> modules = taskDao.getBySuit(suiteCode);
 		
-		Map<String, String> moduleCodes = new HashMap<String, String>();
+		Map<String, String> moduleCodes = new LinkedHashMap<String, String>();
 		
 		if (moduleCode == null || moduleCode.isEmpty()) {
-			moduleCodes.put("", "--SELECT--");
+			moduleCodes.put("-1", "--SELECT--");
 		}
 		
 		for (int i = 0; i < modules.size(); i++) {
@@ -239,12 +233,12 @@ public class TasksController implements ITasksController {
 		Map<String, String> privgroups = new LinkedHashMap<String, String>();
 		
 		if (privGroupCode == null || privGroupCode.isEmpty()) {
-			privgroups.put("", "--SELECT--");
+			privgroups.put("-1", "--SELECT--");
 		}
 		
-			for (int i = 0; i < privGrpLi.size(); i++) {
-				privgroups.put(String.valueOf(privGrpLi.get(i).getPrivGrpCode()), privGrpLi.get(i).getPrivGrpName());
-			}
+		for (int i = 0; i < privGrpLi.size(); i++) {
+			privgroups.put(String.valueOf(privGrpLi.get(i).getPrivGrpCode()), privGrpLi.get(i).getPrivGrpName());
+		}
 		
 		data.put("suiteCodes", suiteCodes);
 		data.put("moduleCodes", moduleCodes);

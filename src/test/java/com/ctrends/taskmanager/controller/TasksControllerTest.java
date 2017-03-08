@@ -14,7 +14,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.UUID;
 
+import com.ctrends.taskmanager.bean.WSResponse;
 import com.ctrends.taskmanager.controller.tman.TasksController;
 import com.ctrends.taskmanager.dao.tman.ITasksDao;
 import com.ctrends.taskmanager.model.tman.Tasks;
@@ -41,6 +43,8 @@ public class TasksControllerTest {
 
 	@Autowired
 	ITasksDao tasksDao;
+	
+	public UUID id=UUID.fromString("0a2aace0-0243-47dd-8c3c-bdb5aeaf233f");
 
 	@Test
 	public void testCreate() throws Exception {
@@ -62,4 +66,18 @@ public class TasksControllerTest {
 		List<Tasks> tasksList = tasksService.getAll();
 		assertNotNull(tasksList);
 	}
+	
+	@Test 
+	public void testEdit(){
+		ModelAndView ar = tasksController.edit(id);
+		assertTrue(ar.hasView());
+	}
+	
+	@Test 
+	public void testDelete(){
+		ModelAndView ar = tasksController.delete();
+		assertTrue(ar.hasView());
+	}
+	
+	
 }

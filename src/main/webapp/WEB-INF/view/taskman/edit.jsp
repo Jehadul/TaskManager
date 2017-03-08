@@ -39,7 +39,7 @@
 									</c:choose>	
 									</c:forEach>
 								</select>	
-								<cts:Hidden name="suite_name"/>		
+								<cts:Hidden name="suite_name" value=""/>		
 					   </div>
 					   
 						<div class="form-group">
@@ -57,7 +57,7 @@
 									</c:choose>	
 									</c:forEach>
 								</select>
-								<cts:Hidden name="module_name"/>			
+								<cts:Hidden name="module_name" value=""/>			
 					   </div>
 					   
 					   <div class="form-group">
@@ -76,7 +76,7 @@
 									</c:choose>	
 									</c:forEach>
 								</select>	
-								<cts:Hidden name="priv_grp_name"/>		
+								<cts:Hidden name="priv_grp_name" value=""/>		
 					   </div>
 						<div class="form-group">
 								<cts:Label name="Description" labelFor="description"/>
@@ -132,6 +132,10 @@
 
    InitHandlers();
    
+   	$("input[name='suite_name']").val($("#suite_code option:selected").text());
+	$("input[name='module_name']").val($("#module_code option:selected").text());
+	$("input[name='priv_grp_name']").val($("#priv_grp_code option:selected").text());
+   
    function showMessage(data) {
 		if (data.outcome == 'success') {
 			isDirty = false ;
@@ -158,4 +162,12 @@
 		LoadMainContent("/taskman/tman/tasks/create/?suite_code=" + newSuiteCode + "&" + "module_code=" + newModuleCode);
 	
 	});
+	
+	$('#priv_grp_code').on('change', function(){
+		var newSuiteCode = $("#suite_code").val();
+		var newModuleCode = $("#module_code").val();
+		var newPrivGroupCode = $("#priv_grp_code").val();
+		LoadMainContent("/taskman/tman/tasks/create/?suite_code=" + newSuiteCode + "&" + "module_code=" + newModuleCode + "&" + "priv_grp_code=" + newPrivGroupCode);
+	});
+	
 </script>
