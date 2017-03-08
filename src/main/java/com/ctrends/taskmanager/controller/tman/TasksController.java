@@ -208,7 +208,7 @@ public class TasksController implements ITasksController {
 		Map<String, String> suiteCodes = new LinkedHashMap<String, String>();
 		
 		if (suiteCode == null || suiteCode.isEmpty()) {
-			suiteCodes.put("", "--SELECT--");
+			suiteCodes.put("-1", "--SELECT--");
 		}
 		
 		for (int i = 0; i < suiteLi.size(); i++) {
@@ -221,7 +221,7 @@ public class TasksController implements ITasksController {
 		Map<String, String> moduleCodes = new LinkedHashMap<String, String>();
 		
 		if (moduleCode == null || moduleCode.isEmpty()) {
-			moduleCodes.put("", "--SELECT--");
+			moduleCodes.put("-1", "--SELECT--");
 		}
 		
 		for (int i = 0; i < modules.size(); i++) {
