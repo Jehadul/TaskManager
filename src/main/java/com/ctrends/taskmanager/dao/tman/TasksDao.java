@@ -8,6 +8,7 @@ import java.util.UUID;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,7 +37,10 @@ public class TasksDao implements ITasksDao {
 		Query query = sessionfactory.getCurrentSession().createQuery("From Tasks WHERE id = :id");
 		query.setParameter("id", id);
 		List<Tasks> pt = query.list();
-		return pt.get(0);
+		if(pt.size()>0){
+			return pt.get(0);
+		}
+		return null;
 	}
 	
 	@Transactional
