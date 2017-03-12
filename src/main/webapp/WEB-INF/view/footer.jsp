@@ -8,7 +8,7 @@
 			<footer>
 				<div class="footer-inner">
 					<div class="pull-left">
-						<span class="text-bold ">CTrendsERP v${data.appVersion } </span>&nbsp;&copy; <span class="current-year"></span><span class="text-bold text-uppercase"> CTrends</span>. <span>All rights reserved </span>
+						<span class="text-bold ">Task Manager </span>&nbsp;&copy; <span class="current-year"></span><span class="text-bold text-uppercase"> CTrends</span>. <span>All rights reserved </span>
 
 					</div>
 
