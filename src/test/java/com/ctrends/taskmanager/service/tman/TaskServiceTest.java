@@ -37,7 +37,7 @@ public class TaskServiceTest {
 	@Mock
 	private MockMvc mockMvc;
 	
-	UUID id=UUID.fromString("0a2aace0-0243-47dd-8c3c-bdb5aeaf233f");
+	UUID id=UUID.fromString("09cf76de-d49f-4ae2-8c65-56ffdfd962ee");
 
 	@Autowired
 	TasksController tasksController;
@@ -73,7 +73,7 @@ public class TaskServiceTest {
 	String[] taskTitle = {"sdfsdfgdfg"};
 	String[] estimatedTime = {"sdfsdfgdfg"};
 	String[] assignee = {"sdfsdfgdfg"};
-	
+	String [] id1 = {String.valueOf(id)};
 	
 	@Test
 	public void test_InsertReturnsMap(){
@@ -112,7 +112,43 @@ public class TaskServiceTest {
 		assertEquals(map2.getClass(), map.getClass());
 	}
 	
+	@Test
+	public void testUpdate_ReturnData(){
+		
+		Map<String, String[]> requestMap=new HashMap<String, String[]>();
+		
+		Tasks tasks=new Tasks();
+		requestMap.put("id", id1);
+		requestMap.put("suite_code", suiteCode);
+		requestMap.put("suite_name", suiteName);
+		requestMap.put("module_code", moduleCode);
+		requestMap.put("module_name", moduleName);
+		requestMap.put("priv_grp_code", privGrpCode);
+		requestMap.put("priv_grp_name", privGrpName);
+		requestMap.put("description", description);
+		requestMap.put("story_code", storyCode);
+		requestMap.put("task_title", taskTitle);
+		requestMap.put("estimated_time", estimatedTime);
+		requestMap.put("assignee", assignee);
+		
+		tasks.setSuiteCode(requestMap.get("suite_code")[0]);
+		tasks.setSuiteName(requestMap.get("suite_name")[0]);
+		tasks.setModuleCode(requestMap.get("module_code")[0]);
+		tasks.setModuleName(requestMap.get("module_name")[0]);
+		tasks.setPrivGrpCode(Integer.parseInt(requestMap.get("priv_grp_code")[0]));
+		tasks.setPrivGrpName(requestMap.get("priv_grp_name")[0]);
+		tasks.setDescription(requestMap.get("description")[0]);
+		tasks.setStoryCode(requestMap.get("story_code")[0]);
+	    
+		tasks.setTaskTitle(requestMap.get("task_title")[0]);
+		tasks.setEstimatedTime(requestMap.get("estimated_time")[0]);
+		tasks.setAsignee(requestMap.get("assignee")[0]);
+		
 	
+		Map<String, String> map= tasksService.update(requestMap);
+		Map<String, String> map2=new HashMap<>();
+		assertEquals(map2.getClass(), map.getClass());
+	}
 	
 	@Test
 	public void testGetAll_ReturnAllTasks() {
