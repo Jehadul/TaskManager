@@ -52,7 +52,7 @@ public class TasksControllerTest {
 	@Autowired
 	ITasksDao tasksDao;
 	
-	UUID id=UUID.fromString("02083330-d1a8-47bc-977d-f3be6a54d55d");
+	UUID id=UUID.fromString("1982bb80-4e01-4cec-bedd-5e2812524ac8");
 	
 	MockHttpServletRequest request;
 	
@@ -123,6 +123,36 @@ public class TasksControllerTest {
 	@Test 
 	public void testDelete_ReturnModelAndView(){
 		ModelAndView ar = tasksController.delete();
+		assertTrue(ar.hasView());
+	}
+	
+	@Test 
+	public void testDestroy_ReturnsWSResponse(){
+		request.setParameter("id", String.valueOf(id));
+		request.setParameter("suite_code", "ertert");
+		request.setParameter("suite_name", "trtryry");
+		request.setParameter("module_code", "ED");
+		request.setParameter("module_name", "Employee Database");
+		request.setParameter("priv_grp_code", String.valueOf(1));
+		request.setParameter("priv_grp_name", "Reporting and Analysis");
+		request.setParameter("description", "xvbhxf");
+		request.setParameter("story_code", "xvbhxf");
+		request.setParameter("task_title", "xvbhxf");
+		request.setParameter("estimated_time", "xvbhxf");
+		request.setParameter("assignee", "xvbhxf");
+		WSResponse ar = tasksController.destroy(request);
+		assertTrue(ar.getClass()==WSResponse.class);
+	}
+	
+	@Test
+	public void testEditTaskList_ReturnsModelAndView(){
+		ModelAndView ar = tasksController.editTasklist(id);
+		assertTrue(ar.hasView());
+	}
+	
+	@Test
+	public void testTimeLog_ReturnsModelAndView(){
+		ModelAndView ar = tasksController.timeLog(id);
 		assertTrue(ar.hasView());
 	}
 
