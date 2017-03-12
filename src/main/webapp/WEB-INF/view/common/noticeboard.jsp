@@ -18,7 +18,7 @@
 		</section>
 		<!-- end: PAGE TITLE -->
 		<!-- start: YOUR CONTENT HERE -->
-		<div class="container-fluid container-fullw">
+		<div class="container-fluid container-fullw bg-white">
 			<div class="row">
 				
 			</div>
