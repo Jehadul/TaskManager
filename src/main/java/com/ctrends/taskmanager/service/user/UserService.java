@@ -1,4 +1,4 @@
-package com.ctrends.taskmanager.service.tman;
+package com.ctrends.taskmanager.service.user;
 
 
 import java.sql.Timestamp;
@@ -12,13 +12,12 @@ import org.springframework.stereotype.Service;
 
 import com.ctrends.taskmanager.dao.user.IUserDAO;
 import com.ctrends.taskmanager.model.user.User;
-import com.ctrends.taskmanager.service.user.IUserService;
 
 @Service("userService")
 public class UserService implements IUserService {
 
 	@Autowired
-	IUserDAO userDAO;
+	IUserDAO userDAO; 
 	
 	
 	
