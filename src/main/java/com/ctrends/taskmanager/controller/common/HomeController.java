@@ -1,7 +1,11 @@
 package com.ctrends.taskmanager.controller.common;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ctrends.taskmanager.bean.WSResponse;
+import com.ctrends.taskmanager.model.user.User;
+import com.ctrends.taskmanager.service.user.IUserService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -20,15 +26,19 @@ import com.google.gson.GsonBuilder;
 @RestController
 @RequestMapping("/")
 public class HomeController {
+	
+	@Autowired
+	public IUserService userService;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	@ResponseBody
 	public ModelAndView index() {
-		System.out.println("homeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
-		// TODO:
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
-
-		return new ModelAndView("common/home/index");
+		User user = userService.getUserByUserName(username);
+		Map<String, Object> data = new HashMap<String, Object>();
+		data.put("user", user);
+		
+		return new ModelAndView("common/home/index", "data", data);
 
 	}
 	
