@@ -22,7 +22,7 @@ import com.ctrends.taskmanager.model.tman.Tasks;
 import com.ctrends.taskmanager.service.tman.ITasksService;
 
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(SpringJUnit4ClassRunner.class) 
 @ContextConfiguration(locations = { "/spring-database.xml", 
 									"/spring-dispatcher-servlet.xml", 
 									"/spring-security.xml" })
