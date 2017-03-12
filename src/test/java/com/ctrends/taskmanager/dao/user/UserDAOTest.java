@@ -42,6 +42,7 @@ public class UserDAOTest {
 	public void testGetAllDoc() {
 		List<User> allUserList=userDAO.getAllDoc();
 		assertNotNull(allUserList);
+		assertEquals(allUserList.size(), 10);
 	}
 
 	@Test
@@ -49,6 +50,8 @@ public class UserDAOTest {
 		UUID id=UUID.fromString("3ee927d1-6bb0-44ca-acc1-061f8d84e91b");
 		User allUserList= userDAO.getDocById(id);
 		assertNotNull(allUserList);
+		System.out.println(":::::"+allUserList.getId());
+		assertEquals(allUserList.getId().toString(), "3ee927d1-6bb0-44ca-acc1-061f8d84e91b");
 		
 	}
 
