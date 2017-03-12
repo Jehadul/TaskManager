@@ -187,7 +187,7 @@ public class TasksController implements ITasksController {
 
 	@RequestMapping(value ="/destroy", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Override
-	public WSResponse destroy(HttpServletRequest request) {
+	public WSResponse destroy(HttpServletRequest request) {		
 		Map<String, String[]> tasks = request.getParameterMap();
 		UUID id = tasksService.delete(tasks);
 		return new WSResponse("success","task deleted successfully", id,null,"doc", null) ;
@@ -280,5 +280,12 @@ public class TasksController implements ITasksController {
 		return new ModelAndView("taskman/editTasklist", "map", map);
 		
 	}
+	@RequestMapping(value ="/timeLog/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)	
+	@ResponseBody
+	public ModelAndView timeLog(@PathVariable(value = "id") UUID id) {
+		Tasks tasks = tasksService.getById(id);
+		return null;
+	}
+
 
 }
