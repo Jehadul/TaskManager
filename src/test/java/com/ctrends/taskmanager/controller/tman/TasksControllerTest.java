@@ -140,7 +140,7 @@ public class TasksControllerTest {
 		request.setParameter("task_title", "xvbhxf");
 		request.setParameter("estimated_time", "xvbhxf");
 		request.setParameter("assignee", "xvbhxf");
-		WSResponse ar = tasksController.destroy(request);
+		WSResponse ar = tasksController.destroy(request); 
 		assertTrue(ar.getClass()==WSResponse.class);
 	}
 	
