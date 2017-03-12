@@ -14,8 +14,11 @@
 	</section>
 
 	<div class="container-fluid container-fullw bg-white">
-		<cts:AjaxForm dataHandler="" action="/taskman/tman/tasks/destroy" cssClass="ajax delete_form">
+	
+		<cts:AjaxForm dataHandler="" action="/taskman/tman/tasks/destroy" cssClass="ajax list-form">
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			
+	
 			<fieldset>
 				<legend> Task List&nbsp;&nbsp; </legend>
 				<div class="table-responsive">
@@ -49,8 +52,13 @@
 										<button type="button" onclick="delRow(this);" class="btn-del btn btn-xs">
 											<span class="fa fa-trash"></span>
 										</button>
-										<button type="button" onclick="upRow(this);" class="btn-up btn btn-xs"><span class="fa fa-arrow-up"></span></button> 
-										<button type="button" onclick="downRow(this);" class="btn-down btn btn-xs"><span class="fa fa-arrow-down"></span></button>
+										
+											<button type="button" onclick="startTimer(this);" class="btn-timer btn btn-xs time-start">
+												<span class="fa fa-play"></span>
+											</button>
+										 	
+										<!-- <button type="button" onclick="upRow(this);" class="btn-up btn btn-xs"><span class="fa fa-arrow-up"></span></button> 
+										<button type="button" onclick="downRow(this);" class="btn-down btn btn-xs"><span class="fa fa-arrow-down"></span></button> -->
 							
 										
 									<input type="hidden" name="id[]" class="task_id" value="${task.getId()}" />	
@@ -75,6 +83,58 @@
 	
 	InitDataTable("#task_sort_result");
 	
+	 function startTimer(el) {
+		 
+		var runningTime = $('#show-timer').text();
+		if (runningTime == "") {			
+			swal({
+				title : "Do you want to start new task?",
+				text : "",
+				type : "warning",
+				showCancelButton : true,
+				confirmButtonColor : "#007AFF",
+				confirmButtonText : "Yes",
+				closeOnConfirm : true
+			}, function() {
+				 var html = ' <button type="button" class="btn-edit btn btn-xs" id="btn-timer">'
+					+ '<div id="show-timer" >00:00:00s</div></button>'
+					+ '<button type="button" onclick="stopTimer(this);" class="btn-edit btn btn-xs" id="btn-timer">'
+					+ '<span class="fa fa-stop"></span></button>';
+			setTimeout("showTime()", 1000);
+			$(el).before(html); 
+			$(el).addClass("hidden");
+			$.ajax({
+				type : 'GET',
+				url : '/taskman/tman/tasks/timeLog/'+$(el).closest('tr').find('td').find('.task_id').val()
+				});
+			});
+			
+			
+			
+		}else{
+			swal({
+				title : "Another Task is already Running",
+				text : "Please stop running task",
+				type : "warning",
+				showCancelButton : false,
+				confirmButtonColor : "#007AFF",
+				confirmButtonText : "Ok",
+				closeOnConfirm : true
+			});
+		}
+	}
+	 
+	function stopTimer(el) {
+		alert("hello ");
+	}
+
+	function showTime() {
+		var dt = new Date();
+		$('#show-timer').html(dt.toLocaleTimeString());
+		setTimeout("showTime()", 1000);
+	}
+	 
+	
 	var delRow = function(el){
 		swal({
 			title: "Are you sure?",
@@ -85,9 +145,10 @@
 			confirmButtonText: "Yes, delete it!",
 			closeOnConfirm: true
 		}, function() {
-			$("input[name='id']").val($(el).closest("tr").find(".task_id").val());
+			$("input[name='id']").val($(el).closest("tr").find(".task_id").val());		
 			$(el).closest("tr").remove();
-			$(".delete_form").submit();
+			$(".list-form").submit();
+			
 		});
 	};
 	
@@ -100,19 +161,6 @@
 		 
 		LoadMainContent('/taskman/tman/tasks/editTasklist/' + taskId);			
 	});
-	
-	 var upRow = function(el){
-	        var row = $(el).closest("tr");
-	        row.insertBefore(row.prev());
-			isDirty = true;
-	    };
-
-
-	    var downRow = function(el){
-	        var row = $(el).closest("tr");
-	        row.insertAfter(row.next());
-			isDirty = true;
-	    };
 	
 
 </script>

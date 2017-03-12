@@ -255,6 +255,22 @@ public class Tasks {
 		this.estimatedTime = estimatedTime;
 	}
 
+	public int getPrivGrpCode() {
+		return privGrpCode;
+	}
+
+	public void setPrivGrpCode(int privGrpCode) {
+		this.privGrpCode = privGrpCode;
+	}
+
+	public String getPrivGrpName() {
+		return privGrpName;
+	}
+
+	public void setPrivGrpName(String privGrpName) {
+		this.privGrpName = privGrpName;
+	}
+
 	public String getSpentTime() {
 		return spentTime;
 	}
@@ -317,6 +333,14 @@ public class Tasks {
 
 	public void setModuleCode(String moduleCode) {
 		this.moduleCode = moduleCode;
+	}
+
+	public String getModuleName() {
+		return moduleName;
+	}
+
+	public void setModuleName(String moduleName) {
+		this.moduleName = moduleName;
 	}
 
 	public String getDoaTypeCode() {
@@ -775,31 +799,6 @@ public class Tasks {
 		this.costcenterName = costcenterName;
 	}
 
-	public int getPrivGrpCode() {
-		return privGrpCode;
-	}
-
-	public void setPrivGrpCode(int privGrpCode) {
-		this.privGrpCode = privGrpCode;
-	}
-
-	public String getPrivGrpName() {
-		return privGrpName;
-	}
-
-	public void setPrivGrpName(String privGrpName) {
-		this.privGrpName = privGrpName;
-	}
-
-	public String getModuleName() {
-		return moduleName;
-	}
-
-	public void setModuleName(String moduleName) {
-		this.moduleName = moduleName;
-	}
-	
-	
 
 	
 }

@@ -20,6 +20,12 @@ public class TaskLog {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private UUID id;
 	
+	@Column(name="task_id")
+	UUID taskId;
+	
+	@Column(name="task_title")
+	String taskTitle;
+	
 	@Column(name="start_time")
 	String startTime;
 	
@@ -201,5 +207,511 @@ public class TaskLog {
 	
 	@Column(name="costcenter_name")
 	private String costcenterName;
+
+	public UUID getId() {
+		return id;
+	}
+
+	public void setId(UUID id) {
+		this.id = id;
+	}
+
+	public UUID getTaskId() {
+		return taskId;
+	}
+
+	public void setTaskId(UUID taskId) {
+		this.taskId = taskId;
+	}
+
+	public String getTaskTitle() {
+		return taskTitle;
+	}
+
+	public void setTaskTitle(String taskTitle) {
+		this.taskTitle = taskTitle;
+	}
+
+	public String getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
+	}
+
+	public String getStopTime() {
+		return stopTime;
+	}
+
+	public void setStopTime(String stopTime) {
+		this.stopTime = stopTime;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public String getDoaTypeCode() {
+		return doaTypeCode;
+	}
+
+	public void setDoaTypeCode(String doaTypeCode) {
+		this.doaTypeCode = doaTypeCode;
+	}
+
+	public String getDoaTypeName() {
+		return doaTypeName;
+	}
+
+	public void setDoaTypeName(String doaTypeName) {
+		this.doaTypeName = doaTypeName;
+	}
+
+	public double getDoaAmount() {
+		return doaAmount;
+	}
+
+	public void setDoaAmount(double doaAmount) {
+		this.doaAmount = doaAmount;
+	}
+
+	public String getDoaCurrencyCode() {
+		return doaCurrencyCode;
+	}
+
+	public void setDoaCurrencyCode(String doaCurrencyCode) {
+		this.doaCurrencyCode = doaCurrencyCode;
+	}
+
+	public String getDoaCurrencyName() {
+		return doaCurrencyName;
+	}
+
+	public void setDoaCurrencyName(String doaCurrencyName) {
+		this.doaCurrencyName = doaCurrencyName;
+	}
+
+	public String getCreatedByCode() {
+		return createdByCode;
+	}
+
+	public void setCreatedByCode(String createdByCode) {
+		this.createdByCode = createdByCode;
+	}
+
+	public String getCreatedByName() {
+		return createdByName;
+	}
+
+	public void setCreatedByName(String createdByName) {
+		this.createdByName = createdByName;
+	}
+
+	public String getCreatedByUsername() {
+		return createdByUsername;
+	}
+
+	public void setCreatedByUsername(String createdByUsername) {
+		this.createdByUsername = createdByUsername;
+	}
+
+	public String getCreatedByEmail() {
+		return createdByEmail;
+	}
+
+	public void setCreatedByEmail(String createdByEmail) {
+		this.createdByEmail = createdByEmail;
+	}
+
+	public String getCreatedByCompanyCode() {
+		return createdByCompanyCode;
+	}
+
+	public void setCreatedByCompanyCode(String createdByCompanyCode) {
+		this.createdByCompanyCode = createdByCompanyCode;
+	}
+
+	public String getCreatedByCompanyName() {
+		return createdByCompanyName;
+	}
+
+	public void setCreatedByCompanyName(String createdByCompanyName) {
+		this.createdByCompanyName = createdByCompanyName;
+	}
+
+	public Timestamp getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Timestamp createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public String getUpdatedByCode() {
+		return updatedByCode;
+	}
+
+	public void setUpdatedByCode(String updatedByCode) {
+		this.updatedByCode = updatedByCode;
+	}
+
+	public String getUpdatedByName() {
+		return updatedByName;
+	}
+
+	public void setUpdatedByName(String updatedByName) {
+		this.updatedByName = updatedByName;
+	}
+
+	public String getUpdatedByUsername() {
+		return updatedByUsername;
+	}
+
+	public void setUpdatedByUsername(String updatedByUsername) {
+		this.updatedByUsername = updatedByUsername;
+	}
+
+	public String getUpdatedByEmail() {
+		return updatedByEmail;
+	}
+
+	public void setUpdatedByEmail(String updatedByEmail) {
+		this.updatedByEmail = updatedByEmail;
+	}
+
+	public String getUpdatedByCompanyCode() {
+		return updatedByCompanyCode;
+	}
+
+	public void setUpdatedByCompanyCode(String updatedByCompanyCode) {
+		this.updatedByCompanyCode = updatedByCompanyCode;
+	}
+
+	public String getUpdatedByCompanyName() {
+		return updatedByCompanyName;
+	}
+
+	public void setUpdatedByCompanyName(String updatedByCompanyName) {
+		this.updatedByCompanyName = updatedByCompanyName;
+	}
+
+	public Timestamp getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(Timestamp updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
+	public String getSubmittedByCode() {
+		return submittedByCode;
+	}
+
+	public void setSubmittedByCode(String submittedByCode) {
+		this.submittedByCode = submittedByCode;
+	}
+
+	public String getSubmittedByName() {
+		return submittedByName;
+	}
+
+	public void setSubmittedByName(String submittedByName) {
+		this.submittedByName = submittedByName;
+	}
+
+	public String getSubmittedByUsername() {
+		return submittedByUsername;
+	}
+
+	public void setSubmittedByUsername(String submittedByUsername) {
+		this.submittedByUsername = submittedByUsername;
+	}
+
+	public String getSubmittedByEmail() {
+		return submittedByEmail;
+	}
+
+	public void setSubmittedByEmail(String submittedByEmail) {
+		this.submittedByEmail = submittedByEmail;
+	}
+
+	public String getSubmittedByCompanyCode() {
+		return submittedByCompanyCode;
+	}
+
+	public void setSubmittedByCompanyCode(String submittedByCompanyCode) {
+		this.submittedByCompanyCode = submittedByCompanyCode;
+	}
+
+	public String getSubmittedByCompanyName() {
+		return submittedByCompanyName;
+	}
+
+	public void setSubmittedByCompanyName(String submittedByCompanyName) {
+		this.submittedByCompanyName = submittedByCompanyName;
+	}
+
+	public Timestamp getSubmittedAt() {
+		return submittedAt;
+	}
+
+	public void setSubmittedAt(Timestamp submittedAt) {
+		this.submittedAt = submittedAt;
+	}
+
+	public String getApprovedByCode() {
+		return approvedByCode;
+	}
+
+	public void setApprovedByCode(String approvedByCode) {
+		this.approvedByCode = approvedByCode;
+	}
+
+	public String getApprovedByName() {
+		return approvedByName;
+	}
+
+	public void setApprovedByName(String approvedByName) {
+		this.approvedByName = approvedByName;
+	}
+
+	public String getApprovedByUsername() {
+		return approvedByUsername;
+	}
+
+	public void setApprovedByUsername(String approvedByUsername) {
+		this.approvedByUsername = approvedByUsername;
+	}
+
+	public String getApprovedByEmail() {
+		return approvedByEmail;
+	}
+
+	public void setApprovedByEmail(String approvedByEmail) {
+		this.approvedByEmail = approvedByEmail;
+	}
+
+	public String getApprovedByCompanyCode() {
+		return approvedByCompanyCode;
+	}
+
+	public void setApprovedByCompanyCode(String approvedByCompanyCode) {
+		this.approvedByCompanyCode = approvedByCompanyCode;
+	}
+
+	public String getApprovedByCompanyName() {
+		return approvedByCompanyName;
+	}
+
+	public void setApprovedByCompanyName(String approvedByCompanyName) {
+		this.approvedByCompanyName = approvedByCompanyName;
+	}
+
+	public Timestamp getApprovedAt() {
+		return approvedAt;
+	}
+
+	public void setApprovedAt(Timestamp approvedAt) {
+		this.approvedAt = approvedAt;
+	}
+
+	public String getLockedByCode() {
+		return lockedByCode;
+	}
+
+	public void setLockedByCode(String lockedByCode) {
+		this.lockedByCode = lockedByCode;
+	}
+
+	public String getLockedByName() {
+		return lockedByName;
+	}
+
+	public void setLockedByName(String lockedByName) {
+		this.lockedByName = lockedByName;
+	}
+
+	public String getLockedByUsername() {
+		return lockedByUsername;
+	}
+
+	public void setLockedByUsername(String lockedByUsername) {
+		this.lockedByUsername = lockedByUsername;
+	}
+
+	public String getLockedByEmail() {
+		return lockedByEmail;
+	}
+
+	public void setLockedByEmail(String lockedByEmail) {
+		this.lockedByEmail = lockedByEmail;
+	}
+
+	public String getLockedByCompanyCode() {
+		return lockedByCompanyCode;
+	}
+
+	public void setLockedByCompanyCode(String lockedByCompanyCode) {
+		this.lockedByCompanyCode = lockedByCompanyCode;
+	}
+
+	public String getLockedByCompanyName() {
+		return lockedByCompanyName;
+	}
+
+	public void setLockedByCompanyName(String lockedByCompanyName) {
+		this.lockedByCompanyName = lockedByCompanyName;
+	}
+
+	public Timestamp getLockedAt() {
+		return lockedAt;
+	}
+
+	public void setLockedAt(Timestamp lockedAt) {
+		this.lockedAt = lockedAt;
+	}
+
+	public boolean isLocked() {
+		return isLocked;
+	}
+
+	public void setLocked(boolean isLocked) {
+		this.isLocked = isLocked;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getWfStatus() {
+		return wfStatus;
+	}
+
+	public void setWfStatus(String wfStatus) {
+		this.wfStatus = wfStatus;
+	}
+
+	public String getClientCode() {
+		return clientCode;
+	}
+
+	public void setClientCode(String clientCode) {
+		this.clientCode = clientCode;
+	}
+
+	public String getClientName() {
+		return clientName;
+	}
+
+	public void setClientName(String clientName) {
+		this.clientName = clientName;
+	}
+
+	public String getCompanyCode() {
+		return companyCode;
+	}
+
+	public void setCompanyCode(String companyCode) {
+		this.companyCode = companyCode;
+	}
+
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+
+	public String getBranchCode() {
+		return branchCode;
+	}
+
+	public void setBranchCode(String branchCode) {
+		this.branchCode = branchCode;
+	}
+
+	public String getBranchName() {
+		return branchName;
+	}
+
+	public void setBranchName(String branchName) {
+		this.branchName = branchName;
+	}
+
+	public String getDivisionCode() {
+		return divisionCode;
+	}
+
+	public void setDivisionCode(String divisionCode) {
+		this.divisionCode = divisionCode;
+	}
+
+	public String getDivisionName() {
+		return divisionName;
+	}
+
+	public void setDivisionName(String divisionName) {
+		this.divisionName = divisionName;
+	}
+
+	public String getDepartmentCode() {
+		return departmentCode;
+	}
+
+	public void setDepartmentCode(String departmentCode) {
+		this.departmentCode = departmentCode;
+	}
+
+	public String getDepartmentName() {
+		return departmentName;
+	}
+
+	public void setDepartmentName(String departmentName) {
+		this.departmentName = departmentName;
+	}
+
+	public String getProfitcenterCode() {
+		return profitcenterCode;
+	}
+
+	public void setProfitcenterCode(String profitcenterCode) {
+		this.profitcenterCode = profitcenterCode;
+	}
+
+	public String getProfitcenterName() {
+		return profitcenterName;
+	}
+
+	public void setProfitcenterName(String profitcenterName) {
+		this.profitcenterName = profitcenterName;
+	}
+
+	public String getCostcenterCode() {
+		return costcenterCode;
+	}
+
+	public void setCostcenterCode(String costcenterCode) {
+		this.costcenterCode = costcenterCode;
+	}
+
+	public String getCostcenterName() {
+		return costcenterName;
+	}
+
+	public void setCostcenterName(String costcenterName) {
+		this.costcenterName = costcenterName;
+	}
+	
+	
 
 }
