@@ -29,8 +29,8 @@ public class UserDAOTest {
 	IUserDAO userDAO;
 	
 	UUID id=UUID.fromString("3ee927d1-6bb0-44ca-acc1-061f8d84e91b");
-	String empCode = "CTS0001";
-	String empName = "Mamunur Rahman";
+	String empCode 	= "CTS0001";
+	String empName 	= "Mamunur Rahman";
 	String userName = "CTS0104";
 	
 	MockHttpServletRequest request;
