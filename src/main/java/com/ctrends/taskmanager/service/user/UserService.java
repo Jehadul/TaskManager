@@ -17,7 +17,7 @@ import com.ctrends.taskmanager.model.user.User;
 public class UserService implements IUserService {
 
 	@Autowired
-	IUserDAO userDAO;
+	IUserDAO userDAO; 
 	
 	
 	
