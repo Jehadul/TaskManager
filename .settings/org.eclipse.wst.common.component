@@ -8,4 +8,4 @@
         <property name="context-root" value="taskmanager"/>
         <property name="java-output-path" value="/taskman/target/classes"/>
     </wb-module>
-</project-modules>
+</project-modules> 

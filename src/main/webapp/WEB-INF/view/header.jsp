@@ -9,7 +9,7 @@
 	<!--<![endif]-->
 	<!-- start: HEAD -->
 	<head>
-		<title>CTrends ERP</title>
+		<title>Task Manager</title>
 		
 		<!-- start: META -->
 		<!--[if IE]><meta http-equiv='X-UA-Compatible' content="IE=edge,IE=9,IE=8,chrome=1" /><![endif]-->
@@ -145,7 +145,7 @@
 					<!-- start: NAVBAR COLLAPSE -->
 					<div class="navbar-collapse collapse">
 						<div class="col-md-auto"><img class="margin-top-8" width="80" height="50" src="assets/logo/CTS.png" /></div>
-						<div class="col-md-auto"><h4 class="margin-top-25">CTrends Software and Services</h4></div>
+						<div class="col-md-auto"><h4 class="margin-top-25">Task Manager</h4></div>
 						<div class="col-md-auto pull-right">
 							<ul class="nav navbar-right">
 								<!-- start: MESSAGES -->
@@ -195,8 +195,8 @@
 								<!-- start: USER OPTIONS DROPDOWN -->
 								<li class="dropdown current-user">
 									<a  class="dropdown-toggle" data-toggle="dropdown">
-										<img src="assets/photo/${data.emp.username}.jpg" alt="${data.emp.empName}" height="45px" width="45px">
-										<span class="username">${data.emp.empName}<i class="ti-angle-down"></i></span>
+										<img src="assets/photo/${data.user.username}.jpg" alt="${data.user.empName}" height="45px" width="45px">
+										<span class="username">${data.user.empName}<i class="ti-angle-down"></i></span>
 									</a>
 									<ul class="dropdown-menu dropdown-dark">
 										<li>

@@ -1,4 +1,4 @@
-package com.ctrends.taskmanager.controller;
+package com.ctrends.taskmanager.controller.tman;
 
 import org.junit.Test;
 
@@ -26,7 +26,7 @@ import com.ctrends.taskmanager.model.tman.Tasks;
 import com.ctrends.taskmanager.service.tman.ITasksService;
 
 import static org.junit.Assert.*;
-
+   
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/spring-database.xml", 
 									"/spring-dispatcher-servlet.xml", 
@@ -52,7 +52,7 @@ public class TasksControllerTest {
 	@Autowired
 	ITasksDao tasksDao;
 	
-	UUID id=UUID.fromString("0a2aace0-0243-47dd-8c3c-bdb5aeaf233f");
+	UUID id=UUID.fromString("02083330-d1a8-47bc-977d-f3be6a54d55d");
 	
 	MockHttpServletRequest request;
 	
@@ -99,6 +99,24 @@ public class TasksControllerTest {
 		request.addParameter("estimated_time", "xvbhxf");
 		request.addParameter("assignee", "xvbhxf");
 		WSResponse ar = tasksController.store(request);
+		assertTrue(ar.getClass()==WSResponse.class);
+	}
+	
+	@Test 
+	public void testUpdate(){ 
+		request.setParameter("id", String.valueOf(id));
+		request.setParameter("suite_code", "ertert");
+		request.setParameter("suite_name", "trtryry");
+		request.setParameter("module_code", "ED");
+		request.setParameter("module_name", "Employee Database");
+		request.setParameter("priv_grp_code", String.valueOf(1));
+		request.setParameter("priv_grp_name", "Reporting and Analysis");
+		request.setParameter("description", "xvbhxf");
+		request.setParameter("story_code", "xvbhxf");
+		request.setParameter("task_title", "xvbhxf");
+		request.setParameter("estimated_time", "xvbhxf");
+		request.setParameter("assignee", "xvbhxf");
+		WSResponse ar = tasksController.update(request);
 		assertTrue(ar.getClass()==WSResponse.class);
 	}
 	
