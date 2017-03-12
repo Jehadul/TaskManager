@@ -1,24 +1,20 @@
 package com.ctrends.taskmanager.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 import java.util.UUID;
 
-import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.ctrends.taskmanager.dao.tman.ITasksDao;
-import com.ctrends.taskmanager.dao.tman.TasksDao;
 import com.ctrends.taskmanager.model.taskmanage.Module;
 import com.ctrends.taskmanager.model.taskmanage.Suite;
-import com.ctrends.taskmanager.model.taskmanage.product.Product;
 import com.ctrends.taskmanager.model.tman.Tasks;
 
 
