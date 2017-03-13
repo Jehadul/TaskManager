@@ -34,7 +34,6 @@ import com.ctrends.taskmanager.service.tman.ITasksService;
 
 import com.google.gson.GsonBuilder;
 
-@Repository("tasksController")
 @RestController
 @RequestMapping("/taskman/tman/tasks")
 public class TasksController implements ITasksController {
