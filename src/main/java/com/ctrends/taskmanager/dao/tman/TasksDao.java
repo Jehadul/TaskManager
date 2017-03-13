@@ -138,6 +138,20 @@ public class TasksDao implements ITasksDao {
 		List<PrivGroup> privGroup = query.list();
 		return privGroup;
 	}
+
+	@Override
+	public TaskLog getDocByIdTimeLog(UUID id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Transactional
+	@Override
+	public UUID updateTaskLogDoc(TaskLog doc) {
+		sessionfactory.getCurrentSession().saveOrUpdate(doc);
+		sessionfactory.getCurrentSession().flush();
+		return doc.getId();
+	}
 	
 
 

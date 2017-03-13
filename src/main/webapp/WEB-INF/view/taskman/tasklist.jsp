@@ -83,40 +83,58 @@
 	
 	InitDataTable("#task_sort_result");
 	
-	 function startTimer(el) {
-		 
+	function startTimer(el) {
+
 		var runningTime = $('#show-timer').text();
-		if (runningTime == "") {			
-			swal({
-				title : "Do you want to start new task?",
-				text : "",
-				type : "warning",
-				showCancelButton : true,
-				confirmButtonColor : "#007AFF",
-				confirmButtonText : "Yes",
-				closeOnConfirm : true
-			}, function() {
-				 var html = ' <button type="button" class="btn-edit btn btn-xs" id="btn-timer">'
-					+ '<div id="show-timer" >00:00:00s</div></button>'
-					+ '<button type="button" onclick="stopTimer(this);" class="btn-edit btn btn-xs" id="btn-timer">'
-					+ '<span class="fa fa-stop"></span></button>';
-			setTimeout("showTime()", 1000);
-			$(el).before(html); 
-			$(el).addClass("hidden");
-			var id = $(el).closest('tr').find('td').find('.task_id').val();
-			var dt = new Date();			
-			var startTime = dt.toLocaleTimeString();
-			var taskTitle= $(el).closest('tr').find('td').find('.task_title').val();
-			console.log(taskTitle);
-			$.ajax({
-				type : 'GET',
-				url : '/taskman/tman/tasks/timeLog/'+id+'/'+startTime+'/'+taskTitle
-				});
-			});
-			
-			
-			
-		}else{
+		if (runningTime == "") {
+			swal(
+					{
+						title : "Do you want to start new task?",
+						text : "",
+						type : "warning",
+						showCancelButton : true,
+						confirmButtonColor : "#007AFF",
+						confirmButtonText : "Yes",
+						closeOnConfirm : true
+					},
+					function() {
+						var html = ' <button type="button" class="btn-edit btn btn-xs" id="start-timer">'
+								+ '<div id="show-timer" >00:00:00s</div></button>'
+								+ '<button type="button" onclick="stopTimer(this);" class="btn-edit btn btn-xs" id="stop-timer">'
+								+ '<span class="fa fa-stop"></span></button>';
+						setTimeout("showTime()", 1000);
+						$(el).before(html);
+						$(el).addClass("hidden");
+						var id = $(el).closest('tr').find('td')
+								.find('.task_id').val();
+						var dt = new Date();
+						var startTime = dt.toLocaleTimeString();
+						var taskTitle = $(el).closest('tr').find('td').find(
+								'.task_title').val();
+
+						//start date
+						var today = new Date();
+						var dd = today.getDate();
+						var mm = today.getMonth() + 1;
+						var yyyy = today.getFullYear();
+						if (dd < 10) {
+							dd = '0' + dd;
+						}
+						if (mm < 10) {
+							mm = '0' + mm;
+						}
+						var today1 = dd + '-' + mm + '-' + yyyy;
+
+						//console.log(today);
+						$.ajax({
+							type : 'GET',
+							url : '/taskman/tman/tasks/timeLog/' + id + '/'
+									+ startTime + '/' + taskTitle + '/'
+									+ today1
+						});
+					});
+
+		} else {
 			swal({
 				title : "Another Task is already Running",
 				text : "Please stop running task",
@@ -128,9 +146,18 @@
 			});
 		}
 	}
-	 
-	function stopTimer(el) {
-		alert("hello ");
+
+	function stopTimer(el) {		
+		var id = $(el).closest('tr').find('td').find('.task_id').val();		
+		
+		var dt = new Date();
+		var stopTime = dt.toLocaleTimeString();
+		$.ajax({
+			type : 'GET',
+			url : '/taskman/tman/tasks/timeLogUpdate/'+id
+		});
+		
+
 	}
 
 	function showTime() {
