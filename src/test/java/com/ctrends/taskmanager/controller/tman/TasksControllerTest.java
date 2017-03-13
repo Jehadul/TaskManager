@@ -60,12 +60,6 @@ public class TasksControllerTest {
 		request = new MockHttpServletRequest();
 	}
 
-	@Test
-	public void testCreate() throws Exception {
-		request.addParameter("id", "farid");
-		String ar = tasksController.requestValueCheck(request);
-		assertEquals("farid", ar);
-	}
 
 	@Test
 	public void testIndex_ReturnsModelAndView() throws Exception {
