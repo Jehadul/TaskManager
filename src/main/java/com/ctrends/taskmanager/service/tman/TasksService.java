@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.ctrends.taskmanager.dao.tman.ITasksDao;
 import com.ctrends.taskmanager.model.taskmanage.Module;
 import com.ctrends.taskmanager.model.taskmanage.Suite;
+import com.ctrends.taskmanager.model.tman.TaskLog;
 import com.ctrends.taskmanager.model.tman.Tasks;
 
 @Repository("tasksService")
@@ -41,6 +42,19 @@ public class TasksService implements ITasksService {
 		data.put("id", id.toString());
 		return data ;
 	}
+	@Override
+	public Map<String, String> insertTaskLog(Map<String, String> requestMap) {
+		Map<String, String> data = new HashMap<String,String>();		
+		TaskLog taskLog=new TaskLog();
+		
+		taskLog.setTaskId(UUID.fromString(requestMap.get("id")));
+		taskLog.setTaskTitle(requestMap.get("taskTitle"));
+		taskLog.setStartTime(requestMap.get("startTime"));
+		UUID id = tasksDao.insertTaskLogDoc(taskLog);
+		data.put("id", id.toString());
+		return data ;
+	}
+
 
 	@Override
 	public List<Tasks> getAll() {
@@ -111,5 +125,6 @@ public class TasksService implements ITasksService {
 		//System.out.println("............."+searchResult+"zihad");
 		return searchResult;
 	}
+	
 
 }

@@ -1,7 +1,5 @@
 package com.ctrends.taskmanager.controller.tman;
 
-
-
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -38,10 +36,9 @@ import com.google.gson.GsonBuilder;
 @RestController
 @RequestMapping("/taskman/tman/tasks")
 public class TasksController implements ITasksController {
-	
+
 	@Autowired
 	ITasksDao taskDao;
-	
 
 	@Autowired
 	private ITasksService tasksService;
@@ -50,22 +47,22 @@ public class TasksController implements ITasksController {
 		String r = request.getParameter("id");
 		return r;
 	}
-	
+
 	@RequestMapping(value = "/tasklist", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ModelAndView index() {
-		
+
 		Map<String, Object> data = new HashMap<String, Object>();
-		List<Tasks> tasklist=tasksService.getAll();
-		
+		List<Tasks> tasklist = tasksService.getAll();
+
 		GsonBuilder gson = new GsonBuilder();
 		Gson g = gson.create();
-		
+
 		data.put("tasklist", tasklist);
-		
+
 		return new ModelAndView("taskman/tasklist", "data", data);
 	}
-	
+
 	@RequestMapping(value = "/show/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@Override
@@ -80,69 +77,67 @@ public class TasksController implements ITasksController {
 		Gson g = gson.create();
 		// map.put("quesJson", g.toJson(q));
 		return new ModelAndView("taskman/show", "map", map);
-		
+
 	}
-	
+
 	@Override
 	public ModelAndView create() {
 		return null;
 	}
-	
 
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@Override
 	public ModelAndView edit(@PathVariable(value = "id") UUID id) {
-		
+
 		Map<String, Object> map = new HashMap<String, Object>();
-		
-		List<Suite> suiteLi=taskDao.getAllSuites();
-		
-		
+
+		List<Suite> suiteLi = taskDao.getAllSuites();
+
 		Map<String, String> suiteCodes = new HashMap<String, String>();
-			for (int i = 0; i < suiteLi.size(); i++) {
-				suiteCodes.put(suiteLi.get(i).getSuiteCode(), suiteLi.get(i).getSuiteShortName());
-			}
-		
-		List<Module> moduleLi=taskDao.getAllModules();
-		
+		for (int i = 0; i < suiteLi.size(); i++) {
+			suiteCodes.put(suiteLi.get(i).getSuiteCode(), suiteLi.get(i).getSuiteShortName());
+		}
+
+		List<Module> moduleLi = taskDao.getAllModules();
+
 		Map<String, String> moduleCodes = new HashMap<String, String>();
 		for (int i = 0; i < moduleLi.size(); i++) {
 			moduleCodes.put(moduleLi.get(i).getModCode(), moduleLi.get(i).getModShortName());
 		}
-		
-		
-		List<PrivGroup> privGrpLi=taskDao.getAllPrivGrps();
-		
+
+		List<PrivGroup> privGrpLi = taskDao.getAllPrivGrps();
+
 		Map<Integer, String> privGrpCodes = new HashMap<Integer, String>();
-			for (int i = 0; i < privGrpLi.size(); i++) {
-				privGrpCodes.put(privGrpLi.get(i).getPrivGrpCode(), privGrpLi.get(i).getPrivGrpName());
-			}
-		
+		for (int i = 0; i < privGrpLi.size(); i++) {
+			privGrpCodes.put(privGrpLi.get(i).getPrivGrpCode(), privGrpLi.get(i).getPrivGrpName());
+		}
+
 		Tasks tasks = tasksService.getById(id);
-		
+
 		map.put("mode", "doc");
 		map.put("tasks", tasks);
 		map.put("suiteCodes", suiteCodes);
 		map.put("moduleCodes", moduleCodes);
 		map.put("privGrpCodes", privGrpCodes);
-		
+
 		GsonBuilder gson = new GsonBuilder();
 		Gson g = gson.create();
-		
+
 		return new ModelAndView("taskman/edit", "map", map);
-		
+
 	}
-	
+
 	@RequestMapping(value = "/delete", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ModelAndView delete() {
-	
+
 		Map<String, Object> data = new HashMap<String, Object>();
-		List<Tasks> taskli=tasksService.getAll();
+		List<Tasks> taskli = tasksService.getAll();
 		data.put("taskli", taskli);
-		/*GsonBuilder gson = new GsonBuilder();
-		Gson g = gson.create();*/
+		/*
+		 * GsonBuilder gson = new GsonBuilder(); Gson g = gson.create();
+		 */
 		return new ModelAndView("taskman/delete", "data", data);
 	}
 
@@ -151,6 +146,7 @@ public class TasksController implements ITasksController {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	@RequestMapping(value = "/store", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Override
 	public WSResponse store(HttpServletRequest request) {
@@ -158,98 +154,97 @@ public class TasksController implements ITasksController {
 
 		Map<String, String> data = tasksService.insert(tasks);
 
-		return new WSResponse("success", "Submitted Successfully", UUID.fromString(data.get("id")), null, data.get("mode"), data);
-	
+		return new WSResponse("success", "Submitted Successfully", UUID.fromString(data.get("id")), null,
+				data.get("mode"), data);
+
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Override
 	public WSResponse update(HttpServletRequest request) {
 		Map<String, String[]> tasks = request.getParameterMap();
-		
+
 		Map<String, String> data = tasksService.update(tasks);
-		
-		return new WSResponse("success", "Submitted Successfully", UUID.fromString(data.get("id")), null, data.get("mode"), data);
+
+		return new WSResponse("success", "Submitted Successfully", UUID.fromString(data.get("id")), null,
+				data.get("mode"), data);
 
 	}
-	
-	
+
 	@RequestMapping(value = "/updateTasklist", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Override
 	public WSResponse updateTasklist(HttpServletRequest request) {
 		Map<String, String[]> tasks = request.getParameterMap();
-		
+
 		Map<String, String> data = tasksService.updateTasklist(tasks);
-		
-		return new WSResponse("success", "Submitted Successfully", UUID.fromString(data.get("id")), null, data.get("mode"), data);
+
+		return new WSResponse("success", "Submitted Successfully", UUID.fromString(data.get("id")), null,
+				data.get("mode"), data);
 
 	}
 
-	@RequestMapping(value ="/destroy", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/destroy", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Override
-	public WSResponse destroy(HttpServletRequest request) {		
+	public WSResponse destroy(HttpServletRequest request) {
 		Map<String, String[]> tasks = request.getParameterMap();
 		UUID id = tasksService.delete(tasks);
-		return new WSResponse("success","task deleted successfully", id,null,"doc", null) ;
+		return new WSResponse("success", "task deleted successfully", id, null, "doc", null);
 	}
-	
-	
+
 	@RequestMapping(value = "/create", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Override
 	public ModelAndView create(HttpServletRequest request) {
-		
-		Map<String,Object> data = new HashMap<String,Object>();
-        String suiteCode = request.getParameter("suite_code");
-        String moduleCode = request.getParameter("module_code");
-        String privGroupCode = request.getParameter("priv_grp_code");
-        
-        List<Suite> suiteLi=taskDao.getAllSuites();
-		
+
+		Map<String, Object> data = new HashMap<String, Object>();
+		String suiteCode = request.getParameter("suite_code");
+		String moduleCode = request.getParameter("module_code");
+		String privGroupCode = request.getParameter("priv_grp_code");
+
+		List<Suite> suiteLi = taskDao.getAllSuites();
+
 		Map<String, String> suiteCodes = new LinkedHashMap<String, String>();
-		
+
 		if (suiteCode == null || suiteCode.isEmpty()) {
 			suiteCodes.put("-1", "--SELECT--");
 		}
-		
+
 		for (int i = 0; i < suiteLi.size(); i++) {
 			suiteCodes.put(suiteLi.get(i).getSuiteCode(), suiteLi.get(i).getSuiteShortName());
 		}
-		
 
-        List<Module> modules = taskDao.getBySuit(suiteCode);
-		
+		List<Module> modules = taskDao.getBySuit(suiteCode);
+
 		Map<String, String> moduleCodes = new LinkedHashMap<String, String>();
-		
+
 		if (moduleCode == null || moduleCode.isEmpty()) {
 			moduleCodes.put("-1", "--SELECT--");
 		}
-		
+
 		for (int i = 0; i < modules.size(); i++) {
 			moduleCodes.put(modules.get(i).getModCode(), modules.get(i).getModShortName());
 		}
-		
-		List<PrivGroup> privGrpLi=taskDao.getPrivGroup(suiteCode, moduleCode);
-		
+
+		List<PrivGroup> privGrpLi = taskDao.getPrivGroup(suiteCode, moduleCode);
+
 		Map<String, String> privgroups = new LinkedHashMap<String, String>();
-		
+
 		if (privGroupCode == null || privGroupCode.isEmpty()) {
 			privgroups.put("-1", "--SELECT--");
 		}
-		
+
 		for (int i = 0; i < privGrpLi.size(); i++) {
 			privgroups.put(String.valueOf(privGrpLi.get(i).getPrivGrpCode()), privGrpLi.get(i).getPrivGrpName());
 		}
-		
+
 		data.put("suiteCodes", suiteCodes);
 		data.put("moduleCodes", moduleCodes);
 		data.put("privgroups", privgroups);
 		data.put("suiteCode", suiteCode);
 		data.put("privGroupCode", privGroupCode);
 		data.put("moduleCode", moduleCode);
-		
+
 		return new ModelAndView("taskman/create", "data", data);
-		
-		
+
 	}
 
 	@Override
@@ -271,21 +266,25 @@ public class TasksController implements ITasksController {
 		Map<String, Object> map = new HashMap<>();
 
 		Tasks tasks = tasksService.getById(id);
-		
+
 		map.put("mode", "doc");
 		map.put("tasks", tasks);
 		GsonBuilder gson = new GsonBuilder();
 		Gson g = gson.create();
-		
+
 		return new ModelAndView("taskman/editTasklist", "map", map);
-		
-	}
-	@RequestMapping(value ="/timeLog/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)	
-	@ResponseBody
-	public ModelAndView timeLog(@PathVariable(value = "id") UUID id) {
-		Tasks tasks = tasksService.getById(id);
-		return null;
+
 	}
 
+	@RequestMapping(value = "/timeLog/{id}/{strTime}/{title}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ModelAndView timeLog(@PathVariable(value = "id") UUID id, @PathVariable(value = "strTime") String strTime,@PathVariable(value = "title") String title) {
+		Map<String, String> map = new HashMap<>();
+		map.put("id", id.toString());
+		map.put("startTime", strTime);
+		map.put("taskTitle", title);
+		Map<String, String> data = tasksService.insertTaskLog(map);
+		return null;
+	}
 
 }

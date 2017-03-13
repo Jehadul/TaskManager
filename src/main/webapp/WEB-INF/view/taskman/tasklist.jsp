@@ -103,9 +103,14 @@
 			setTimeout("showTime()", 1000);
 			$(el).before(html); 
 			$(el).addClass("hidden");
+			var id = $(el).closest('tr').find('td').find('.task_id').val();
+			var dt = new Date();			
+			var startTime = dt.toLocaleTimeString();
+			var taskTitle= $(el).closest('tr').find('td').find('.task_title').val();
+			console.log(taskTitle);
 			$.ajax({
 				type : 'GET',
-				url : '/taskman/tman/tasks/timeLog/'+$(el).closest('tr').find('td').find('.task_id').val()
+				url : '/taskman/tman/tasks/timeLog/'+id+'/'+startTime+'/'+taskTitle
 				});
 			});
 			

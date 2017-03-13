@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ctrends.taskmanager.model.taskmanage.Module;
 import com.ctrends.taskmanager.model.taskmanage.PrivGroup;
 import com.ctrends.taskmanager.model.taskmanage.Suite;
+import com.ctrends.taskmanager.model.tman.TaskLog;
 import com.ctrends.taskmanager.model.tman.Tasks;
 
 @Repository("tasksDao")
@@ -63,6 +64,14 @@ public class TasksDao implements ITasksDao {
 	@Transactional
 	@Override
 	public UUID insertDoc(Tasks doc) {
+		UUID id = (UUID) sessionfactory.getCurrentSession().save(doc);
+		sessionfactory.getCurrentSession().flush();
+		return id;
+	}
+	
+	@Transactional
+	@Override
+	public UUID insertTaskLogDoc(TaskLog doc) {
 		UUID id = (UUID) sessionfactory.getCurrentSession().save(doc);
 		sessionfactory.getCurrentSession().flush();
 		return id;
