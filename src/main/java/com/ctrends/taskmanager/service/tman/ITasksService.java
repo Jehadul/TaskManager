@@ -9,4 +9,10 @@ public interface ITasksService extends ICommonService<Tasks>{
 	
 	public List<Tasks> find(Map<String, String> params);
 
+	public Map<String, String> insertTaskLog(Map<String, String> requestMap);
+
+	public Map<String, String> updateTimeLog(Map<String, String> requestMap);
+
+	Map<String, String> updateTasklist(Map<String, String[]> requestMap);
+
 }

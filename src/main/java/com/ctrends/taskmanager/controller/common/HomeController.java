@@ -1,6 +1,7 @@
 package com.ctrends.taskmanager.controller.common;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ctrends.taskmanager.bean.WSResponse;
+import com.ctrends.taskmanager.model.tman.Tasks;
 import com.ctrends.taskmanager.model.user.User;
+import com.ctrends.taskmanager.service.tman.ITasksService;
 import com.ctrends.taskmanager.service.user.IUserService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -29,6 +32,9 @@ public class HomeController {
 	
 	@Autowired
 	public IUserService userService;
+	
+	@Autowired
+	private ITasksService tasksService;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	@ResponseBody
@@ -51,8 +57,10 @@ public class HomeController {
 	@RequestMapping(value = "/noticeboard", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ModelAndView noticeboard() {
-
-		return new ModelAndView("common/noticeboard");
+		Map<String, Object> data = new HashMap<String, Object>();
+		List<Tasks> tasklist=tasksService.getAll();
+		data.put("tasklist", tasklist);
+		return new ModelAndView("common/noticeboard", "data", data);
 
 	}
 

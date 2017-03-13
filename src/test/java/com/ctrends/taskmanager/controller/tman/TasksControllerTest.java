@@ -55,6 +55,8 @@ public class TasksControllerTest {
 	UUID id=UUID.fromString("0b437dfc-6aaf-4d02-bbc8-b64ba1f5f067");
 	
 	MockHttpServletRequest request;
+
+	String st="sssssssss";
 	
 	public TasksControllerTest(){
 		request = new MockHttpServletRequest();
@@ -162,7 +164,7 @@ public class TasksControllerTest {
 	
 	@Test
 	public void testTimeLog_ReturnsModelAndView(){
-		ModelAndView ar = tasksController.timeLog(id);
+		ModelAndView ar = tasksController.timeLog(id, st, st);
 		assertTrue(ar.hasView());
 	}
 
