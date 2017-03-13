@@ -23,7 +23,7 @@ public class Tasks {
 	private String taskTitle;
 	
 	@Column(name = "estimated_time")
-	private String estimatedTime;
+	private double estimatedTime;
 	
 	@Column(name="priv_grp_code")
 	private int privGrpCode;
@@ -32,10 +32,10 @@ public class Tasks {
 	private String privGrpName;
 	
 	@Column(name = "spent_time")
-	private String spentTime;
+	private double spentTime;
 	
 	@Column(name = "remaining_time")
-	private String remainingTime;
+	private double remainingTime;
 	
 	@Column(name = "asignee")
 	private String asignee;
@@ -247,11 +247,11 @@ public class Tasks {
 		this.taskTitle = taskTitle;
 	}
 
-	public String getEstimatedTime() {
+	public double getEstimatedTime() {
 		return estimatedTime;
 	}
 
-	public void setEstimatedTime(String estimatedTime) {
+	public void setEstimatedTime(double estimatedTime) {
 		this.estimatedTime = estimatedTime;
 	}
 
@@ -271,19 +271,19 @@ public class Tasks {
 		this.privGrpName = privGrpName;
 	}
 
-	public String getSpentTime() {
+	public double getSpentTime() {
 		return spentTime;
 	}
 
-	public void setSpentTime(String spentTime) {
+	public void setSpentTime(double spentTime) {
 		this.spentTime = spentTime;
 	}
 
-	public String getRemainingTime() {
+	public double getRemainingTime() {
 		return remainingTime;
 	}
 
-	public void setRemainingTime(String remainingTime) {
+	public void setRemainingTime(double remainingTime) {
 		this.remainingTime = remainingTime;
 	}
 
@@ -798,7 +798,6 @@ public class Tasks {
 	public void setCostcenterName(String costcenterName) {
 		this.costcenterName = costcenterName;
 	}
-
 
 	
 }
