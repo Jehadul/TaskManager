@@ -130,12 +130,6 @@ public class UserService implements IUserService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	@Override
-	public Map<String, String> updateTasklist(Map<String, String[]> requestMap) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
     public User getCurrentUser() {
