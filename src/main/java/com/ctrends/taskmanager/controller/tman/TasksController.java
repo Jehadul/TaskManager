@@ -32,7 +32,6 @@ import com.ctrends.taskmanager.service.tman.ITasksService;
 
 import com.google.gson.GsonBuilder;
 
-@Repository("tasksController")
 @RestController
 @RequestMapping("/taskman/tman/tasks")
 public class TasksController implements ITasksController {
@@ -42,11 +41,6 @@ public class TasksController implements ITasksController {
 
 	@Autowired
 	private ITasksService tasksService;
-
-	public String requestValueCheck(HttpServletRequest request) {
-		String r = request.getParameter("id");
-		return r;
-	}
 
 	@RequestMapping(value = "/tasklist", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody

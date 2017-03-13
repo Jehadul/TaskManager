@@ -1,12 +1,11 @@
 	<div class="wrap-content container" id="container">
 		<!-- start: PAGE TITLE -->
-		<section id="page-title">
+		<section id="page-title" class="padding-top-10 padding-bottom-10">
 			<div class="row">
 				<div class="col-sm-8">
 					<h1 class="mainTitle">Dashboard</h1>
-					<span class="mainDescription">Your dashboard</span>
 				</div>
-				<ol class="breadcrumb">
+				<ol class="breadcrumb padding-top-20">
 					<li>
 						<span>Home</span>
 					</li>
@@ -18,7 +17,7 @@
 		</section>
 		<!-- end: PAGE TITLE -->
 		<!-- start: YOUR CONTENT HERE -->
-		<div class="container-fluid container-fullw">
+		<div class="container-fluid container-fullw bg-white">
 			<div class="row">
 				
 			</div>

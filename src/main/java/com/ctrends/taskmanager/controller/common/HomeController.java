@@ -42,6 +42,19 @@ public class HomeController {
 
 	}
 	
+	@RequestMapping(value = "/dashboard", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ModelAndView dashboard() {
+
+		return new ModelAndView("common/dashboard");
+	}
+	@RequestMapping(value = "/noticeboard", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ModelAndView noticeboard() {
+
+		return new ModelAndView("common/noticeboard");
+
+	}
 
 
 

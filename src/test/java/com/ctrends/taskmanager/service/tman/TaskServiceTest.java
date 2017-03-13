@@ -37,7 +37,7 @@ public class TaskServiceTest {
 	@Mock
 	private MockMvc mockMvc;
 	
-	UUID id=UUID.fromString("0a2aace0-0243-47dd-8c3c-bdb5aeaf233f");
+	UUID id=UUID.fromString("0aad717d-e0f7-44c8-ab72-2f9a6b1b57f3");
 
 	@Autowired
 	TasksController tasksController;
@@ -73,14 +73,12 @@ public class TaskServiceTest {
 	String[] taskTitle = {"sdfsdfgdfg"};
 	String[] estimatedTime = {"sdfsdfgdfg"};
 	String[] assignee = {"sdfsdfgdfg"};
-	
+	String [] id1 = {String.valueOf(id)};
 	
 	@Test
-	public void test_InsertReturnsMap(){
-		Map<String, String[]> requestMap=new HashMap<String, String[]>();
-		//requestMap.put(suiteCode);
-		Tasks tasks=new Tasks();
+	public void testInsert_ReturnMap(){
 		
+		Map<String, String[]> requestMap=new HashMap<String, String[]>();
 		requestMap.put("suite_code", suiteCode);
 		requestMap.put("suite_name", suiteName);
 		requestMap.put("module_code", moduleCode);
@@ -92,27 +90,32 @@ public class TaskServiceTest {
 		requestMap.put("task_title", taskTitle);
 		requestMap.put("estimated_time", estimatedTime);
 		requestMap.put("assignee", assignee);
-		
-		tasks.setSuiteCode(requestMap.get("suite_code")[0]);
-		tasks.setSuiteName(requestMap.get("suite_name")[0]);
-		tasks.setModuleCode(requestMap.get("module_code")[0]);
-		tasks.setModuleName(requestMap.get("module_name")[0]);
-		tasks.setPrivGrpCode(Integer.parseInt(requestMap.get("priv_grp_code")[0]));
-		tasks.setPrivGrpName(requestMap.get("priv_grp_name")[0]);
-		tasks.setDescription(requestMap.get("description")[0]);
-		tasks.setStoryCode(requestMap.get("story_code")[0]);
-	    
-		tasks.setTaskTitle(requestMap.get("task_title")[0]);
-		tasks.setEstimatedTime(requestMap.get("estimated_time")[0]);
-		tasks.setAsignee(requestMap.get("assignee")[0]);
-		
 		Map<String, String> map=tasksService.insert(requestMap);
 		System.out.println("::::::::"+map.get(suiteCode));
 		Map<String, String> map2=new HashMap<>();
 		assertEquals(map2.getClass(), map.getClass());
 	}
-	
-	
+
+	@Test
+	public void testUpdate_ReturnMap(){
+		
+		Map<String, String[]> requestMap=new HashMap<String, String[]>();
+		requestMap.put("id", id1);
+		requestMap.put("suite_code", suiteCode);
+		requestMap.put("suite_name", suiteName);
+		requestMap.put("module_code", moduleCode);
+		requestMap.put("module_name", moduleName);
+		requestMap.put("priv_grp_code", privGrpCode);
+		requestMap.put("priv_grp_name", privGrpName);
+		requestMap.put("description", description);
+		requestMap.put("story_code", storyCode);
+		requestMap.put("task_title", taskTitle);
+		requestMap.put("estimated_time", estimatedTime);
+		requestMap.put("assignee", assignee);
+		Map<String, String> map= tasksService.update(requestMap);
+		Map<String, String> map2=new HashMap<>();
+		assertEquals(map2.getClass(), map.getClass());
+	}
 	
 	@Test
 	public void testGetAll_ReturnAllTasks() {
@@ -125,7 +128,7 @@ public class TaskServiceTest {
 	
 	
 	@Test
-	public void testGetById() {
+	public void testGetById_ReturnTasks() {
 		
 		Tasks tasks=tasksService.getById(id);
 		assertNotNull(tasks);
