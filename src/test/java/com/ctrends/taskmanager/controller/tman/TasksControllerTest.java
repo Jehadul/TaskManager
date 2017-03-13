@@ -52,7 +52,7 @@ public class TasksControllerTest {
 	@Autowired
 	ITasksDao tasksDao;
 	
-	UUID id=UUID.fromString("1982bb80-4e01-4cec-bedd-5e2812524ac8");
+	UUID id=UUID.fromString("0b437dfc-6aaf-4d02-bbc8-b64ba1f5f067");
 	
 	MockHttpServletRequest request;
 	
@@ -60,12 +60,6 @@ public class TasksControllerTest {
 		request = new MockHttpServletRequest();
 	}
 
-	@Test
-	public void testCreate() throws Exception {
-		request.addParameter("id", "farid");
-		String ar = tasksController.requestValueCheck(request);
-		assertEquals("farid", ar);
-	}
 
 	@Test
 	public void testIndex_ReturnsModelAndView() throws Exception {
@@ -86,7 +80,7 @@ public class TasksControllerTest {
 	}
 	
 	@Test 
-	public void testStore(){ 
+	public void testStore_ReturnWsResponse(){ 
 		request.addParameter("suite_code", "HRM");
 		request.addParameter("suite_name", "Human Resources");
 		request.addParameter("module_code", "ED");
@@ -96,14 +90,14 @@ public class TasksControllerTest {
 		request.addParameter("description", "xvbhxf");
 		request.addParameter("story_code", "xvbhxf");
 		request.addParameter("task_title", "xvbhxf");
-		request.addParameter("estimated_time", "xvbhxf");
+		request.addParameter("estimated_time", "xvbffhxf");
 		request.addParameter("assignee", "xvbhxf");
 		WSResponse ar = tasksController.store(request);
 		assertTrue(ar.getClass()==WSResponse.class);
 	}
 	
 	@Test 
-	public void testUpdate(){ 
+	public void testUpdate_ReturnWsResponse(){ 
 		request.setParameter("id", String.valueOf(id));
 		request.setParameter("suite_code", "ertert");
 		request.setParameter("suite_name", "trtryry");
@@ -117,6 +111,20 @@ public class TasksControllerTest {
 		request.setParameter("estimated_time", "xvbhxf");
 		request.setParameter("assignee", "xvbhxf");
 		WSResponse ar = tasksController.update(request);
+		assertTrue(ar.getClass()==WSResponse.class);
+	}
+	
+	@Test 
+	public void testUpdateTasklist_ReturnWsResponse(){ 
+		request.setParameter("id", String.valueOf(id));
+		request.setParameter("task_title", "ertert");
+		request.setParameter("estimated_time", "trtryry");
+		request.setParameter("spent_time", "ED");
+		request.setParameter("remaining_time", "Employee Database");
+		request.setParameter("assignee", "wewrwe");
+		
+		
+		WSResponse ar = tasksController.updateTasklist(request);
 		assertTrue(ar.getClass()==WSResponse.class);
 	}
 	
@@ -143,6 +151,8 @@ public class TasksControllerTest {
 		WSResponse ar = tasksController.destroy(request); 
 		assertTrue(ar.getClass()==WSResponse.class);
 	}
+	
+	
 	
 	@Test
 	public void testEditTaskList_ReturnsModelAndView(){

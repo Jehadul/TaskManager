@@ -51,7 +51,7 @@ public class TaskDaoTest {
 	
 	
 	@Test
-	public void testGetAllDoc(){
+	public void testGetAllDoc_ReturnList(){
 		
 		List<Tasks> tasksLi=taskDao.getAllDoc();
 		assertNotNull(tasksLi);
@@ -64,7 +64,7 @@ public class TaskDaoTest {
 	
 	
 	@Test
-	public void testGetAllSuites() {
+	public void testGetAllSuites_ReturnList() {
 		
 		List<Suite> suiteLi=taskDao.getAllSuites();
 		assertNotNull(suiteLi);
@@ -73,7 +73,7 @@ public class TaskDaoTest {
 	
 	
 	@Test
-	public void testGetAllModules() {
+	public void testGetAllModules_ReturnList() {
 	
 		List<Module> moduleLi = taskDao.getAllModules();
 		assertNotNull(moduleLi);
@@ -81,7 +81,7 @@ public class TaskDaoTest {
 	
 	
 	@Test
-	public void testGetBySuit() {
+	public void testGetBySuit_ReturnList() {
 		
 		List<Module> modList = taskDao.getBySuit(suiteCode);
 		assertNotNull(modList);
@@ -89,7 +89,7 @@ public class TaskDaoTest {
 	
 
 	@Test
-	public void testGetByModule() {
+	public void testGetByModule_ReturnList() {
 		
 		List<PrivGroup> privGrpList = taskDao.getPrivGroup(suiteCode, moduleCode);
 		assertNotNull(privGrpList);
@@ -97,13 +97,13 @@ public class TaskDaoTest {
 	
 	
 	@Test
-	public void testGetDocById() {
+	public void testGetDocById_ReturnTasks() {
 		Tasks task = taskDao.getDocById(id);
 		assertEquals(new Tasks().getClass(), task.getClass());
 	}
 	
 	@Test
-	public void testGetDocs(){
+	public void testGetDocs_ReturnList(){
 		
 		Map<String, String> params=new LinkedHashMap<>();
 		List<Tasks> tasksLi=taskDao.getDocs(params);
@@ -112,27 +112,27 @@ public class TaskDaoTest {
 	}
 	
 	@Test
-	public void testInsertDoc(){
+	public void testInsertDoc_ReturnUUID(){
 		Tasks doc=new Tasks();
 		UUID inId = taskDao.insertDoc(doc); 
 		assertEquals(id.getClass(), inId.getClass());
 	}
 	
 	@Test
-	public void testUpdateDoc(){
+	public void testUpdateDoc_ReturnUUID(){
 		Tasks doc=new Tasks();
 		UUID inId = taskDao.updateDoc(doc); 
 		assertEquals(id.getClass(), inId.getClass());
 	}
 	
 	@Test
-	public void testDeleteDoc(){
+	public void testDeleteDoc_ReturnUUID(){
 		UUID inId = taskDao.deleteDoc(id); 
 		assertEquals(id.getClass(), inId.getClass());
 	}
 	
 	@Test
-	public void testGetAllPrivGrps(){
+	public void testGetAllPrivGrps_ReturnList(){
 		List<PrivGroup> privGrpList = taskDao.getAllPrivGrps();
 		assertNotNull(privGrpList);
 		
