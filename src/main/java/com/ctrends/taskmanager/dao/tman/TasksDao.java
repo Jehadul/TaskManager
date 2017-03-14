@@ -144,9 +144,17 @@ public class TasksDao implements ITasksDao {
 		return privGroup;
 	}
 
+	@Transactional
 	@Override
 	public TaskLog getDocByIdTimeLog(UUID id) {
-		// TODO Auto-generated method stub
+		Query query = sessionfactory.getCurrentSession().createQuery("From TaskLog WHERE taskId = :id and stopStatus=:status");
+		query.setParameter("id", id);
+		query.setParameter("status", "false");
+		List<TaskLog> pt = query.list();
+		if(pt.size()>0){
+			System.out.println("::::::::::::::::::::::"+pt.get(0));
+			return pt.get(0);
+		}
 		return null;
 	}
 
@@ -176,6 +184,14 @@ public class TasksDao implements ITasksDao {
 		query.setParameter("userName", currentUser.getUsername());
 		List<Tasks> tasksLi=query.list();
 		return tasksLi;
+	}
+
+	@Transactional
+	@Override
+	public UUID updateSpantTimeDoc(Tasks doc) {
+		sessionfactory.getCurrentSession().saveOrUpdate(doc);
+		sessionfactory.getCurrentSession().flush();
+		return doc.getId();
 	}
 	
 
