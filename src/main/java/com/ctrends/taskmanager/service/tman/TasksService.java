@@ -185,23 +185,6 @@ public class TasksService implements ITasksService {
 	}
 	
 	@Override
-	public Map<String, String> updateTasklist(Map<String, String[]> requestMap) {
-		Map<String, String> data = new HashMap<String, String>();
-		
-		//System.out.println(":::::"+requestMap.get("id")[0]);
-		Tasks tasks = tasksDao.getDocById(UUID.fromString(requestMap.get("id")[0]));
-  
-		tasks.setTaskTitle(requestMap.get("task_title")[0]);
-		tasks.setEstimatedTime(Double.parseDouble(requestMap.get("estimated_time")[0]));
-		tasks.setSpentTime(Double.parseDouble(requestMap.get("spent_time")[0]));
-		tasks.setRemainingTime(Double.parseDouble(requestMap.get("remaining_time")[0]));
-		tasks.setAsignee(requestMap.get("assignee")[0]);		
-		
-		UUID id = tasksDao.updateDoc(tasks);
-		data.put("id", id.toString());
-		return data;
-	}
-	@Override
 	public Map<String, String> updateTimeLog(Map<String, String> requestMap) {
 		Map<String, String> data = new HashMap<String, String>();
 		TaskLog taskLog = tasksDao.getDocByIdTimeLog(UUID.fromString(requestMap.get("id")));

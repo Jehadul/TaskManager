@@ -1,4 +1,4 @@
-package com.ctrends.taskmanager.model.tman;
+package com.ctrends.taskmanager.model.tman_sprint;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -12,43 +12,58 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="task_logs")
-public class TaskLog {
+@Table(name = "tman_sprints")
+public class SprintManager {
+
+	
 	@Id
 	@Column(name = "id")
 	@org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private UUID id;
 	
-	@Column(name="task_id")
-	UUID taskId;
 	
-	@Column(name="task_title")
-	String taskTitle;
+	@Column(name="suite_name")
+	private String suiteName;
 	
-	@Column(name="start_time")
-	String startTime;
+	@Column(name="module_name")
+	private String moduleName;
 	
-	@Column(name="stop_time")
-	String stopTime;
+	@Column(name="privilege_name")
+	private String privilegeName;
 	
-	@Column(name="date")
-	Date date;
+	@Column(name="sprint_code")
+	private String sprintCode;
+	
+	@Column(name="sprint_name")
+	private String sprintName;
+	
+	@Column(name="sprint_description")
+	private String sprintDescription;
+	
+	@Column(name="start_date")
+	private Date startDate;
+	
+	@Column(name="end_date")
+	private Date endDate;
+	
+	@Column(name="sprint_goal")
+	private String sprintGoal;
+	
+	@Column(name="sprint_number")
+	private double sprintNumber;
+	
+	@Column(name="sprint_stories")
+	private String sprintStories;
 	
 	@Column(name="doa_type_code")
 	private String doaTypeCode;
 
 	@Column(name="doa_type_name")
 	private String doaTypeName;
-	
-	@Column(name="stop_status")
-	private String stopStatus;
-
-	
 
 	@Column(name="doa_amount")
 	private double doaAmount;
-	
 
 	@Column(name="doa_currency_code")
 	private String doaCurrencyCode;
@@ -222,44 +237,92 @@ public class TaskLog {
 		this.id = id;
 	}
 
-	public UUID getTaskId() {
-		return taskId;
+	public String getSuiteName() {
+		return suiteName;
 	}
 
-	public void setTaskId(UUID taskId) {
-		this.taskId = taskId;
+	public void setSuiteName(String suiteName) {
+		this.suiteName = suiteName;
 	}
 
-	public String getTaskTitle() {
-		return taskTitle;
+	public String getModuleName() {
+		return moduleName;
 	}
 
-	public void setTaskTitle(String taskTitle) {
-		this.taskTitle = taskTitle;
+	public void setModuleName(String moduleName) {
+		this.moduleName = moduleName;
 	}
 
-	public String getStartTime() {
-		return startTime;
+	public String getPrivilegeName() {
+		return privilegeName;
 	}
 
-	public void setStartTime(String startTime) {
-		this.startTime = startTime;
+	public void setPrivilegeName(String privilegeName) {
+		this.privilegeName = privilegeName;
 	}
 
-	public String getStopTime() {
-		return stopTime;
+	public String getSprintCode() {
+		return sprintCode;
 	}
 
-	public void setStopTime(String stopTime) {
-		this.stopTime = stopTime;
+	public void setSprintCode(String sprintCode) {
+		this.sprintCode = sprintCode;
 	}
 
-	public Date getDate() {
-		return date;
+	public String getSprintName() {
+		return sprintName;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setSprintName(String sprintName) {
+		this.sprintName = sprintName;
+	}
+
+	public String getSprintDescription() {
+		return sprintDescription;
+	}
+
+	public void setSprintDescription(String sprintDescription) {
+		this.sprintDescription = sprintDescription;
+	}
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public String getSprintGoal() {
+		return sprintGoal;
+	}
+
+	public void setSprintGoal(String sprintGoal) {
+		this.sprintGoal = sprintGoal;
+	}
+
+	public double getSprintNumber() {
+		return sprintNumber;
+	}
+
+	public void setSprintNumber(double sprintNumber) {
+		this.sprintNumber = sprintNumber;
+	}
+
+	public String getSprintStories() {
+		return sprintStories;
+	}
+
+	public void setSprintStories(String sprintStories) {
+		this.sprintStories = sprintStories;
 	}
 
 	public String getDoaTypeCode() {
@@ -717,13 +780,8 @@ public class TaskLog {
 	public void setCostcenterName(String costcenterName) {
 		this.costcenterName = costcenterName;
 	}
-	public String getStopStatus() {
-		return stopStatus;
-	}
 
-	public void setStopStatus(String stopStatus) {
-		this.stopStatus = stopStatus;
-	}
 	
-
+	
+	
 }

@@ -4,14 +4,14 @@
 	<section id="page-title" class="padding-top-10 padding-bottom-10">
 		<div class="row">
 			<div class="col-sm-8">
-				<h1 class="mainTitle">Create User Story</h1>
+				<h1 class="mainTitle">Show Sprint</h1>
 			</div>
 			<ol class="breadcrumb padding-top-20">
 				<li>
-					<span>User Story</span>
+					<span>Taskman</span>
 				</li>
 				<li class="active">
-					<span>User Story</span>
+					<span>Show Sprint</span>
 				</li>
 			</ol>
 		</div>
@@ -20,7 +20,7 @@
 	<!-- end: PAGE TITLE -->
 	<!-- start: USER PROFILE -->
 	<div class="container-fluid container-fullw bg-white">
-	
+
 		<div>
 			<div class="alert alert-block alert-danger hidden">
 				Please check the fields marked with 
@@ -31,56 +31,65 @@
 					<!-- <div class="denotes-required">denotes a required field.</div> -->
 					
 					<div class="form-group">
-						<cts:Label name="Suite Name" labelFor="suite_code"/>
-						:     <b>${map.userStory.suiteCode}</b>
+						<cts:Label name="Suite Name" labelFor="suite_name"/>
+						:     <b>${map.sprint.suiteName}</b>
+					</div>
+					<div class="form-group">
+						<cts:Label name="Module Name" labelFor="module_name"/>
+						 :     <b>${map.sprint.moduleName}</b>
+					</div>
+					<div class="form-group">
+						<cts:Label name="Privilege Name" labelFor="privilege_name"/>
+						:     <b>${map.sprint.privilegeName}</b>
+					</div>
+					<div class="form-group">
+						<cts:Label name="Sprint Name" labelFor="sprint_name"/>
+						 :     <b>${map.sprint.sprintName}</b>
+					</div>
+					<div class="form-group">
+						<cts:Label name="Srint Code" labelFor="sprint_code"/>
+						 :     <b>${map.sprint.sprintCode}</b>
 					</div>
 					
 					<div class="form-group">
-						<cts:Label name="Module Name" labelFor="module_code"/>
-						 :     <b>${map.userStory.moduleCode}</b>
+						<cts:Label name="Sprint Goal" labelFor="sprint_goal"/>
+						 :     <b>${map.sprint.sprintGoal}</b>
 					</div>
 					
 					<div class="form-group">
-						<cts:Label name="Priv Group Name" labelFor="priv_grp_code"/>
-						:     <b>${map.userStory.privGrpCode}</b>
+						<cts:Label name="Sprint Number" labelFor="sprint_number"/>
+						 :     <b>${map.sprint.sprintNumber}</b>
+					</div>
+										
+					<div class="form-group">
+						<cts:Label name="Sprint Stories" labelFor="sprint_stories"/>
+						 :     <b>${map.sprint.sprintStories}</b>
+					</div>
+
+										
+					<div class="form-group">
+						<cts:Label name="Sprint Start Date" labelFor="start_date"/>
+						 :     <b>${map.sprint.startDate}</b>
 					</div>
 					
+															
 					<div class="form-group">
-						<cts:Label name="User Story Code" labelFor="user_story_code"/>
-						:     <b>${map.userStory.userStoryCode}</b>
+						<cts:Label name="Sprint End Date" labelFor="end_date"/>
+						 :     <b>${map.sprint.endDate}</b>
 					</div>
 					
+																				
 					<div class="form-group">
-						<cts:Label name="User Story Title" labelFor="user_story_title"/>
-						 :     <b>${map.userStory.userStoryTitle}</b>
+						<cts:Label name="Sprint Description" labelFor="sprint_description"/>
+						 :     <b>${map.sprint.sprintDescription}</b>
 					</div>
 					
-					<div class="form-group">
-						<cts:Label name="Description" labelFor="description"/>
-						 :     <b>${map.userStory.description}</b>
-					</div>
 					
-					<div class="form-group">
-						<cts:Label name="Priority" labelFor="priority"/>
-						 :     <b>${map.userStory.priority}</b>
-					</div>
-					<div class="form-group">
-						<cts:Label name="Story Order" labelFor="story_order"/>
-						 :     <b>${map.userStory.storyOrder}</b>
-					</div>
 					
-					<div class="form-group">
-						<cts:Label name="Acceptance Criteria" labelFor="acceptance_criteria"/>
-						:     <b>${map.userStory.acceptanceCriteria}</b>
-					</div>
-					<div class="form-group">
-						<cts:Label name="Business Value" labelFor="business_value"/>
-						 :     <b>${map.userStory.businessValue}</b>
-					</div>
-					<div class="form-group">
-						<cts:Label name="Size" labelFor="size"/>
-						 :     <b>${map.userStory.size}</b>
-					</div>
+					<%-- <div class="form-group">
+						<cts:Label name="Branch Name" labelFor="branch_code"/>
+						 :     <b>${map.tasks.taskTitle}</b>
+					</div> --%>
 					
 				</div>
 				<div class="col-md-6">
@@ -121,10 +130,10 @@
 	});
 	
 	$('#edit_btn').on("click",function(){
-		LoadMainContent('/taskman/userstory/story/edit/' + "${map.userStory.id}");			
+		LoadMainContent('/taskman/tman/sprint/edit/' + "${map.sprint.id}");			
 	});
 	$('#del_btn').on("click",function(){
-		LoadMainContent("/taskman/userstory/story/delete");			
+		LoadMainContent("/taskman/tman/sprint/delete");			
 	});
 	
 	

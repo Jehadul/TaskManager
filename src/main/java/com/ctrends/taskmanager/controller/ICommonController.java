@@ -16,7 +16,6 @@ public interface ICommonController<T> {
 	public WSResponse store(HttpServletRequest request) ;
 	public ModelAndView edit(UUID id);
 	public WSResponse update(HttpServletRequest request);
-	public WSResponse updateTasklist(HttpServletRequest request);
 	public WSResponse destroy(HttpServletRequest request);
 	public ModelAndView showSearch(HttpServletRequest request);
 	public String search(HttpServletRequest request);

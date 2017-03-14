@@ -9,11 +9,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import com.ctrends.taskmanager.model.taskmanage.Module;
-import com.ctrends.taskmanager.model.taskmanage.PrivGroup;
-import com.ctrends.taskmanager.model.taskmanage.Privilege;
-import com.ctrends.taskmanager.model.taskmanage.Suite;
-import com.ctrends.taskmanager.model.tman.Tasks;
+
 import com.ctrends.taskmanager.model.userstory.UserStory;
 
 @Repository("userStoryDao")
@@ -29,7 +25,7 @@ public class UserStoryDAO implements IUserStoryDAO {
 		List<UserStory> userStoryLi=query.list();
 		return userStoryLi;
 	}
-
+	@Transactional
 	@Override
 	public UserStory getDocById(UUID id) {
 		Query query = sessionFactory.getCurrentSession().createQuery("From UserStory WHERE id = :id");
@@ -41,10 +37,18 @@ public class UserStoryDAO implements IUserStoryDAO {
 		return null;
 	}
 
+	@Transactional
 	@Override
 	public List<UserStory> getDocs(Map<String, String> params) {
-		// TODO Auto-generated method stub
-		return null;
+		Query query = sessionFactory.getCurrentSession()
+				.createQuery("from UserStory where userStoryCode like :userStoryCode and "+"userStoryTitle like :userStoryTitle");
+		
+		query.setParameter("userStoryCode", "%" + params.get("userStoryCode") + "%");
+		query.setParameter("userStoryTitle", "%" + params.get("userStoryTitle") + "%");
+		
+		List<UserStory> userStoryLi = query.list();
+				
+		return userStoryLi;
 	}
 
 	@Transactional
@@ -63,10 +67,14 @@ public class UserStoryDAO implements IUserStoryDAO {
 		return doc.getId();
 	}
 
+	@Transactional
 	@Override
 	public UUID deleteDoc(UUID id) {
-		// TODO Auto-generated method stub
-		return null;
+		UserStory app =	(UserStory)sessionFactory.getCurrentSession()
+				.load(UserStory.class, id);
+		sessionFactory.getCurrentSession().delete(app);
+		sessionFactory.getCurrentSession().flush();
+		return id;
 	}
 	
 
