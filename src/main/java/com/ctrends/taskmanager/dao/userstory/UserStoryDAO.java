@@ -22,10 +22,12 @@ public class UserStoryDAO implements IUserStoryDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 
+	@Transactional
 	@Override
 	public List<UserStory> getAllDoc() {
-		// TODO Auto-generated method stub
-		return null;
+		Query query=sessionFactory.getCurrentSession().createQuery("From UserStory");
+		List<UserStory> userStoryLi=query.list();
+		return userStoryLi;
 	}
 
 	@Override
