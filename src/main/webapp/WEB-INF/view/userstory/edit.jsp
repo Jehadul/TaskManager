@@ -79,37 +79,43 @@
 								<cts:Hidden name="priv_grp_name" value=""/>		
 					   </div>
 						<div class="form-group">
-								<cts:Label name="Description" labelFor="description"/>
-								<cts:TextArea name="description" value="${map.tasks.description}" cssClass="dirty-check required" readonly="" rows="3" cols=""/>
+								<cts:Label name="Story Code" labelFor="user_story_code"/>
+								<cts:TextArea name="user_story_code" value="${map.userStory.userStoryCode}" cssClass="dirty-check required" readonly="" rows="3" cols=""/>
 						</div>
 						<div class="form-group">
+								<cts:Label name="Story Title" labelFor="user_story_title"/>
+								<cts:TextArea name="user_story_title" value="${map.userStory.userStoryTitle}" cssClass="dirty-check required" readonly="" rows="3" cols=""/>
+						</div>
+						
+						
+						<div class="form-group">
 								<cts:Label name="Description" labelFor="description"/>
-								<cts:TextArea name="description" value="${map.tasks.description}" cssClass="dirty-check required" readonly="" rows="3" cols=""/>
+								<cts:TextArea name="description" value="${map.userStory.description}" cssClass="dirty-check required" readonly="" rows="3" cols=""/>
 						</div>
 						
 					</div>
 					<div class="col-md-6">
-						<div class="form-group">
-							<cts:Label name="Story Code" labelFor="story_code"/>
-							<cts:TextBox name="story_code" value="${map.tasks.storyCode}" cssClass="dirty-check required" readonly=""/>
-						</div>
-						<div class="form-group">
-								<cts:Label name="Description" labelFor="description"/>
-								<cts:TextArea name="description" value="${map.tasks.description}" cssClass="dirty-check required" readonly="" rows="3" cols=""/>
-						</div>
-						<div class="form-group">
-								<cts:Label name="Description" labelFor="description"/>
-								<cts:TextArea name="description" value="${map.tasks.description}" cssClass="dirty-check required" readonly="" rows="3" cols=""/>
-						</div>
-						<div class="form-group">
-								<cts:Label name="Description" labelFor="description"/>
-								<cts:TextArea name="description" value="${map.tasks.description}" cssClass="dirty-check required" readonly="" rows="3" cols=""/>
-						</div>
-						<div class="form-group">
-								<cts:Label name="Description" labelFor="description"/>
-								<cts:TextArea name="description" value="${map.tasks.description}" cssClass="dirty-check required" readonly="" rows="3" cols=""/>
-						</div>
 						
+						<div class="form-group">
+								<cts:Label name="Priority" labelFor="priority"/>
+								<cts:TextArea name="priority" value="${map.userStory.priority}" cssClass="dirty-check required" readonly="" rows="3" cols=""/>
+						</div>
+						<div class="form-group">
+								<cts:Label name="Story Order" labelFor="story_order"/>
+								<cts:TextArea name="story_order" value="${map.userStory.storyOrder}" cssClass="dirty-check required" readonly="" rows="3" cols=""/>
+						</div>
+						<div class="form-group">
+								<cts:Label name="Story Size" labelFor="size"/>
+								<cts:TextArea name="size" value="${map.userStory.size}" cssClass="dirty-check required" readonly="" rows="3" cols=""/>
+						</div>
+						<div class="form-group">
+								<cts:Label name="Acceptence Criteria" labelFor="acceptance_criteria"/>
+								<cts:TextArea name="acceptance_criteria" value="${map.userStory.acceptanceCriteria}" cssClass="dirty-check required" readonly="" rows="3" cols=""/>
+						</div>
+						<div class="form-group">
+								<cts:Label name="Business Value" labelFor="business_value"/>
+								<cts:TextArea name="business_value" value="${map.userStory.businessValue}" cssClass="dirty-check required" readonly="" rows="3" cols=""/>
+						</div>
 					</div>
 				</div>
 				<div class="row margin-top-10">
