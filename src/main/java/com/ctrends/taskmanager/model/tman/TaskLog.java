@@ -42,7 +42,7 @@ public class TaskLog {
 	private String doaTypeName;
 	
 	@Column(name="stop_status")
-	String stopStatus;
+	private String stopStatus;
 
 	
 

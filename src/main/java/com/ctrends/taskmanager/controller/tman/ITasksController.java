@@ -11,8 +11,8 @@ import com.ctrends.taskmanager.controller.ICommonController;
 import com.ctrends.taskmanager.model.tman.Tasks;
 
 public interface ITasksController extends ICommonController<Tasks> {
-	public WSResponse updateTasklist(HttpServletRequest request);
+
 	public ModelAndView create(HttpServletRequest request);
-	public ModelAndView editTasklist(UUID id);
+
 	
 }
