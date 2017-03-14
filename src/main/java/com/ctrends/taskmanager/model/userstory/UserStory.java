@@ -23,7 +23,7 @@ public class UserStory {
 	@Column(name="user_story_code")
 	private String userStoryCode;
 	
-	@Column(name="user_story__title")
+	@Column(name="user_story_title")
 	private String userStoryTitle;
 	
 	@Column(name="acceptance_criteria")
