@@ -52,7 +52,7 @@ public class UserStoryControllerTest {
 	@Mock
 	private IUserStoryService userStoryService;
 	
-	UUID id=UUID.fromString("0b437dfc-6aaf-4d02-bbc8-b64ba1f5f067");
+	UUID id=UUID.fromString("1e1b39e2-406b-4338-a360-3c1bae2d3f1e");
 	
 	MockHttpServletRequest request;
 
@@ -104,6 +104,7 @@ public class UserStoryControllerTest {
 	
 	
 	@Test 
+	@WithMockUser("CTS0104")
 	public void testUpdate_ReturnWsResponse(){ 
 		request.setParameter("id", String.valueOf(id));
 		request.setParameter("suite_code", "ertert");
@@ -113,10 +114,13 @@ public class UserStoryControllerTest {
 		request.setParameter("priv_grp_code", String.valueOf(1));
 		request.setParameter("priv_grp_name", "Reporting and Analysis");
 		request.setParameter("description", "xvbhxf");
-		request.setParameter("story_code", "xvbhxf");
-		request.setParameter("task_title", "xvbhxf");
-		request.setParameter("estimated_time", "xvbhxf");
-		request.setParameter("assignee", "xvbhxf");
+		request.setParameter("acceptance_criteria", "xvbhxf");
+		request.setParameter("business_value", "xvbhxf");
+		request.setParameter("user_story_code", "xvbhxf");
+		request.setParameter("user_story_title", "xvbhxf");
+		request.setParameter("size", String.valueOf(1));
+		request.setParameter("priority", "xvbhxf");
+		request.setParameter("story_order", "xvbhxf");
 		WSResponse ar = userStoryController.update(request);
 		assertTrue(ar.getClass()==WSResponse.class);
 	}
