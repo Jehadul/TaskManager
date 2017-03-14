@@ -22,10 +22,12 @@ public class UserStoryDAO implements IUserStoryDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 
+	@Transactional
 	@Override
 	public List<UserStory> getAllDoc() {
-		// TODO Auto-generated method stub
-		return null;
+		Query query=sessionFactory.getCurrentSession().createQuery("From UserStory");
+		List<UserStory> userStoryLi=query.list();
+		return userStoryLi;
 	}
 	@Transactional
 	@Override
@@ -39,10 +41,18 @@ public class UserStoryDAO implements IUserStoryDAO {
 		return null;
 	}
 
+	@Transactional
 	@Override
 	public List<UserStory> getDocs(Map<String, String> params) {
-		// TODO Auto-generated method stub
-		return null;
+		Query query = sessionFactory.getCurrentSession()
+				.createQuery("from UserStory where userStoryCode like :userStoryCode and "+"userStoryTitle like :userStoryTitle");
+		
+		query.setParameter("userStoryCode", "%" + params.get("userStoryCode") + "%");
+		query.setParameter("userStoryTitle", "%" + params.get("userStoryTitle") + "%");
+		
+		List<UserStory> userStoryLi = query.list();
+				
+		return userStoryLi;
 	}
 
 	@Transactional

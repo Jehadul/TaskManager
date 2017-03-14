@@ -78,13 +78,15 @@
 
 	</div>
 </div>
+
 <script>
 	InitHandlers();
 	
 	InitDataTable("#task_sort_result");
-	
+	var stop;
+	var html;
 	function startTimer(el) {
-
+		
 		var runningTime = $('#show-timer').text();
 		if (runningTime == "") {
 			swal(
@@ -98,11 +100,11 @@
 						closeOnConfirm : true
 					},
 					function() {
-						var html = ' <button type="button" class="btn-edit btn btn-xs" id="start-timer">'
+						html = ' <button type="button" class="btn-edit btn btn-xs" id="start-timer">'
 								+ '<div id="show-timer" >00:00:00s</div></button>'
-								+ '<button type="button" onclick="stopTimer(this);" class="btn-edit btn btn-xs" id="stop-timer">'
+								+ '<button type="button" onclick="stopTimertest(this);" class="btn-edit btn btn-xs" id="stop-timer">'
 								+ '<span class="fa fa-stop"></span></button>';
-						setTimeout("showTime()", 1000);
+						stop = setTimeout("showTime()", 1000);
 						$(el).before(html);
 						$(el).addClass("hidden");
 						var id = $(el).closest('tr').find('td')
@@ -147,23 +149,28 @@
 		}
 	}
 
-	function stopTimer(el) {		
-		var id = $(el).closest('tr').find('td').find('.task_id').val();		
+	function stopTimertest(el) {		
+		var id = $(el).closest('tr').find('td').find('.task_id').val();	
+		console.log(id);
+		clearTimeout(stop);
+		$(".time-start").removeClass("hidden");	
+		$("#start-timer").remove();
+		$("#stop-timer").remove();
 		
 		var dt = new Date();
 		var stopTime = dt.toLocaleTimeString();
 		$.ajax({
 			type : 'GET',
-			url : '/taskman/tman/tasks/timeLogUpdate/'+id
-		});
+			url : '/taskman/tman/tasks/timeLogUpdate/'+id+'/'+stopTime
+		}); 
 		
-
+		
 	}
 
 	function showTime() {
 		var dt = new Date();
 		$('#show-timer').html(dt.toLocaleTimeString());
-		setTimeout("showTime()", 1000);
+		stop = setTimeout("showTime()", 1000);
 	}
 	 
 	

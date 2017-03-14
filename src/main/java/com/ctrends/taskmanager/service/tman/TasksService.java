@@ -1,8 +1,10 @@
 package com.ctrends.taskmanager.service.tman;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -67,29 +69,29 @@ public class TasksService implements ITasksService {
 	}
 	@Override
 	public Map<String, String> insertTaskLog(Map<String, String> requestMap) {
-		Map<String, String> data = new HashMap<String,String>();		
-		TaskLog taskLog=new TaskLog();
-		
+		Map<String, String> data = new HashMap<String, String>();
+		TaskLog taskLog = new TaskLog();
+
 		taskLog.setTaskId(UUID.fromString(requestMap.get("id")));
 		taskLog.setTaskTitle(requestMap.get("taskTitle"));
 		taskLog.setStartTime(requestMap.get("startTime"));
-		
+		taskLog.setStopStatus("false");
+
 		String dat = requestMap.get("today");
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 		java.util.Date dd;
 		try {
 			dd = sdf.parse(dat);
-			java.sql.Date timeLogSqlDate = new java.sql.Date(dd.getTime()); 
+			java.sql.Date timeLogSqlDate = new java.sql.Date(dd.getTime());
 			taskLog.setDate(timeLogSqlDate);
 		} catch (ParseException e) {
-			
+
 			e.printStackTrace();
 		}
-		
-		
+
 		UUID id = tasksDao.insertTaskLogDoc(taskLog);
 		data.put("id", id.toString());
-		return data ;
+		return data;
 	}
 
 
@@ -188,13 +190,61 @@ public class TasksService implements ITasksService {
 	}
 	@Override
 	public Map<String, String> updateTimeLog(Map<String, String> requestMap) {
-		Map<String, String> data = new HashMap<String, String>();		
+		Map<String, String> data = new HashMap<String, String>();
 		TaskLog taskLog = tasksDao.getDocByIdTimeLog(UUID.fromString(requestMap.get("id")));
-		
-		//taskLog.setStopTime("abced");
-		UUID id = tasksDao.updateTaskLogDoc(taskLog);
-		data.put("id", id.toString());
-		return data;
+		Tasks tasks = tasksDao.getDocById(UUID.fromString(requestMap.get("id")));
+		taskLog.setStopTime(requestMap.get("stopTime"));
+		taskLog.setStopStatus("true");
+
+		// update tasklist table.............
+		try {
+			String time = taskLog.getStartTime();
+			String time2 = requestMap.get("stopTime");
+			DateFormat sdf = new SimpleDateFormat("hh:mm:ss aa");
+			Date d1 = sdf.parse(time);
+			Date d2 = sdf.parse(time2);
+
+			if (d1.after(d2)) {
+				long diffMs = d1.getTime() - d2.getTime();
+				long diffSec = diffMs / 1000;
+				long min = diffSec / 60;
+				long sec = diffSec % 60;
+				String hh = (min > 60) ? String.valueOf(min / 60) : "0." + min;
+				double estTime = tasks.getEstimatedTime();
+				double remTime = estTime-Double.parseDouble(hh);
+				tasks.setRemainingTime(remTime);
+				tasks.setSpentTime(tasks.getSpentTime()+Double.parseDouble(hh));
+				UUID idTask = tasksDao.updateSpantTimeDoc(tasks);
+				if (idTask != null) {
+					UUID id = tasksDao.updateTaskLogDoc(taskLog);
+					data.put("id", id.toString());
+				}
+			}
+			if (d1.before(d2)) {
+				long diffMs = d2.getTime() - d1.getTime();
+				long diffSec = diffMs / 1000;
+				long min = diffSec / 60;
+				long sec = diffSec % 60;
+				String hh = (min > 60) ? String.valueOf(min / 60) : "0." + min;
+				double estTime = tasks.getEstimatedTime();
+				double remTime = estTime-Double.parseDouble(hh);
+				tasks.setRemainingTime(remTime);
+				tasks.setSpentTime(tasks.getSpentTime()+Double.parseDouble(hh));
+				UUID idTask = tasksDao.updateSpantTimeDoc(tasks);
+				if (idTask != null) {
+					UUID id = tasksDao.updateTaskLogDoc(taskLog);
+					data.put("id", id.toString());
+				}
+			}
+			if (d1.equals(d2)) {
+				
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
 	}
 
 	@Override

@@ -40,9 +40,15 @@ public class TaskLog {
 
 	@Column(name="doa_type_name")
 	private String doaTypeName;
+	
+	@Column(name="stop_status")
+	String stopStatus;
+
+	
 
 	@Column(name="doa_amount")
 	private double doaAmount;
+	
 
 	@Column(name="doa_currency_code")
 	private String doaCurrencyCode;
@@ -711,7 +717,13 @@ public class TaskLog {
 	public void setCostcenterName(String costcenterName) {
 		this.costcenterName = costcenterName;
 	}
-	
+	public String getStopStatus() {
+		return stopStatus;
+	}
+
+	public void setStopStatus(String stopStatus) {
+		this.stopStatus = stopStatus;
+	}
 	
 
 }
