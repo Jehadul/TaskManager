@@ -3,14 +3,14 @@ package com.ctrends.taskmanager.dao.tman;
 import java.util.List;
 import java.util.UUID;
 
-import com.ctrends.taskmanager.dao.ICommonDao;
+import com.ctrends.taskmanager.dao.ICommonDAO;
 import com.ctrends.taskmanager.model.taskmanage.Module;
 import com.ctrends.taskmanager.model.taskmanage.PrivGroup;
 import com.ctrends.taskmanager.model.taskmanage.Suite;
 import com.ctrends.taskmanager.model.tman.TaskLog;
 import com.ctrends.taskmanager.model.tman.Tasks;
 
-public interface ITasksDao extends ICommonDao<Tasks> {
+public interface ITasksDao extends ICommonDAO<Tasks> {
 	List<Suite> getAllSuites();
 	List<PrivGroup> getAllPrivGrps();
 	List<Module> getAllModules();
