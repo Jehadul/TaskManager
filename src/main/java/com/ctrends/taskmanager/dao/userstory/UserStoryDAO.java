@@ -13,6 +13,7 @@ import com.ctrends.taskmanager.model.taskmanage.Module;
 import com.ctrends.taskmanager.model.taskmanage.PrivGroup;
 import com.ctrends.taskmanager.model.taskmanage.Privilege;
 import com.ctrends.taskmanager.model.taskmanage.Suite;
+import com.ctrends.taskmanager.model.tman.Tasks;
 import com.ctrends.taskmanager.model.userstory.UserStory;
 
 @Repository("userStoryDao")
@@ -29,7 +30,12 @@ public class UserStoryDAO implements IUserStoryDAO {
 
 	@Override
 	public UserStory getDocById(UUID id) {
-		// TODO Auto-generated method stub
+		Query query = sessionfactory.getCurrentSession().createQuery("From UserStory WHERE id = :id");
+		query.setParameter("id", id);
+		List<UserStory> pt = query.list();
+		if(pt.size()>0){
+			return pt.get(0);
+		}
 		return null;
 	}
 
@@ -44,11 +50,13 @@ public class UserStoryDAO implements IUserStoryDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
+	@Transactional
 	@Override
 	public UUID updateDoc(UserStory doc) {
-		// TODO Auto-generated method stub
-		return null;
+		sessionfactory.getCurrentSession().saveOrUpdate(doc);
+		sessionfactory.getCurrentSession().flush();
+		return doc.getId();
 	}
 
 	@Override
