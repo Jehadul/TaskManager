@@ -180,8 +180,9 @@ public class TasksDao implements ITasksDao {
 	@Transactional
 	public List<Tasks> getCurrentTaskByCurrentUser() {
 		User currentUser = userService.getCurrentUser();
-		Query query=sessionfactory.getCurrentSession().createQuery("From TaskLog where createdByUsername =:userName and startTime");
+		Query query=sessionfactory.getCurrentSession().createQuery("From TaskLog where createdByUsername =:userName and stopStatus =:stopStatus");
 		query.setParameter("userName", currentUser.getUsername());
+		query.setParameter("stopStatus", "false");
 		List<Tasks> tasksLi=query.list();
 		return tasksLi;
 	}
