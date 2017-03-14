@@ -15,6 +15,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,6 +50,13 @@ public class TaskDaoTest {
 	@Mock
 	private List<Tasks> mockTtasksList;
 	
+	
+	@Test
+	@WithMockUser("CTS0104")
+	public void testGetDocsByCurrentUser(){
+		List<Tasks> tasksLi=taskDao.getDocsByCurrentUser();
+		assertNotNull(tasksLi);
+	}
 	
 	@Test
 	public void testGetAllDoc_ReturnList(){
