@@ -165,17 +165,6 @@ public class TasksController implements ITasksController {
 
 	}
 
-	@RequestMapping(value = "/updateTasklist", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	@Override
-	public WSResponse updateTasklist(HttpServletRequest request) {
-		Map<String, String[]> tasks = request.getParameterMap();
-
-		Map<String, String> data = tasksService.updateTasklist(tasks);
-
-		return new WSResponse("success", "Submitted Successfully", UUID.fromString(data.get("id")), null,
-				data.get("mode"), data);
-
-	}
 
 	@RequestMapping(value = "/destroy", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Override
@@ -253,22 +242,6 @@ public class TasksController implements ITasksController {
 		return null;
 	}
 
-	@RequestMapping(value = "/editTasklist/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
-	@Override
-	public ModelAndView editTasklist(@PathVariable(value = "id") UUID id) {
-		Map<String, Object> map = new HashMap<>();
-
-		Tasks tasks = tasksService.getById(id);
-
-		map.put("mode", "doc");
-		map.put("tasks", tasks);
-		GsonBuilder gson = new GsonBuilder();
-		Gson g = gson.create();
-
-		return new ModelAndView("taskman/editTasklist", "map", map);
-
-	}
 
 	@RequestMapping(value = "/timeLog/{id}/{strTime}/{title}/{day}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
