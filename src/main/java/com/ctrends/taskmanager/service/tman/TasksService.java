@@ -16,6 +16,8 @@ import com.ctrends.taskmanager.model.taskmanage.Module;
 import com.ctrends.taskmanager.model.taskmanage.Suite;
 import com.ctrends.taskmanager.model.tman.TaskLog;
 import com.ctrends.taskmanager.model.tman.Tasks;
+import com.ctrends.taskmanager.model.user.User;
+import com.ctrends.taskmanager.service.user.IUserService;
 
 @Repository("tasksService")
 public class TasksService implements ITasksService {
@@ -23,11 +25,15 @@ public class TasksService implements ITasksService {
 	@Autowired
 	ITasksDao tasksDao;
 	
+	@Autowired
+	IUserService userService;
+	
 	@Override
 	public Map<String, String> insert(Map<String, String[]> requestMap) {
 		Map<String, String> data = new HashMap<String,String>();
 		
 		Tasks tasks=new Tasks();
+		User currentUser = userService.getCurrentUser();
 		tasks.setSuiteCode(requestMap.get("suite_code")[0]);
 		tasks.setSuiteName(requestMap.get("suite_name")[0]);
 		tasks.setModuleCode(requestMap.get("module_code")[0]);
@@ -40,6 +46,22 @@ public class TasksService implements ITasksService {
 		tasks.setTaskTitle(requestMap.get("task_title")[0]);
 		tasks.setEstimatedTime(Double.parseDouble(requestMap.get("estimated_time")[0]));
 		tasks.setAsignee(requestMap.get("assignee")[0]);
+		
+		tasks.setClientCode(currentUser.getClientCode());
+		tasks.setClientName(currentUser.getClientName());
+		tasks.setCompanyCode(currentUser.getCompanyCode());
+		tasks.setCompanyName(currentUser.getCompanyName());
+		tasks.setCreatedByCode(currentUser.getCreatedByCode());
+		tasks.setCreatedByName(currentUser.getCreatedByName());
+		tasks.setCreatedByUsername(currentUser.getCreatedByUsername());
+		tasks.setCreatedByCode(currentUser.getEmpCode());
+		tasks.setCreatedByName(currentUser.getEmpName());
+		tasks.setCreatedByUsername(currentUser.getUsername());
+		tasks.setCreatedByEmail(currentUser.getEmail());
+		tasks.setCreatedByCompanyCode(currentUser.getCompanyCode());
+		tasks.setCreatedByCompanyName(currentUser.getCompanyName());
+		tasks.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+		
 		UUID id = tasksDao.insertDoc(tasks);
 		data.put("id", id.toString());
 		return data ;
