@@ -222,6 +222,7 @@ public class TasksService implements ITasksService {
 				long diffSec = diffMs / 1000;
 				long min = diffSec / 60;
 				long sec = diffSec % 60;
+				double ddl;
 				String hh = (min > 60) ? String.valueOf(min / 60) : "0." + min;
 				double estTime = tasks.getEstimatedTime();
 				double remTime = estTime-Double.parseDouble(hh);
