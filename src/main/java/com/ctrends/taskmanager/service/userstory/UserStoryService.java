@@ -82,7 +82,7 @@ public class UserStoryService implements IUserStoryService {
 	public Map<String, String> update(Map<String, String[]> requestMap) {
 		Map<String, String> data = new HashMap<String, String>();
 		User currentUser = userService.getCurrentUser();
-		//System.out.println(":::::"+requestMap.get("id")[0]);
+		
 		UserStory userStory = userStoryDAO.getDocById(UUID.fromString(requestMap.get("id")[0]));
 		
 		userStory.setSuiteCode(requestMap.get("suite_code")[0]);
@@ -92,6 +92,13 @@ public class UserStoryService implements IUserStoryService {
 		userStory.setPrivGrpCode(Integer.parseInt(requestMap.get("priv_grp_code")[0]));
 		userStory.setPrivGrpName(requestMap.get("priv_grp_name")[0]);	
 		userStory.setDescription(requestMap.get("description")[0]);
+		userStory.setAcceptanceCriteria(requestMap.get("acceptance_criteria")[0]);
+		userStory.setBusinessValue(requestMap.get("business_value")[0]);
+		userStory.setUserStoryCode(requestMap.get("user_story_code")[0]);
+	    userStory.setUserStoryTitle(requestMap.get("user_story_title")[0]);
+	    userStory.setSize(Integer.parseInt(requestMap.get("size")[0]));
+	    userStory.setPriority(requestMap.get("priority")[0]);
+	    userStory.setStoryOrder(requestMap.get("story_order")[0]);
 		//userStory.setStoryCode(requestMap.get("story_code")[0]);
 	    
 		//userStory.setTaskTitle(requestMap.get("task_title")[0]);

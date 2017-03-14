@@ -29,7 +29,7 @@ public class UserStoryDAO implements IUserStoryDAO {
 		List<UserStory> userStoryLi=query.list();
 		return userStoryLi;
 	}
-
+	@Transactional
 	@Override
 	public UserStory getDocById(UUID id) {
 		Query query = sessionFactory.getCurrentSession().createQuery("From UserStory WHERE id = :id");
