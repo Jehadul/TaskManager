@@ -18,6 +18,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -79,6 +80,7 @@ public class TaskServiceTest {
 	String [] id1 = {String.valueOf(id)};
 	
 	@Test
+	@WithMockUser("CTS0104")
 	public void testInsert_ReturnMap(){
 		
 		Map<String, String[]> requestMap=new HashMap<String, String[]>();
@@ -100,6 +102,7 @@ public class TaskServiceTest {
 	}
 
 	@Test
+	@WithMockUser("CTS0104")
 	public void testUpdate_ReturnMap(){
 		
 		Map<String, String[]> requestMap=new HashMap<String, String[]>();
