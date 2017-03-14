@@ -164,7 +164,7 @@ public class TasksControllerTest {
 	
 	@Test
 	public void testTimeLog_ReturnsModelAndView(){
-		ModelAndView ar = tasksController.timeLog(id, st, st);
+		ModelAndView ar = tasksController.timeLog(id, st, st, st);
 		assertTrue(ar.hasView());
 	}
 

@@ -17,4 +17,7 @@ public interface ITasksDao extends ICommonDao<Tasks> {
 	List<Module> getBySuit(String suitCode);
 	public List<PrivGroup> getPrivGroup(String suiteCode, String modeCode);
 	public UUID insertTaskLogDoc(TaskLog taskLog);
+	public TaskLog getDocByIdTimeLog(UUID id);
+	
+	public UUID updateTaskLogDoc(TaskLog doc);
 }

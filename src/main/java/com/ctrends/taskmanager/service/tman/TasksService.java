@@ -1,6 +1,8 @@
 package com.ctrends.taskmanager.service.tman;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,6 +52,20 @@ public class TasksService implements ITasksService {
 		taskLog.setTaskId(UUID.fromString(requestMap.get("id")));
 		taskLog.setTaskTitle(requestMap.get("taskTitle"));
 		taskLog.setStartTime(requestMap.get("startTime"));
+		
+		String dat = requestMap.get("today");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+		java.util.Date dd;
+		try {
+			dd = sdf.parse(dat);
+			java.sql.Date timeLogSqlDate = new java.sql.Date(dd.getTime()); 
+			taskLog.setDate(timeLogSqlDate);
+		} catch (ParseException e) {
+			
+			e.printStackTrace();
+		}
+		
+		
 		UUID id = tasksDao.insertTaskLogDoc(taskLog);
 		data.put("id", id.toString());
 		return data ;
@@ -110,6 +126,16 @@ public class TasksService implements ITasksService {
 		data.put("id", id.toString());
 		return data;
 	}
+	@Override
+	public Map<String, String> updateTimeLog(Map<String, String> requestMap) {
+		Map<String, String> data = new HashMap<String, String>();		
+		TaskLog taskLog = tasksDao.getDocByIdTimeLog(UUID.fromString(requestMap.get("id")));
+		
+		//taskLog.setStopTime("abced");
+		UUID id = tasksDao.updateTaskLogDoc(taskLog);
+		data.put("id", id.toString());
+		return data;
+	}
 
 	@Override
 	public UUID delete(Map<String, String[]> requestMap) {
@@ -123,6 +149,7 @@ public class TasksService implements ITasksService {
 		//System.out.println("............."+searchResult+"zihad");
 		return searchResult;
 	}
+	
 	
 
 }

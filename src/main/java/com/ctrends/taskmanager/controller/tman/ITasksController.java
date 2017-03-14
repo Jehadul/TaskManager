@@ -13,4 +13,5 @@ public interface ITasksController extends ICommonController<Tasks> {
 
 	public ModelAndView create(HttpServletRequest request);
 	public ModelAndView editTasklist(UUID id);
+	
 }

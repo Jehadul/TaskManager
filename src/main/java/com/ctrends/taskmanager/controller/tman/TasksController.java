@@ -270,14 +270,27 @@ public class TasksController implements ITasksController {
 
 	}
 
-	@RequestMapping(value = "/timeLog/{id}/{strTime}/{title}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/timeLog/{id}/{strTime}/{title}/{day}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ModelAndView timeLog(@PathVariable(value = "id") UUID id, @PathVariable(value = "strTime") String strTime,@PathVariable(value = "title") String title) {
+	public ModelAndView timeLog(@PathVariable(value = "id") UUID id,
+			@PathVariable(value = "strTime") String strTime,
+			@PathVariable(value = "title") String title,
+			@PathVariable(value = "day") String today) {
 		Map<String, String> map = new HashMap<>();
 		map.put("id", id.toString());
 		map.put("startTime", strTime);
-		map.put("taskTitle", title);
+		map.put("taskTitle", title);		
+		map.put("today", today);
+		
 		Map<String, String> data = tasksService.insertTaskLog(map);
+		return null;
+	}
+	@RequestMapping(value = "/timeLogUpdate/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ModelAndView timeLogUpdate(@PathVariable(value = "id") UUID id) {
+		Map<String, String> map = new HashMap<>();
+		map.put("id", id.toString());
+		Map<String, String> data = tasksService.updateTimeLog(map);
 		return null;
 	}
 
