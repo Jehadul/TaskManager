@@ -10,8 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -20,6 +22,12 @@ import com.ctrends.taskmanager.dao.tman.ITasksDao;
 import com.ctrends.taskmanager.model.taskmanage.Module;
 import com.ctrends.taskmanager.model.taskmanage.PrivGroup;
 import com.ctrends.taskmanager.model.taskmanage.Suite;
+import com.ctrends.taskmanager.model.tman.Tasks;
+import com.ctrends.taskmanager.model.userstory.UserStory;
+import com.ctrends.taskmanager.service.userstory.IUserStoryService;
+import com.ctrends.taskmanager.service.userstory.UserStoryService;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 @RestController
 @RequestMapping("/taskman/userstory/story")
@@ -27,17 +35,31 @@ public class UserStoryController implements IUserStoryController {
 	
 	@Autowired
 	ITasksDao taskDao;
+	
+	@Autowired
+	IUserStoryService userStoryService;
 
 	@Override
 	public ModelAndView index() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
+	@RequestMapping(value = "/show/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
 	@Override
-	public ModelAndView show(UUID id) {
-		// TODO Auto-generated method stub
-		return null;
+	public ModelAndView show(@PathVariable(value = "id") UUID id) {
+		
+		UserStory userStory = userStoryService.getById(id);
+		
+		Map<String, Object> map = new HashMap<>();
+
+		map.put("mode", "doc");
+		map.put("userStory", userStory);
+		GsonBuilder gson = new GsonBuilder();
+		Gson g = gson.create();
+		// map.put("quesJson", g.toJson(q));
+		return new ModelAndView("userstory/show", "map", map);
 	}
 
 	@Override
@@ -106,16 +128,59 @@ public class UserStoryController implements IUserStoryController {
 		return null;
 	}
 
+	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
 	@Override
-	public ModelAndView edit(UUID id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public ModelAndView edit(@PathVariable(value = "id") UUID id) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
 
+		List<Suite> suiteLi = taskDao.getAllSuites();
+
+		Map<String, String> suiteCodes = new HashMap<String, String>();
+		for (int i = 0; i < suiteLi.size(); i++) {
+			suiteCodes.put(suiteLi.get(i).getSuiteCode(), suiteLi.get(i).getSuiteShortName());
+		}
+
+		List<Module> moduleLi = taskDao.getAllModules();
+
+		Map<String, String> moduleCodes = new HashMap<String, String>();
+		for (int i = 0; i < moduleLi.size(); i++) {
+			moduleCodes.put(moduleLi.get(i).getModCode(), moduleLi.get(i).getModShortName());
+		}
+
+		List<PrivGroup> privGrpLi = taskDao.getAllPrivGrps();
+
+		Map<Integer, String> privGrpCodes = new HashMap<Integer, String>();
+		for (int i = 0; i < privGrpLi.size(); i++) {
+			privGrpCodes.put(privGrpLi.get(i).getPrivGrpCode(), privGrpLi.get(i).getPrivGrpName());
+		}
+
+		UserStory userStory = userStoryService.getById(id);
+
+		map.put("mode", "doc");
+		map.put("userStory", userStory);
+		map.put("suiteCodes", suiteCodes);
+		map.put("moduleCodes", moduleCodes);
+		map.put("privGrpCodes", privGrpCodes);
+
+		GsonBuilder gson = new GsonBuilder();
+		Gson g = gson.create();
+
+		return new ModelAndView("userstory/edit", "map", map);
+
+	}
+	
+	@RequestMapping(value = "/update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Override
 	public WSResponse update(HttpServletRequest request) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Map<String, String[]> userStory = request.getParameterMap();
+
+		Map<String, String> data = userStoryService.update(userStory);
+
+		return new WSResponse("success", "Submitted Successfully", UUID.fromString(data.get("id")), null,
+				data.get("mode"), data);
 	}
 
 	@Override
