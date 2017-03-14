@@ -24,6 +24,31 @@
 			<fieldset>
 				<legend> Current Tasks&nbsp;&nbsp; </legend>
 				<div class="table-responsive">
+					<table class="table table-striped table-hover">
+							<thead>
+								<tr>
+								<th>Task Title</th>
+								<th>Start Date</th>
+								<th>Start Time</th>
+								<th>Remaining Time</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="currentTasklist" items="${data.currentTasklist}">
+								<tr>
+									<td><c:out value="${currentTasklist.taskTitle}" /></td>
+									<td><c:out value="${currentTasklist.date}" /></td>
+									<td><c:out value="${currentTasklist.startTime}" /></td>
+									<td><c:out value="${currentTasklist.startTime}" /></td>								
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+			</fieldset>	
+			<fieldset>
+				<legend>Task List&nbsp;&nbsp; </legend>
+				<div class="table-responsive">
 					<table class="table table-striped table-hover"
 						id="task_sort_result">
 							<thead>
