@@ -71,10 +71,14 @@ public class UserStoryDAO implements IUserStoryDAO {
 		return doc.getId();
 	}
 
+	@Transactional
 	@Override
 	public UUID deleteDoc(UUID id) {
-		// TODO Auto-generated method stub
-		return null;
+		UserStory app =	(UserStory)sessionFactory.getCurrentSession()
+				.load(UserStory.class, id);
+		sessionFactory.getCurrentSession().delete(app);
+		sessionFactory.getCurrentSession().flush();
+		return id;
 	}
 	
 
