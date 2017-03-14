@@ -109,7 +109,7 @@ public class TasksService implements ITasksService {
 	@Override
 	public Map<String, String> update(Map<String, String[]> requestMap) {
 		Map<String, String> data = new HashMap<String, String>();
-		
+		User currentUser = userService.getCurrentUser();
 		//System.out.println(":::::"+requestMap.get("id")[0]);
 		Tasks tasks = tasksDao.getDocById(UUID.fromString(requestMap.get("id")[0]));
 		
@@ -124,7 +124,46 @@ public class TasksService implements ITasksService {
 	    
 		tasks.setTaskTitle(requestMap.get("task_title")[0]);
 		tasks.setEstimatedTime(Double.parseDouble(requestMap.get("estimated_time")[0]));
-		tasks.setAsignee(requestMap.get("assignee")[0]);		
+		tasks.setAsignee(requestMap.get("assignee")[0]);	
+		
+		
+		tasks.setClientCode(currentUser.getClientCode());
+		tasks.setClientName(currentUser.getClientName());
+		tasks.setCompanyCode(currentUser.getCompanyCode());
+		tasks.setCompanyName(currentUser.getCompanyName());
+		tasks.setUpdatedByCode(currentUser.getEmpCode());            
+		tasks.setUpdatedByName(currentUser.getEmpName());
+		tasks.setUpdatedByUsername(currentUser.getUsername());
+		tasks.setUpdatedByEmail(currentUser.getEmail());
+		tasks.setUpdatedByCompanyCode(currentUser.getCompanyCode());
+		tasks.setUpdatedByCompanyName(currentUser.getCompanyName());
+		tasks.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+		
+		tasks.setUpdatedByCode(currentUser.getUpdatedByCode());
+		tasks.setUpdatedByName(currentUser.getUpdatedByName());
+		tasks.setUpdatedByCompanyCode(currentUser.getCompanyCode());
+		tasks.setUpdatedByCompanyName(currentUser.getCompanyName());
+		tasks.setUpdatedByEmail(currentUser.getEmail());
+		tasks.setUpdatedByUsername(currentUser.getUsername());
+		
+		tasks.setClientCode(currentUser.getClientCode());
+		tasks.setClientName(currentUser.getClientName());
+		tasks.setCompanyCode(currentUser.getCompanyCode());
+		tasks.setCompanyName(currentUser.getCompanyName());
+		tasks.setUpdatedByCode(currentUser.getEmpCode());            
+		tasks.setUpdatedByName(currentUser.getEmpName());
+		tasks.setUpdatedByUsername(currentUser.getUsername());
+		tasks.setUpdatedByEmail(currentUser.getEmail());
+		tasks.setUpdatedByCompanyCode(currentUser.getCompanyCode());
+		tasks.setUpdatedByCompanyName(currentUser.getCompanyName());
+		tasks.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+		
+		tasks.setUpdatedByCode(currentUser.getUpdatedByCode());
+		tasks.setUpdatedByName(currentUser.getUpdatedByName());
+		tasks.setUpdatedByCompanyCode(currentUser.getCompanyCode());
+		tasks.setUpdatedByCompanyName(currentUser.getCompanyName());
+		tasks.setUpdatedByEmail(currentUser.getEmail());
+		tasks.setUpdatedByUsername(currentUser.getUsername());
 		
 		UUID id = tasksDao.updateDoc(tasks);
 		data.put("id", id.toString());
