@@ -18,7 +18,7 @@
 	</section>
 
 	<div class="container-fluid container-fullw bg-white">
-		<cts:AjaxForm action="/taskman/tman/tasks/store" dataHandler="showMessage" >
+		<cts:AjaxForm action="/taskman/userstory/story/store" dataHandler="showMessage" >
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 			<div class="main-control">
 				<div class="row">
@@ -40,34 +40,40 @@
 							<cts:Hidden name="priv_grp_name" value=""/>
 						</div>
 						<div class="form-group">
-								<cts:Label name="Business Value" labelFor="business_value"/>
-								<cts:TextArea name="business_value" cssClass="dirty-check required" readonly="" rows="3" cols=""/>
+							<cts:Label name="Story Code" labelFor="user_story_code"/>
+							<cts:TextBox name="user_story_code" cssClass="dirty-check required" readonly=""/>
+						</div>
+						<div class="form-group">						
+							<cts:Label name="Story Title" labelFor="user_story_title"/>
+							<cts:TextBox name="user_story_title" cssClass="dirty-check required" readonly=""/>
+						</div>
+						<div class="form-group">
+								<cts:Label name="Description" labelFor="description"/>
+								<cts:TextArea name="description" cssClass="dirty-check" readonly="" rows="3" cols=""/>
+						</div>
+						
+						
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">						
+							<cts:Label name="Priority" labelFor="priority"/>
+							<cts:TextBox name="priority" cssClass="dirty-check required" readonly=""/>
+						</div>
+						<div class="form-group">						
+							<cts:Label name="Story Order" labelFor="story_order"/>
+							<cts:TextBox name="story_order" cssClass="dirty-check required" readonly=""/>
+						</div>
+						<div class="form-group">
+							<cts:Label name="Story Size" labelFor="size"/>
+							<cts:TextBox name="size" cssClass="dirty-check" readonly=""/>
 						</div>
 						<div class="form-group">
 								<cts:Label name="Acceptence Criteria" labelFor="acceptance_criteria"/>
-								<cts:TextArea name="acceptance_criteria" cssClass="dirty-check required" readonly="" rows="3" cols=""/>
+								<cts:TextArea name="acceptance_criteria" cssClass="dirty-check" readonly="" rows="3" cols=""/>
 						</div>
 						<div class="form-group">
 								<cts:Label name="Business Value" labelFor="business_value"/>
-								<cts:TextArea name="business_value" cssClass="dirty-check required" readonly="" rows="3" cols=""/>
-						</div>
-					</div>
-					<div class="col-md-6">
-						<div class="form-group">
-							<cts:Label name="Story Code" labelFor="story_code"/>
-							<cts:TextBox name="story_code" cssClass="dirty-check required" readonly=""/>
-						</div>
-						<div class="form-group">						
-							<cts:Label name="Task Title" labelFor="task_title"/>
-							<cts:TextBox name="task_title" cssClass="dirty-check required" readonly=""/>
-						</div>
-						<div class="form-group">
-							<cts:Label name="Estimated Time" labelFor="estimated_time"/>
-							<cts:TextBox name="estimated_time" cssClass="dirty-check required" readonly=""/>
-						</div>
-						<div class="form-group">						
-							<cts:Label name="Assignee" labelFor="assignee"/>
-							<cts:TextBox name="assignee" cssClass="dirty-check" readonly=""/>
+								<cts:TextArea name="business_value" cssClass="dirty-check" readonly="" rows="3" cols=""/>
 						</div>
 					</div>
 				</div>
@@ -100,14 +106,14 @@ InitHandlers();
 
 	$('#suite_code').on('change', function(){
 		var newSuiteCode = $("#suite_code").val();
-		LoadMainContent("/taskman/tman/tasks/create/?suite_code=" + newSuiteCode);
+		LoadMainContent("/taskman/userstory/story/create/?suite_code=" + newSuiteCode);
 	
 	});
 	
 	$('#module_code').on('change', function(){
 		var newSuiteCode = $("#suite_code").val();
 		var newModuleCode = $("#module_code").val();
-		LoadMainContent("/taskman/tman/tasks/create/?suite_code=" + newSuiteCode + "&" + "module_code=" + newModuleCode);
+		LoadMainContent("/taskman/userstory/story/create/?suite_code=" + newSuiteCode + "&" + "module_code=" + newModuleCode);
 	
 	});
 	
@@ -115,14 +121,14 @@ InitHandlers();
 		var newSuiteCode = $("#suite_code").val();
 		var newModuleCode = $("#module_code").val();
 		var newPrivGroupCode = $("#priv_grp_code").val();
-		LoadMainContent("/taskman/tman/tasks/create/?suite_code=" + newSuiteCode + "&" + "module_code=" + newModuleCode + "&" + "priv_grp_code=" + newPrivGroupCode);
+		LoadMainContent("/taskman/userstory/story/create/?suite_code=" + newSuiteCode + "&" + "module_code=" + newModuleCode + "&" + "priv_grp_code=" + newPrivGroupCode);
 	}); 
 	
 	function showMessage(data) {
 		if (data.outcome == 'success') {
 			ShowSuccessMsg('Tasks created', data.message);
 			isDirty = false;
-			LoadMainContent('/taskman/tman/tasks/show/' + data.id );
+			LoadMainContent('/taskman/userstory/story/show/' + data.id );
 		} else {
 			ShowErrorMsg('Tasks was not created', data.msg);
 			var msg = ConcatWithBR(data.error);

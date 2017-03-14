@@ -20,7 +20,7 @@ import com.ctrends.taskmanager.model.userstory.UserStory;
 public class UserStoryDAO implements IUserStoryDAO {
 	
 	@Autowired
-	private SessionFactory sessionfactory;
+	private SessionFactory sessionFactory;
 
 	@Override
 	public List<UserStory> getAllDoc() {
@@ -30,7 +30,7 @@ public class UserStoryDAO implements IUserStoryDAO {
 
 	@Override
 	public UserStory getDocById(UUID id) {
-		Query query = sessionfactory.getCurrentSession().createQuery("From UserStory WHERE id = :id");
+		Query query = sessionFactory.getCurrentSession().createQuery("From UserStory WHERE id = :id");
 		query.setParameter("id", id);
 		List<UserStory> pt = query.list();
 		if(pt.size()>0){
@@ -45,17 +45,19 @@ public class UserStoryDAO implements IUserStoryDAO {
 		return null;
 	}
 
+	@Transactional
 	@Override
 	public UUID insertDoc(UserStory doc) {
-		// TODO Auto-generated method stub
-		return null;
+		UUID id = (UUID) sessionFactory.getCurrentSession().save(doc);
+		sessionFactory.getCurrentSession().flush();
+		return id;
 	}
 	
 	@Transactional
 	@Override
 	public UUID updateDoc(UserStory doc) {
-		sessionfactory.getCurrentSession().saveOrUpdate(doc);
-		sessionfactory.getCurrentSession().flush();
+		sessionFactory.getCurrentSession().saveOrUpdate(doc);
+		sessionFactory.getCurrentSession().flush();
 		return doc.getId();
 	}
 
