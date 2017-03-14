@@ -71,7 +71,7 @@ public class TasksService implements ITasksService {
 	public Map<String, String> insertTaskLog(Map<String, String> requestMap) {
 		Map<String, String> data = new HashMap<String, String>();
 		TaskLog taskLog = new TaskLog();
-
+		User currentUser = userService.getCurrentUser();
 		taskLog.setTaskId(UUID.fromString(requestMap.get("id")));
 		taskLog.setTaskTitle(requestMap.get("taskTitle"));
 		taskLog.setStartTime(requestMap.get("startTime"));
@@ -88,6 +88,19 @@ public class TasksService implements ITasksService {
 
 			e.printStackTrace();
 		}
+		taskLog.setClientCode(currentUser.getClientCode());
+		taskLog.setClientName(currentUser.getClientName());
+		taskLog.setCompanyCode(currentUser.getCompanyCode());
+		taskLog.setCompanyName(currentUser.getCompanyName());
+		taskLog.setCreatedByCode(currentUser.getCreatedByCode());
+		taskLog.setCreatedByName(currentUser.getCreatedByName());
+		taskLog.setCreatedByCode(currentUser.getEmpCode());
+		taskLog.setCreatedByName(currentUser.getEmpName());
+		taskLog.setCreatedByUsername(currentUser.getUsername());
+		taskLog.setCreatedByEmail(currentUser.getEmail());
+		taskLog.setCreatedByCompanyCode(currentUser.getCompanyCode());
+		taskLog.setCreatedByCompanyName(currentUser.getCompanyName());
+		taskLog.setCreatedAt(new Timestamp(System.currentTimeMillis()));
 
 		UUID id = tasksDao.insertTaskLogDoc(taskLog);
 		data.put("id", id.toString());
