@@ -22,4 +22,5 @@ public interface ITasksDao extends ICommonDAO<Tasks> {
 	public UUID updateTaskLogDoc(TaskLog doc);
 	List<Tasks> getDocsByCurrentUser();
 	List<Tasks> getCurrentTaskByCurrentUser();
+	public UUID updateSpantTimeDoc(Tasks doc);
 }
