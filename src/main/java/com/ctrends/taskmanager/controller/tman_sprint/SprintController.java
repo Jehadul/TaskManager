@@ -102,12 +102,6 @@ public class SprintController implements ISprintController {
 	}
 
 	@Override
-	public WSResponse updateTasklist(HttpServletRequest request) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public WSResponse destroy(HttpServletRequest request) {
 		// TODO Auto-generated method stub
 		return null;
