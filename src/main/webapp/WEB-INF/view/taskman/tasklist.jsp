@@ -191,7 +191,7 @@
 		 
 		 var taskId = currentRow.find(".task_id").val();
 		 
-		LoadMainContent('/taskman/tman/tasks/editTasklist/' + taskId);			
+		LoadMainContent('/taskman/tman/tasks/edit/' + taskId);			
 	});
 	
 
