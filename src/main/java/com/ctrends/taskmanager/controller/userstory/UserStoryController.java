@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ctrends.taskmanager.bean.WSResponse;
+import com.ctrends.taskmanager.dao.tman.ITasksDao;
 import com.ctrends.taskmanager.model.taskmanage.Module;
 import com.ctrends.taskmanager.model.taskmanage.PrivGroup;
 import com.ctrends.taskmanager.model.taskmanage.Suite;
@@ -22,6 +24,9 @@ import com.ctrends.taskmanager.model.taskmanage.Suite;
 @RestController
 @RequestMapping("/taskman/userstory/story")
 public class UserStoryController implements IUserStoryController {
+	
+	@Autowired
+	ITasksDao taskDao;
 
 	@Override
 	public ModelAndView index() {
@@ -43,7 +48,7 @@ public class UserStoryController implements IUserStoryController {
 
 	@RequestMapping(value="/create", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Override
-	public ModelAndView create() {
+	public ModelAndView create(HttpServletRequest request) {
 		Map<String, Object> data = new HashMap<String, Object>();
 		String suiteCode = request.getParameter("suite_code");
 		String moduleCode = request.getParameter("module_code");
@@ -91,7 +96,7 @@ public class UserStoryController implements IUserStoryController {
 		data.put("suiteCode", suiteCode);
 		data.put("privGroupCode", privGroupCode);
 		data.put("moduleCode", moduleCode);
-		return new ModelAndView("userstory/create");
+		return new ModelAndView("userstory/create", "data", data);
 	}
 
 	
@@ -133,6 +138,12 @@ public class UserStoryController implements IUserStoryController {
 
 	@Override
 	public String search(HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ModelAndView create() {
 		// TODO Auto-generated method stub
 		return null;
 	}

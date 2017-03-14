@@ -40,8 +40,16 @@
 							<cts:Hidden name="priv_grp_name" value=""/>
 						</div>
 						<div class="form-group">
-								<cts:Label name="Description" labelFor="description"/>
-								<cts:TextArea name="description" cssClass="dirty-check required" readonly="" rows="3" cols=""/>
+								<cts:Label name="Business Value" labelFor="business_value"/>
+								<cts:TextArea name="business_value" cssClass="dirty-check required" readonly="" rows="3" cols=""/>
+						</div>
+						<div class="form-group">
+								<cts:Label name="Acceptence Criteria" labelFor="acceptance_criteria"/>
+								<cts:TextArea name="acceptance_criteria" cssClass="dirty-check required" readonly="" rows="3" cols=""/>
+						</div>
+						<div class="form-group">
+								<cts:Label name="Business Value" labelFor="business_value"/>
+								<cts:TextArea name="business_value" cssClass="dirty-check required" readonly="" rows="3" cols=""/>
 						</div>
 					</div>
 					<div class="col-md-6">
