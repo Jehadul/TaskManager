@@ -32,44 +32,44 @@
 					
 					<div class="form-group">
 						<cts:Label name="User Story Code" labelFor="user_story_code"/>
-						:     <b>${map.tasks.userStoryCode}</b>
+						:     <b>${map.userStory.userStoryCode}</b>
 					</div>
 					<div class="form-group">
 						<cts:Label name="User Story Title" labelFor="user_story_title"/>
-						 :     <b>${map.tasks.userStoryTitle}</b>
+						 :     <b>${map.userStory.userStoryTitle}</b>
 					</div>
 					
 					<div class="form-group">
 						<cts:Label name="Description" labelFor="description"/>
-						 :     <b>${map.tasks.description}</b>
+						 :     <b>${map.userStory.description}</b>
 					</div>
 					
 					<div class="form-group">
 						<cts:Label name="Acceptance Criteria" labelFor="acceptance_criteria"/>
-						:     <b>${map.tasks.acceptanceCriteria}</b>
+						:     <b>${map.userStory.acceptanceCriteria}</b>
 					</div>
 					<div class="form-group">
 						<cts:Label name="Business Value" labelFor="business_value"/>
-						 :     <b>${map.tasks.businessValue}</b>
+						 :     <b>${map.userStory.businessValue}</b>
 					</div>
 					<div class="form-group">
 						<cts:Label name="Size" labelFor="size"/>
-						 :     <b>${map.tasks.size}</b>
+						 :     <b>${map.userStory.size}</b>
 					</div>
 					
 					<div class="form-group">
 						<cts:Label name="Suite Name" labelFor="suite_code"/>
-						:     <b>${map.tasks.suiteCode}</b>
+						:     <b>${map.userStory.suiteCode}</b>
 					</div>
 					
 					<div class="form-group">
 						<cts:Label name="Module Name" labelFor="module_code"/>
-						 :     <b>${map.tasks.moduleCode}</b>
+						 :     <b>${map.userStory.moduleCode}</b>
 					</div>
 					
 					<div class="form-group">
 						<cts:Label name="Priv Group Name" labelFor="priv_grp_code"/>
-						:     <b>${map.tasks.privGrpCode}</b>
+						:     <b>${map.userStory.privGrpCode}</b>
 					</div>
 					
 					
@@ -80,12 +80,12 @@
 					
 					<div class="form-group">
 						<cts:Label name="Priority" labelFor="priority"/>
-						:     <b>${map.tasks.priority}</b>
+						:     <b>${map.userStory.priority}</b>
 					</div>
 					
 					<div class="form-group">
 						<cts:Label name="Story Order" labelFor="story_order"/>
-						:     <b>${map.tasks.storyOrder}</b>
+						:     <b>${map.userStory.storyOrder}</b>
 					</div>
 					
 				</div>
@@ -127,7 +127,7 @@
 	});
 	
 	$('#edit_btn').on("click",function(){
-		LoadMainContent('/taskman/userstory/story/edit/' + "${map.tasks.id}");			
+		LoadMainContent('/taskman/userstory/story/edit/' + "${map.userStory.id}");			
 	});
 	$('#del_btn').on("click",function(){
 		LoadMainContent("/taskman/userstory/story/delete");			
