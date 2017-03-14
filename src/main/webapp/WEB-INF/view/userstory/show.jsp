@@ -31,9 +31,25 @@
 					<!-- <div class="denotes-required">denotes a required field.</div> -->
 					
 					<div class="form-group">
+						<cts:Label name="Suite Name" labelFor="suite_code"/>
+						:     <b>${map.userStory.suiteCode}</b>
+					</div>
+					
+					<div class="form-group">
+						<cts:Label name="Module Name" labelFor="module_code"/>
+						 :     <b>${map.userStory.moduleCode}</b>
+					</div>
+					
+					<div class="form-group">
+						<cts:Label name="Priv Group Name" labelFor="priv_grp_code"/>
+						:     <b>${map.userStory.privGrpCode}</b>
+					</div>
+					
+					<div class="form-group">
 						<cts:Label name="User Story Code" labelFor="user_story_code"/>
 						:     <b>${map.userStory.userStoryCode}</b>
 					</div>
+					
 					<div class="form-group">
 						<cts:Label name="User Story Title" labelFor="user_story_title"/>
 						 :     <b>${map.userStory.userStoryTitle}</b>
@@ -42,6 +58,15 @@
 					<div class="form-group">
 						<cts:Label name="Description" labelFor="description"/>
 						 :     <b>${map.userStory.description}</b>
+					</div>
+					
+					<div class="form-group">
+						<cts:Label name="Priority" labelFor="priority"/>
+						 :     <b>${map.userStory.priority}</b>
+					</div>
+					<div class="form-group">
+						<cts:Label name="Story Order" labelFor="story_order"/>
+						 :     <b>${map.userStory.storyOrder}</b>
 					</div>
 					
 					<div class="form-group">
@@ -57,20 +82,7 @@
 						 :     <b>${map.userStory.size}</b>
 					</div>
 					
-					<div class="form-group">
-						<cts:Label name="Suite Name" labelFor="suite_code"/>
-						:     <b>${map.userStory.suiteCode}</b>
-					</div>
 					
-					<div class="form-group">
-						<cts:Label name="Module Name" labelFor="module_code"/>
-						 :     <b>${map.userStory.moduleCode}</b>
-					</div>
-					
-					<div class="form-group">
-						<cts:Label name="Priv Group Name" labelFor="priv_grp_code"/>
-						:     <b>${map.userStory.privGrpCode}</b>
-					</div>
 					
 					
 					<%-- <div class="form-group">
