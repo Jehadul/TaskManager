@@ -27,7 +27,7 @@ public class UserServiceTest {
 	IUserDAO userDAO; 
 	
 	@Mock
-	private MockMvc mockMvc;
+	private MockMvc mockMvc;  
 	
 	@Autowired
 	IUserService userService;
