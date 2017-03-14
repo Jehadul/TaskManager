@@ -51,6 +51,7 @@
 				<value>com.ctrends.taskmanager.model.tman</value>
 				<value>com.ctrends.taskmanager.model.taskmanage</value>
 				<value>com.ctrends.taskmanager.model.user</value>
+				<value>com.ctrends.taskmanager.model.userstory</value>
 				
 			</list>
 		</property>
