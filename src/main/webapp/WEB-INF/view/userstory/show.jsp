@@ -82,24 +82,6 @@
 						 :     <b>${map.userStory.size}</b>
 					</div>
 					
-					
-					
-					
-					<%-- <div class="form-group">
-						<cts:Label name="Privilege Name" labelFor="privilege_code"/>
-						:     <b>${map.tasks.privilegeCode}</b>
-					</div> --%>
-					
-					<div class="form-group">
-						<cts:Label name="Priority" labelFor="priority"/>
-						:     <b>${map.userStory.priority}</b>
-					</div>
-					
-					<div class="form-group">
-						<cts:Label name="Story Order" labelFor="story_order"/>
-						:     <b>${map.userStory.storyOrder}</b>
-					</div>
-					
 				</div>
 				<div class="col-md-6">
 					
