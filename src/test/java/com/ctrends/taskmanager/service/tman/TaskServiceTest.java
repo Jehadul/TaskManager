@@ -202,4 +202,11 @@ public class TaskServiceTest {
 		List<Tasks> tsk=tasksService.find(params);
 		assertNotNull(tsk);
 	}
+	
+	@Test
+	@WithMockUser("CTS0104")
+	public void testGetAllByCurrentUser(){
+		List<Tasks> tsk=tasksService.getAllByCurrentUser();
+		assertNotNull(tsk);
+	}
 }
