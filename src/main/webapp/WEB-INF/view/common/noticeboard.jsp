@@ -22,7 +22,7 @@
 		<div class="container-fluid container-fullw bg-white">
 			<div class="row">
 			<fieldset>
-				<legend> Task List&nbsp;&nbsp; </legend>
+				<legend> Current Tasks&nbsp;&nbsp; </legend>
 				<div class="table-responsive">
 					<table class="table table-striped table-hover"
 						id="task_sort_result">
@@ -32,7 +32,6 @@
 								<th>Estimated Time</th>
 								<th>Spent Time</th>
 								<th>Remaining Time</th>
-								<th>Assignee</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -41,9 +40,7 @@
 									<td><c:out value="${task.getTaskTitle()}" /></td>
 									<td><c:out value="${task.getEstimatedTime()}" /></td>
 									<td><c:out value="${task.getSpentTime()}" /></td>
-									<td><c:out value="${task.getRemainingTime()}" /></td>
-									<td><c:out value="${task.getAsignee()}" /></td>
-									
+									<td><c:out value="${task.getRemainingTime()}" /></td>								
 								</tr>
 							</c:forEach>
 						</tbody>
