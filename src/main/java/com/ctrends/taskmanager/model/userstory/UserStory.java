@@ -33,7 +33,7 @@ public class UserStory {
 	private String businessValue;
 	
 	@Column(name="size")
-	private double size;
+	private int size;
 	
 	@Column(name="suite_code")
 	private String suiteCode;
@@ -248,11 +248,11 @@ public class UserStory {
 		this.businessValue = businessValue;
 	}
 
-	public double getSize() {
+	public int getSize() {
 		return size;
 	}
 
-	public void setSize(double size) {
+	public void setSize(int size) {
 		this.size = size;
 	}
 
