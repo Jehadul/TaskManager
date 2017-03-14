@@ -15,4 +15,6 @@ public interface ITasksService extends ICommonService<Tasks>{
 
 	Map<String, String> updateTasklist(Map<String, String[]> requestMap);
 
+	public List<Tasks> getAllByCurrentUser();
+
 }
