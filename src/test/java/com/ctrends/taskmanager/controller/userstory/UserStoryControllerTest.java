@@ -8,6 +8,7 @@ import org.mockito.Mockito;
 import static org.mockito.Mockito.when;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -62,6 +63,32 @@ public class UserStoryControllerTest {
 	}
 
 
+	@Test
+	public void testCreate_ReturnsModelAndView(){
+		ModelAndView ar = userStoryController.create(request);
+		assertTrue(ar.hasView());
+	}
+	
+	@Test
+	@WithMockUser("CTS0104")
+	public void testStore_ReturnsWSResponse(){
+		request.setParameter("suite_code", "ertert");
+		request.setParameter("suite_name", "trtryry");
+		request.setParameter("module_code", "ED");
+		request.setParameter("module_name", "Employee Database");
+		request.setParameter("priv_grp_code", String.valueOf(1));
+		request.setParameter("priv_grp_name", "Reporting and Analysis");
+		request.setParameter("description", "xvbhxf");
+		request.setParameter("acceptance_criteria", "xvbhxf");
+		request.setParameter("business_value", "xvbhxf");
+		request.setParameter("user_story_code", "xvbhxf");
+		request.setParameter("user_story_title", "xvbhxf");
+		request.setParameter("size", String.valueOf(1));
+		request.setParameter("priority", "xvbhxf");
+		request.setParameter("story_order", "xvbhxf");
+		WSResponse ar = userStoryController.store(request);
+		assertTrue(ar.getClass()==WSResponse.class);
+	}
 
 	@Test 
 	public void testEdit_ReturnModelAndView(){ 
