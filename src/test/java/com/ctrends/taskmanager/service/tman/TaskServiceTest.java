@@ -3,8 +3,10 @@ package com.ctrends.taskmanager.service.tman;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -37,7 +39,9 @@ public class TaskServiceTest {
 	@Mock
 	private MockMvc mockMvc;
 	
+
 	UUID id=UUID.fromString("0aad717d-e0f7-44c8-ab72-2f9a6b1b57f3");
+
 
 	@Autowired
 	TasksController tasksController;
@@ -47,9 +51,6 @@ public class TaskServiceTest {
 	@Mock
 	private ITasksDao taskDao;
 
-	/*@Autowired
-	private ITasksService tasksService;*/
-	//@Mock
 	@Autowired
 	private ITasksService tasksService;
 
@@ -72,6 +73,8 @@ public class TaskServiceTest {
 	String[] storyCode = {"sdfsdfgdfg"};
 	String[] taskTitle = {"sdfsdfgdfg"};
 	String[] estimatedTime = {"sdfsdfgdfg"};
+	String[] remainingTime = {"aaaaaaaa"};
+	String[] spentTime = {"bbbbbbbb"};
 	String[] assignee = {"sdfsdfgdfg"};
 	String [] id1 = {String.valueOf(id)};
 	
@@ -134,6 +137,66 @@ public class TaskServiceTest {
 		assertNotNull(tasks);
 	}
 	    
+	@Test
+	public void testDelete(){
 
+		Map<String, String[]> requestMap=new HashMap<String, String[]>();
+		
+		Tasks tasks=new Tasks();
+		requestMap.put("id", id1);
+		requestMap.put("suite_code", suiteCode);
+		requestMap.put("suite_name", suiteName);
+		requestMap.put("module_code", moduleCode);
+		requestMap.put("module_name", moduleName);
+		requestMap.put("priv_grp_code", privGrpCode);
+		requestMap.put("priv_grp_name", privGrpName);
+		requestMap.put("description", description);
+		requestMap.put("story_code", storyCode);
+		requestMap.put("task_title", taskTitle);
+		requestMap.put("estimated_time", estimatedTime);
+		requestMap.put("assignee", assignee);
+		
+		tasks.setSuiteCode(requestMap.get("suite_code")[0]);
+		tasks.setSuiteName(requestMap.get("suite_name")[0]);
+		tasks.setModuleCode(requestMap.get("module_code")[0]);
+		tasks.setModuleName(requestMap.get("module_name")[0]);
+		tasks.setPrivGrpCode(Integer.parseInt(requestMap.get("priv_grp_code")[0]));
+		tasks.setPrivGrpName(requestMap.get("priv_grp_name")[0]);
+		tasks.setDescription(requestMap.get("description")[0]);
+		tasks.setStoryCode(requestMap.get("story_code")[0]);
+	    
+		tasks.setTaskTitle(requestMap.get("task_title")[0]);
+		tasks.setEstimatedTime(Double.parseDouble(requestMap.get("estimated_time")[0]));
+		tasks.setAsignee(requestMap.get("assignee")[0]);
+		
+	
+		UUID uid= tasksService.delete(requestMap);
+		assertEquals(id.getClass(), uid.getClass());
+	}
 
+	@Test
+	public void testUpdateTasklist_ReturnData(){
+		
+		Map<String, String[]> requestMap=new HashMap<String, String[]>();		
+		//Tasks tasks=new Tasks();
+		requestMap.put("id", id1);
+		requestMap.put("task_title", taskTitle);
+		requestMap.put("estimated_time", estimatedTime);
+		requestMap.put("spent_time", spentTime);
+		
+		requestMap.put("remaining_time", remainingTime);
+		requestMap.put("assignee", assignee);		
+	
+		Map<String, String> map= tasksService.updateTasklist(requestMap);
+		Map<String, String> map2=new HashMap<>();
+		assertEquals(map2.getClass(), map.getClass());
+	}
+	
+	@Test
+	public void testFind(){
+		
+		Map<String, String> params=new LinkedHashMap<>();
+		List<Tasks> tsk=tasksService.find(params);
+		assertNotNull(tsk);
+	}
 }

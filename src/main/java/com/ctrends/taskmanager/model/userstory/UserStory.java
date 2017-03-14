@@ -1,4 +1,4 @@
-package com.ctrends.taskmanager.model.tman;
+package com.ctrends.taskmanager.model.userstory;
 
 import java.sql.Timestamp;
 import java.util.UUID;
@@ -11,37 +11,29 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tman_tasks")
-public class Tasks {
+@Table(name = "tman_user_stories")
+public class UserStory {
 	@Id
 	@Column(name = "id")
 	@org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private UUID id;
 	
-	@Column(name = "task_title")
-	private String taskTitle;
 	
-	@Column(name = "estimated_time")
-	private double estimatedTime;
+	@Column(name="user_story_code")
+	private String userStoryCode;
 	
-	@Column(name="priv_grp_code")
-	private int privGrpCode;
-
-	@Column(name="priv_grp_name")
-	private String privGrpName;
+	@Column(name="user_story__title")
+	private String userStoryTitle;
 	
-	@Column(name = "spent_time")
-	private double spentTime;
+	@Column(name="acceptance_criteria")
+	private String acceptanceCriteria;
 	
-	@Column(name = "remaining_time")
-	private double remainingTime;
+	@Column(name="business_value")
+	private String businessValue;
 	
-	@Column(name = "asignee")
-	private String asignee;
-	
-	@Column(name="description")
-	private String description;
+	@Column(name="size")
+	private double size;
 	
 	@Column(name="suite_code")
 	private String suiteCode;
@@ -49,14 +41,29 @@ public class Tasks {
 	@Column(name="suite_name")
 	private String suiteName;
 	
-	@Column(name="story_code")
-	private String storyCode;
-	
 	@Column(name="module_code")
 	private String moduleCode;
 	
 	@Column(name="module_name")
 	private String moduleName;
+	
+	@Column(name="priv_grp_code")
+	private int privGrpCode;
+	
+	@Column(name="priv_grp_name")
+	private String privGrpName;
+	
+	@Column(name="privilege_code")
+	private String privilegeCode;
+	
+	@Column(name="privilege_name")
+	private String privilegeName;
+	
+	@Column(name="priority")
+	private String priority;
+	
+	@Column(name="story_order")
+	private String storyOrder;
 	
 	@Column(name="doa_type_code")
 	private String doaTypeCode;
@@ -201,36 +208,6 @@ public class Tasks {
 	@Column(name="company_name")
 	private String companyName;
 
-	@Column(name="branch_code")
-	private String branchCode;
-	
-	@Column(name="branch_name")
-	private String branchName;
-	
-	@Column(name="division_code")
-	private String divisionCode;
-	
-	@Column(name="division_name")
-	private String divisionName;
-	
-	@Column(name="department_code")
-	private String departmentCode;
-	
-	@Column(name="department_name")
-	private String departmentName;
-
-	@Column(name="profitcenter_code")
-	private String profitcenterCode;
-	
-	@Column(name="profitcenter_name")
-	private String profitcenterName;
-	
-	@Column(name="costcenter_code")
-	private String costcenterCode;
-	
-	@Column(name="costcenter_name")
-	private String costcenterName;
-
 	public UUID getId() {
 		return id;
 	}
@@ -239,68 +216,44 @@ public class Tasks {
 		this.id = id;
 	}
 
-	public String getTaskTitle() {
-		return taskTitle;
+	public String getUserStoryCode() {
+		return userStoryCode;
 	}
 
-	public void setTaskTitle(String taskTitle) {
-		this.taskTitle = taskTitle;
+	public void setUserStoryCode(String userStoryCode) {
+		this.userStoryCode = userStoryCode;
 	}
 
-	public double getEstimatedTime() {
-		return estimatedTime;
+	public String getUserStoryTitle() {
+		return userStoryTitle;
 	}
 
-	public void setEstimatedTime(double estimatedTime) {
-		this.estimatedTime = estimatedTime;
+	public void setUserStoryTitle(String userStoryTitle) {
+		this.userStoryTitle = userStoryTitle;
 	}
 
-	public int getPrivGrpCode() {
-		return privGrpCode;
+	public String getAcceptanceCriteria() {
+		return acceptanceCriteria;
 	}
 
-	public void setPrivGrpCode(int privGrpCode) {
-		this.privGrpCode = privGrpCode;
+	public void setAcceptanceCriteria(String acceptanceCriteria) {
+		this.acceptanceCriteria = acceptanceCriteria;
 	}
 
-	public String getPrivGrpName() {
-		return privGrpName;
+	public String getBusinessValue() {
+		return businessValue;
 	}
 
-	public void setPrivGrpName(String privGrpName) {
-		this.privGrpName = privGrpName;
+	public void setBusinessValue(String businessValue) {
+		this.businessValue = businessValue;
 	}
 
-	public double getSpentTime() {
-		return spentTime;
+	public double getSize() {
+		return size;
 	}
 
-	public void setSpentTime(double spentTime) {
-		this.spentTime = spentTime;
-	}
-
-	public double getRemainingTime() {
-		return remainingTime;
-	}
-
-	public void setRemainingTime(double remainingTime) {
-		this.remainingTime = remainingTime;
-	}
-
-	public String getAsignee() {
-		return asignee;
-	}
-
-	public void setAsignee(String asignee) {
-		this.asignee = asignee;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
+	public void setSize(double size) {
+		this.size = size;
 	}
 
 	public String getSuiteCode() {
@@ -319,14 +272,6 @@ public class Tasks {
 		this.suiteName = suiteName;
 	}
 
-	public String getStoryCode() {
-		return storyCode;
-	}
-
-	public void setStoryCode(String storyCode) {
-		this.storyCode = storyCode;
-	}
-
 	public String getModuleCode() {
 		return moduleCode;
 	}
@@ -341,6 +286,54 @@ public class Tasks {
 
 	public void setModuleName(String moduleName) {
 		this.moduleName = moduleName;
+	}
+
+	public int getPrivGrpCode() {
+		return privGrpCode;
+	}
+
+	public void setPrivGrpCode(int privGrpCode) {
+		this.privGrpCode = privGrpCode;
+	}
+
+	public String getPrivGrpName() {
+		return privGrpName;
+	}
+
+	public void setPrivGrpName(String privGrpName) {
+		this.privGrpName = privGrpName;
+	}
+
+	public String getPrivilegeCode() {
+		return privilegeCode;
+	}
+
+	public void setPrivilegeCode(String privilegeCode) {
+		this.privilegeCode = privilegeCode;
+	}
+
+	public String getPrivilegeName() {
+		return privilegeName;
+	}
+
+	public void setPrivilegeName(String privilegeName) {
+		this.privilegeName = privilegeName;
+	}
+
+	public String getPriority() {
+		return priority;
+	}
+
+	public void setPriority(String priority) {
+		this.priority = priority;
+	}
+
+	public String getStoryOrder() {
+		return storyOrder;
+	}
+
+	public void setStoryOrder(String storyOrder) {
+		this.storyOrder = storyOrder;
 	}
 
 	public String getDoaTypeCode() {
@@ -718,86 +711,6 @@ public class Tasks {
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
 	}
-
-	public String getBranchCode() {
-		return branchCode;
-	}
-
-	public void setBranchCode(String branchCode) {
-		this.branchCode = branchCode;
-	}
-
-	public String getBranchName() {
-		return branchName;
-	}
-
-	public void setBranchName(String branchName) {
-		this.branchName = branchName;
-	}
-
-	public String getDivisionCode() {
-		return divisionCode;
-	}
-
-	public void setDivisionCode(String divisionCode) {
-		this.divisionCode = divisionCode;
-	}
-
-	public String getDivisionName() {
-		return divisionName;
-	}
-
-	public void setDivisionName(String divisionName) {
-		this.divisionName = divisionName;
-	}
-
-	public String getDepartmentCode() {
-		return departmentCode;
-	}
-
-	public void setDepartmentCode(String departmentCode) {
-		this.departmentCode = departmentCode;
-	}
-
-	public String getDepartmentName() {
-		return departmentName;
-	}
-
-	public void setDepartmentName(String departmentName) {
-		this.departmentName = departmentName;
-	}
-
-	public String getProfitcenterCode() {
-		return profitcenterCode;
-	}
-
-	public void setProfitcenterCode(String profitcenterCode) {
-		this.profitcenterCode = profitcenterCode;
-	}
-
-	public String getProfitcenterName() {
-		return profitcenterName;
-	}
-
-	public void setProfitcenterName(String profitcenterName) {
-		this.profitcenterName = profitcenterName;
-	}
-
-	public String getCostcenterCode() {
-		return costcenterCode;
-	}
-
-	public void setCostcenterCode(String costcenterCode) {
-		this.costcenterCode = costcenterCode;
-	}
-
-	public String getCostcenterName() {
-		return costcenterName;
-	}
-
-	public void setCostcenterName(String costcenterName) {
-		this.costcenterName = costcenterName;
-	}
-
+	
 	
 }

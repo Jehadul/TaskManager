@@ -1,6 +1,8 @@
 package com.ctrends.taskmanager.service.tman;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import com.ctrends.taskmanager.dao.tman.ITasksDao;
 import com.ctrends.taskmanager.model.taskmanage.Module;
 import com.ctrends.taskmanager.model.taskmanage.Suite;
+import com.ctrends.taskmanager.model.tman.TaskLog;
 import com.ctrends.taskmanager.model.tman.Tasks;
 
 @Repository("tasksService")
@@ -35,12 +38,39 @@ public class TasksService implements ITasksService {
 		tasks.setStoryCode(requestMap.get("story_code")[0]);
 	    
 		tasks.setTaskTitle(requestMap.get("task_title")[0]);
-		tasks.setEstimatedTime(requestMap.get("estimated_time")[0]);
+		tasks.setEstimatedTime(Double.parseDouble(requestMap.get("estimated_time")[0]));
 		tasks.setAsignee(requestMap.get("assignee")[0]);
 		UUID id = tasksDao.insertDoc(tasks);
 		data.put("id", id.toString());
 		return data ;
 	}
+	@Override
+	public Map<String, String> insertTaskLog(Map<String, String> requestMap) {
+		Map<String, String> data = new HashMap<String,String>();		
+		TaskLog taskLog=new TaskLog();
+		
+		taskLog.setTaskId(UUID.fromString(requestMap.get("id")));
+		taskLog.setTaskTitle(requestMap.get("taskTitle"));
+		taskLog.setStartTime(requestMap.get("startTime"));
+		
+		String dat = requestMap.get("today");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+		java.util.Date dd;
+		try {
+			dd = sdf.parse(dat);
+			java.sql.Date timeLogSqlDate = new java.sql.Date(dd.getTime()); 
+			taskLog.setDate(timeLogSqlDate);
+		} catch (ParseException e) {
+			
+			e.printStackTrace();
+		}
+		
+		
+		UUID id = tasksDao.insertTaskLogDoc(taskLog);
+		data.put("id", id.toString());
+		return data ;
+	}
+
 
 	@Override
 	public List<Tasks> getAll() {
@@ -53,8 +83,6 @@ public class TasksService implements ITasksService {
 		return tasksDao.getDocById(id);
 	}
 
-	
-	
 	
 	@Override
 	public Map<String, String> update(Map<String, String[]> requestMap) {
@@ -73,7 +101,7 @@ public class TasksService implements ITasksService {
 		tasks.setStoryCode(requestMap.get("story_code")[0]);
 	    
 		tasks.setTaskTitle(requestMap.get("task_title")[0]);
-		tasks.setEstimatedTime(requestMap.get("estimated_time")[0]);
+		tasks.setEstimatedTime(Double.parseDouble(requestMap.get("estimated_time")[0]));
 		tasks.setAsignee(requestMap.get("assignee")[0]);		
 		
 		UUID id = tasksDao.updateDoc(tasks);
@@ -89,12 +117,22 @@ public class TasksService implements ITasksService {
 		Tasks tasks = tasksDao.getDocById(UUID.fromString(requestMap.get("id")[0]));
   
 		tasks.setTaskTitle(requestMap.get("task_title")[0]);
-		tasks.setEstimatedTime(requestMap.get("estimated_time")[0]);
-		tasks.setSpentTime(requestMap.get("spent_time")[0]);
-		tasks.setRemainingTime(requestMap.get("remaining_time")[0]);
+		tasks.setEstimatedTime(Double.parseDouble(requestMap.get("estimated_time")[0]));
+		tasks.setSpentTime(Double.parseDouble(requestMap.get("spent_time")[0]));
+		tasks.setRemainingTime(Double.parseDouble(requestMap.get("remaining_time")[0]));
 		tasks.setAsignee(requestMap.get("assignee")[0]);		
 		
 		UUID id = tasksDao.updateDoc(tasks);
+		data.put("id", id.toString());
+		return data;
+	}
+	@Override
+	public Map<String, String> updateTimeLog(Map<String, String> requestMap) {
+		Map<String, String> data = new HashMap<String, String>();		
+		TaskLog taskLog = tasksDao.getDocByIdTimeLog(UUID.fromString(requestMap.get("id")));
+		
+		//taskLog.setStopTime("abced");
+		UUID id = tasksDao.updateTaskLogDoc(taskLog);
 		data.put("id", id.toString());
 		return data;
 	}
@@ -111,5 +149,7 @@ public class TasksService implements ITasksService {
 		//System.out.println("............."+searchResult+"zihad");
 		return searchResult;
 	}
+	
+	
 
 }
