@@ -188,10 +188,12 @@ public class UserStoryController implements IUserStoryController {
 	}
 
 
+	@RequestMapping(value = "/destroy", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Override
 	public WSResponse destroy(HttpServletRequest request) {
-		// TODO Auto-generated method stub
-		return null;
+		Map<String, String[]> userStory = request.getParameterMap();
+		UUID id = userStoryService.delete(userStory);
+		return new WSResponse("success", "User Story deleted successfully", id, null, "doc", null);
 	}
 
 	@Override
@@ -210,6 +212,19 @@ public class UserStoryController implements IUserStoryController {
 	public ModelAndView create() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	@RequestMapping(value = "/delete", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ModelAndView delete() {
+
+		Map<String, Object> data = new HashMap<String, Object>();
+		List<UserStory> userStoryLi = userStoryService.getAll();
+		data.put("userStoryLi", userStoryLi);
+		/*
+		 * GsonBuilder gson = new GsonBuilder(); Gson g = gson.create();
+		 */
+		return new ModelAndView("userstory/delete", "data", data);
 	}
 
 }
