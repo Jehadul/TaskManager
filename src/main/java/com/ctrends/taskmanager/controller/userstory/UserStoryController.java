@@ -121,11 +121,15 @@ public class UserStoryController implements IUserStoryController {
 		return new ModelAndView("userstory/create", "data", data);
 	}
 
-	
+	@RequestMapping(value = "/store", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Override
 	public WSResponse store(HttpServletRequest request) {
-		// TODO Auto-generated method stub
-		return null;
+		Map<String, String[]> userStory = request.getParameterMap();
+
+		Map<String, String> data = userStoryService.insert(userStory);
+
+		return new WSResponse("success", "Submitted Successfully", UUID.fromString(data.get("id")), null,
+				data.get("mode"), data);
 	}
 
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

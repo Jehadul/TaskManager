@@ -27,9 +27,44 @@ public class UserStoryService implements IUserStoryService {
 	
 	@Override
 	public Map<String, String> insert(Map<String, String[]> requestMap) {
-		// TODO Auto-generated method stub
-		return null;
+		Map<String, String> data = new HashMap<String,String>();
+		
+		UserStory userStory=new UserStory();
+		User currentUser = userService.getCurrentUser();
+		userStory.setSuiteCode(requestMap.get("suite_code")[0]);
+		userStory.setSuiteName(requestMap.get("suite_name")[0]);
+		userStory.setModuleCode(requestMap.get("module_code")[0]);
+		userStory.setModuleName(requestMap.get("module_name")[0]);
+		userStory.setPrivGrpCode(Integer.parseInt(requestMap.get("priv_grp_code")[0]));
+		userStory.setPrivGrpName(requestMap.get("priv_grp_name")[0]);
+		userStory.setDescription(requestMap.get("description")[0]);
+		userStory.setAcceptanceCriteria(requestMap.get("acceptance_criteria")[0]);
+		userStory.setBusinessValue(requestMap.get("business_value")[0]);
+		userStory.setUserStoryCode(requestMap.get("user_story_code")[0]);
+	    userStory.setUserStoryTitle(requestMap.get("user_story_title")[0]);
+	    userStory.setSize(Integer.parseInt(requestMap.get("size")[0]));
+	    userStory.setPriority(requestMap.get("priority")[0]);
+	    userStory.setStoryOrder(requestMap.get("story_order")[0]);
+		
+		userStory.setClientCode(currentUser.getClientCode());
+		userStory.setClientName(currentUser.getClientName());
+		userStory.setCompanyCode(currentUser.getCompanyCode());
+		userStory.setCompanyName(currentUser.getCompanyName());
+		userStory.setCreatedByCode(currentUser.getCreatedByCode());
+		userStory.setCreatedByName(currentUser.getCreatedByName());
+		userStory.setCreatedByCode(currentUser.getEmpCode());
+		userStory.setCreatedByName(currentUser.getEmpName());
+		userStory.setCreatedByUsername(currentUser.getUsername());
+		userStory.setCreatedByEmail(currentUser.getEmail());
+		userStory.setCreatedByCompanyCode(currentUser.getCompanyCode());
+		userStory.setCreatedByCompanyName(currentUser.getCompanyName());
+		userStory.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+		
+		UUID id = userStoryDAO.insertDoc(userStory);
+		data.put("id", id.toString());
+		return data ;
 	}
+
 
 	@Override
 	public List<UserStory> getAll() {

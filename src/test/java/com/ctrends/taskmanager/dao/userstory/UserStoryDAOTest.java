@@ -65,6 +65,12 @@ public class UserStoryDAOTest {
 		assertEquals(id.getClass(), actualId.getClass());
 	}
 	
+	@Test
+	public void testInsertDoc_ReturnsUUID(){
+		UserStory doc=new UserStory();
+		UUID actualId = userStoryDAO.insertDoc(doc); 
+		assertEquals(id.getClass(), actualId.getClass());
+	}
 	
 
 }

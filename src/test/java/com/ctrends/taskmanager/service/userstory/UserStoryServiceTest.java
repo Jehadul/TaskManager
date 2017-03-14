@@ -56,6 +56,7 @@ public class UserStoryServiceTest {
 	String userName = "CTS0104";
 	
 	String[] empCode = {"abc"};
+	String[] privGrpCode={String.valueOf("1")};
 	
 	UUID id=UUID.fromString("0aad717d-e0f7-44c8-ab72-2f9a6b1b57f3");
 	
@@ -63,12 +64,34 @@ public class UserStoryServiceTest {
 		request = new MockHttpServletRequest();
 	}
 	
-
+	
 	@Test
 	public void testGetAll() {
 		assertTrue(true);
 	}
 
+	@Test
+	@WithMockUser("CTS0104")
+	public void testInsert_ReturnsMap(){
+		Map<String, String[]> requestMap=new HashMap<String, String[]>();
+		requestMap.put("suite_code", empCode);
+		requestMap.put("suite_name", empCode);
+		requestMap.put("module_code", empCode);
+		requestMap.put("module_name", empCode);
+		requestMap.put("priv_grp_code", privGrpCode);
+		requestMap.put("priv_grp_name", empCode);
+		requestMap.put("description", empCode);
+		requestMap.put("acceptance_criteria", empCode);
+		requestMap.put("business_value", empCode);
+		requestMap.put("user_story_code", empCode);
+		requestMap.put("user_story_title", empCode);
+		requestMap.put("size", privGrpCode);
+		requestMap.put("priority", empCode);
+		requestMap.put("story_order", empCode);
+		Map<String, String> user=userStoryService.insert(requestMap);
+		Map<String, String> testUser = new HashMap<>();
+		assertEquals(testUser.getClass(), user.getClass());
+	}
 
 	@Test
 	@WithMockUser("CTS0104")
