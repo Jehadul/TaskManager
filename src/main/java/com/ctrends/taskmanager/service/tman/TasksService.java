@@ -213,6 +213,10 @@ public class TasksService implements ITasksService {
 	public List<Tasks> getAllByCurrentUser() {
 		return tasksDao.getDocsByCurrentUser();
 	}
+	@Override
+	public List<Tasks> getCurrentTaskByCurrentUser() {
+		return tasksDao.getCurrentTaskByCurrentUser();
+	}
 	
 	
 

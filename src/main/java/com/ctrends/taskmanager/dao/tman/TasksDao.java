@@ -167,6 +167,16 @@ public class TasksDao implements ITasksDao {
 		List<Tasks> tasksLi=query.list();
 		return tasksLi;
 	}
+
+	@Override
+	@Transactional
+	public List<Tasks> getCurrentTaskByCurrentUser() {
+		User currentUser = userService.getCurrentUser();
+		Query query=sessionfactory.getCurrentSession().createQuery("From TaskLog where createdByUsername =:userName and startTime");
+		query.setParameter("userName", currentUser.getUsername());
+		List<Tasks> tasksLi=query.list();
+		return tasksLi;
+	}
 	
 
 

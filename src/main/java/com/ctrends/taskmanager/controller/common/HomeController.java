@@ -59,6 +59,7 @@ public class HomeController {
 	public ModelAndView noticeboard() {
 		Map<String, Object> data = new HashMap<String, Object>();
 		List<Tasks> tasklist=tasksService.getAllByCurrentUser();
+		//List<Tasks> currentTasklist=tasksService.getCurrentTaskByCurrentUser();
 		data.put("tasklist", tasklist);
 		return new ModelAndView("common/noticeboard", "data", data);
 
