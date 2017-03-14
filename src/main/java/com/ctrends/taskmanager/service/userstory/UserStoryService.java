@@ -68,8 +68,8 @@ public class UserStoryService implements IUserStoryService {
 
 	@Override
 	public List<UserStory> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		 List<UserStory> userStoryLi=userStoryDAO.getAllDoc();
+		return userStoryLi;
 	}
 
 	@Override
