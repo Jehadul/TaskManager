@@ -27,7 +27,7 @@ public class UserStoryDAO implements IUserStoryDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	@Transactional
 	@Override
 	public UserStory getDocById(UUID id) {
 		Query query = sessionFactory.getCurrentSession().createQuery("From UserStory WHERE id = :id");
