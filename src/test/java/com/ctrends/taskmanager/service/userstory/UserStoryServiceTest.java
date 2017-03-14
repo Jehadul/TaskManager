@@ -3,6 +3,7 @@ package com.ctrends.taskmanager.service.userstory;
 import static org.junit.Assert.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -66,8 +67,9 @@ public class UserStoryServiceTest {
 	
 	
 	@Test
-	public void testGetAll() {
-		assertTrue(true);
+	public void testGetAll_ReturnsList() {
+		List<UserStory> allUserStoryList=userStoryDAO.getAllDoc();
+		assertNotNull(allUserStoryList);
 	}
 
 	@Test
@@ -131,6 +133,8 @@ public class UserStoryServiceTest {
 		UserStory userStory= userStoryService.getById(id);
 		assertEquals(new UserStory().getClass(), userStory.getClass());
 	}
+	
+	
 
 	
 }
