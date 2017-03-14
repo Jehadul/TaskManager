@@ -41,7 +41,7 @@
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
-				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.hbm2ddl.auto">validate</prop>
 				<prop key="hibernate.default-lazy">false</prop>
 			</props>
 		</property>
@@ -52,7 +52,7 @@
 				<value>com.ctrends.taskmanager.model.taskmanage</value>
 				<value>com.ctrends.taskmanager.model.user</value>
 				<value>com.ctrends.taskmanager.model.userstory</value>
-				
+				<value>com.ctrends.taskmanager.model.tman_sprint</value>
 			</list>
 		</property>
 		
