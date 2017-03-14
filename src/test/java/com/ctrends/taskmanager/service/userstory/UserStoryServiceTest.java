@@ -16,8 +16,13 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import com.ctrends.taskmanager.controller.userstory.UserStoryController;
+import com.ctrends.taskmanager.dao.tman.ITasksDao;
 import com.ctrends.taskmanager.dao.user.IUserDAO;
+import com.ctrends.taskmanager.dao.userstory.IUserStoryDAO;
 import com.ctrends.taskmanager.model.user.User;
+import com.ctrends.taskmanager.model.userstory.UserStory;
+import com.ctrends.taskmanager.service.tman.ITasksService;
 import com.ctrends.taskmanager.service.user.IUserService;
 
 
@@ -27,26 +32,32 @@ import com.ctrends.taskmanager.service.user.IUserService;
 									"/spring-security.xml" })
 public class UserStoryServiceTest {
 	
-	
-	//@Mock
-	@Autowired
-	IUserDAO userDAO; 
-	
 	@Mock
 	private MockMvc mockMvc;
 	
 	@Autowired
-	IUserService userService;
+	UserStoryController userStoryController;
+	
+	UserStory mockUserStory;
+	
+	@Mock
+	private IUserStoryDAO usersStoryDAO;
+	
+	@Autowired
+	private IUserStoryService userStoryService;
+	
+
+	@Autowired
+	IUserStoryDAO userStoryDAO;
+	
+	MockHttpServletRequest request;
+
 	
 	String userName = "CTS0104";
 	
-	@Mock
-	User user1=new User();
-
-	MockHttpServletRequest request;
-	
 	String[] empCode = {"abc"};
 	
+	UUID id=UUID.fromString("0aad717d-e0f7-44c8-ab72-2f9a6b1b57f3");
 	
 	public UserStoryServiceTest() {
 		request = new MockHttpServletRequest();
@@ -58,39 +69,6 @@ public class UserStoryServiceTest {
 		assertTrue(true);
 	}
 
-	@Test
-	public void testGetUserByUserName() {
-		  User userDetails = userService.getUserByUserName(userName);
-		  System.out.println("::"+userDetails.getUsername());
-		  System.out.println("::"+userName);
-		  assertEquals(userDetails.getUsername(), userName);
-	}
-	
-	@Test
-	public void testGetByUserName_ReturnsUser(){
-		User user = userService.getUserByUserName(userName);
-		assertEquals(new User().getClass(), user.getClass());
-	}
-	
-	@Test
-	@WithMockUser("CTS0104")
-	public void testInsert_ReturnsMap(){
-		Map<String, String[]> requestMap=new HashMap<String, String[]>();
-		requestMap.put("emp_code", empCode);
-		requestMap.put("emp_name", empCode);
-		requestMap.put("emp_desig", empCode);
-		requestMap.put("emp_email", empCode);
-		requestMap.put("first_name", empCode);
-		requestMap.put("middle_name", empCode);
-		requestMap.put("last_name", empCode);
-		requestMap.put("user_status", empCode);
-		requestMap.put("emp_username", empCode);
-		requestMap.put("role_code", empCode);
-		requestMap.put("role_name", empCode);
-		Map<String, String> user=userService.insert(requestMap);
-		Map<String, String> testUser = new HashMap<>();
-		assertEquals(testUser.getClass(), user.getClass());
-	}
 
 	@Test
 	@WithMockUser("CTS0104")
@@ -110,35 +88,26 @@ public class UserStoryServiceTest {
 		requestMap.put("emp_username", empCode);
 		requestMap.put("role_code", empCode);
 		requestMap.put("role_name", empCode);
-		Map<String, String> user=userService.insert(requestMap);
+		//Map<String, String> user=userService.insert(requestMap);
 		Map<String, String> testUser = new HashMap<>();
-		assertEquals(testUser.getClass(), user.getClass());
+		//assertEquals(testUser.getClass(), user.getClass());
 	}
 
 	@Test
 	public void testGetById() {
 		UUID id=UUID.fromString("3ee927d1-6bb0-44ca-acc1-061f8d84e91b");
-		User allUserList= userService.getById(id);
-		assertNotNull(allUserList);
-		System.out.println(":::::"+allUserList.getId());
-		assertEquals(allUserList.getId().toString(), "3ee927d1-6bb0-44ca-acc1-061f8d84e91b");
+		UserStory allUserStoryList= userStoryService.getById(id);
+		assertNotNull(allUserStoryList);
+		System.out.println(":::::"+allUserStoryList.getId());
+		assertEquals(allUserStoryList.getId().toString(), "3ee927d1-6bb0-44ca-acc1-061f8d84e91b");
 	}
 	
 	@Test
-	public void testGetById_ReturnsUser(){
+	public void testGetById_ReturnUserStory(){
 		UUID id=UUID.fromString("3ee927d1-6bb0-44ca-acc1-061f8d84e91b");
-		User user= userService.getById(id);
-		assertEquals(new User().getClass(), user.getClass());
+		UserStory userStory= userStoryService.getById(id);
+		assertEquals(new UserStory().getClass(), userStory.getClass());
 	}
 
-	@Test
-	public void testDelete() {
-		assertTrue(true);
-	}
-
-	@Test
-	public void testUpdateTasklist() {
-		assertTrue(true);
-	}
-
+	
 }

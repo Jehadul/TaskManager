@@ -21,6 +21,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.ctrends.taskmanager.dao.user.IUserDAO;
 import com.ctrends.taskmanager.model.tman.Tasks;
 import com.ctrends.taskmanager.model.user.User;
+import com.ctrends.taskmanager.model.userstory.UserStory;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/spring-database.xml", 
@@ -29,13 +30,10 @@ import com.ctrends.taskmanager.model.user.User;
 public class UserStoryDAOTest {
 	
 	@Autowired
-	IUserDAO userDAO;
+	IUserStoryDAO userStoryDAO;
 	
 	UUID id=UUID.fromString("3ee927d1-6bb0-44ca-acc1-061f8d84e91b");
-	String empCode 	= "CTS0001";
-	String empName 	= "Mamunur Rahman";
-	String userName = "CTS0104";
-	String currentUserName = "Mamunur Rahman";
+	
 	
 	MockHttpServletRequest request;
 	
@@ -44,83 +42,29 @@ public class UserStoryDAOTest {
 
 	@Test
 	public void testGetAllDoc_ReturnList() {
-		List<User> allUserList=userDAO.getAllDoc();
-		assertNotNull(allUserList);
+		List<UserStory> allUserStoryList=userStoryDAO.getAllDoc();
+		assertNotNull(allUserStoryList);
 		//assertEquals(10, allUserList.size());
 	}
 
 	@Test
-	public void testGetDocById_ReturnUser() {
+	public void testGetDocById_ReturnUserStory() {
 		UUID id=UUID.fromString("3ee927d1-6bb0-44ca-acc1-061f8d84e91b");
-		User allUserList= userDAO.getDocById(id);
-		assertNotNull(allUserList);
-		System.out.println(":::::"+allUserList.getId());
-		assertEquals("3ee927d1-6bb0-44ca-acc1-061f8d84e91b", allUserList.getId().toString());
+		UserStory allUserStoryList= userStoryDAO.getDocById(id);
+		assertNotNull(allUserStoryList);
+		
+		assertEquals("3ee927d1-6bb0-44ca-acc1-061f8d84e91b", allUserStoryList.getId().toString());
 		
 	}
 
-	@Test
-	public void testGetDocs_ReturnList() {
-		Map<String, String> data = new HashMap<String, String>();
-		data.get(empCode);
-		data.get(empName);
-		List<User> userList = userDAO.getDocs(data);
-		assertNotNull(userList);
-	}
-
-	@Test
-	public void testInsertDoc_ReturnUUID(){
-		User doc=new User();
-		UUID actualId = userDAO.insertDoc(doc); 
-		assertEquals(id.getClass(), actualId.getClass());
-	}
 	
 	@Test
 	public void testUpdateDoc_ReturnUUID(){
-		User doc=new User();
-		UUID actualId = userDAO.updateDoc(doc); 
+		UserStory doc=new UserStory();
+		UUID actualId = userStoryDAO.updateDoc(doc); 
 		assertEquals(id.getClass(), actualId.getClass());
 	}
 	
-	@Test
-	@WithMockUser("CTS0104")
-	public void testGetCurrentUserName_ReturnString(){
-		String currentUser = userDAO.getCurrentUserName();
-		assertNotNull(currentUser);
-		assertEquals(userName, currentUser);
-	}
-	
-	
-	@Test
-	@WithMockUser("CTS0104")
-	public void testGetCurrentUser_ReturnUser(){
-		User user = userDAO.getCurrentUser();
-		assertNotNull(user);
-		assertEquals("3ee927d1-6bb0-44ca-acc1-061f8d84e91b", user.getId().toString());
-		assertEquals(userName, user.getUsername());
-	}
-
-/*	@Test
-	public void testGetCurrentUser() {
-		fail("Not yet implemented");
-	}*/
-
-	
-	@Test
-	public void testGetByUsername_ReturnUser() {
-		  User userDetails = userDAO.getByUsername(userName);
-		  System.out.println("::"+userDetails.getUsername());
-		  System.out.println("::"+userName);
-		  assertEquals(userName, userDetails.getUsername());
-		  assertEquals(new User().getClass(), userDetails.getClass());
-	}
-
-	@Test
-	public void testGetByUserName_ReturnUser() {
-		  User userDetails = userDAO.getByUsername(userName);
-		  assertEquals(userName, userDetails.getUsername());
-		  assertEquals(new User().getClass(), userDetails.getClass());
-	}
 	
 
 }
