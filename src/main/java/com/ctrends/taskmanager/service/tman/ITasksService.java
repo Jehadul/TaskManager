@@ -17,4 +17,6 @@ public interface ITasksService extends ICommonService<Tasks>{
 
 	public List<Tasks> getAllByCurrentUser();
 
+	public List<Tasks> getCurrentTaskByCurrentUser();
+
 }
