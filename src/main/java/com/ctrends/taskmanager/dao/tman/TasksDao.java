@@ -17,12 +17,17 @@ import com.ctrends.taskmanager.model.taskmanage.PrivGroup;
 import com.ctrends.taskmanager.model.taskmanage.Suite;
 import com.ctrends.taskmanager.model.tman.TaskLog;
 import com.ctrends.taskmanager.model.tman.Tasks;
+import com.ctrends.taskmanager.model.user.User;
+import com.ctrends.taskmanager.service.user.IUserService;
 
 @Repository("tasksDao")
 public class TasksDao implements ITasksDao {
 
 	@Autowired
 	private SessionFactory sessionfactory;
+	
+	@Autowired
+	IUserService userService;
 	
 	@Transactional
 	@Override
@@ -151,6 +156,16 @@ public class TasksDao implements ITasksDao {
 		sessionfactory.getCurrentSession().saveOrUpdate(doc);
 		sessionfactory.getCurrentSession().flush();
 		return doc.getId();
+	}
+
+	@Override
+	@Transactional
+	public List<Tasks> getDocsByCurrentUser() {
+		User currentUser = userService.getCurrentUser();
+		Query query=sessionfactory.getCurrentSession().createQuery("From Tasks where createdByUsername =:userName");
+		query.setParameter("userName", currentUser.getUsername());
+		List<Tasks> tasksLi=query.list();
+		return tasksLi;
 	}
 	
 

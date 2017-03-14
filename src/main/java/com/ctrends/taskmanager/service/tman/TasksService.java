@@ -53,7 +53,6 @@ public class TasksService implements ITasksService {
 		tasks.setCompanyName(currentUser.getCompanyName());
 		tasks.setCreatedByCode(currentUser.getCreatedByCode());
 		tasks.setCreatedByName(currentUser.getCreatedByName());
-		tasks.setCreatedByUsername(currentUser.getCreatedByUsername());
 		tasks.setCreatedByCode(currentUser.getEmpCode());
 		tasks.setCreatedByName(currentUser.getEmpName());
 		tasks.setCreatedByUsername(currentUser.getUsername());
@@ -209,6 +208,10 @@ public class TasksService implements ITasksService {
 		List<Tasks> searchResult = tasksDao.getDocs(params);
 		//System.out.println("............."+searchResult+"zihad");
 		return searchResult;
+	}
+	@Override
+	public List<Tasks> getAllByCurrentUser() {
+		return tasksDao.getDocsByCurrentUser();
 	}
 	
 	
