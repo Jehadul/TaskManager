@@ -68,8 +68,8 @@ public class UserStoryService implements IUserStoryService {
 
 	@Override
 	public List<UserStory> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		 List<UserStory> userStoryLi=userStoryDAO.getAllDoc();
+		return userStoryLi;
 	}
 
 	@Override
@@ -151,8 +151,8 @@ public class UserStoryService implements IUserStoryService {
 
 	@Override
 	public UUID delete(Map<String, String[]> requestMap) {
-		// TODO Auto-generated method stub
-		return null;
+		UUID id = userStoryDAO.deleteDoc(UUID.fromString(requestMap.get("id")[0]));
+		return id;
 	}
 
 }

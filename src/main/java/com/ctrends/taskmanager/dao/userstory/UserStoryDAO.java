@@ -9,11 +9,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import com.ctrends.taskmanager.model.taskmanage.Module;
-import com.ctrends.taskmanager.model.taskmanage.PrivGroup;
-import com.ctrends.taskmanager.model.taskmanage.Privilege;
-import com.ctrends.taskmanager.model.taskmanage.Suite;
-import com.ctrends.taskmanager.model.tman.Tasks;
+
 import com.ctrends.taskmanager.model.userstory.UserStory;
 
 @Repository("userStoryDao")
@@ -71,10 +67,14 @@ public class UserStoryDAO implements IUserStoryDAO {
 		return doc.getId();
 	}
 
+	@Transactional
 	@Override
 	public UUID deleteDoc(UUID id) {
-		// TODO Auto-generated method stub
-		return null;
+		UserStory app =	(UserStory)sessionFactory.getCurrentSession()
+				.load(UserStory.class, id);
+		sessionFactory.getCurrentSession().delete(app);
+		sessionFactory.getCurrentSession().flush();
+		return id;
 	}
 	
 
