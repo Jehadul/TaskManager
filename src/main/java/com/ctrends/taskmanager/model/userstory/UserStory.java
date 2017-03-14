@@ -26,6 +26,9 @@ public class UserStory {
 	@Column(name="user_story_title")
 	private String userStoryTitle;
 	
+	@Column(name="description")
+	private String description;
+	
 	@Column(name="acceptance_criteria")
 	private String acceptanceCriteria;
 	
@@ -230,6 +233,14 @@ public class UserStory {
 
 	public void setUserStoryTitle(String userStoryTitle) {
 		this.userStoryTitle = userStoryTitle;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public String getAcceptanceCriteria() {
