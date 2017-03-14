@@ -45,10 +45,12 @@ public class UserStoryDAO implements IUserStoryDAO {
 		return null;
 	}
 
+	@Transactional
 	@Override
 	public UUID insertDoc(UserStory doc) {
-		// TODO Auto-generated method stub
-		return null;
+		UUID id = (UUID) sessionFactory.getCurrentSession().save(doc);
+		sessionFactory.getCurrentSession().flush();
+		return id;
 	}
 	
 	@Transactional
