@@ -53,6 +53,7 @@
 									<td><cts:TextBox name="user_story_code" value="${story.getUserStoryCode()}" cssClass="view"/></td>
 									<td><cts:TextBox name="user_story_title" value="${story.getUserStoryTitle()}" cssClass="view"/></td>
 									<td><cts:TextBox name="priority" value="${story.getPriority()}" cssClass="view"/></td>
+									<td><cts:Hidden name="priority_code" value="${story.getPriorityCode()}" cssClass="view"/></td>
 									<td><cts:TextBox name="story_order" value="${story.getStoryOrder()}" cssClass="view"/></td>
 									<td><cts:Hidden name="size" value="${story.getSize()}" cssClass="view"/></td>
 									<td><cts:Hidden name="acceptance_criteria" value="${story.getAcceptanceCriteria()}" cssClass="view"/></td>
@@ -60,6 +61,9 @@
 									<td>
 									<button type="button" onclick="delRow(this);" class="btn-del btn btn-xs">
 											<span class="fa fa-trash"></span>
+									</button>
+									<button type="button" class="btn-edit btn btn-xs">
+											<span class="fa fa-edit"></span>
 									</button>
 									</td>
 								</tr>
@@ -92,4 +96,13 @@
 			$(".delete_form").submit();
 		});
 	};
+	
+	$('.btn-edit').on("click",function(){/* console.log($(".task_id").val()) */
+		 var currentRow = $(this).closest("tr");
+		 currentRow.addClass("current-row");
+		 
+		 var taskId = currentRow.find(".story_id").val();
+		 
+		LoadMainContent('/taskman/userstory/story/edit/' + taskId);			
+	});
 </script>
