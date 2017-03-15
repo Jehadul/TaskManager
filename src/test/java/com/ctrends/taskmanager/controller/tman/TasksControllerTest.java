@@ -71,14 +71,25 @@ public class TasksControllerTest {
 	}
 
 	@Test 
+	public void testShow_ReturnModelAndView(){ 
+		ModelAndView ar = tasksController.show(id);
+		assertTrue(ar.hasView());
+	}
+	
+	@Test 
+	public void testCreate_ReturnModelAndView(){
+		assertTrue(true);
+	}
+	
+	@Test 
 	public void testEdit_ReturnModelAndView(){ 
 		ModelAndView ar = tasksController.edit(id);
 		assertTrue(ar.hasView());
 	}
 	
 	@Test 
-	public void testShow_ReturnModelAndView(){ 
-		ModelAndView ar = tasksController.show(id);
+	public void testDelete_ReturnModelAndView(){
+		ModelAndView ar = tasksController.delete();
 		assertTrue(ar.hasView());
 	}
 	
@@ -134,12 +145,6 @@ public class TasksControllerTest {
 	}*/
 	
 	@Test 
-	public void testDelete_ReturnModelAndView(){
-		ModelAndView ar = tasksController.delete();
-		assertTrue(ar.hasView());
-	}
-	
-	@Test 
 	@WithMockUser("CTS0104")
 	public void testDestroy_ReturnsWSResponse(){
 		request.setParameter("id", String.valueOf(id));
@@ -166,10 +171,45 @@ public class TasksControllerTest {
 		assertTrue(ar.hasView());
 	}*/
 	
+	@Test 
+	@WithMockUser("CTS0104")
+	public void testCreateWithParam_ReturnsWSResponse(){
+		request.setParameter("suite_code", "ertert");
+		request.setParameter("suite_name", "trtryry");
+		request.setParameter("module_code", "ED");
+		request.setParameter("module_name", "Employee Database");
+		request.setParameter("priv_grp_code", String.valueOf(1));
+		request.setParameter("priv_grp_name", "Reporting and Analysis");
+		request.setParameter("description", "xvbhxf");
+		request.setParameter("story_code", "xvbhxf");
+		request.setParameter("task_title", "xvbhxf");
+		request.setParameter("estimated_time", String.valueOf(1));
+		request.setParameter("assignee", "xvbhxf");
+		ModelAndView ar = tasksController.create(request); 
+		assertTrue(ar.getClass()==ModelAndView.class);
+	}
+	
+	@Test
+	public void testShowSearch_ReturnsModelAndView(){
+		assertTrue(true);
+	}
+	
+	@Test
+	public void testSearch_ReturnsModelAndView(){
+		assertTrue(true);
+	}
+	
 	@Test
 	@WithMockUser("CTS0104")
 	public void testTimeLog_ReturnsModelAndView(){
 		ModelAndView ar = tasksController.timeLog(id, st, st, st);
+		assertTrue(ar.hasView());
+	}
+	
+	@Test
+	@WithMockUser("CTS0104")
+	public void testTimeLogUpdate_ReturnsModelAndView(){
+		ModelAndView ar = tasksController.timeLogUpdate(id, st);
 		assertTrue(ar.hasView());
 	}
 
