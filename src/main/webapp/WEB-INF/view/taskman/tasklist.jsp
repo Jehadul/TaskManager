@@ -102,7 +102,7 @@
 					function() {
 						html = ' <button type="button" class="btn-edit btn btn-xs" id="start-timer">'
 								+ '<div id="show-timer" >00:00:00s</div></button>'
-								+ '<button type="button" onclick="stopTimertest(this);" class="btn-edit btn btn-xs" id="stop-timer">'
+								+ '<button type="button" onclick="stopTimertest(this);" class="btn-del btn btn-xs" id="stop-timer">'
 								+ '<span class="fa fa-stop"></span></button>';
 						stop = setTimeout("showTime()", 1000);
 						$(el).before(html);

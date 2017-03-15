@@ -26,15 +26,15 @@ public class TasksService implements ITasksService {
 
 	@Autowired
 	ITasksDao tasksDao;
-	
+
 	@Autowired
 	IUserService userService;
-	
+
 	@Override
 	public Map<String, String> insert(Map<String, String[]> requestMap) {
-		Map<String, String> data = new HashMap<String,String>();
-		
-		Tasks tasks=new Tasks();
+		Map<String, String> data = new HashMap<String, String>();
+
+		Tasks tasks = new Tasks();
 		User currentUser = userService.getCurrentUser();
 		tasks.setSuiteCode(requestMap.get("suite_code")[0]);
 		tasks.setSuiteName(requestMap.get("suite_name")[0]);
@@ -44,11 +44,11 @@ public class TasksService implements ITasksService {
 		tasks.setPrivGrpName(requestMap.get("priv_grp_name")[0]);
 		tasks.setDescription(requestMap.get("description")[0]);
 		tasks.setStoryCode(requestMap.get("story_code")[0]);
-	    
+
 		tasks.setTaskTitle(requestMap.get("task_title")[0]);
 		tasks.setEstimatedTime(Double.parseDouble(requestMap.get("estimated_time")[0]));
 		tasks.setAsignee(requestMap.get("assignee")[0]);
-		
+
 		tasks.setClientCode(currentUser.getClientCode());
 		tasks.setClientName(currentUser.getClientName());
 		tasks.setCompanyCode(currentUser.getCompanyCode());
@@ -62,11 +62,12 @@ public class TasksService implements ITasksService {
 		tasks.setCreatedByCompanyCode(currentUser.getCompanyCode());
 		tasks.setCreatedByCompanyName(currentUser.getCompanyName());
 		tasks.setCreatedAt(new Timestamp(System.currentTimeMillis()));
-		
+
 		UUID id = tasksDao.insertDoc(tasks);
 		data.put("id", id.toString());
-		return data ;
+		return data;
 	}
+
 	@Override
 	public Map<String, String> insertTaskLog(Map<String, String> requestMap) {
 		Map<String, String> data = new HashMap<String, String>();
@@ -107,10 +108,9 @@ public class TasksService implements ITasksService {
 		return data;
 	}
 
-
 	@Override
 	public List<Tasks> getAll() {
-		List<Tasks> taskLi=tasksDao.getAllDoc();
+		List<Tasks> taskLi = tasksDao.getAllDoc();
 		return taskLi;
 	}
 
@@ -119,71 +119,69 @@ public class TasksService implements ITasksService {
 		return tasksDao.getDocById(id);
 	}
 
-	
 	@Override
 	public Map<String, String> update(Map<String, String[]> requestMap) {
 		Map<String, String> data = new HashMap<String, String>();
 		User currentUser = userService.getCurrentUser();
-		//System.out.println(":::::"+requestMap.get("id")[0]);
+		// System.out.println(":::::"+requestMap.get("id")[0]);
 		Tasks tasks = tasksDao.getDocById(UUID.fromString(requestMap.get("id")[0]));
-		
+
 		tasks.setSuiteCode(requestMap.get("suite_code")[0]);
 		tasks.setSuiteName(requestMap.get("suite_name")[0]);
 		tasks.setModuleCode(requestMap.get("module_code")[0]);
 		tasks.setModuleName(requestMap.get("module_name")[0]);
 		tasks.setPrivGrpCode(Integer.parseInt(requestMap.get("priv_grp_code")[0]));
-		tasks.setPrivGrpName(requestMap.get("priv_grp_name")[0]);	
+		tasks.setPrivGrpName(requestMap.get("priv_grp_name")[0]);
 		tasks.setDescription(requestMap.get("description")[0]);
 		tasks.setStoryCode(requestMap.get("story_code")[0]);
-	    
+
 		tasks.setTaskTitle(requestMap.get("task_title")[0]);
 		tasks.setEstimatedTime(Double.parseDouble(requestMap.get("estimated_time")[0]));
-		tasks.setAsignee(requestMap.get("assignee")[0]);	
-		
-		
+		tasks.setAsignee(requestMap.get("assignee")[0]);
+
 		tasks.setClientCode(currentUser.getClientCode());
 		tasks.setClientName(currentUser.getClientName());
 		tasks.setCompanyCode(currentUser.getCompanyCode());
 		tasks.setCompanyName(currentUser.getCompanyName());
-		tasks.setUpdatedByCode(currentUser.getEmpCode());            
+		tasks.setUpdatedByCode(currentUser.getEmpCode());
 		tasks.setUpdatedByName(currentUser.getEmpName());
 		tasks.setUpdatedByUsername(currentUser.getUsername());
 		tasks.setUpdatedByEmail(currentUser.getEmail());
 		tasks.setUpdatedByCompanyCode(currentUser.getCompanyCode());
 		tasks.setUpdatedByCompanyName(currentUser.getCompanyName());
 		tasks.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
-		
+
 		tasks.setUpdatedByCode(currentUser.getUpdatedByCode());
 		tasks.setUpdatedByName(currentUser.getUpdatedByName());
 		tasks.setUpdatedByCompanyCode(currentUser.getCompanyCode());
 		tasks.setUpdatedByCompanyName(currentUser.getCompanyName());
 		tasks.setUpdatedByEmail(currentUser.getEmail());
 		tasks.setUpdatedByUsername(currentUser.getUsername());
-		
+
 		tasks.setClientCode(currentUser.getClientCode());
 		tasks.setClientName(currentUser.getClientName());
 		tasks.setCompanyCode(currentUser.getCompanyCode());
 		tasks.setCompanyName(currentUser.getCompanyName());
-		tasks.setUpdatedByCode(currentUser.getEmpCode());            
+		tasks.setUpdatedByCode(currentUser.getEmpCode());
 		tasks.setUpdatedByName(currentUser.getEmpName());
 		tasks.setUpdatedByUsername(currentUser.getUsername());
 		tasks.setUpdatedByEmail(currentUser.getEmail());
 		tasks.setUpdatedByCompanyCode(currentUser.getCompanyCode());
 		tasks.setUpdatedByCompanyName(currentUser.getCompanyName());
 		tasks.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
-		
+
 		tasks.setUpdatedByCode(currentUser.getUpdatedByCode());
 		tasks.setUpdatedByName(currentUser.getUpdatedByName());
 		tasks.setUpdatedByCompanyCode(currentUser.getCompanyCode());
 		tasks.setUpdatedByCompanyName(currentUser.getCompanyName());
 		tasks.setUpdatedByEmail(currentUser.getEmail());
 		tasks.setUpdatedByUsername(currentUser.getUsername());
-		
+
 		UUID id = tasksDao.updateDoc(tasks);
 		data.put("id", id.toString());
 		return data;
 	}
-	
+
 	@Override
 	public Map<String, String> updateTimeLog(Map<String, String> requestMap) {
 		Map<String, String> data = new HashMap<String, String>();
@@ -200,33 +198,28 @@ public class TasksService implements ITasksService {
 			Date d1 = sdf.parse(time);
 			Date d2 = sdf.parse(time2);
 
-			if (d1.after(d2)) {
-				long diffMs = d1.getTime() - d2.getTime();
-				long diffSec = diffMs / 1000;
-				long min = diffSec / 60;
-				long sec = diffSec % 60;
-				double ddl;
-				String hh = (min > 60) ? String.valueOf(min / 60) : "0." + min;
-				double estTime = tasks.getEstimatedTime();
-				double remTime = estTime-Double.parseDouble(hh);
-				tasks.setRemainingTime(remTime);
-				tasks.setSpentTime(tasks.getSpentTime()+Double.parseDouble(hh));
+			if (d2.after(d1)) {
+				long diffMs = d2.getTime() - d1.getTime();
+				double spentHours = diffMs / 1000.0 / 60.0 / 60.0;
+				double remainingTime = Math.round(tasks.getEstimatedTime()-(tasks.getSpentTime() + spentHours));
+				tasks.setRemainingTime(remainingTime);
+				String s = String.valueOf((tasks.getSpentTime()+spentHours));
+				double sepentTime =Double.parseDouble( s.substring(0,3));
+				tasks.setSpentTime(sepentTime);
 				UUID idTask = tasksDao.updateSpantTimeDoc(tasks);
 				if (idTask != null) {
 					UUID id = tasksDao.updateTaskLogDoc(taskLog);
 					data.put("id", id.toString());
 				}
 			}
-			if (d1.before(d2)) {
+			if (d2.before(d1)) {
 				long diffMs = d2.getTime() - d1.getTime();
-				long diffSec = diffMs / 1000;
-				long min = diffSec / 60;
-				long sec = diffSec % 60;
-				String hh = (min > 60) ? String.valueOf(min / 60) : "0." + min;
-				double estTime = tasks.getEstimatedTime();
-				double remTime = estTime-Double.parseDouble(hh);
-				tasks.setRemainingTime(remTime);
-				tasks.setSpentTime(tasks.getSpentTime()+Double.parseDouble(hh));
+				double spentHours = diffMs / 1000.0 / 60.0 / 60.0;
+				double remainingTime = Math.round(tasks.getEstimatedTime()-(tasks.getSpentTime() + spentHours));
+				tasks.setRemainingTime(remainingTime);
+				String s = String.valueOf((tasks.getSpentTime()+spentHours));
+				double sepentTime =Double.parseDouble( s.substring(0, 5));
+				tasks.setSpentTime(sepentTime);
 				UUID idTask = tasksDao.updateSpantTimeDoc(tasks);
 				if (idTask != null) {
 					UUID id = tasksDao.updateTaskLogDoc(taskLog);
@@ -234,7 +227,7 @@ public class TasksService implements ITasksService {
 				}
 			}
 			if (d1.equals(d2)) {
-				
+
 			}
 
 		} catch (Exception e) {
@@ -253,18 +246,18 @@ public class TasksService implements ITasksService {
 	@Override
 	public List<Tasks> find(Map<String, String> params) {
 		List<Tasks> searchResult = tasksDao.getDocs(params);
-		//System.out.println("............."+searchResult+"zihad");
+		// System.out.println("............."+searchResult+"zihad");
 		return searchResult;
 	}
+
 	@Override
 	public List<Tasks> getAllByCurrentUser() {
 		return tasksDao.getDocsByCurrentUser();
 	}
+
 	@Override
 	public List<Tasks> getCurrentTaskByCurrentUser() {
 		return tasksDao.getCurrentTaskByCurrentUser();
 	}
-	
-	
 
 }

@@ -1,8 +1,10 @@
 package com.ctrends.taskmanager.service.userstory;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -17,13 +19,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.ctrends.taskmanager.controller.userstory.UserStoryController;
-import com.ctrends.taskmanager.dao.tman.ITasksDao;
-import com.ctrends.taskmanager.dao.user.IUserDAO;
 import com.ctrends.taskmanager.dao.userstory.IUserStoryDAO;
-import com.ctrends.taskmanager.model.user.User;
 import com.ctrends.taskmanager.model.userstory.UserStory;
-import com.ctrends.taskmanager.service.tman.ITasksService;
-import com.ctrends.taskmanager.service.user.IUserService;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -52,24 +49,19 @@ public class UserStoryServiceTest {
 	
 	MockHttpServletRequest request;
 
+
+	
 	
 	String userName = "CTS0104";
-	
 	String[] empCode = {"abc"};
 	String[] privGrpCode={String.valueOf("1")};
 	
-	UUID id=UUID.fromString("0aad717d-e0f7-44c8-ab72-2f9a6b1b57f3");
 	
 	public UserStoryServiceTest() {
 		request = new MockHttpServletRequest();
 	}
 	
 	
-	@Test
-	public void testGetAll() {
-		assertTrue(true);
-	}
-
 	@Test
 	@WithMockUser("CTS0104")
 	public void testInsert_ReturnsMap(){
@@ -91,6 +83,21 @@ public class UserStoryServiceTest {
 		Map<String, String> user=userStoryService.insert(requestMap);
 		Map<String, String> testUser = new HashMap<>();
 		assertEquals(testUser.getClass(), user.getClass());
+	}
+	
+	@Test
+	public void testGetAll_ReturnsList() {
+		List<UserStory> allUserStoryList=userStoryDAO.getAllDoc();
+		assertNotNull(allUserStoryList);
+	}
+	
+	@Test
+	public void testGetById() {
+		UUID id=UUID.fromString("6190bdec-062f-4c43-8c96-f530bcdcd110");
+		UserStory allUserStoryList= userStoryService.getById(id);
+		assertNotNull(allUserStoryList);
+		System.out.println(":::::"+allUserStoryList.getId());
+		assertEquals(allUserStoryList.getId().toString(), "6190bdec-062f-4c43-8c96-f530bcdcd110");
 	}
 
 	@Test
@@ -115,22 +122,41 @@ public class UserStoryServiceTest {
 		Map<String, String> testUser = new HashMap<>();
 		//assertEquals(testUser.getClass(), user.getClass());
 	}
-
+	
 	@Test
-	public void testGetById() {
-		UUID id=UUID.fromString("1e1b39e2-406b-4338-a360-3c1bae2d3f1e");
-		UserStory allUserStoryList= userStoryService.getById(id);
-		assertNotNull(allUserStoryList);
-		System.out.println(":::::"+allUserStoryList.getId());
-		assertEquals(allUserStoryList.getId().toString(), "1e1b39e2-406b-4338-a360-3c1bae2d3f1e");
+	public void testDelete_ReturnsUUID(){
+		Map<String, String[]> requestMap=new HashMap<String, String[]>();
+		UUID id=UUID.fromString("6190bdec-062f-4c43-8c96-f530bcdcd110");
+		String[] idArray={String.valueOf(id)};
+		requestMap.put("id", idArray);
+		requestMap.put("suite_code", empCode);
+		requestMap.put("suite_name", empCode);
+		requestMap.put("module_code", empCode);
+		requestMap.put("module_name", empCode);
+		requestMap.put("priv_grp_code", privGrpCode);
+		requestMap.put("priv_grp_name", empCode);
+		requestMap.put("description", empCode);
+		requestMap.put("acceptance_criteria", empCode);
+		requestMap.put("business_value", empCode);
+		requestMap.put("user_story_code", empCode);
+		requestMap.put("user_story_title", empCode);
+		requestMap.put("size", privGrpCode);
+		requestMap.put("priority", empCode);
+		requestMap.put("story_order", empCode);
+		UUID uid= userStoryService.delete(requestMap);
+		assertEquals(id.getClass(), uid.getClass());
 	}
+
+	
 	
 	@Test
 	public void testGetById_ReturnUserStory(){
-		UUID id=UUID.fromString("1e1b39e2-406b-4338-a360-3c1bae2d3f1e");
+		UUID id=UUID.fromString("6190bdec-062f-4c43-8c96-f530bcdcd110");
 		UserStory userStory= userStoryService.getById(id);
 		assertEquals(new UserStory().getClass(), userStory.getClass());
 	}
+	
+	
 
 	
 }
