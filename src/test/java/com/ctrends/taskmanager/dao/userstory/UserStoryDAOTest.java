@@ -33,7 +33,7 @@ public class UserStoryDAOTest {
 	@Autowired
 	IUserStoryDAO userStoryDAO;
 	
-	UUID id=UUID.fromString("3ee927d1-6bb0-44ca-acc1-061f8d84e91b");
+	UUID id=UUID.fromString("b5924973-3ad7-489d-9eeb-b41816ef9a05");
 	
 	
 	MockHttpServletRequest request;
@@ -50,11 +50,11 @@ public class UserStoryDAOTest {
 
 	@Test
 	public void testGetDocById_ReturnUserStory() {
-		UUID id=UUID.fromString("55a539d6-29b4-44a2-81ad-180ed313fc63");
+		UUID id=UUID.fromString("b5924973-3ad7-489d-9eeb-b41816ef9a05");
 		UserStory allUserStoryList= userStoryDAO.getDocById(id);
 		assertNotNull(allUserStoryList);
 		
-		assertEquals("55a539d6-29b4-44a2-81ad-180ed313fc63", allUserStoryList.getId().toString());
+		assertEquals("b5924973-3ad7-489d-9eeb-b41816ef9a05", allUserStoryList.getId().toString());
 		
 	}
 	
