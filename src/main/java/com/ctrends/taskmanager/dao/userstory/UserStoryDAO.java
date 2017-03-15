@@ -21,7 +21,7 @@ public class UserStoryDAO implements IUserStoryDAO {
 	@Transactional
 	@Override
 	public List<UserStory> getAllDoc() {
-		Query query=sessionFactory.getCurrentSession().createQuery("From UserStory");
+		Query query=sessionFactory.getCurrentSession().createQuery("From UserStory Order By priorityCode");
 		List<UserStory> userStoryLi=query.list();
 		return userStoryLi;
 	}
