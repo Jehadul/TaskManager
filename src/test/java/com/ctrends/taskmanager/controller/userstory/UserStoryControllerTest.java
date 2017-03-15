@@ -52,7 +52,7 @@ public class UserStoryControllerTest {
 	@Mock
 	private IUserStoryService userStoryService;
 	
-	UUID id=UUID.fromString("61f92133-1168-489f-9028-db60b4b12f4f");
+	UUID id=UUID.fromString("51930121-4369-4243-b85a-ebed3a045133");
 	
 	MockHttpServletRequest request;
 
@@ -92,6 +92,7 @@ public class UserStoryControllerTest {
 		request.setParameter("user_story_title", "xvbhxf");
 		request.setParameter("size", String.valueOf(1));
 		request.setParameter("priority", "xvbhxf");
+		request.setParameter("priority_code", String.valueOf(1));
 		request.setParameter("story_order", "xvbhxf");
 		WSResponse ar = userStoryController.store(request);
 		assertTrue(ar.getClass()==WSResponse.class);
@@ -132,6 +133,7 @@ public class UserStoryControllerTest {
 		request.setParameter("user_story_title", "xvbhxf");
 		request.setParameter("size", String.valueOf(1));
 		request.setParameter("priority", "xvbhxf");
+		request.setParameter("priority_code", String.valueOf(1));
 		request.setParameter("story_order", "xvbhxf");
 		WSResponse ar = userStoryController.update(request);
 		assertTrue(ar.getClass()==WSResponse.class);
@@ -153,9 +155,13 @@ public class UserStoryControllerTest {
 		request.setParameter("priv_grp_code", String.valueOf(1));
 		request.setParameter("priv_grp_name", "Reporting and Analysis");
 		request.setParameter("description", "xvbhxf");
-		request.setParameter("story_code", "xvbhxf");
-		request.setParameter("task_title", "xvbhxf");
+		request.setParameter("acceptance_criteria", "xvbhxf");
+		request.setParameter("business_value", "xvbhxf");
+		request.setParameter("user_story_code", "xvbhxf");
+		request.setParameter("user_story_title", "xvbhxf");
+		request.setParameter("size", String.valueOf(1));
 		request.setParameter("priority", "xvbhxf");
+		request.setParameter("priority_code", String.valueOf(1));
 		request.setParameter("story_order", "xvbhxf");
 		WSResponse ar = userStoryController.destroy(request); 
 		assertTrue(ar.getClass()==WSResponse.class);
