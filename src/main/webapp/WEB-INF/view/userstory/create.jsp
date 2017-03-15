@@ -56,8 +56,9 @@
 					</div>
 					<div class="col-md-6">
 						<div class="form-group">
-							<cts:Label labelFor="priority" name="Priority"/>
-							<cts:Select list="${data.priorities}"  name="priority" value="${data.priority }" cssClass="required"/>
+							<cts:Label labelFor="priority_code" name="Priority"/>
+							<cts:Select list="${data.priorities}"  name="priority_code" value="${data.priority }" cssClass="required"/>
+							<cts:Hidden name="priority" value=""/>
 						</div>
 						<div class="form-group">						
 							<cts:Label name="Story Order" labelFor="story_order"/>
@@ -122,7 +123,11 @@ InitHandlers();
 		var newModuleCode = $("#module_code").val();
 		var newPrivGroupCode = $("#priv_grp_code").val();
 		LoadMainContent("/taskman/userstory/story/create/?suite_code=" + newSuiteCode + "&" + "module_code=" + newModuleCode + "&" + "priv_grp_code=" + newPrivGroupCode);
-	}); 
+	});
+	
+	$("#priority_code").on("change", function(){
+		$("input[name='priority']").val($("#priority_code option:selected").text());
+	});
 	
 	function showMessage(data) {
 		if (data.outcome == 'success') {
