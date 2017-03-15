@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -49,14 +50,27 @@ public class UserStoryDAOTest {
 
 	@Test
 	public void testGetDocById_ReturnUserStory() {
-		UUID id=UUID.fromString("1e1b39e2-406b-4338-a360-3c1bae2d3f1e");
+		UUID id=UUID.fromString("55a539d6-29b4-44a2-81ad-180ed313fc63");
 		UserStory allUserStoryList= userStoryDAO.getDocById(id);
 		assertNotNull(allUserStoryList);
 		
-		assertEquals("1e1b39e2-406b-4338-a360-3c1bae2d3f1e", allUserStoryList.getId().toString());
+		assertEquals("55a539d6-29b4-44a2-81ad-180ed313fc63", allUserStoryList.getId().toString());
 		
 	}
+	
+	@Test
+	public void testGetDocs_ReturnsList(){
+		Map<String, String> params=new LinkedHashMap<>();
+		List<UserStory> tasksLi=userStoryDAO.getDocs(params);
+		assertNotNull(tasksLi);
+	}
 
+	@Test
+	public void testInsertDoc_ReturnsUUID(){
+		UserStory doc=new UserStory();
+		UUID actualId = userStoryDAO.insertDoc(doc); 
+		assertEquals(id.getClass(), actualId.getClass());
+	}
 	
 	@Test
 	public void testUpdateDoc_ReturnUUID(){
@@ -65,11 +79,11 @@ public class UserStoryDAOTest {
 		assertEquals(id.getClass(), actualId.getClass());
 	}
 	
+	
 	@Test
-	public void testInsertDoc_ReturnsUUID(){
-		UserStory doc=new UserStory();
-		UUID actualId = userStoryDAO.insertDoc(doc); 
-		assertEquals(id.getClass(), actualId.getClass());
+	public void testDeleteDoc_ReturnUUID(){
+		UUID inId = userStoryDAO.deleteDoc(id); 
+		assertEquals(id.getClass(), inId.getClass());
 	}
 	
 

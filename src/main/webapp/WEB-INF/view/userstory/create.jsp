@@ -41,7 +41,7 @@
 						</div>
 						<div class="form-group">
 							<cts:Label name="Story Code" labelFor="user_story_code"/>
-							<cts:TextBox name="user_story_code" cssClass="dirty-check required" readonly=""/>
+							<cts:TextBox name="user_story_code" cssClass="dirty-check required uppercase" readonly=""/>
 						</div>
 						<div class="form-group">						
 							<cts:Label name="Story Title" labelFor="user_story_title"/>
@@ -55,9 +55,9 @@
 						
 					</div>
 					<div class="col-md-6">
-						<div class="form-group">						
-							<cts:Label name="Priority" labelFor="priority"/>
-							<cts:TextBox name="priority" cssClass="dirty-check required" readonly=""/>
+						<div class="form-group">
+							<cts:Label labelFor="priority" name="Priority"/>
+							<cts:Select list="${data.priorities}"  name="priority" value="${data.priority }" cssClass="required"/>
 						</div>
 						<div class="form-group">						
 							<cts:Label name="Story Order" labelFor="story_order"/>
@@ -65,7 +65,7 @@
 						</div>
 						<div class="form-group">
 							<cts:Label name="Story Size" labelFor="size"/>
-							<cts:TextBox name="size" cssClass="dirty-check" readonly=""/>
+							<cts:TextBox name="size" cssClass="dirty-check number" readonly=""/>
 						</div>
 						<div class="form-group">
 								<cts:Label name="Acceptence Criteria" labelFor="acceptance_criteria"/>

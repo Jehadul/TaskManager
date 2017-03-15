@@ -116,7 +116,7 @@ public class TasksControllerTest {
 		assertTrue(ar.getClass()==WSResponse.class);
 	}
 	
-	@Test 
+/*	@Test 
 	public void testUpdateTasklist_ReturnWsResponse(){ 
 		request.setParameter("id", String.valueOf(id));
 		request.setParameter("task_title", "ertert");
@@ -128,7 +128,7 @@ public class TasksControllerTest {
 		
 		WSResponse ar = tasksController.updateTasklist(request);
 		assertTrue(ar.getClass()==WSResponse.class);
-	}
+	}*/
 	
 	@Test 
 	public void testDelete_ReturnModelAndView(){
@@ -156,11 +156,11 @@ public class TasksControllerTest {
 	
 	
 	
-	@Test
+	/*@Test
 	public void testEditTaskList_ReturnsModelAndView(){
 		ModelAndView ar = tasksController.editTasklist(id);
 		assertTrue(ar.hasView());
-	}
+	}*/
 	
 	@Test
 	public void testTimeLog_ReturnsModelAndView(){
