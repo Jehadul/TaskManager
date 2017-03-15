@@ -79,6 +79,7 @@ public class UserStoryServiceTest {
 		requestMap.put("user_story_title", empCode);
 		requestMap.put("size", privGrpCode);
 		requestMap.put("priority", empCode);
+		requestMap.put("priority_code", privGrpCode);
 		requestMap.put("story_order", empCode);
 		Map<String, String> user=userStoryService.insert(requestMap);
 		Map<String, String> testUser = new HashMap<>();
@@ -93,31 +94,35 @@ public class UserStoryServiceTest {
 	
 	@Test
 	public void testGetById() {
-		UUID id=UUID.fromString("6190bdec-062f-4c43-8c96-f530bcdcd110");
+		UUID id=UUID.fromString("b6955d8e-86ac-4dd0-bf98-b070c794178b");
 		UserStory allUserStoryList= userStoryService.getById(id);
 		assertNotNull(allUserStoryList);
 		System.out.println(":::::"+allUserStoryList.getId());
-		assertEquals(allUserStoryList.getId().toString(), "6190bdec-062f-4c43-8c96-f530bcdcd110");
+		assertEquals(allUserStoryList.getId().toString(), "b6955d8e-86ac-4dd0-bf98-b070c794178b");
 	}
 
 	@Test
 	@WithMockUser("CTS0104")
 	public void testUpdate_ReturnsMap() {
 		Map<String, String[]> requestMap=new HashMap<String, String[]>();
-		UUID id=UUID.fromString("3ee927d1-6bb0-44ca-acc1-061f8d84e91b");
+		UUID id=UUID.fromString("b6955d8e-86ac-4dd0-bf98-b070c794178b");
 		String[] idA={String.valueOf(id)};
 		requestMap.put("id", idA);
-		requestMap.put("emp_code", empCode);
-		requestMap.put("emp_name", empCode);
-		requestMap.put("emp_desig", empCode);
-		requestMap.put("emp_email", empCode);
-		requestMap.put("first_name", empCode);
-		requestMap.put("middle_name", empCode);
-		requestMap.put("last_name", empCode);
-		requestMap.put("user_status", empCode);
-		requestMap.put("emp_username", empCode);
-		requestMap.put("role_code", empCode);
-		requestMap.put("role_name", empCode);
+		requestMap.put("suite_code", empCode);
+		requestMap.put("suite_name", empCode);
+		requestMap.put("module_code", empCode);
+		requestMap.put("module_name", empCode);
+		requestMap.put("priv_grp_code", privGrpCode);
+		requestMap.put("priv_grp_name", empCode);
+		requestMap.put("description", empCode);
+		requestMap.put("acceptance_criteria", empCode);
+		requestMap.put("business_value", empCode);
+		requestMap.put("user_story_code", empCode);
+		requestMap.put("user_story_title", empCode);
+		requestMap.put("size", privGrpCode);
+		requestMap.put("priority", empCode);
+		requestMap.put("priority_code", privGrpCode);
+		requestMap.put("story_order", empCode);
 		//Map<String, String> user=userService.insert(requestMap);
 		Map<String, String> testUser = new HashMap<>();
 		//assertEquals(testUser.getClass(), user.getClass());
@@ -126,7 +131,7 @@ public class UserStoryServiceTest {
 	@Test
 	public void testDelete_ReturnsUUID(){
 		Map<String, String[]> requestMap=new HashMap<String, String[]>();
-		UUID id=UUID.fromString("6190bdec-062f-4c43-8c96-f530bcdcd110");
+		UUID id=UUID.fromString("b6955d8e-86ac-4dd0-bf98-b070c794178b");
 		String[] idArray={String.valueOf(id)};
 		requestMap.put("id", idArray);
 		requestMap.put("suite_code", empCode);
@@ -151,7 +156,7 @@ public class UserStoryServiceTest {
 	
 	@Test
 	public void testGetById_ReturnUserStory(){
-		UUID id=UUID.fromString("6190bdec-062f-4c43-8c96-f530bcdcd110");
+		UUID id=UUID.fromString("b6955d8e-86ac-4dd0-bf98-b070c794178b");
 		UserStory userStory= userStoryService.getById(id);
 		assertEquals(new UserStory().getClass(), userStory.getClass());
 	}
