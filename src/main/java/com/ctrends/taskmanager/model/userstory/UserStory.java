@@ -65,6 +65,9 @@ public class UserStory {
 	@Column(name="priority")
 	private String priority;
 	
+	@Column(name="priority_code")
+	private String priorityCode;
+	
 	@Column(name="story_order")
 	private String storyOrder;
 	
@@ -337,6 +340,14 @@ public class UserStory {
 
 	public void setPriority(String priority) {
 		this.priority = priority;
+	}
+	
+	public String getPriorityCode() {
+		return priorityCode;
+	}
+
+	public void setPriorityCode(String priorityCode) {
+		this.priorityCode = priorityCode;
 	}
 
 	public String getStoryOrder() {
