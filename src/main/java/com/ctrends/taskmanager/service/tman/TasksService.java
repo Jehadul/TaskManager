@@ -198,7 +198,8 @@ public class TasksService implements ITasksService {
 			Date d1 = sdf.parse(time);
 			Date d2 = sdf.parse(time2);
 
-			if (d2.after(d1)) {
+		    if(d1.after(d2)){
+		    	System.out.println(":::::::::::::::after::::::::::::::::");
 				long diff = d2.getTime() - d1.getTime();
 				long diffMinutes = diff / (60 * 1000) % 60;
 				long diffHours = diff / (60 * 60 * 1000) % 24;
@@ -211,7 +212,8 @@ public class TasksService implements ITasksService {
 					data.put("id", id.toString());
 				}
 			}
-			if (d2.before(d1)) {
+		    if(d1.before(d2)){
+		    	System.out.println(":::::::::::::::before::::::::::::::::");
 				long diff = d2.getTime() - d1.getTime();
 				long diffMinutes = diff / (60 * 1000) % 60;
 				long diffHours = diff / (60 * 60 * 1000) % 24;
