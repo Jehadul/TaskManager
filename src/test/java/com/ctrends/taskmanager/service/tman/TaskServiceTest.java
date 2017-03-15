@@ -177,23 +177,23 @@ public class TaskServiceTest {
 		assertEquals(id.getClass(), uid.getClass());
 	}
 
-	@Test
-	public void testUpdateTasklist_ReturnData(){
-		
-		Map<String, String[]> requestMap=new HashMap<String, String[]>();		
-		//Tasks tasks=new Tasks();
-		requestMap.put("id", id1);
-		requestMap.put("task_title", taskTitle);
-		requestMap.put("estimated_time", estimatedTime);
-		requestMap.put("spent_time", spentTime);
-		
-		requestMap.put("remaining_time", remainingTime);
-		requestMap.put("assignee", assignee);		
-	
-		Map<String, String> map= tasksService.updateTasklist(requestMap);
-		Map<String, String> map2=new HashMap<>();
-		assertEquals(map2.getClass(), map.getClass());
-	}
+//	@Test
+//	public void testUpdateTasklist_ReturnData(){
+//		
+//		Map<String, String[]> requestMap=new HashMap<String, String[]>();		
+//		//Tasks tasks=new Tasks();
+//		requestMap.put("id", id1);
+//		requestMap.put("task_title", taskTitle);
+//		requestMap.put("estimated_time", estimatedTime);
+//		requestMap.put("spent_time", spentTime);
+//		
+//		requestMap.put("remaining_time", remainingTime);
+//		requestMap.put("assignee", assignee);		
+//	
+//		Map<String, String> map= tasksService.updateTasklist(requestMap);
+//		Map<String, String> map2=new HashMap<>();
+//		assertEquals(map2.getClass(), map.getClass());
+//	}
 	
 	@Test
 	public void testFind(){
