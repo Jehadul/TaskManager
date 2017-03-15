@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ctrends.taskmanager.model.taskmanage.Module;
 import com.ctrends.taskmanager.model.taskmanage.PrivGroup;
 import com.ctrends.taskmanager.model.taskmanage.Suite;
-import com.ctrends.taskmanager.model.tman.Tasks;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManager;
 
 @Repository("sprintDAO")
@@ -23,10 +22,12 @@ public class SprintDAO implements ISprintDAO {
 	@Autowired
 	private SessionFactory sessionfactory;
 	
+	@Transactional
 	@Override
 	public List<SprintManager> getAllDoc() {
-		// TODO Auto-generated method stub
-		return null;
+		Query query=sessionfactory.getCurrentSession().createQuery("From SprintManager");
+		List<SprintManager> splist=query.list();
+		return splist;
 	}
 
 	@Transactional
