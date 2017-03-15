@@ -55,9 +55,9 @@
 						
 					</div>
 					<div class="col-md-6">
-						<div class="form-group">						
-							<cts:Label name="Priority" labelFor="priority"/>
-							<cts:TextBox name="priority" cssClass="dirty-check required" readonly=""/>
+						<div class="form-group">
+							<cts:Label labelFor="priority" name="Priority"/>
+							<cts:Select list="${data.priorities}"  name="priority" value="${data.priority }" cssClass="required"/>
 						</div>
 						<div class="form-group">						
 							<cts:Label name="Story Order" labelFor="story_order"/>
