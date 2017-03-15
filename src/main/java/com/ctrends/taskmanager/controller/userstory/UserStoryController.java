@@ -116,9 +116,9 @@ public class UserStoryController implements IUserStoryController {
 		if (priority == null || priority.isEmpty()) {
 			priorities.put("-1", "--SELECT--");
 		}
-		priorities.put("High", "High");
-		priorities.put("Medium", "Medium");
-		priorities.put("Low", "Low");
+		priorities.put("1", "High");
+		priorities.put("2", "Medium");
+		priorities.put("3", "Low");
 
 		data.put("suiteCodes", suiteCodes);
 		data.put("moduleCodes", moduleCodes);
