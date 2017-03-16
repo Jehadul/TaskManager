@@ -103,15 +103,18 @@ public class UserStoryController implements IUserStoryController {
 
 		List<PrivGroup> privGrpLi = taskDao.getPrivGroup(suiteCode, moduleCode);
 
-		Map<String, String> privgroups = new LinkedHashMap<String, String>();
+		Map<String, String> privgroups = new LinkedHashMap<String, String>(); 
 
 		if (privGroupCode == null || privGroupCode.isEmpty()) {
+			privGroupCode=String.valueOf(0);
 			privgroups.put("-1", "--SELECT--");
 		}
 
 		for (int i = 0; i < privGrpLi.size(); i++) {
 			privgroups.put(String.valueOf(privGrpLi.get(i).getPrivGrpCode()), privGrpLi.get(i).getPrivGrpName());
 		}
+		
+		
 		
 		List<Privilege> privilegeLi = taskDao.getBy(suiteCode, moduleCode, Integer.parseInt(privGroupCode));
 		
