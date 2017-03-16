@@ -52,7 +52,7 @@ public class UserStoryControllerTest {
 	@Mock
 	private IUserStoryService userStoryService;
 	
-	UUID id=UUID.fromString("51930121-4369-4243-b85a-ebed3a045133");
+	
 	
 	MockHttpServletRequest request;
 
@@ -71,6 +71,7 @@ public class UserStoryControllerTest {
 
 	@Test 
 	public void testShow_ReturnModelAndView(){ 
+		UUID id=UUID.fromString("51930121-4369-4243-b85a-ebed3a045133");
 		ModelAndView ar = userStoryController.show(id);
 		assertTrue(ar.hasView());
 	}
@@ -110,7 +111,8 @@ public class UserStoryControllerTest {
 	}
 
 	@Test 
-	public void testEdit_ReturnModelAndView(){ 
+	public void testEdit_ReturnModelAndView(){
+		UUID id=UUID.fromString("51930121-4369-4243-b85a-ebed3a045133");
 		ModelAndView ar = userStoryController.edit(id);
 		assertTrue(ar.hasView());
 	}
@@ -120,6 +122,7 @@ public class UserStoryControllerTest {
 	@Test 
 	@WithMockUser("CTS0104")
 	public void testUpdate_ReturnWsResponse(){ 
+		UUID id=UUID.fromString("0ae374d5-8823-4d50-8814-090335c9e64a");
 		request.setParameter("id", String.valueOf(id));
 		request.setParameter("suite_code", "ertert");
 		request.setParameter("suite_name", "trtryry");
@@ -142,6 +145,7 @@ public class UserStoryControllerTest {
 
 	@Test
 	public void testDestroy_ReturnsWSResponse(){
+		UUID id=UUID.fromString("15243042-0be0-4919-91c7-ed30f8983e93");
 		request.setParameter("id", String.valueOf(id));
 		request.setParameter("suite_code", "ertert");
 		request.setParameter("suite_name", "trtryry");
