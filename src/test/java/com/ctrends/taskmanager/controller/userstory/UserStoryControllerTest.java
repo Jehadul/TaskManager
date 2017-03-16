@@ -69,7 +69,18 @@ public class UserStoryControllerTest {
 		assertTrue(true);
 	}
 
+	@Test 
+	public void testShow_ReturnModelAndView(){ 
+		ModelAndView ar = userStoryController.show(id);
+		assertTrue(ar.hasView());
+	}
 
+	
+	@Test
+	public void testGet_ReturnsWSResponse(){
+		assertTrue(true);
+	}
+	
 	@Test
 	public void testCreate_ReturnsModelAndView(){
 		ModelAndView ar = userStoryController.create(request);
@@ -103,17 +114,7 @@ public class UserStoryControllerTest {
 		ModelAndView ar = userStoryController.edit(id);
 		assertTrue(ar.hasView());
 	}
-	
-	@Test 
-	public void testShow_ReturnModelAndView(){ 
-		ModelAndView ar = userStoryController.show(id);
-		assertTrue(ar.hasView());
-	}
-	
-	@Test
-	public void testGet_ReturnsWSResponse(){
-		assertTrue(true);
-	}
+
 	
 	
 	@Test 
@@ -137,14 +138,8 @@ public class UserStoryControllerTest {
 		request.setParameter("story_order", "xvbhxf");
 		WSResponse ar = userStoryController.update(request);
 		assertTrue(ar.getClass()==WSResponse.class);
-	}
-	
-	@Test
-	public void testDelete_ReturnsModelAndView(){
-		ModelAndView ar = userStoryController.delete();
-		assertTrue(ar.hasView());
-	}
-	
+	} 
+
 	@Test
 	public void testDestroy_ReturnsWSResponse(){
 		request.setParameter("id", String.valueOf(id));
@@ -166,6 +161,7 @@ public class UserStoryControllerTest {
 		WSResponse ar = userStoryController.destroy(request); 
 		assertTrue(ar.getClass()==WSResponse.class);
 	}
+
 	
 	@Test
 	public void testShoeSearch_ReturnsModelAndView(){
@@ -181,5 +177,12 @@ public class UserStoryControllerTest {
 	public void testCreatewithoutParameter_ReturnsModelAndView(){
 		assertTrue(true);
 	}
+	
+	@Test
+	public void testDelete_ReturnsModelAndView(){
+		ModelAndView ar = userStoryController.delete();
+		assertTrue(ar.hasView());
+	}
+	
 	
 }
