@@ -202,6 +202,7 @@ public class TasksDao implements ITasksDao {
 		return doc.getId();
 	}
 	
+	@Transactional
 	@Override
 	public List<Privilege> getBy(String suitCode, String modCode, int prvGrpCode) {
 		String hqlQuery = "from Privilege where suiteCode =:suiteCode and  modCode =:modCode and  privGrpCode =:privGrpCode order by privSeq";
