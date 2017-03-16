@@ -224,7 +224,7 @@ public class UserStoryController implements IUserStoryController {
 		return null;
 	}
 	
-	@RequestMapping(value = "/delete", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/storylist", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ModelAndView delete() {
 
