@@ -1,7 +1,6 @@
 package com.ctrends.taskmanager.dao.tman;
 
 import java.util.List;
-
 import java.util.Map;
 import java.util.UUID;
 
@@ -14,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ctrends.taskmanager.model.taskmanage.Module;
 import com.ctrends.taskmanager.model.taskmanage.PrivGroup;
+import com.ctrends.taskmanager.model.taskmanage.Privilege;
 import com.ctrends.taskmanager.model.taskmanage.Suite;
 import com.ctrends.taskmanager.model.tman.TaskLog;
 import com.ctrends.taskmanager.model.tman.Tasks;
@@ -202,6 +202,16 @@ public class TasksDao implements ITasksDao {
 		return doc.getId();
 	}
 	
+	@Override
+	public List<Privilege> getBy(String suitCode, String modCode, int prvGrpCode) {
+		String hqlQuery = "from Privilege where suiteCode =:suiteCode and  modCode =:modCode and  privGrpCode =:privGrpCode order by privSeq";
+		Query query = sessionfactory.getCurrentSession().createQuery(hqlQuery);
+		query.setParameter("suiteCode", suitCode);
+		query.setParameter("modCode", modCode);
+		query.setParameter("privGrpCode", prvGrpCode);
+		List<Privilege> privilege = query.list();
+		return privilege;
+	}
 
 
 }
