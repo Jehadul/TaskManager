@@ -40,6 +40,11 @@
 							<cts:Hidden name="priv_grp_name" value=""/>
 						</div>
 						<div class="form-group">
+							<cts:Label labelFor="priv_code" name="Privilege"/>
+							<cts:Select list="${data.privgroups}"  name="priv_code" value="${data.privGroupCode }" cssClass="required"/>
+							<cts:Hidden name="priv_name" value=""/>
+						</div>
+						<div class="form-group">
 							<cts:Label name="Story Code" labelFor="user_story_code"/>
 							<cts:TextBox name="user_story_code" cssClass="dirty-check required uppercase" readonly=""/>
 						</div>
