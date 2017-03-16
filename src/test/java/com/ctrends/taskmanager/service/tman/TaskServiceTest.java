@@ -5,6 +5,7 @@ import static org.mockito.Mockito.when;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -41,7 +42,7 @@ public class TaskServiceTest {
 	private MockMvc mockMvc;
 	
 
-	UUID id=UUID.fromString("0aad717d-e0f7-44c8-ab72-2f9a6b1b57f3");
+	UUID id=UUID.fromString("8b1ac3ff-041f-48a9-9a5b-f6472ec50c69");
 
 
 	@Autowired
@@ -81,7 +82,7 @@ public class TaskServiceTest {
 	
 	@Test
 	@WithMockUser("CTS0104")
-	public void testInsert_ReturnMap(){
+	public void testInsert_ReturnsMap(){
 		
 		Map<String, String[]> requestMap=new HashMap<String, String[]>();
 		requestMap.put("suite_code", suiteCode);
@@ -100,10 +101,45 @@ public class TaskServiceTest {
 		Map<String, String> map2=new HashMap<>();
 		assertEquals(map2.getClass(), map.getClass());
 	}
-
+	
 	@Test
 	@WithMockUser("CTS0104")
-	public void testUpdate_ReturnMap(){
+	public void testInsertTaskLog_ReturnsMap(){
+		Date date=new Date();
+		Map<String, String> requestMap=new HashMap<String, String>();
+		requestMap.put("id", String.valueOf(id));
+		requestMap.put("taskTitle", "hgfhg");
+		requestMap.put("startTime", "startTime");
+		requestMap.put("stopStatus", String.valueOf("false"));
+		requestMap.put("today", String.valueOf(date));
+		Map<String, String> map= tasksService.insertTaskLog(requestMap);
+		Map<String, String> map2=new HashMap<>();
+		assertEquals(map2.getClass(), map.getClass());
+	}
+
+	
+	
+	@Test
+	public void testGetAll_ReturnsTasksLi() {
+		List<Tasks> tasksList = tasksService.getAll();
+		/*List<Tasks> mockTtasksList =new ArrayList<Tasks>();
+		mockTasks=Mockito.mock(Tasks.class);
+		mockTtasksList.add(mockTasks);
+		when(tasksService.getAll()).thenReturn(mockTtasksList);*/
+		assertEquals(tasksList.getClass(), new ArrayList<>().getClass());
+		
+	}
+	
+	@Test
+	public void testGetById_ReturnsTasks() {
+		
+		Tasks tasks=tasksService.getById(id);
+		assertNotNull(tasks);
+	}
+	
+	@Test
+	@WithMockUser("CTS0104")
+	public void testUpdate_ReturnsMap(){
 		
 		Map<String, String[]> requestMap=new HashMap<String, String[]>();
 		requestMap.put("id", id1);
@@ -116,32 +152,29 @@ public class TaskServiceTest {
 		requestMap.put("description", description);
 		requestMap.put("story_code", storyCode);
 		requestMap.put("task_title", taskTitle);
-		requestMap.put("estimated_time", estimatedTime);
+		requestMap.put("estimated_time", privGrpCode);
 		requestMap.put("assignee", assignee);
 		Map<String, String> map= tasksService.update(requestMap);
 		Map<String, String> map2=new HashMap<>();
 		assertEquals(map2.getClass(), map.getClass());
 	}
-	
-	@Test
-	public void testGetAll_ReturnAllTasks() {
-		//List<Tasks> tasksList = tasksService.getAll();
-		List<Tasks> mockTtasksList =new ArrayList<Tasks>();
-		mockTasks=Mockito.mock(Tasks.class);
-		mockTtasksList.add(mockTasks);
-		when(tasksService.getAll()).thenReturn(mockTtasksList);
-	}
-	
-	
-	@Test
-	public void testGetById_ReturnTasks() {
-		
-		Tasks tasks=tasksService.getById(id);
-		assertNotNull(tasks);
-	}
 	    
+/*	@Test
+	@WithMockUser("CTS0104")
+	public void testUpdateTaskLog_ReturnsMap(){
+		Map<String, String> requestMap=new HashMap<String, String>();
+		requestMap.put("id", String.valueOf(id));
+		requestMap.put("id", String.valueOf(UUID.fromString("8b1ac3ff-041f-48a9-9a5b-f6472ec50c69")));
+		requestMap.put("stopTime", String.valueOf("12"));
+		requestMap.put("stopStatus", String.valueOf("false"));
+		requestMap.put("status", String.valueOf("false"));
+		Map<String, String> map= tasksService.updateTimeLog(requestMap);
+		Map<String, String> map2=new HashMap<>();
+		assertEquals(map2.getClass(), map.getClass());
+	}
+	*/
 	@Test
-	public void testDelete(){
+	public void testDelete_ReturnsMap(){
 
 		Map<String, String[]> requestMap=new HashMap<String, String[]>();
 		
@@ -156,7 +189,7 @@ public class TaskServiceTest {
 		requestMap.put("description", description);
 		requestMap.put("story_code", storyCode);
 		requestMap.put("task_title", taskTitle);
-		requestMap.put("estimated_time", estimatedTime);
+		requestMap.put("estimated_time", privGrpCode);
 		requestMap.put("assignee", assignee);
 		
 		tasks.setSuiteCode(requestMap.get("suite_code")[0]);
@@ -176,27 +209,9 @@ public class TaskServiceTest {
 		UUID uid= tasksService.delete(requestMap);
 		assertEquals(id.getClass(), uid.getClass());
 	}
-
-//	@Test
-//	public void testUpdateTasklist_ReturnData(){
-//		
-//		Map<String, String[]> requestMap=new HashMap<String, String[]>();		
-//		//Tasks tasks=new Tasks();
-//		requestMap.put("id", id1);
-//		requestMap.put("task_title", taskTitle);
-//		requestMap.put("estimated_time", estimatedTime);
-//		requestMap.put("spent_time", spentTime);
-//		
-//		requestMap.put("remaining_time", remainingTime);
-//		requestMap.put("assignee", assignee);		
-//	
-//		Map<String, String> map= tasksService.updateTasklist(requestMap);
-//		Map<String, String> map2=new HashMap<>();
-//		assertEquals(map2.getClass(), map.getClass());
-//	}
 	
 	@Test
-	public void testFind(){
+	public void testFind_ReturnsTaskLi(){
 		
 		Map<String, String> params=new LinkedHashMap<>();
 		List<Tasks> tsk=tasksService.find(params);
@@ -205,8 +220,15 @@ public class TaskServiceTest {
 	
 	@Test
 	@WithMockUser("CTS0104")
-	public void testGetAllByCurrentUser(){
+	public void testGetAllByCurrentUser_ReturnsTaskLi(){
 		List<Tasks> tsk=tasksService.getAllByCurrentUser();
+		assertNotNull(tsk);
+	}
+	
+	@Test
+	@WithMockUser("CTS0104")
+	public void testGetAllByCurrentUserByCurrentName_ReturnsTaskLi(){
+		List<Tasks> tsk=tasksService.getCurrentTaskByCurrentUser();
 		assertNotNull(tsk);
 	}
 }
