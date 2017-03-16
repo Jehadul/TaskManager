@@ -42,7 +42,7 @@ public class TaskServiceTest {
 	private MockMvc mockMvc;
 	
 
-	UUID id=UUID.fromString("8b1ac3ff-041f-48a9-9a5b-f6472ec50c69");
+	
 
 
 	@Autowired
@@ -78,7 +78,7 @@ public class TaskServiceTest {
 	String[] remainingTime = {"aaaaaaaa"};
 	String[] spentTime = {"bbbbbbbb"};
 	String[] assignee = {"sdfsdfgdfg"};
-	String [] id1 = {String.valueOf(id)};
+	String [] id1 = {String.valueOf("8b1ac3ff-041f-48a9-9a5b-f6472ec50c69")};
 	
 	@Test
 	@WithMockUser("CTS0104")
@@ -105,6 +105,7 @@ public class TaskServiceTest {
 	@Test
 	@WithMockUser("CTS0104")
 	public void testInsertTaskLog_ReturnsMap(){
+		UUID id=UUID.fromString("8b1ac3ff-041f-48a9-9a5b-f6472ec50c69");
 		Date date=new Date();
 		Map<String, String> requestMap=new HashMap<String, String>();
 		requestMap.put("id", String.valueOf(id));
@@ -132,7 +133,7 @@ public class TaskServiceTest {
 	
 	@Test
 	public void testGetById_ReturnsTasks() {
-		
+		UUID id=UUID.fromString("afe67120-346b-488a-8b69-9736511fc884");
 		Tasks tasks=tasksService.getById(id);
 		assertNotNull(tasks);
 	}
@@ -175,7 +176,7 @@ public class TaskServiceTest {
 	*/
 	@Test
 	public void testDelete_ReturnsMap(){
-
+		UUID id=UUID.fromString("fc6e9d59-830c-4cfb-9d75-c4336e0f73c7");
 		Map<String, String[]> requestMap=new HashMap<String, String[]>();
 		
 		Tasks tasks=new Tasks();
