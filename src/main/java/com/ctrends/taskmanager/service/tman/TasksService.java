@@ -198,36 +198,33 @@ public class TasksService implements ITasksService {
 			Date d1 = sdf.parse(time);
 			Date d2 = sdf.parse(time2);
 
-			if (d2.after(d1)) {
-				long diffMs = d2.getTime() - d1.getTime();
-				double spentHours = diffMs / 1000.0 / 60.0 / 60.0;
-				double remainingTime = Math.round(tasks.getEstimatedTime()-(tasks.getSpentTime() + spentHours));
-				tasks.setRemainingTime(remainingTime);
-				String s = String.valueOf((tasks.getSpentTime()+spentHours));
-				double sepentTime =Double.parseDouble( s.substring(0,3));
+		    if(d1.after(d2)){
+		    	System.out.println(":::::::::::::::after::::::::::::::::");
+				long diff = d2.getTime() - d1.getTime();
+				long diffMinutes = diff / (60 * 1000) % 60;
+				long diffHours = diff / (60 * 60 * 1000) % 24;
+				double sepentTime = Double.parseDouble(diffHours + "." + diffMinutes) + tasks.getSpentTime();
 				tasks.setSpentTime(sepentTime);
+				tasks.setRemainingTime(tasks.getEstimatedTime() - sepentTime);
 				UUID idTask = tasksDao.updateSpantTimeDoc(tasks);
 				if (idTask != null) {
 					UUID id = tasksDao.updateTaskLogDoc(taskLog);
 					data.put("id", id.toString());
 				}
 			}
-			if (d2.before(d1)) {
-				long diffMs = d2.getTime() - d1.getTime();
-				double spentHours = diffMs / 1000.0 / 60.0 / 60.0;
-				double remainingTime = Math.round(tasks.getEstimatedTime()-(tasks.getSpentTime() + spentHours));
-				tasks.setRemainingTime(remainingTime);
-				String s = String.valueOf((tasks.getSpentTime()+spentHours));
-				double sepentTime =Double.parseDouble( s.substring(0, 5));
+		    if(d1.before(d2)){
+		    	System.out.println(":::::::::::::::before::::::::::::::::");
+				long diff = d2.getTime() - d1.getTime();
+				long diffMinutes = diff / (60 * 1000) % 60;
+				long diffHours = diff / (60 * 60 * 1000) % 24;
+				double sepentTime = Double.parseDouble(diffHours + "." + diffMinutes) + tasks.getSpentTime();
 				tasks.setSpentTime(sepentTime);
+				tasks.setRemainingTime(tasks.getEstimatedTime() - sepentTime);
 				UUID idTask = tasksDao.updateSpantTimeDoc(tasks);
 				if (idTask != null) {
 					UUID id = tasksDao.updateTaskLogDoc(taskLog);
 					data.put("id", id.toString());
 				}
-			}
-			if (d1.equals(d2)) {
-
 			}
 
 		} catch (Exception e) {

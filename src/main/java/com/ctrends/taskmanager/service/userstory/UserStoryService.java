@@ -43,6 +43,7 @@ public class UserStoryService implements IUserStoryService {
 		userStory.setUserStoryCode(requestMap.get("user_story_code")[0]);
 	    userStory.setUserStoryTitle(requestMap.get("user_story_title")[0]);
 	    userStory.setSize(Integer.parseInt(requestMap.get("size")[0]));
+	    userStory.setPriorityCode(Integer.parseInt(requestMap.get("priority_code")[0]));
 	    userStory.setPriority(requestMap.get("priority")[0]);
 	    userStory.setStoryOrder(requestMap.get("story_order")[0]);
 		

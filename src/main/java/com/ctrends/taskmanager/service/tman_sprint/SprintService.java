@@ -65,9 +65,10 @@ public class SprintService implements ISprintService {
 
 	@Override
 	public List<SprintManager> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		List<SprintManager> splist=sprintDao.getAllDoc();
+		return splist;
 	}
+
 
 	@Override
 	public SprintManager getById(UUID id) {

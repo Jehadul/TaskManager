@@ -53,7 +53,7 @@
 						</div>
 						<div class="form-group">
 							<cts:Label name="Sprint Goal" labelFor="sprint_goal"/>
-							<cts:TextBox name="sprint_goal" cssClass="dirty-check required" readonly=""/>
+							<cts:TextBox name="sprint_goal" cssClass="dirty-check" readonly=""/>
 						</div>
 						
 
@@ -63,7 +63,7 @@
 				
 						<div class="form-group">
 							<cts:Label name="Sprint Number" labelFor="sprint_number"/>
-							<cts:TextBox name="sprint_number" cssClass="dirty-check required" readonly=""/>
+							<cts:TextBox name="sprint_number" cssClass="dirty-check required number" readonly=""/>
 						</div>
 						
 						<div class="form-group">
@@ -74,12 +74,12 @@
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">		
-									<cts:Datepicker label="Start Date" name="start_date" cssClass="dirty-check"/>
+									<cts:Datepicker label="Start Date" name="start_date" cssClass="dirty-check  required"/>
 								</div>	
 							</div>
 							<div class="col-md-6">							
 								<div class="form-group">		
-									<cts:Datepicker label="End Date" name="end_date" cssClass="dirty-check"/>
+									<cts:Datepicker label="End Date" name="end_date" cssClass="dirty-check required"/>
 								</div>
 							</div>	
 						</div>	
@@ -90,7 +90,7 @@
 						
 						<div class="form-group">
 								<cts:Label name="Description" labelFor="sprint_description"/>
-								<cts:TextArea name="sprint_description" cssClass="dirty-check required" readonly="" rows="3" cols=""/>
+								<cts:TextArea name="sprint_description" cssClass="dirty-check" readonly="" rows="3" cols=""/>
 						</div>
 
 					</div>

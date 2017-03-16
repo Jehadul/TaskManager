@@ -26,6 +26,7 @@ import com.ctrends.taskmanager.dao.tman.TasksDao;
 import com.ctrends.taskmanager.model.taskmanage.Module;
 import com.ctrends.taskmanager.model.taskmanage.PrivGroup;
 import com.ctrends.taskmanager.model.taskmanage.Suite;
+import com.ctrends.taskmanager.model.tman.TaskLog;
 import com.ctrends.taskmanager.model.tman.Tasks;
 
 
@@ -45,18 +46,10 @@ public class TaskDaoTest {
 	String moduleCode=null;
 	
 	//@Mock
-	private UUID id=UUID.fromString("10462413-c4ad-4608-93c7-08476b6d2b92");
+	private UUID id=UUID.fromString("cfc6ed41-bf75-41f8-8b65-93250aaec387");
 
 	@Mock
 	private List<Tasks> mockTtasksList;
-	
-	
-	@Test
-	@WithMockUser("CTS0104")
-	public void testGetDocsByCurrentUser(){
-		List<Tasks> tasksLi=taskDao.getDocsByCurrentUser();
-		assertNotNull(tasksLi);
-	}
 	
 	@Test
 	public void testGetAllDoc_ReturnList(){
@@ -69,40 +62,6 @@ public class TaskDaoTest {
 //		mockTtasksList.add(mockTasks);
 //		when(taskDao.getAllDoc()).thenReturn(mockTtasksList);
 	}
-	
-	
-	@Test
-	public void testGetAllSuites_ReturnList() {
-		
-		List<Suite> suiteLi=taskDao.getAllSuites();
-		assertNotNull(suiteLi);
-		
-	}
-	
-	
-	@Test
-	public void testGetAllModules_ReturnList() {
-	
-		List<Module> moduleLi = taskDao.getAllModules();
-		assertNotNull(moduleLi);
-	}
-	
-	
-	@Test
-	public void testGetBySuit_ReturnList() {
-		
-		List<Module> modList = taskDao.getBySuit(suiteCode);
-		assertNotNull(modList);
-	}
-	
-
-	@Test
-	public void testGetByModule_ReturnList() {
-		
-		List<PrivGroup> privGrpList = taskDao.getPrivGroup(suiteCode, moduleCode);
-		assertNotNull(privGrpList);
-	}
-	
 	
 	@Test
 	public void testGetDocById_ReturnTasks() {
@@ -127,16 +86,46 @@ public class TaskDaoTest {
 	}
 	
 	@Test
-	public void testUpdateDoc_ReturnUUID(){
+	public void testInsertTaskLogDoc_ReturnsUUID(){
+		TaskLog doc=new TaskLog();
+		UUID inId = taskDao.insertTaskLogDoc(doc); 
+		assertEquals(id.getClass(), inId.getClass());
+	}
+	
+	@Test
+	public void testUpdateDoc_ReturnsUUID(){
 		Tasks doc=new Tasks();
 		UUID inId = taskDao.updateDoc(doc); 
 		assertEquals(id.getClass(), inId.getClass());
 	}
 	
 	@Test
-	public void testDeleteDoc_ReturnUUID(){
+	public void testDeleteDoc_ReturnsUUID(){
+		Tasks doc=new Tasks();
 		UUID inId = taskDao.deleteDoc(id); 
 		assertEquals(id.getClass(), inId.getClass());
+	}
+	
+	@Test
+	public void testGetAllSuites_ReturnList() {
+		
+		List<Suite> suiteLi=taskDao.getAllSuites();
+		assertNotNull(suiteLi);
+		
+	}
+	
+	@Test
+	public void testGetAllModules_ReturnList() {
+	
+		List<Module> moduleLi = taskDao.getAllModules();
+		assertNotNull(moduleLi);
+	}
+	
+	@Test
+	public void testGetBySuit_ReturnList() {
+		
+		List<Module> modList = taskDao.getBySuit(suiteCode);
+		assertNotNull(modList);
 	}
 	
 	@Test
@@ -145,4 +134,51 @@ public class TaskDaoTest {
 		assertNotNull(privGrpList);
 		
 	}
+	
+	@Test
+	public void testGetPrivGrpList_ReturnList() {
+		
+		List<PrivGroup> privGrpList = taskDao.getPrivGroup(suiteCode, moduleCode);
+		assertNotNull(privGrpList);
+	}
+	
+	/*@Test
+	@WithMockUser("CTS0001")
+	public void testGetDocByIdTimeLog_ReturnsTaskLog(){
+		TaskLog doc=new TaskLog();
+		TaskLog taskLog=taskDao.getDocByIdTimeLog(id);
+		assertEquals(doc.getClass(), taskLog.getClass());
+	}*/
+	
+	@Test
+	public void testUpdateTaskLogDoc_ReturnsUUID(){
+		TaskLog doc=new TaskLog();
+		UUID inId = taskDao.insertTaskLogDoc(doc); 
+		assertEquals(id.getClass(), inId.getClass());
+	}
+	
+	@Test
+	@WithMockUser("CTS0001")
+	public void testGetDocsByCurrentUser_ReturnsTaskList(){
+		List<Tasks> tasksLi=taskDao.getDocsByCurrentUser();
+		assertNotNull(tasksLi);
+		
+	}
+	
+	@Test
+	@WithMockUser("CTS0001")
+	public void testGetCurrentTaskByCurrentUser_ReturnsTaskList(){
+		List<Tasks> tasksLi=taskDao.getCurrentTaskByCurrentUser();
+		assertNotNull(tasksLi);
+		
+	} 
+	
+	@Test
+	public void testUpdateSpantTimeDoc_ReturnUUID(){
+		Tasks doc=new Tasks();
+		UUID inId = taskDao.insertDoc(doc); 
+		assertEquals(id.getClass(), inId.getClass());
+	}
+	
+	
 }

@@ -22,10 +22,8 @@ import com.ctrends.taskmanager.dao.tman.ITasksDao;
 import com.ctrends.taskmanager.model.taskmanage.Module;
 import com.ctrends.taskmanager.model.taskmanage.PrivGroup;
 import com.ctrends.taskmanager.model.taskmanage.Suite;
-import com.ctrends.taskmanager.model.tman.Tasks;
 import com.ctrends.taskmanager.model.userstory.UserStory;
 import com.ctrends.taskmanager.service.userstory.IUserStoryService;
-import com.ctrends.taskmanager.service.userstory.UserStoryService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -75,6 +73,7 @@ public class UserStoryController implements IUserStoryController {
 		String suiteCode = request.getParameter("suite_code");
 		String moduleCode = request.getParameter("module_code");
 		String privGroupCode = request.getParameter("priv_grp_code");
+		String priority = request.getParameter("priority");
 
 		List<Suite> suiteLi = taskDao.getAllSuites();
 
@@ -111,6 +110,15 @@ public class UserStoryController implements IUserStoryController {
 		for (int i = 0; i < privGrpLi.size(); i++) {
 			privgroups.put(String.valueOf(privGrpLi.get(i).getPrivGrpCode()), privGrpLi.get(i).getPrivGrpName());
 		}
+		
+		Map<String, String> priorities = new LinkedHashMap<String, String>();
+		
+		if (priority == null || priority.isEmpty()) {
+			priorities.put("-1", "--SELECT--");
+		}
+		priorities.put("1", "High");
+		priorities.put("2", "Medium");
+		priorities.put("3", "Low");
 
 		data.put("suiteCodes", suiteCodes);
 		data.put("moduleCodes", moduleCodes);
@@ -118,6 +126,8 @@ public class UserStoryController implements IUserStoryController {
 		data.put("suiteCode", suiteCode);
 		data.put("privGroupCode", privGroupCode);
 		data.put("moduleCode", moduleCode);
+		data.put("priorities", priorities);
+		data.put("priority", priority);
 		return new ModelAndView("userstory/create", "data", data);
 	}
 

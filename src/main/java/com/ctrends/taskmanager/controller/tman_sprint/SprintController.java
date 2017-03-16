@@ -22,7 +22,6 @@ import com.ctrends.taskmanager.dao.tman_sprint.ISprintDAO;
 import com.ctrends.taskmanager.model.taskmanage.Module;
 import com.ctrends.taskmanager.model.taskmanage.PrivGroup;
 import com.ctrends.taskmanager.model.taskmanage.Suite;
-import com.ctrends.taskmanager.model.tman.Tasks;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManager;
 import com.ctrends.taskmanager.service.tman_sprint.ISprintService;
 import com.google.gson.Gson;
@@ -173,6 +172,21 @@ public class SprintController implements ISprintController {
 
 		
 		return new ModelAndView("sprintmanager/create", "data", data);
+	}
+
+	@RequestMapping(value = "/sprintlist", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	@Override
+	public ModelAndView sprintList() {
+		Map<String, Object> data = new HashMap<String, Object>();
+		List<SprintManager> sprintlist = sprintService.getAll();
+
+		GsonBuilder gson = new GsonBuilder();
+		Gson g = gson.create();
+
+		data.put("sprintlist", sprintlist);
+
+		return new ModelAndView("sprintmanager/sprintlist", "data", data);
 	}
 
 }
