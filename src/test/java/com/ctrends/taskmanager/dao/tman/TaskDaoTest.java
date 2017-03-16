@@ -46,7 +46,7 @@ public class TaskDaoTest {
 	String moduleCode=null;
 	
 	//@Mock
-	private UUID id=UUID.fromString("cfc6ed41-bf75-41f8-8b65-93250aaec387");
+	private UUID id=UUID.fromString("fe443488-131c-42d5-8131-da2a2e971774");
 
 	@Mock
 	private List<Tasks> mockTtasksList;
@@ -65,7 +65,8 @@ public class TaskDaoTest {
 	
 	@Test
 	public void testGetDocById_ReturnTasks() {
-		Tasks task = taskDao.getDocById(id);
+		 UUID uid=UUID.fromString("1d889f43-aa74-42b9-a337-5702770ecd13");
+		Tasks task = taskDao.getDocById(uid);
 		assertEquals(new Tasks().getClass(), task.getClass());
 	}
 	
@@ -142,13 +143,14 @@ public class TaskDaoTest {
 		assertNotNull(privGrpList);
 	}
 	
-	/*@Test
+	@Test
 	@WithMockUser("CTS0001")
 	public void testGetDocByIdTimeLog_ReturnsTaskLog(){
+		UUID uuid=UUID.fromString("842e997d-63f9-4abd-befc-aaa28c49c70a");
 		TaskLog doc=new TaskLog();
-		TaskLog taskLog=taskDao.getDocByIdTimeLog(id);
+		TaskLog taskLog=taskDao.getDocByIdTimeLog(uuid);
 		assertEquals(doc.getClass(), taskLog.getClass());
-	}*/
+	}
 	
 	@Test
 	public void testUpdateTaskLogDoc_ReturnsUUID(){

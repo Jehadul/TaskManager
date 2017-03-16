@@ -21,6 +21,7 @@ import com.ctrends.taskmanager.bean.WSResponse;
 import com.ctrends.taskmanager.dao.tman.ITasksDao;
 import com.ctrends.taskmanager.model.taskmanage.Module;
 import com.ctrends.taskmanager.model.taskmanage.PrivGroup;
+import com.ctrends.taskmanager.model.taskmanage.Privilege;
 import com.ctrends.taskmanager.model.taskmanage.Suite;
 import com.ctrends.taskmanager.model.userstory.UserStory;
 import com.ctrends.taskmanager.service.userstory.IUserStoryService;
@@ -73,6 +74,7 @@ public class UserStoryController implements IUserStoryController {
 		String suiteCode = request.getParameter("suite_code");
 		String moduleCode = request.getParameter("module_code");
 		String privGroupCode = request.getParameter("priv_grp_code");
+		String privCode = request.getParameter("priv_code");
 		String priority = request.getParameter("priority");
 
 		List<Suite> suiteLi = taskDao.getAllSuites();
@@ -111,6 +113,19 @@ public class UserStoryController implements IUserStoryController {
 			privgroups.put(String.valueOf(privGrpLi.get(i).getPrivGrpCode()), privGrpLi.get(i).getPrivGrpName());
 		}
 		
+		List<Privilege> privilegeLi = taskDao.getBy(suiteCode, moduleCode, Integer.parseInt(privGroupCode));
+		
+		Map<String, String> privileges = new LinkedHashMap<String, String>();
+		
+		if (privCode == null || privCode.isEmpty()) {
+			privileges.put("-1", "--SELECT--");
+		}
+		
+		for (int i = 0; i < privilegeLi.size(); i++) {
+			privileges.put(privilegeLi.get(i).getPrivCode(), privilegeLi.get(i).getPrivName());
+		}
+		
+		
 		Map<String, String> priorities = new LinkedHashMap<String, String>();
 		
 		if (priority == null || priority.isEmpty()) {
@@ -123,10 +138,12 @@ public class UserStoryController implements IUserStoryController {
 		data.put("suiteCodes", suiteCodes);
 		data.put("moduleCodes", moduleCodes);
 		data.put("privgroups", privgroups);
+		data.put("privileges", privileges);
+		data.put("priorities", priorities);
 		data.put("suiteCode", suiteCode);
 		data.put("privGroupCode", privGroupCode);
 		data.put("moduleCode", moduleCode);
-		data.put("priorities", priorities);
+		data.put("privCode", privCode);
 		data.put("priority", priority);
 		return new ModelAndView("userstory/create", "data", data);
 	}
@@ -224,7 +241,7 @@ public class UserStoryController implements IUserStoryController {
 		return null;
 	}
 	
-	@RequestMapping(value = "/delete", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/storylist", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ModelAndView delete() {
 

@@ -79,6 +79,7 @@ public class UserServiceTest {
 		requestMap.put("emp_name", empCode);
 		requestMap.put("emp_desig", empCode);
 		requestMap.put("emp_email", empCode);
+		requestMap.put("company_code", empCode);
 		requestMap.put("first_name", empCode);
 		requestMap.put("middle_name", empCode);
 		requestMap.put("last_name", empCode);
@@ -102,6 +103,7 @@ public class UserServiceTest {
 		requestMap.put("emp_name", empCode);
 		requestMap.put("emp_desig", empCode);
 		requestMap.put("emp_email", empCode);
+		requestMap.put("company_code", empCode);
 		requestMap.put("first_name", empCode);
 		requestMap.put("middle_name", empCode);
 		requestMap.put("last_name", empCode);

@@ -53,8 +53,6 @@ public class TasksControllerTest {
 	@Autowired
 	ITasksDao tasksDao;
 	
-	UUID id=UUID.fromString("81d5a03e-62f6-4857-bb97-116c5aa23018");
-	
 	MockHttpServletRequest request;
 
 	String st="sssssssss";
@@ -72,6 +70,7 @@ public class TasksControllerTest {
 
 	@Test 
 	public void testShow_ReturnModelAndView(){ 
+		UUID id=UUID.fromString("81d5a03e-62f6-4857-bb97-116c5aa23018");
 		ModelAndView ar = tasksController.show(id);
 		assertTrue(ar.hasView());
 	}
@@ -83,6 +82,7 @@ public class TasksControllerTest {
 	
 	@Test 
 	public void testEdit_ReturnModelAndView(){ 
+		UUID id=UUID.fromString("81d5a03e-62f6-4857-bb97-116c5aa23018");
 		ModelAndView ar = tasksController.edit(id);
 		assertTrue(ar.hasView());
 	}
@@ -114,6 +114,7 @@ public class TasksControllerTest {
 	@Test 
 	@WithMockUser("CTS0104")
 	public void testUpdate_ReturnWsResponse(){ 
+		UUID id=UUID.fromString("285d4d33-8de2-4768-8fac-3e4bb4147d75");
 		request.setParameter("id", String.valueOf(id));
 		request.setParameter("suite_code", "ertert");
 		request.setParameter("suite_name", "trtryry");
@@ -147,6 +148,7 @@ public class TasksControllerTest {
 	@Test 
 	@WithMockUser("CTS0104")
 	public void testDestroy_ReturnsWSResponse(){
+		UUID id=UUID.fromString("7d31e40b-0954-4172-9920-0255b172138e");
 		request.setParameter("id", String.valueOf(id));
 		request.setParameter("suite_code", "ertert");
 		request.setParameter("suite_name", "trtryry");
@@ -202,6 +204,7 @@ public class TasksControllerTest {
 	@Test
 	@WithMockUser("CTS0104")
 	public void testTimeLog_ReturnsModelAndView(){
+		UUID id=UUID.fromString("81d5a03e-62f6-4857-bb97-116c5aa23018");
 		ModelAndView ar = tasksController.timeLog(id, st, st, st);
 		assertTrue(ar.hasView());
 	}
@@ -209,6 +212,7 @@ public class TasksControllerTest {
 	@Test
 	@WithMockUser("CTS0104")
 	public void testTimeLogUpdate_ReturnsModelAndView(){
+		UUID id=UUID.fromString("81d5a03e-62f6-4857-bb97-116c5aa23018");
 		ModelAndView ar = tasksController.timeLogUpdate(id, st);
 		assertTrue(ar.hasView());
 	}

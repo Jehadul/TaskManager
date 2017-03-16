@@ -1,7 +1,6 @@
 package com.ctrends.taskmanager.dao.tman;
 
 import java.util.List;
-
 import java.util.Map;
 import java.util.UUID;
 
@@ -14,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ctrends.taskmanager.model.taskmanage.Module;
 import com.ctrends.taskmanager.model.taskmanage.PrivGroup;
+import com.ctrends.taskmanager.model.taskmanage.Privilege;
 import com.ctrends.taskmanager.model.taskmanage.Suite;
 import com.ctrends.taskmanager.model.tman.TaskLog;
 import com.ctrends.taskmanager.model.tman.Tasks;
@@ -151,12 +151,18 @@ public class TasksDao implements ITasksDao {
 		Query query = sessionfactory.getCurrentSession().createQuery("From TaskLog WHERE taskId = :id and stopStatus=:status");
 		query.setParameter("id", id);
 		query.setParameter("status", "false");
-		TaskLog tasks = (TaskLog) query.uniqueResult();
-		if (tasks == null) {
-            throw new UsernameNotFoundException("User with username '" + id + "' does not exist.");
-        }
-       /* System.out.println(user.getEmpName());*/
-        return tasks;
+		List<TaskLog> taskslogli=query.list();
+//		TaskLog tasks = (TaskLog) query.uniqueResult();
+//		if (tasks == null) {
+//            throw new UsernameNotFoundException("User with username '" + id + "' does not exist.");
+//        }
+//       /* System.out.println(user.getEmpName());*/
+//        return tasks;
+		if(taskslogli.size()>0){
+			return taskslogli.get(0);
+		}
+		return null;
+		
 	}
 
 	@Transactional
@@ -196,6 +202,16 @@ public class TasksDao implements ITasksDao {
 		return doc.getId();
 	}
 	
+	@Override
+	public List<Privilege> getBy(String suitCode, String modCode, int prvGrpCode) {
+		String hqlQuery = "from Privilege where suiteCode =:suiteCode and  modCode =:modCode and  privGrpCode =:privGrpCode order by privSeq";
+		Query query = sessionfactory.getCurrentSession().createQuery(hqlQuery);
+		query.setParameter("suiteCode", suitCode);
+		query.setParameter("modCode", modCode);
+		query.setParameter("privGrpCode", prvGrpCode);
+		List<Privilege> privilege = query.list();
+		return privilege;
+	}
 
 
 }
