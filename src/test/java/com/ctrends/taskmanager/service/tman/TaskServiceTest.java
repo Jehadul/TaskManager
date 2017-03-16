@@ -93,7 +93,7 @@ public class TaskServiceTest {
 		requestMap.put("description", description);
 		requestMap.put("story_code", storyCode);
 		requestMap.put("task_title", taskTitle);
-		requestMap.put("estimated_time", estimatedTime);
+		requestMap.put("estimated_time", privGrpCode);
 		requestMap.put("assignee", assignee);
 		Map<String, String> map=tasksService.insert(requestMap);
 		System.out.println("::::::::"+map.get(suiteCode));
