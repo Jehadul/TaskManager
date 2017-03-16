@@ -151,12 +151,12 @@ public class TasksDao implements ITasksDao {
 		Query query = sessionfactory.getCurrentSession().createQuery("From TaskLog WHERE taskId = :id and stopStatus=:status");
 		query.setParameter("id", id);
 		query.setParameter("status", "false");
-		List<TaskLog> pt = query.list();
-		if(pt.size()>0){
-			System.out.println("::::::::::::::::::::::"+pt.get(0));
-			return pt.get(0);
-		}
-		return null;
+		TaskLog tasks = (TaskLog) query.uniqueResult();
+		if (tasks == null) {
+            throw new UsernameNotFoundException("User with username '" + id + "' does not exist.");
+        }
+       /* System.out.println(user.getEmpName());*/
+        return tasks;
 	}
 
 	@Transactional
