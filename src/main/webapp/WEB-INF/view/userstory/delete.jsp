@@ -24,13 +24,14 @@
                                  <table class="data-grid width-full" id="user-story">  
                                      <thead>
                                           <tr>
-                                            <th class="align-center width-150">Suite</th>
-											<th class="align-center width-150">Module</th>
+                                            <th class="align-center width-140">Suite</th>
+											<th class="align-center width-140">Module</th>
 											<th class="align-center">Privilege Group</th>
-											<th class="align-center width-140">Description</th>
-											<th class="align-center width-90">Story Code</th>
-											<th class="align-center width-90">Story Title</th>
-											<th class="align-center width-70">Priority</th>
+											<th class="align-center width-100">Privilege NAme</th>
+											<th class="align-center width-100">Description</th>
+											<th class="align-center width-80">Story Code</th>
+											<th class="align-center width-80">Story Title</th>
+											<th class="align-center width-60">Priority</th>
 											<th class="align-center" colspan="2">Action</th>
                                          </tr>
                                      </thead>
@@ -38,21 +39,25 @@
                                      	<c:forEach var="story" items="${data.userStoryLi}">
                                              <tr>
 		                                            <td>
+		                                            	<cts:Hidden name="id1" value="${story.getId()}" cssClass="story_id view"/>
 														<cts:TextBox name="suite_name" value="${story.getSuiteName()}" cssClass="view"/>
-														<cts:Hidden name="id1" value="${story.getId()}" cssClass="story_id view"/>
+														<cts:Hidden name="suite_code" value="${story.getSuiteCode()}" cssClass="view"/>
 													</td>
 													<td>
 														<cts:TextBox name="module_name" value="${story.getModuleName()}" cssClass="view"/>
-														<cts:Hidden name="suite_code" value="${story.getSuiteCode()}" cssClass="view"/>
+														<cts:Hidden name="module_code" value="${story.getModuleCode()}" cssClass="view"/>
 													</td>
 													
 													<td>
 														<cts:TextBox name="priv_grp_name" value="${story.getPrivGrpName()}" cssClass="view"/>
-														<cts:Hidden name="module_code" value="${story.getModuleCode()}" cssClass="view"/>
+														<cts:Hidden name="priv_grp_code" value="${story.getPrivGrpCode()}" cssClass="view"/>
+													</td>
+													<td>
+														<cts:TextBox name="priv_name" value="${story.getPrivilegeName()}" cssClass="view"/>
+														<cts:Hidden name="priv_code" value="${story.getPrivilegeCode()}" cssClass="view"/>
 													</td>
 													<td>
 														<cts:TextBox name="description" value="${story.getDescription()}" cssClass="view"/>
-														<cts:Hidden name="priv_grp_code" value="${story.getPrivGrpCode()}" cssClass="view"/>
 													</td>
 													<td><cts:TextBox name="user_story_code" value="${story.getUserStoryCode()}" cssClass="view"/></td>
 													<td><cts:TextBox name="user_story_title" value="${story.getUserStoryTitle()}" cssClass="view"/></td>
