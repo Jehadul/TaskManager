@@ -28,18 +28,26 @@
 							<thead>
 								<tr>
 								<th>Task Title</th>
-								<th>Start Date</th>
-								<th>Start Time</th>
+								<th>Estimated Time</th>
+								<th>Spent Time</th>
 								<th>Remaining Time</th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach var="currentTasklist" items="${data.currentTasklist}">
 								<tr>
-									<td><c:out value="${currentTasklist.taskTitle}" /></td>
-									<td><c:out value="${currentTasklist.date}" /></td>
-									<td><c:out value="${currentTasklist.startTime}" /></td>
-									<td><c:out value="${currentTasklist.startTime}" /></td>								
+									<td>
+										<cts:TextBox name="curr_task_title" value="${currentTasklist.getTaskTitle() }" cssClass="view"/>
+									</td>
+									<td>
+										<cts:TextBox name="curr_date_abc" value="${currentTasklist.getEstimatedTime() }" cssClass="view"/>
+									</td>									
+									<td>
+										<cts:TextBox name="curr_start_time" value="${currentTasklist.getSpentTime() }" cssClass="view"/>
+									</td>													
+									<td>
+										<cts:TextBox name="curr_remaining_time" value="${currentTasklist.getRemainingTime() }" cssClass="view"/>
+									</td>						
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -62,10 +70,20 @@
 						<tbody>
 							<c:forEach var="task" items="${data.tasklist}">
 								<tr>
-									<td><c:out value="${task.getTaskTitle()}" /></td>
-									<td><c:out value="${task.getEstimatedTime()}" /></td>
-									<td><c:out value="${task.getSpentTime()}" /></td>
-									<td><c:out value="${task.getRemainingTime()}" /></td>								
+									<td>
+										<cts:TextBox name="task_title" value="${task.getTaskTitle() }" cssClass="view"/>
+									</td>
+									<td>
+										<cts:TextBox name="estimate_time" value="${task.getEstimatedTime()}" cssClass="view"/>
+									</td>
+									<td>
+										<cts:TextBox name="spent_time" value="${task.getSpentTime()}" cssClass="view"/>
+									</td>
+									<td>
+										<cts:TextBox name="remaining_time" value="${task.getRemainingTime()}" cssClass="view"/>
+									</td>
+							
+															
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -80,5 +98,9 @@
 	
 	<script>
 		InitHandlers();
-		InitDataTable("#task_sort_result");
+		var startDate = $("#curr_date_abc").val(); //alert(startDate);
+		var startTime = $("#curr_start_time").val(); //alert(startTime)
+		
+		
+		
 	</script>

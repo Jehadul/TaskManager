@@ -6,6 +6,7 @@ import java.util.UUID;
 import com.ctrends.taskmanager.dao.ICommonDAO;
 import com.ctrends.taskmanager.model.taskmanage.Module;
 import com.ctrends.taskmanager.model.taskmanage.PrivGroup;
+import com.ctrends.taskmanager.model.taskmanage.Privilege;
 import com.ctrends.taskmanager.model.taskmanage.Suite;
 import com.ctrends.taskmanager.model.tman.TaskLog;
 import com.ctrends.taskmanager.model.tman.Tasks;
@@ -23,4 +24,5 @@ public interface ITasksDao extends ICommonDAO<Tasks> {
 	List<Tasks> getDocsByCurrentUser();
 	List<Tasks> getCurrentTaskByCurrentUser();
 	public UUID updateSpantTimeDoc(Tasks doc);
+	List<Privilege> getBy(String suitCode, String modCode, int prvGrpCode);
 }
