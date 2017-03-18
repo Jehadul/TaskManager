@@ -102,8 +102,8 @@ public class UserStoryControllerTest {
 		request.setParameter("business_value", "xvbhxf");
 		request.setParameter("user_story_code", "xvbhxf");
 		request.setParameter("user_story_title", "xvbhxf");
-		request.setParameter("priv_code", "xvbhxf");
-		request.setParameter("priv_name", "xvbhxf");
+		request.setParameter("privilege_code", "xvbhxf");
+		request.setParameter("privilege_name", "xvbhxf");
 		request.setParameter("size", String.valueOf(1));
 		request.setParameter("priority", "xvbhxf");
 		request.setParameter("priority_code", String.valueOf(1));
@@ -137,8 +137,8 @@ public class UserStoryControllerTest {
 		request.setParameter("business_value", "xvbhxf");
 		request.setParameter("user_story_code", "xvbhxf");
 		request.setParameter("user_story_title", "xvbhxf");
-		request.setParameter("priv_code", "xvbhxf");
-		request.setParameter("priv_name", "xvbhxf");
+		request.setParameter("privilege_code", "xvbhxf");
+		request.setParameter("privilege_name", "xvbhxf");
 		request.setParameter("size", String.valueOf(1));
 		request.setParameter("priority", "xvbhxf");
 		request.setParameter("priority_code", String.valueOf(1));
@@ -162,8 +162,8 @@ public class UserStoryControllerTest {
 		request.setParameter("business_value", "xvbhxf");
 		request.setParameter("user_story_code", "xvbhxf");
 		request.setParameter("user_story_title", "xvbhxf");
-		request.setParameter("priv_code", "xvbhxf");
-		request.setParameter("priv_name", "xvbhxf");
+		request.setParameter("privilege_code", "xvbhxf");
+		request.setParameter("privilege_name", "xvbhxf");
 		request.setParameter("size", String.valueOf(1));
 		request.setParameter("priority", "xvbhxf");
 		request.setParameter("priority_code", String.valueOf(1));
