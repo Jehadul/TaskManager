@@ -144,7 +144,7 @@ public class UserStoryController implements IUserStoryController {
 		//data.put("privileges", privileges);
 		data.put("priorities", priorities);
 		data.put("suiteCode", suiteCode);
-		data.put("privGroupCode", privGroupCode);
+		data.put("privGroupCode", privGroupCode); 
 		data.put("moduleCode", moduleCode);
 		//data.put("privCode", privCode);
 		data.put("priority", priority);
@@ -190,6 +190,12 @@ public class UserStoryController implements IUserStoryController {
 			privGrpCodes.put(privGrpLi.get(i).getPrivGrpCode(), privGrpLi.get(i).getPrivGrpName());
 		}
 		
+		Map<String, String> priorities = new LinkedHashMap<String, String>();
+		
+		priorities.put("1", "High");
+		priorities.put("2", "Medium");
+		priorities.put("3", "Low");
+		
 
 		UserStory userStory = userStoryService.getById(id);
 
@@ -198,6 +204,7 @@ public class UserStoryController implements IUserStoryController {
 		map.put("suiteCodes", suiteCodes);
 		map.put("moduleCodes", moduleCodes);
 		map.put("privGrpCodes", privGrpCodes);
+		map.put("priorities", priorities);
 		
 		
 
