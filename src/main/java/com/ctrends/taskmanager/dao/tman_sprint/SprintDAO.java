@@ -14,6 +14,7 @@ import com.ctrends.taskmanager.model.taskmanage.Module;
 import com.ctrends.taskmanager.model.taskmanage.PrivGroup;
 import com.ctrends.taskmanager.model.taskmanage.Suite;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManager;
+import com.ctrends.taskmanager.model.userstory.UserStory;
 
 @Repository("sprintDAO")
 public class SprintDAO implements ISprintDAO {
@@ -64,10 +65,14 @@ public class SprintDAO implements ISprintDAO {
 		return doc.getId();
 	}
 
+	@Transactional
 	@Override
 	public UUID deleteDoc(UUID id) {
-		// TODO Auto-generated method stub
-		return null;
+		SprintManager app =	(SprintManager)sessionfactory.getCurrentSession()
+				.load(SprintManager.class, id);
+		sessionfactory.getCurrentSession().delete(app);
+		sessionfactory.getCurrentSession().flush();
+		return id;
 	}
 
 	
