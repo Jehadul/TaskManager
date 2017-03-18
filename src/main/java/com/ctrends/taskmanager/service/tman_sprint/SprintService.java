@@ -1,6 +1,8 @@
 package com.ctrends.taskmanager.service.tman_sprint;
 
+
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +15,8 @@ import org.springframework.stereotype.Service;
 import com.ctrends.taskmanager.bean.Utility;
 import com.ctrends.taskmanager.dao.tman_sprint.ISprintDAO;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManager;
+import com.ctrends.taskmanager.model.user.User;
+import com.ctrends.taskmanager.service.user.IUserService;
 
 
 @Service("sprintService")
@@ -20,6 +24,9 @@ public class SprintService implements ISprintService {
 	
 	@Autowired
 	ISprintDAO sprintDao;
+	
+	@Autowired
+	IUserService userService;
 
 	@Override
 	public Map<String, String> insert(Map<String, String[]> requestMap) {
@@ -78,8 +85,46 @@ public class SprintService implements ISprintService {
 
 	@Override
 	public Map<String, String> update(Map<String, String[]> requestMap) {
-		// TODO Auto-generated method stub
-		return null;
+		Map<String, String> data = new HashMap<String, String>();
+		User currentUser = userService.getCurrentUser();
+		//System.out.println(":::::"+requestMap.get("id")[0]);
+		SprintManager sprintManager = sprintDao.getDocById(UUID.fromString(requestMap.get("id")[0]));
+		
+		sprintManager.setSuiteCode(requestMap.get("suite_code")[0]);
+		sprintManager.setSuiteName(requestMap.get("suite_name")[0]);
+		sprintManager.setModuleCode(requestMap.get("module_code")[0]);
+		sprintManager.setModuleName(requestMap.get("module_name")[0]);
+		sprintManager.setPrivGrpCode(Integer.parseInt(requestMap.get("priv_grp_code")[0]));
+		sprintManager.setPrivGrpName(requestMap.get("priv_grp_name")[0]);
+
+		sprintManager.setSprintCode(requestMap.get("sprint_code")[0]);
+		sprintManager.setSprintName(requestMap.get("sprint_name")[0]);
+		sprintManager.setSprintGoal(requestMap.get("sprint_goal")[0]);
+		sprintManager.setSprintNumber(Double.parseDouble(requestMap.get("sprint_number")[0]));
+		sprintManager.setSprintStories(requestMap.get("sprint_stories")[0]);	
+		sprintManager.setSprintDescription(requestMap.get("sprint_description")[0]);
+		
+		java.sql.Date startDate = (Date) Utility.toSqlDate(requestMap.get("start_date")[0]);
+		sprintManager.setStartDate(startDate);
+		
+		java.sql.Date endDate = (Date) Utility.toSqlDate(requestMap.get("end_date")[0]);
+		sprintManager.setEndDate(endDate);
+		
+		sprintManager.setClientCode(currentUser.getClientCode());
+		sprintManager.setClientName(currentUser.getClientName());
+		sprintManager.setCompanyCode(currentUser.getCompanyCode());
+		sprintManager.setCompanyName(currentUser.getCompanyName());
+		sprintManager.setUpdatedByCode(currentUser.getEmpCode());            
+		sprintManager.setUpdatedByName(currentUser.getEmpName());
+		sprintManager.setUpdatedByUsername(currentUser.getUsername());
+		sprintManager.setUpdatedByEmail(currentUser.getEmail());
+		sprintManager.setUpdatedByCompanyCode(currentUser.getCompanyCode());
+		sprintManager.setUpdatedByCompanyName(currentUser.getCompanyName());
+		sprintManager.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+		
+		UUID id = sprintDao.updateDoc(sprintManager);
+		data.put("id", id.toString());
+		return data;
 	}
 
 	@Override

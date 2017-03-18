@@ -55,11 +55,13 @@ public class SprintDAO implements ISprintDAO {
 		sessionfactory.getCurrentSession().flush();
 		return id;
 	}
-
+	
+	@Transactional
 	@Override
 	public UUID updateDoc(SprintManager doc) {
-		// TODO Auto-generated method stub
-		return null;
+		sessionfactory.getCurrentSession().saveOrUpdate(doc);
+		sessionfactory.getCurrentSession().flush();
+		return doc.getId();
 	}
 
 	@Override
@@ -77,16 +79,19 @@ public class SprintDAO implements ISprintDAO {
 		return suites;
 	}
 
+	@Transactional
 	@Override
 	public List<PrivGroup> getAllPrivGrps() {
-		// TODO Auto-generated method stub
-		return null;
+		Query query=sessionfactory.getCurrentSession().createQuery("From PrivGroup");
+		List<PrivGroup> privgrpLi=query.list();
+		return privgrpLi;
 	}
-
+	@Transactional
 	@Override
 	public List<Module> getAllModules() {
-		// TODO Auto-generated method stub
-		return null;
+		Query query=sessionfactory.getCurrentSession().createQuery("From Module");
+		List<Module> moduleLi=query.list();
+		return moduleLi;
 	}
 
 	@Transactional

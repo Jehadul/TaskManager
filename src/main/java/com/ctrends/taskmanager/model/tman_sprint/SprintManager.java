@@ -26,6 +26,51 @@ public class SprintManager {
 	@Column(name="suite_name")
 	private String suiteName;
 	
+	
+	@Column(name="suite_code")
+	private String suiteCode;
+	
+	@Column(name="module_code")
+	private String moduleCode;
+	
+	@Column(name="priv_grp_code")
+	private int privGrpCode;
+	
+	@Column(name="priv_grp_name")
+	private String privGrpName;
+	
+	public String getSuiteCode() {
+		return suiteCode;
+	}
+
+	public void setSuiteCode(String suiteCode) {
+		this.suiteCode = suiteCode;
+	}
+
+	public String getModuleCode() {
+		return moduleCode;
+	}
+
+	public void setModuleCode(String moduleCode) {
+		this.moduleCode = moduleCode;
+	}
+
+	public int getPrivGrpCode() {
+		return privGrpCode;
+	}
+
+	public void setPrivGrpCode(int privGrpCode) {
+		this.privGrpCode = privGrpCode;
+	}
+
+	public String getPrivGrpName() {
+		return privGrpName;
+	}
+
+	public void setPrivGrpName(String privGrpName) {
+		this.privGrpName = privGrpName;
+	}
+
 	@Column(name="module_name")
 	private String moduleName;
 	

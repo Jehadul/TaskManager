@@ -88,24 +88,81 @@ public class SprintController implements ISprintController {
 				data.get("mode"), data);
 	}
 
+	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
 	@Override
-	public ModelAndView edit(UUID id) {
-		// TODO Auto-generated method stub
-		return null;
+	public ModelAndView edit(@PathVariable(value = "id") UUID id) {
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		List<Suite> suiteLi = sprintDao.getAllSuites();
+
+		Map<String, String> suiteCodes = new HashMap<String, String>();
+		for (int i = 0; i < suiteLi.size(); i++) {
+			suiteCodes.put(suiteLi.get(i).getSuiteCode(), suiteLi.get(i).getSuiteShortName());
+		}
+
+		List<Module> moduleLi = sprintDao.getAllModules();
+
+		Map<String, String> moduleCodes = new HashMap<String, String>();
+		for (int i = 0; i < moduleLi.size(); i++) {
+			moduleCodes.put(moduleLi.get(i).getModCode(), moduleLi.get(i).getModShortName());
+		}
+
+		List<PrivGroup> privGrpLi = sprintDao.getAllPrivGrps();
+
+		Map<Integer, String> privGrpCodes = new HashMap<Integer, String>();
+		for (int i = 0; i < privGrpLi.size(); i++) {
+			privGrpCodes.put(privGrpLi.get(i).getPrivGrpCode(), privGrpLi.get(i).getPrivGrpName());
+		}
+
+		SprintManager sprintManager = sprintService.getById(id);
+
+		map.put("mode", "doc");
+		map.put("sprintManager", sprintManager);
+		map.put("suiteCodes", suiteCodes);
+		map.put("moduleCodes", moduleCodes);
+		map.put("privGrpCodes", privGrpCodes);
+
+		GsonBuilder gson = new GsonBuilder();
+		Gson g = gson.create();
+
+		
+		return new ModelAndView("sprintmanager/edit", "map", map);
 	}
 
-	@Override
-	public WSResponse update(HttpServletRequest request) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
+
+	@RequestMapping(value = "/destroy", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Override
 	public WSResponse destroy(HttpServletRequest request) {
-		// TODO Auto-generated method stub
-		return null;
+		Map<String, String[]> sprint = request.getParameterMap();
+		UUID id = sprintService.delete(sprint);
+		return new WSResponse("success", "Sprint deleted successfully", id, null, "doc", null);
 	}
+	
+	@RequestMapping(value = "/delete", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ModelAndView delete() {
 
+		Map<String, Object> data = new HashMap<String, Object>();
+		List<SprintManager> sprintManagerList = sprintService.getAll();
+		data.put("userStoryLi", sprintManagerList);
+		
+		return new ModelAndView("sprintmanager/delete", "data", data);
+	}
+	
+	@RequestMapping(value = "/update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Override
+	public WSResponse update(HttpServletRequest request) {
+		Map<String, String[]> sprintManager = request.getParameterMap();
+
+		Map<String, String> data = sprintService.update(sprintManager);
+
+		return new WSResponse("success", "Submitted Successfully", UUID.fromString(data.get("id")), null,
+				data.get("mode"), data);
+
+	}
+	
 	@Override
 	public ModelAndView showSearch(HttpServletRequest request) {
 		// TODO Auto-generated method stub
