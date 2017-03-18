@@ -78,6 +78,16 @@
 								</select>	
 								<cts:Hidden name="priv_grp_name" value=""/>		
 					   </div>
+					   
+					   <div class="form-group">
+							<cts:Label name="Privilege Code" labelFor="privilege_code" />
+							<cts:TextBox name="privilege_code" cssClass="dirty-check required "  value="${map.userStory.privilegeCode}" readonly=""/>
+						</div>
+						<div class="form-group">
+							<cts:Label  labelFor="privilege_name" name="Privilege Name"/>
+							<cts:TextBox name="privilege_name" cssClass="dirty-check required" value="${map.userStory.privilegeName}" readonly=""/>
+						</div>
+					   
 						<div class="form-group">
 								<cts:Label name="Story Code" labelFor="user_story_code"/>
 								<cts:TextBox name="user_story_code" value="${map.userStory.userStoryCode}" cssClass="dirty-check required" readonly="" />
@@ -88,11 +98,7 @@
 								<cts:TextBox name="user_story_title" value="${map.userStory.userStoryTitle}" cssClass="dirty-check required" readonly="" />
 						</div>
 						
-						
-						<div class="form-group">
-								<cts:Label name="Description" labelFor="description"/>
-								<cts:TextArea name="description" value="${map.userStory.description}" cssClass="dirty-check" readonly="" rows="3" cols=""/>
-						</div>
+					
 						
 					</div>
 					<div class="col-md-6">
@@ -109,13 +115,20 @@
 								<cts:Label name="Story Size" labelFor="size"/>
 								<cts:TextBox name="size" value="${map.userStory.size}" cssClass="dirty-check number" readonly=""/>
 						</div>
+						
+						<div class="form-group">
+								<cts:Label name="Business Value" labelFor="business_value"/>
+								<cts:TextArea name="business_value" value="${map.userStory.businessValue}" cssClass="dirty-check number" readonly="" rows="3" cols=""/>
+						</div>
 						<div class="form-group">
 								<cts:Label name="Acceptence Criteria" labelFor="acceptance_criteria"/>
 								<cts:TextArea name="acceptance_criteria" value="${map.userStory.acceptanceCriteria}" cssClass="dirty-check" readonly="" rows="3" cols=""/>
 						</div>
+						
+							
 						<div class="form-group">
-								<cts:Label name="Business Value" labelFor="business_value"/>
-								<cts:TextArea name="business_value" value="${map.userStory.businessValue}" cssClass="dirty-check" readonly="" rows="3" cols=""/>
+								<cts:Label name="Description" labelFor="description"/>
+								<cts:TextArea name="description" value="${map.userStory.description}" cssClass="dirty-check" readonly="" rows="3" cols=""/>
 						</div>
 					</div>
 				</div>
