@@ -136,4 +136,9 @@ public class UserService implements IUserService {
         // TODO Auto-generated method stub
         return userDAO.getCurrentUser();
     }
+
+	@Override
+	public List<User> find(Map<String, String> searchingKey) {
+		return userDAO.getDocs(searchingKey);
+	}
 }
