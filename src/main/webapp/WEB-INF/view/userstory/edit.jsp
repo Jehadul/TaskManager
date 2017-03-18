@@ -29,7 +29,7 @@
 								<select id="suite_code" class="form-control required" name="suite_code">
 									<c:forEach items="${map.suiteCodes}" var="item">
 									<c:choose>
-										<c:when test="${item.getKey() == map.tasks.suiteCode}">
+										<c:when test="${item.getKey() == map.userStory.suiteCode}">
 											<option selected value="${item.getKey()}">${item.getValue()}</option>
 										</c:when>
 										<c:otherwise>
@@ -47,7 +47,7 @@
 								<select id="module_code" class="form-control required" name="module_code">
 									<c:forEach items="${map.moduleCodes}" var="item">
 									<c:choose>
-										<c:when test="${item.getKey() == map.tasks.moduleCode}">
+										<c:when test="${item.getKey() == map.userStory.moduleCode}">
 											<option selected value="${item.getKey()}">${item.getValue()}</option>
 										</c:when>
 										<c:otherwise>
@@ -66,7 +66,7 @@
 								<select id="priv_grp_code" class="form-control required" name="priv_grp_code">
 									<c:forEach items="${map.privGrpCodes}" var="item">
 									<c:choose>
-										<c:when test="${item.getKey() == map.tasks.privGrpCode}">
+										<c:when test="${item.getKey() == map.userStory.privGrpCode}">
 											<option selected value="${item.getKey()}">${item.getValue()}</option>
 										</c:when>
 										<c:otherwise>
