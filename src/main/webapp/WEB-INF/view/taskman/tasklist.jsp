@@ -56,24 +56,6 @@
 											<span class="fa fa-play"></span>
 										</button> <!-- <button type="button" onclick="upRow(this);" class="btn-up btn btn-xs"><span class="fa fa-arrow-up"></span></button> 
 										<button type="button" onclick="downRow(this);" class="btn-down btn btn-xs"><span class="fa fa-arrow-down"></span></button> -->
-
-
-
-										<input type="hidden" name="id[]" class="task_id"
-										value="${task.getId()}" /> <input type="hidden"
-										name="task_title[]" class="task_title"
-										value="${task.getTaskTitle()}" /> <input type="hidden"
-										name="estimated_time[]" class="estimated_time"
-										value="${task.getEstimatedTime()}" /> <input type="hidden"
-										name="spent_time[]" class="spent_time"
-										value="${task.getSpentTime()}" /> <input type="hidden"
-										name="remaining_time[]" class="remaining_time"
-										value="${task.getRemainingTime()}" /> <input type="hidden"
-										name="assignee[]" class="assignee"
-										value="${task.getAsignee()}" />
-
-							
-										
 									<input type="hidden" name="id[]" class="task_id1" value="${task.getId()}" />	
 									<input type="hidden" name="task_title[]" class="task_title" value="${task.getTaskTitle()}" />
 									<input type="hidden" name="estimated_time[]" class="estimated_time" value="${task.getEstimatedTime()}" />
@@ -92,7 +74,6 @@
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 			<cts:Hidden name="id" value=""/>
 		</form>
-
 	</div>
 </div>
 
