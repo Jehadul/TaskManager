@@ -31,18 +31,16 @@
 					<!-- <div class="denotes-required">denotes a required field.</div> -->
 					
 					<div class="form-group">
-						<cts:Label name="Suite Name" labelFor="suite_code"/>
-						:     <b>${map.userStory.suiteCode}</b>
+						<cts:Label name="Suite Name" labelFor="suite_name"/>
+						:     <b>${map.userStory.suiteName}</b>
 					</div>
-					
 					<div class="form-group">
-						<cts:Label name="Module Name" labelFor="module_code"/>
-						 :     <b>${map.userStory.moduleCode}</b>
+						<cts:Label name="Module Name" labelFor="module_name"/>
+						 :     <b>${map.userStory.moduleName}</b>
 					</div>
-					
 					<div class="form-group">
-						<cts:Label name="Priv Group Name" labelFor="priv_grp_code"/>
-						:     <b>${map.userStory.privGrpCode}</b>
+						<cts:Label name="Privilege Group Name" labelFor="priv_grp_name"/>
+						:     <b>${map.userStory.privGrpName}</b>
 					</div>
 					
 					<div class="form-group">
