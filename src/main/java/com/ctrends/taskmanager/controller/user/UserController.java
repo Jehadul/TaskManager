@@ -53,7 +53,6 @@ public class UserController implements IUserController {
 
 	@RequestMapping(value = "/userSearch", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String search(@Context HttpServletRequest request) {
-		System.out.println("::::::user search page::::");
 		Map<String, String> searchingKey = new HashMap<String, String>();
 		
 		// if user input is null than convart it into empty String
