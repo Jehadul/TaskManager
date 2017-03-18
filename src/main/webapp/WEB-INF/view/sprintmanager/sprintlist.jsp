@@ -14,11 +14,7 @@
 	</section>
 
 	<div class="container-fluid container-fullw bg-white">
-	
-		<cts:AjaxForm dataHandler="" action="#" cssClass="ajax list-form">
-			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-			
-	
+
 			<fieldset>
 				<legend> Sprint List&nbsp;&nbsp; </legend>
 				<div class="table-responsive">
@@ -38,7 +34,7 @@
 						<tbody>
 							<c:forEach var="sprint" items="${data.sprintlist}">
 								<tr>
-									<td><input type="hidden" name="id" class="sprint_id" value="${sprint.getId()}" /></td>
+									<td><input type="hidden" name="id1" class="sprint_id" value="${sprint.getId()}" /></td>
 									<td><c:out value="${sprint.getSuiteName()}" /></td>
 									<td><c:out value="${sprint.getModuleName()}" /></td>
 									<td><c:out value="${sprint.getPrivilegeName()}" /></td>
@@ -53,7 +49,7 @@
 											<span class="fa fa-trash"></span>
 										</button>
 			
-									<input type="hidden" name="id[]" class="sprint_id" value="${sprint.getId()}" />	
+									<input type="hidden" name="id[]" class="sprint_id1" value="${sprint.getId()}" />	
 									<input type="hidden" name="suite_Name[]" class="suite_Name" value="${sprint.getSuiteName()}" />
 									<input type="hidden" name="module_Name[]" class="module_Name" value="${sprint.getModuleName()}" />
 									<input type="hidden" name="privilege_Name[]" class="privilege_Name" value="${sprint.getPrivilegeName()}" />
@@ -66,7 +62,13 @@
 					</table>
 				</div>
 			</fieldset>
-		</cts:AjaxForm>
+			
+			
+			
+			<form method="POST" action="/taskman/tman/sprint/destroy" class="ajax delete_form">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			<cts:Hidden name="id" value=""/>
+			</form>
 
 	</div>
 </div>
@@ -75,5 +77,34 @@
 	InitHandlers();
 	
 	InitDataTable("#sprint_sort_result"); 
+	
+	
+	var delRow = function(el) {
+		swal({
+			title : "Are you sure?",
+			text : "Are you sure to delete this privilege?",
+			type : "warning",
+			showCancelButton : true,
+			confirmButtonColor : "#007AFF",
+			confirmButtonText : "Yes, delete it!",
+			closeOnConfirm : true
+		}, function() {
+
+			$("input[name='id']").val($(el).closest("tr").find(".sprint_id").val());
+			$(el).closest("tr").remove();
+			$(".delete_form").submit();
+		});
+	};
+	
+	
+	$('.btn-edit').on("click", function() {
+		var currentRow = $(this).closest("tr");
+		currentRow.addClass("current-row");
+
+		var sprintId = currentRow.find(".sprint_id").val();
+
+		LoadMainContent('/taskman/tman/sprint/edit/' + sprintId);
+	});
+	
 
 </script>
