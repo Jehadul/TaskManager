@@ -32,7 +32,9 @@ public class TasksDao implements ITasksDao {
 	@Transactional
 	@Override
 	public List<Tasks> getAllDoc() {
-		Query query = sessionfactory.getCurrentSession().createQuery("From Tasks");
+		User currentUser = userService.getCurrentUser();
+		Query query = sessionfactory.getCurrentSession().createQuery("From Tasks where createdByUsername =:userName");
+		query.setParameter("userName", currentUser.getUsername());
 		List<Tasks> tasksLi = query.list();
 		return tasksLi;
 	}
