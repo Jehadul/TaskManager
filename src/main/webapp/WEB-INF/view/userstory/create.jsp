@@ -112,7 +112,7 @@ InitHandlers();
 	$("input[name='suite_name']").val($("#suite_code option:selected").text());
 	$("input[name='module_name']").val($("#module_code option:selected").text());
 	
-	$("input[name='priv_name']").val($("#priv_code option:selected").text());
+	$("input[name='priv_name']").val($("#privilege_code option:selected").text());
 
 	$('#suite_code').on('change', function(){
 		var newSuiteCode = $("#suite_code").val();
@@ -155,17 +155,17 @@ InitHandlers();
 	
 	 $("#priv_grp_code").on("change", function(){
 		 $("input[name='priv_grp_name']").val($("#priv_grp_code option:selected").text());
-		 	$("#priv_code").val("");
+		 	$("#privilege_code").val("");
 			var newSuiteCode = $("#suite_code").val();  
 			var newModuleCode = $("#module_code").val();
 			var newPrivGroupCode = $("#priv_grp_code").val();
 			var newPrivCode = newSuiteCode+ "_" + newModuleCode + "_" + newPrivGroupCode + "_";
-				$("#priv_code").val(newPrivCode);
+				$("#privilege_code").val(newPrivCode);
 	 }); 
 	 
-	 $("#priv_code").on("change", function(){
+	 $("#privilege_code").on("change", function(){
 		 $("#user_story_code").val("");
-		 var newPrivilegeCode = $("#priv_code").val();
+		 var newPrivilegeCode = $("#privilege_code").val();
 		 var newUserStoryCode = newPrivilegeCode + ".";
 		 $("#user_story_code").val(newUserStoryCode);
 		 
