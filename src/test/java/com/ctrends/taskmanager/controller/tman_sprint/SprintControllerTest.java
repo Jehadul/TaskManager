@@ -70,7 +70,6 @@ public class SprintControllerTest {
 		request.setParameter("suite_name", "trtryry");
 		request.setParameter("module_code", "ED");
 		request.setParameter("module_name", "Employee Database");
-		request.addParameter("priv_grp_code", String.valueOf(1));
 		request.setParameter("priv_grp_code", String.valueOf(1));
 		request.setParameter("priv_grp_name", "trtryry");
 		request.setParameter("sprint_code", "xvbhxf");
@@ -79,8 +78,8 @@ public class SprintControllerTest {
 		request.setParameter("sprint_number", String.valueOf(1));
 		request.setParameter("sprint_stories", "xvbhxf");
 		request.setParameter("sprint_description", "xvbhxf");
-		request.setParameter("start_date", String.valueOf(1));
-		request.setParameter("end_date", "xvbhxf");
+		request.setParameter("start_date", startDate);
+		request.setParameter("end_date", endDate);
 		WSResponse ar = sprintController.update(request);
 		assertTrue(ar.getClass()==WSResponse.class);
 	}
@@ -112,5 +111,34 @@ public class SprintControllerTest {
         WSResponse ar = sprintController.store(request);
         assertTrue(ar.getClass()==WSResponse.class);
     }
+    
+    @Test
+	public void testDelete_ReturnsModelAndView(){
+		ModelAndView ar = sprintController.delete();
+		assertTrue(ar.hasView());
+	}
+    
+    @Test
+	public void testDestroy_ReturnsWSResponse(){
+		UUID id=UUID.fromString("15243042-0be0-4919-91c7-ed30f8983e93");
+		request.setParameter("id", String.valueOf(id));
+		request.setParameter("suite_code", "ertert");
+		request.setParameter("suite_name", "trtryry");
+		request.setParameter("module_code", "ED");
+		request.setParameter("module_name", "Employee Database");
+		request.setParameter("priv_grp_code", String.valueOf(1));
+		request.setParameter("priv_grp_name", "trtryry");
+		request.setParameter("sprint_code", "xvbhxf");
+		request.setParameter("sprint_name", "xvbhxf");
+		request.setParameter("sprint_goal", "xvbhxf");
+		request.setParameter("sprint_number", String.valueOf(1));
+		request.setParameter("sprint_stories", "xvbhxf");
+		request.setParameter("sprint_description", "xvbhxf");
+		request.setParameter("start_date", startDate);
+		request.setParameter("end_date", endDate);
+		
+		WSResponse ar = sprintController.destroy(request); 
+		assertTrue(ar.getClass()==WSResponse.class);
+	}
 
 }
