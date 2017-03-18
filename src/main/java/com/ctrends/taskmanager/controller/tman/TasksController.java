@@ -26,6 +26,7 @@ import com.ctrends.taskmanager.dao.tman.ITasksDao;
 import com.ctrends.taskmanager.model.taskmanage.Module;
 import com.ctrends.taskmanager.model.taskmanage.PrivGroup;
 import com.ctrends.taskmanager.model.taskmanage.Suite;
+import com.ctrends.taskmanager.model.tman.TaskLog;
 import com.ctrends.taskmanager.model.tman.Tasks;
 
 import com.ctrends.taskmanager.service.tman.ITasksService;
@@ -48,12 +49,14 @@ public class TasksController implements ITasksController {
 
 		Map<String, Object> data = new HashMap<String, Object>();
 		List<Tasks> tasklist = tasksService.getAll();
-
+		TaskLog taskloglist = tasksService.getRunningTaskLogByCurrentUser();
 		GsonBuilder gson = new GsonBuilder();
 		Gson g = gson.create();
 
 		data.put("tasklist", tasklist);
-
+		data.put("taskloglist", taskloglist);
+		// System.out.println(taskloglist.get(0).getTaskId()+":::::::::::::running
+		// taskId::::::::::::::");
 		return new ModelAndView("taskman/tasklist", "data", data);
 	}
 
@@ -165,7 +168,6 @@ public class TasksController implements ITasksController {
 
 	}
 
-
 	@RequestMapping(value = "/destroy", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Override
 	public WSResponse destroy(HttpServletRequest request) {
@@ -242,22 +244,20 @@ public class TasksController implements ITasksController {
 		return null;
 	}
 
-
 	@RequestMapping(value = "/timeLog/{id}/{strTime}/{title}/{day}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ModelAndView timeLog(@PathVariable(value = "id") UUID id,
-			@PathVariable(value = "strTime") String strTime,
-			@PathVariable(value = "title") String title,
-			@PathVariable(value = "day") String today) {
+	public ModelAndView timeLog(@PathVariable(value = "id") UUID id, @PathVariable(value = "strTime") String strTime,
+			@PathVariable(value = "title") String title, @PathVariable(value = "day") String today) {
 		Map<String, String> map = new HashMap<>();
 		map.put("id", id.toString());
 		map.put("startTime", strTime);
-		map.put("taskTitle", title);		
+		map.put("taskTitle", title);
 		map.put("today", today);
-		
+
 		Map<String, String> data = tasksService.insertTaskLog(map);
 		return null;
 	}
+
 	@RequestMapping(value = "/timeLogUpdate/{id}/{stopTime}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ModelAndView timeLogUpdate(@PathVariable(value = "id") UUID id,
