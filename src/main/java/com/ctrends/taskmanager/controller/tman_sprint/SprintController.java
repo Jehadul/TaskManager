@@ -142,6 +142,7 @@ public class SprintController implements ISprintController {
 	
 	@RequestMapping(value = "/delete", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
+	@Override
 	public ModelAndView delete() {
 
 		Map<String, Object> data = new HashMap<String, Object>();
