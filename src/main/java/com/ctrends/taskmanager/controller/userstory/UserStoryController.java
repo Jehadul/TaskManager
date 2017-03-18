@@ -116,7 +116,7 @@ public class UserStoryController implements IUserStoryController {
 		
 		
 		
-		List<Privilege> privilegeLi = taskDao.getBy(suiteCode, moduleCode, Integer.parseInt(privGroupCode));
+		/*List<Privilege> privilegeLi = taskDao.getBy(suiteCode, moduleCode, Integer.parseInt(privGroupCode));
 		
 		Map<String, String> privileges = new LinkedHashMap<String, String>();
 		
@@ -126,7 +126,7 @@ public class UserStoryController implements IUserStoryController {
 		
 		for (int i = 0; i < privilegeLi.size(); i++) {
 			privileges.put(privilegeLi.get(i).getPrivCode(), privilegeLi.get(i).getPrivName());
-		}
+		}*/
 		
 		
 		Map<String, String> priorities = new LinkedHashMap<String, String>();
@@ -141,12 +141,12 @@ public class UserStoryController implements IUserStoryController {
 		data.put("suiteCodes", suiteCodes);
 		data.put("moduleCodes", moduleCodes);
 		data.put("privgroups", privgroups);
-		data.put("privileges", privileges);
+		//data.put("privileges", privileges);
 		data.put("priorities", priorities);
 		data.put("suiteCode", suiteCode);
 		data.put("privGroupCode", privGroupCode);
 		data.put("moduleCode", moduleCode);
-		data.put("privCode", privCode);
+		//data.put("privCode", privCode);
 		data.put("priority", priority);
 		return new ModelAndView("userstory/create", "data", data);
 	}
