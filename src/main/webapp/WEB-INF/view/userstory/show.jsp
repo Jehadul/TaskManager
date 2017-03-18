@@ -42,6 +42,16 @@
 						<cts:Label name="Privilege Group Name" labelFor="priv_grp_name"/>
 						:     <b>${map.userStory.privGrpName}</b>
 					</div>
+
+					<div class="form-group">
+						<cts:Label name="Privilege Code" labelFor="privilege_code"/>
+						:     <b>${map.userStory.privilegeCode}</b>
+					</div>
+					
+					<div class="form-group">
+						<cts:Label name="Privilege Name" labelFor="privilege_name"/>
+						:     <b>${map.userStory.privilegeName}</b>
+					</div>
 					
 					<div class="form-group">
 						<cts:Label name="User Story Code" labelFor="user_story_code"/>
