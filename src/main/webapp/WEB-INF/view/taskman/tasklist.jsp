@@ -14,10 +14,6 @@
 	</section>
 
 	<div class="container-fluid container-fullw bg-white">
-		<cts:AjaxForm dataHandler="" action="/taskman/tman/tasks/destroy"
-			cssClass="ajax list-form">
-			<input type="hidden" name="${_csrf.parameterName}"
-				value="${_csrf.token}" />
 			<fieldset>
 				<legend> Task List&nbsp;&nbsp; </legend>
 				<div class="table-responsive">
@@ -92,8 +88,6 @@
 					</table>
 				</div>
 			</fieldset>
-		<</cts:AjaxForm> 
-		
 		<form method="POST" action="/taskman/tman/tasks/destroy" class="ajax delete_form">
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 			<cts:Hidden name="id" value=""/>
@@ -205,13 +199,6 @@
 			confirmButtonText : "Yes, delete it!",
 			closeOnConfirm : true
 		}, function() {
-
-			$("input[name='id']").val(
-					$(el).closest("tr").find(".task_id").val());
-			$(el).closest("tr").remove();
-			$(".list-form").submit();
-
-
 			$("input[name='id']").val($(el).closest("tr").find(".task_id").val());
 			$(el).closest("tr").remove();
 			$(".delete_form").submit();
