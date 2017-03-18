@@ -18,7 +18,7 @@
 	</section>
 
 	<div class="container-fluid container-fullw bg-white">
-		<cts:AjaxForm action="/taskman/tman/sprint/store" dataHandler="showMessage" >
+		<cts:AjaxForm action="/taskman/tman/sprint/update" dataHandler="showMessage" >
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 			<div class="main-control">
 				<div class="row">
