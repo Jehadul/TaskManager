@@ -146,7 +146,7 @@ public class SprintController implements ISprintController {
 
 		Map<String, Object> data = new HashMap<String, Object>();
 		List<SprintManager> sprintManagerList = sprintService.getAll();
-		data.put("userStoryLi", sprintManagerList);
+		data.put("sprintManagerList", sprintManagerList);
 		
 		return new ModelAndView("sprintmanager/delete", "data", data);
 	}
