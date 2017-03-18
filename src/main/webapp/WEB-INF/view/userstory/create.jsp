@@ -111,7 +111,7 @@ InitHandlers();
 
 	$("input[name='suite_name']").val($("#suite_code option:selected").text());
 	$("input[name='module_name']").val($("#module_code option:selected").text());
-	$("input[name='priv_grp_name']").val($("#priv_grp_code option:selected").text());
+	
 	$("input[name='priv_name']").val($("#priv_code option:selected").text());
 
 	$('#suite_code').on('change', function(){
@@ -133,7 +133,7 @@ InitHandlers();
 		var newPrivGroupCode = $("#priv_grp_code").val();
 		//var newPrivilege = newSuiteCode + "_" + newModuleCode + "_" + newPrivGroupCode;
 		//$("#priv_code").val(newPrivilege);
-		LoadMainContent("/tasnewUserStoryCodekman/userstory/story/create/?suite_code=" + newSuiteCode + "&" + "module_code=" + newModuleCode + "&" + "priv_grp_code=" + newPrivGroupCode);
+		//LoadMainContent("/taskman/userstory/story/create/?suite_code=" + newSuiteCode + "&" + "module_code=" + newModuleCode + "&" + "priv_grp_code=" + newPrivGroupCode);
 	});
 	
 	$("#priority_code").on("change", function(){
@@ -154,6 +154,7 @@ InitHandlers();
 	}
 	
 	 $("#priv_grp_code").on("change", function(){
+		 $("input[name='priv_grp_name']").val($("#priv_grp_code option:selected").text());
 		 	$("#priv_code").val("");
 			var newSuiteCode = $("#suite_code").val();  
 			var newModuleCode = $("#module_code").val();
