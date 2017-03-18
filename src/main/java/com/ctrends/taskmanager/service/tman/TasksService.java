@@ -257,4 +257,9 @@ public class TasksService implements ITasksService {
 		return tasksDao.getCurrentTaskByCurrentUser();
 	}
 
+	@Override
+	public TaskLog getRunningTaskLogByCurrentUser() {
+		return tasksDao.getRunningTaskByCurrentUser1();
+	}
+
 }

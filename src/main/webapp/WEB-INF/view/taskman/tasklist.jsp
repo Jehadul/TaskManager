@@ -14,18 +14,17 @@
 	</section>
 
 	<div class="container-fluid container-fullw bg-white">
-	
-		<%-- <cts:AjaxForm dataHandler="" action="/taskman/tman/tasks/destroy" cssClass="ajax list-form">
-			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> --%>
-			
-	
+		<cts:AjaxForm dataHandler="" action="/taskman/tman/tasks/destroy"
+			cssClass="ajax list-form">
+			<input type="hidden" name="${_csrf.parameterName}"
+				value="${_csrf.token}" />
 			<fieldset>
 				<legend> Task List&nbsp;&nbsp; </legend>
 				<div class="table-responsive">
 					<table class="table table-striped table-hover"
 						id="task_sort_result">
-							<thead>
-								<tr>
+						<thead>
+							<tr>
 								<th></th>
 								<th>Task Title</th>
 								<th>Estimated Time</th>
@@ -39,26 +38,44 @@
 							<c:forEach var="task" items="${data.tasklist}">
 								<tr>
 									<td><input type="hidden" name="id1" class="task_id" value="${task.getId()}" /></td>
+
 									<td><c:out value="${task.getTaskTitle()}" /></td>
 									<td><c:out value="${task.getEstimatedTime()}" /></td>
 									<td><c:out value="${task.getSpentTime()}" /></td>
 									<td><c:out value="${task.getRemainingTime()}" /></td>
 									<td><c:out value="${task.getAsignee()}" /></td>
 									<td>
-										<button type="button" onclick="editRow(this);" class="btn-edit btn btn-xs">
+										<button type="button" onclick="editRow(this);"
+											class="btn-edit btn btn-xs">
 											<span class="fa fa-edit"></span>
 										</button>
-										
-										<button type="button" onclick="delRow(this);" class="btn-del btn btn-xs">
+
+										<button type="button" onclick="delRow(this);"
+											class="btn-del btn btn-xs">
 											<span class="fa fa-trash"></span>
 										</button>
-										
-											<button type="button" onclick="startTimer(this);" class="btn-timer btn btn-xs time-start">
-												<span class="fa fa-play"></span>
-											</button>
-										 	
-										<!-- <button type="button" onclick="upRow(this);" class="btn-up btn btn-xs"><span class="fa fa-arrow-up"></span></button> 
+
+										<button type="button" onclick="startTimer(this);"
+											class="btn-timer btn btn-xs time-start">
+											<span class="fa fa-play"></span>
+										</button> <!-- <button type="button" onclick="upRow(this);" class="btn-up btn btn-xs"><span class="fa fa-arrow-up"></span></button> 
 										<button type="button" onclick="downRow(this);" class="btn-down btn btn-xs"><span class="fa fa-arrow-down"></span></button> -->
+
+
+
+										<input type="hidden" name="id[]" class="task_id"
+										value="${task.getId()}" /> <input type="hidden"
+										name="task_title[]" class="task_title"
+										value="${task.getTaskTitle()}" /> <input type="hidden"
+										name="estimated_time[]" class="estimated_time"
+										value="${task.getEstimatedTime()}" /> <input type="hidden"
+										name="spent_time[]" class="spent_time"
+										value="${task.getSpentTime()}" /> <input type="hidden"
+										name="remaining_time[]" class="remaining_time"
+										value="${task.getRemainingTime()}" /> <input type="hidden"
+										name="assignee[]" class="assignee"
+										value="${task.getAsignee()}" />
+
 							
 										
 									<input type="hidden" name="id[]" class="task_id1" value="${task.getId()}" />	
@@ -67,6 +84,7 @@
 									<input type="hidden" name="spent_time[]" class="spent_time" value="${task.getSpentTime()}" />
 									<input type="hidden" name="remaining_time[]" class="remaining_time" value="${task.getRemainingTime()}" />
 									<input type="hidden" name="assignee[]" class="assignee" value="${task.getAsignee()}" />
+
 									</td>
 								</tr>
 							</c:forEach>
@@ -74,7 +92,7 @@
 					</table>
 				</div>
 			</fieldset>
-		<%-- </cts:AjaxForm> --%>
+		<</cts:AjaxForm> 
 		
 		<form method="POST" action="/taskman/tman/tasks/destroy" class="ajax delete_form">
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
@@ -86,12 +104,12 @@
 
 <script>
 	InitHandlers();
-	
+
 	InitDataTable("#task_sort_result");
 	var stop;
 	var html;
 	function startTimer(el) {
-		
+
 		var runningTime = $('#show-timer').text();
 		if (runningTime == "") {
 			swal(
@@ -154,22 +172,21 @@
 		}
 	}
 
-	function stopTimertest(el) {		
-		var id = $(el).closest('tr').find('td').find('.task_id').val();	
+	function stopTimertest(el) {
+		var id = $(el).closest('tr').find('td').find('.task_id').val();
 		console.log(id);
 		clearTimeout(stop);
-		$(".time-start").removeClass("hidden");	
+		$(".time-start").removeClass("hidden");
 		$("#start-timer").remove();
 		$("#stop-timer").remove();
-		
+
 		var dt = new Date();
 		var stopTime = dt.toLocaleTimeString();
 		$.ajax({
 			type : 'GET',
-			url : '/taskman/tman/tasks/timeLogUpdate/'+id+'/'+stopTime
-		}); 
-		
-		
+			url : '/taskman/tman/tasks/timeLogUpdate/' + id + '/' + stopTime
+		});
+
 	}
 
 	function showTime() {
@@ -177,34 +194,54 @@
 		$('#show-timer').html(dt.toLocaleTimeString());
 		stop = setTimeout("showTime()", 1000);
 	}
-	 
-	
-	var delRow = function(el){
+
+	var delRow = function(el) {
 		swal({
-			title: "Are you sure?",
-			text: "Are you sure to delete this privilege?",
-			type: "warning",
-			showCancelButton: true,
-			confirmButtonColor: "#007AFF",
-			confirmButtonText: "Yes, delete it!",
-			closeOnConfirm: true
+			title : "Are you sure?",
+			text : "Are you sure to delete this privilege?",
+			type : "warning",
+			showCancelButton : true,
+			confirmButtonColor : "#007AFF",
+			confirmButtonText : "Yes, delete it!",
+			closeOnConfirm : true
 		}, function() {
+
+			$("input[name='id']").val(
+					$(el).closest("tr").find(".task_id").val());
+			$(el).closest("tr").remove();
+			$(".list-form").submit();
+
+
 			$("input[name='id']").val($(el).closest("tr").find(".task_id").val());
 			$(el).closest("tr").remove();
 			$(".delete_form").submit();
-			
 		});
 	};
-	
 
-	$('.btn-edit').on("click",function(){/* console.log($(".task_id").val()) */
-		 var currentRow = $(this).closest("tr");
-		 currentRow.addClass("current-row");
-		 
-		 var taskId = currentRow.find(".task_id").val();
-		 
-		LoadMainContent('/taskman/tman/tasks/edit/' + taskId);			
+	$('.btn-edit').on("click", function() {/* console.log($(".task_id").val()) */
+		var currentRow = $(this).closest("tr");
+		currentRow.addClass("current-row");
+
+		var taskId = currentRow.find(".task_id").val();
+
+		LoadMainContent('/taskman/tman/tasks/edit/' + taskId);
 	});
-	
 
+	//refress call
+	var runningTaskLogId = "${data.taskloglist.taskId}";
+	if (runningTaskLogId != " ") {
+		var htmlRuning = ' <button type="button" class="btn-edit btn btn-xs" id="start-timer">'
+				+ '<div id="show-timer" >00:00:00s</div></button>'
+				+ '<button type="button" onclick="stopTimertest(this);" class="btn-del btn btn-xs" id="stop-timer">'
+				+ '<span class="fa fa-stop"></span></button>';
+
+		$('.task_id').each(function(index, element) {
+			if ($(this).val() == runningTaskLogId & index == 0) {
+				$(this).closest('tr').find('.time-start').before(htmlRuning);
+				stop = setTimeout("showTime()", 1000);
+				$(this).closest('tr').find('.time-start').addClass("hidden");
+				console.log(index);
+			}
+		});
+	}
 </script>

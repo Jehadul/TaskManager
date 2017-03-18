@@ -77,7 +77,7 @@
 							<cts:TextBox name="business_value" cssClass="dirty-check number" readonly=""/>
 						</div>
 						<div class="form-group">
-							<cts:Label name="Acceptence Criteria" labelFor="acceptance_criteria"/>
+							<cts:Label name="Acceptance Criteria" labelFor="acceptance_criteria"/>
 							<cts:TextArea name="acceptance_criteria" cssClass="dirty-check" readonly="" rows="3" cols=""/>
 						</div>
 						<div class="form-group">
