@@ -44,6 +44,28 @@ public class UserStory {
 	@Column(name="suite_name")
 	private String suiteName;
 	
+	@Column(name="priv_code")
+	private String privCode;
+	
+	@Column(name="priv_name")
+	private String privName;
+	
+	public String getPrivCode() {
+		return privCode;
+	}
+
+	public void setPrivCode(String privCode) {
+		this.privCode = privCode;
+	}
+
+	public String getPrivName() {
+		return privName;
+	}
+
+	public void setPrivName(String privName) {
+		this.privName = privName;
+	}
+
 	@Column(name="module_code")
 	private String moduleCode;
 	
