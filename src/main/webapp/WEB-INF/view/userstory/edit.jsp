@@ -213,4 +213,12 @@
 		LoadMainContent("/taskman/userstory/story/create/?suite_code=" + newSuiteCode + "&" + "module_code=" + newModuleCode + "&" + "priv_grp_code=" + newPrivGroupCode);
 	});
 	
+	 $("#privilege_code").on("change", function(){
+		 $("#user_story_code").val("");
+		 var newPrivilegeCode = $("#privilege_code").val();
+		 var newUserStoryCode = newPrivilegeCode + ".";
+		 $("#user_story_code").val(newUserStoryCode);
+		 
+	 });
+	
 </script>
