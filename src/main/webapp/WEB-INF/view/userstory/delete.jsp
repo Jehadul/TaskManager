@@ -53,8 +53,8 @@
 														<cts:Hidden name="priv_grp_code" value="${story.getPrivGrpCode()}" cssClass="view"/>
 													</td>
 													<td>
-														<cts:TextBox name="priv_name" value="${story.getPrivilegeName()}" cssClass="view"/>
-														<cts:Hidden name="priv_code" value="${story.getPrivilegeCode()}" cssClass="view"/>
+														<cts:TextBox name="privilege_name" value="${story.getPrivilegeName()}" cssClass="view"/>
+														<cts:Hidden name="privilege_code" value="${story.getPrivilegeCode()}" cssClass="view"/>
 													</td>
 													<td>
 														<cts:TextBox name="description" value="${story.getDescription()}" cssClass="view"/>
