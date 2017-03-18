@@ -104,8 +104,21 @@
 					<div class="col-md-6">
 						
 						<div class="form-group">
-								<cts:Label name="Priority" labelFor="priority"/>
-								<cts:TextBox name="priority" value="${map.userStory.priority}" cssClass="dirty-check required" readonly=""/>
+							<cts:Label labelFor="priority_code" name="Priority"/>
+								<select id="priority_code" class="form-control required" name="priority_code">
+									<c:forEach items="${map.priorities}" var="item">
+									<c:choose>
+										<c:when test="${item.getKey() == map.userStory.priorityCode}">
+											<option selected value="${item.getKey()}">${item.getValue()}</option>
+										</c:when>
+										<c:otherwise>
+											<option value="${item.getKey()}">${item.getValue()}</option>
+										</c:otherwise>
+										
+									</c:choose>	
+									</c:forEach>
+								</select>
+							<cts:Hidden name="priority" value=""/>
 						</div>
 						<div class="form-group">
 								<cts:Label name="Story Order" labelFor="story_order"/>
