@@ -15,8 +15,8 @@
 
 	<div class="container-fluid container-fullw bg-white">
 	
-		<cts:AjaxForm dataHandler="" action="/taskman/tman/tasks/destroy" cssClass="ajax list-form">
-			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+		<%-- <cts:AjaxForm dataHandler="" action="/taskman/tman/tasks/destroy" cssClass="ajax list-form">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> --%>
 			
 	
 			<fieldset>
@@ -38,7 +38,7 @@
 						<tbody>
 							<c:forEach var="task" items="${data.tasklist}">
 								<tr>
-									<td><input type="hidden" name="id" class="task_id" value="${task.getId()}" /></td>
+									<td><input type="hidden" name="id1" class="task_id" value="${task.getId()}" /></td>
 									<td><c:out value="${task.getTaskTitle()}" /></td>
 									<td><c:out value="${task.getEstimatedTime()}" /></td>
 									<td><c:out value="${task.getSpentTime()}" /></td>
@@ -61,7 +61,7 @@
 										<button type="button" onclick="downRow(this);" class="btn-down btn btn-xs"><span class="fa fa-arrow-down"></span></button> -->
 							
 										
-									<input type="hidden" name="id[]" class="task_id" value="${task.getId()}" />	
+									<input type="hidden" name="id[]" class="task_id1" value="${task.getId()}" />	
 									<input type="hidden" name="task_title[]" class="task_title" value="${task.getTaskTitle()}" />
 									<input type="hidden" name="estimated_time[]" class="estimated_time" value="${task.getEstimatedTime()}" />
 									<input type="hidden" name="spent_time[]" class="spent_time" value="${task.getSpentTime()}" />
@@ -74,7 +74,12 @@
 					</table>
 				</div>
 			</fieldset>
-		</cts:AjaxForm>
+		<%-- </cts:AjaxForm> --%>
+		
+		<form method="POST" action="/taskman/tman/tasks/destroy" class="ajax delete_form">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			<cts:Hidden name="id" value=""/>
+		</form>
 
 	</div>
 </div>
@@ -184,9 +189,9 @@
 			confirmButtonText: "Yes, delete it!",
 			closeOnConfirm: true
 		}, function() {
-			$("input[name='id']").val($(el).closest("tr").find(".task_id").val());		
+			$("input[name='id']").val($(el).closest("tr").find(".task_id").val());
 			$(el).closest("tr").remove();
-			$(".list-form").submit();
+			$(".delete_form").submit();
 			
 		});
 	};

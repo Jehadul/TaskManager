@@ -122,7 +122,7 @@
 		LoadMainContent('/taskman/userstory/story/edit/' + "${map.userStory.id}");			
 	});
 	$('#del_btn').on("click",function(){
-		LoadMainContent("/taskman/userstory/story/delete");			
+		LoadMainContent("/taskman/userstory/story/storylist");			
 	});
 	
 	
