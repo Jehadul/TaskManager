@@ -10,6 +10,7 @@ public interface ISprintController extends ICommonController<SprintManager> {
 	public ModelAndView create(HttpServletRequest request);
 	
 	public ModelAndView sprintList();
+	public ModelAndView delete();
 	
 
 }
