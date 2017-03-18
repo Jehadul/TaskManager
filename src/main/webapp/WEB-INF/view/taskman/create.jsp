@@ -57,10 +57,16 @@
 							<cts:Label name="Estimated Time" labelFor="estimated_time"/>
 							<cts:TextBox name="estimated_time" cssClass="dirty-check required number" readonly=""/>
 						</div>
-						<div class="form-group">						
-							<cts:Label name="Assignee" labelFor="assignee"/>
-							<cts:TextBox name="assignee" cssClass="dirty-check" readonly=""/>
-						</div>
+							<fieldset>
+								<legend>
+									Assignee&nbsp;&nbsp;
+								<cts:Button cssClass="find" spanClass="search" id="btnUser"/>			
+								</legend>
+								<div class="form-group">						
+									<%-- <cts:Label name="Assignee" labelFor="assignee"/> --%>
+									<cts:TextBox name="assignee" cssClass="dirty-check required" readonly="readonly"/>
+								</div>
+						</fieldset>
 					</div>
 				</div>
 				<div class="row">
@@ -110,6 +116,17 @@ InitHandlers();
 		LoadMainContent("/taskman/tman/tasks/create/?suite_code=" + newSuiteCode + "&" + "module_code=" + newModuleCode + "&" + "priv_grp_code=" + newPrivGroupCode);
 	}); 
 	
+	
+	$("#btnUser").on("click",function(){
+		ShowModal("/ac/user/searchuser/?action_type_code=SELECT&actioncallback=loadUser");
+	});
+
+	function loadUser(userdata){ 
+		var emp = JSON.parse(unescape(userdata));			
+		$("#assignee").val(emp.username);	
+		HideModal('search-modal');	
+	}
+	
 	function showMessage(data) {
 		if (data.outcome == 'success') {
 			ShowSuccessMsg('Tasks created', data.message);
@@ -122,7 +139,16 @@ InitHandlers();
 			$(".alert").removeClass("hidden");
 		}
 	}
-	
+	function validate() {
+		SyncOptionText();
+		var result = CheckRequired();
+		if (!result) {
+			ShowErrorMsg('User was not created', "Please check details.");
+			InitErrorChange();
+			$(".alert").removeClass("hidden");
+		}
+		return result;
+	}
 	
 	
 </script>
