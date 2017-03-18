@@ -55,7 +55,7 @@
 						</div>
 						<div class="form-group">
 							<cts:Label name="Estimated Time" labelFor="estimated_time"/>
-							<cts:TextBox name="estimated_time" cssClass="dirty-check required" readonly=""/>
+							<cts:TextBox name="estimated_time" cssClass="dirty-check required number" readonly=""/>
 						</div>
 						<div class="form-group">						
 							<cts:Label name="Assignee" labelFor="assignee"/>

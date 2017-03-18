@@ -40,12 +40,12 @@
 							<cts:Hidden name="priv_grp_name" value=""/>
 						</div>
 						<div class="form-group">
-							<cts:Label labelFor="priv_code" name="Privilege Code"/>
-							<cts:TextBox name="priv_code" cssClass="dirty-check required "  readonly=""/>
+							<cts:Label labelFor="privilege_code" name="Privilege Code"/>
+							<cts:TextBox name="privilege_code" cssClass="dirty-check required "  readonly=""/>
 						</div>
 						<div class="form-group">
-							<cts:Label name="Privilege Name" labelFor="priv_name"/>
-							<cts:TextBox name="priv_name" cssClass="dirty-check required" readonly=""/>
+							<cts:Label name="Privilege Name" labelFor="privilege_name"/>
+							<cts:TextBox name="privilege_name" cssClass="dirty-check required" readonly=""/>
 						</div>
 						<div class="form-group">
 							<cts:Label name="Story Code" labelFor="user_story_code"/>
