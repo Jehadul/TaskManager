@@ -129,8 +129,8 @@ public class SprintService implements ISprintService {
 
 	@Override
 	public UUID delete(Map<String, String[]> requestMap) {
-		// TODO Auto-generated method stub
-		return null;
+		UUID id = sprintDao.deleteDoc(UUID.fromString(requestMap.get("id")[0]));
+		return id;
 	}
 
 }
