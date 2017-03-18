@@ -93,7 +93,9 @@ public class UserStoryService implements IUserStoryService {
 		userStory.setModuleCode(requestMap.get("module_code")[0]);
 		userStory.setModuleName(requestMap.get("module_name")[0]);
 		userStory.setPrivGrpCode(Integer.parseInt(requestMap.get("priv_grp_code")[0]));
-		userStory.setPrivGrpName(requestMap.get("priv_grp_name")[0]);	
+		userStory.setPrivGrpName(requestMap.get("priv_grp_name")[0]);
+		userStory.setPrivilegeCode(requestMap.get("privilege_code")[0]);
+		userStory.setPrivilegeName(requestMap.get("privilege_name")[0]);
 		userStory.setDescription(requestMap.get("description")[0]);
 		userStory.setAcceptanceCriteria(requestMap.get("acceptance_criteria")[0]);
 		userStory.setBusinessValue(requestMap.get("business_value")[0]);
