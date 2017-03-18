@@ -74,7 +74,7 @@ public class UserStoryController implements IUserStoryController {
 		String suiteCode = request.getParameter("suite_code");
 		String moduleCode = request.getParameter("module_code");
 		String privGroupCode = request.getParameter("priv_grp_code");
-		String privCode = request.getParameter("priv_code");
+		String privCode = request.getParameter("privilege_code");
 		String priority = request.getParameter("priority");
 
 		List<Suite> suiteLi = taskDao.getAllSuites();
