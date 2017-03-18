@@ -77,8 +77,8 @@ public class UserStoryServiceTest {
 		requestMap.put("business_value", empCode);
 		requestMap.put("user_story_code", empCode);
 		requestMap.put("user_story_title", empCode);
-		requestMap.put("priv_code", empCode);
-		requestMap.put("priv_name", empCode);
+		requestMap.put("privilege_code", empCode);
+		requestMap.put("privilege_name", empCode);
 		requestMap.put("size", privGrpCode);
 		requestMap.put("priority", empCode);
 		requestMap.put("priority_code", privGrpCode);
@@ -121,8 +121,8 @@ public class UserStoryServiceTest {
 		requestMap.put("business_value", empCode);
 		requestMap.put("user_story_code", empCode);
 		requestMap.put("user_story_title", empCode);
-		requestMap.put("priv_code", empCode);
-		requestMap.put("priv_name", empCode);
+		requestMap.put("privilege_code", empCode);
+		requestMap.put("privilege_name", empCode);
 		requestMap.put("size", privGrpCode);
 		requestMap.put("priority", empCode);
 		requestMap.put("priority_code", privGrpCode);
@@ -149,8 +149,8 @@ public class UserStoryServiceTest {
 		requestMap.put("business_value", empCode);
 		requestMap.put("user_story_code", empCode);
 		requestMap.put("user_story_title", empCode);
-		requestMap.put("priv_code", empCode);
-		requestMap.put("priv_name", empCode);
+		requestMap.put("privilege_code", empCode);
+		requestMap.put("privilege_name", empCode);
 		requestMap.put("size", privGrpCode);
 		requestMap.put("priority", empCode);
 		requestMap.put("story_order", empCode);
