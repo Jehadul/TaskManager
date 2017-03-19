@@ -112,6 +112,8 @@
 
 <script>
 	InitHandlers();
+	
+	
 	var delRow = function(el){
 		swal({
 			title: "Are you sure?",

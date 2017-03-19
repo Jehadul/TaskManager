@@ -60,14 +60,15 @@
 								<c:if test="${not empty msg}">
 									<div class="msg">${msg}</div>
 								</c:if>	
-								<c:if test="${not empty param.logout}">
+								<%-- <c:if test="${not empty param.logout}">
 									<div class="msg">Logged out successfully</div>
-								</c:if>	
+								</c:if>	 --%>
 								
 							</h5>
-							<!-- <p>
-								 "Please enter your name and password to log in."}
-							</p> -->
+							<p>
+								 <!-- "Please enter your name and password to log in."} -->
+								 <!-- Logout successfully -->
+							</p>
 							<div class="form-group">
 								<span class="input-icon">
 									<input type="text" class="form-control" name="username" placeholder="Username" style='text-transform:uppercase'>

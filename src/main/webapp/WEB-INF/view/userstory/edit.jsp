@@ -220,5 +220,9 @@
 		 $("#user_story_code").val(newUserStoryCode);
 		 
 	 });
+	 
+	 $("#priority_code").on("change", function(){
+			$("input[name='priority']").val($("#priority_code option:selected").text());
+		});
 	
 </script>

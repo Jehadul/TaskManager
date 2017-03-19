@@ -44,7 +44,13 @@ public class UserStoryService implements IUserStoryService {
 		userStory.setBusinessValue(requestMap.get("business_value")[0]);
 		userStory.setUserStoryCode(requestMap.get("user_story_code")[0]);
 	    userStory.setUserStoryTitle(requestMap.get("user_story_title")[0]);
-	    userStory.setSize(Integer.parseInt(requestMap.get("size")[0]));
+	    
+	    if(requestMap.get("size")[0].equals("")){
+	    	userStory.setSize(0);
+	    }else{
+	    	userStory.setSize(Integer.parseInt(requestMap.get("size")[0]));
+	    }
+	    
 	    userStory.setPriorityCode(Integer.parseInt(requestMap.get("priority_code")[0]));
 	    userStory.setPriority(requestMap.get("priority")[0]);
 	    userStory.setStoryOrder(requestMap.get("story_order")[0]);
@@ -101,7 +107,11 @@ public class UserStoryService implements IUserStoryService {
 		userStory.setBusinessValue(requestMap.get("business_value")[0]);
 		userStory.setUserStoryCode(requestMap.get("user_story_code")[0]);
 	    userStory.setUserStoryTitle(requestMap.get("user_story_title")[0]);
-	    userStory.setSize(Integer.parseInt(requestMap.get("size")[0]));
+	    if(requestMap.get("size")[0].equals("")){
+	    	userStory.setSize(0);
+	    }else{
+	    	userStory.setSize(Integer.parseInt(requestMap.get("size")[0]));
+	    }
 	    userStory.setPriority(requestMap.get("priority")[0]);
 	    userStory.setStoryOrder(requestMap.get("story_order")[0]);
 		//userStory.setStoryCode(requestMap.get("story_code")[0]);
