@@ -4,7 +4,7 @@
 	<section id="page-title" class="padding-top-10 padding-bottom-10">
 		<div class="row">
 			<div class="col-sm-8">
-				<h1 class="mainTitle">Delete User Story</h1>
+				<h1 class="mainTitle">User Story List</h1>
 			</div>
 			<ol class="breadcrumb padding-top-20">
 				<li><span>User Story</span></li>
