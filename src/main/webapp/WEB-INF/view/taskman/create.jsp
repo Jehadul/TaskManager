@@ -40,24 +40,10 @@
 							<cts:Hidden name="priv_grp_name" value=""/>
 						</div>
 						<div class="form-group">
-								<cts:Label name="Description" labelFor="description"/>
-								<cts:TextArea name="description" cssClass="dirty-check required" readonly="" rows="3" cols=""/>
-						</div>
-					</div>
-					<div class="col-md-6">
-						<div class="form-group">
 							<cts:Label name="Story Code" labelFor="story_code"/>
-							<cts:TextBox name="story_code" cssClass="dirty-check required" readonly=""/>
+							<cts:TextBox name="story_code" cssClass="dirty-check uppercase required" readonly=""/>
 						</div>
-						<div class="form-group">						
-							<cts:Label name="Task Title" labelFor="task_title"/>
-							<cts:TextBox name="task_title" cssClass="dirty-check required" readonly=""/>
-						</div>
-						<div class="form-group">
-							<cts:Label name="Estimated Time" labelFor="estimated_time"/>
-							<cts:TextBox name="estimated_time" cssClass="dirty-check required number" readonly=""/>
-						</div>
-							<fieldset>
+						<fieldset>
 								<legend>
 									Assignee&nbsp;&nbsp;
 								<cts:Button cssClass="find" spanClass="search" id="btnUser"/>			
@@ -67,6 +53,28 @@
 									<cts:TextBox name="assignee" cssClass="dirty-check required" readonly="readonly"/>
 								</div>
 						</fieldset>
+						
+					</div>
+					<div class="col-md-6">
+						
+						<div class="form-group">						
+							<cts:Label name="Task Code" labelFor="task_code"/>
+							<cts:TextBox name="task_code" cssClass="dirty-check uppercase required" readonly=""/>
+						</div>
+						<div class="form-group">						
+							<cts:Label name="Task Title" labelFor="task_title"/>
+							<cts:TextBox name="task_title" cssClass="dirty-check required" readonly=""/>
+						</div>
+						
+						<div class="form-group">
+							<cts:Label name="Estimated Time" labelFor="estimated_time"/>
+							<cts:TextBox name="estimated_time" cssClass="dirty-check required number" readonly=""/>
+						</div>
+							
+						<div class="form-group">
+								<cts:Label name="Description" labelFor="description"/>
+								<cts:TextArea name="description" cssClass="dirty-check" readonly="" rows="3" cols=""/>
+						</div>
 					</div>
 				</div>
 				<div class="row">
@@ -133,13 +141,13 @@ InitHandlers();
 			isDirty = false;
 			LoadMainContent('/taskman/tman/tasks/show/' + data.id );
 		} else {
-			ShowErrorMsg('Tasks was not created', data.msg);
+			ShowErrorMsg('Tasks was not created', data.message);
 			var msg = ConcatWithBR(data.error);
 			$(".alert").html(msg);
 			$(".alert").removeClass("hidden");
 		}
 	}
-	function validate() {
+/* 	function validate() {
 		SyncOptionText();
 		var result = CheckRequired();
 		if (!result) {
@@ -148,7 +156,7 @@ InitHandlers();
 			$(".alert").removeClass("hidden");
 		}
 		return result;
-	}
+	} */
 	
 	
 </script>
