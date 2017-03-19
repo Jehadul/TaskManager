@@ -133,7 +133,8 @@
 		LoadMainContent('/taskman/tman/sprint/edit/' + "${map.sprint.id}");			
 	});
 	$('#del_btn').on("click",function(){
-		LoadMainContent("/taskman/tman/sprint/delete");			
+		$(".delete_form").submit();	
+		LoadMainContent("/taskman/tman/sprint/create");			
 	});
 	
 	
