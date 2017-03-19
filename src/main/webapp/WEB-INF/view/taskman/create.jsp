@@ -50,7 +50,7 @@
 								</legend>
 								<div class="form-group">						
 									<%-- <cts:Label name="Assignee" labelFor="assignee"/> --%>
-									<cts:TextBox name="assignee" cssClass="dirty-check required" readonly="readonly"/>
+									<cts:TextBox name="assignee" cssClass="dirty-check" readonly="readonly"/>
 								</div>
 						</fieldset>
 						
@@ -73,7 +73,7 @@
 							
 						<div class="form-group">
 								<cts:Label name="Description" labelFor="description"/>
-								<cts:TextArea name="description" cssClass="dirty-check" readonly="" rows="3" cols=""/>
+								<cts:TextArea name="description" cssClass="dirty-check required" readonly="" rows="3" cols=""/>
 						</div>
 					</div>
 				</div>
