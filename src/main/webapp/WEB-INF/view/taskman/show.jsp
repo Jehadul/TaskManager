@@ -115,7 +115,8 @@
 		LoadMainContent('/taskman/tman/tasks/edit/' + "${map.tasks.id}");			
 	});
 	$('#del_btn').on("click",function(){
-		LoadMainContent("/taskman/tman/tasks/delete");			
+		$(".delete_form").submit();
+		LoadMainContent("/taskman/tman/tasks/create");			
 	});
 	
 	
