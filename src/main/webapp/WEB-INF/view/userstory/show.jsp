@@ -21,6 +21,11 @@
 	<!-- start: USER PROFILE -->
 	<div class="container-fluid container-fullw bg-white">
 	
+	<form method="POST" action="/taskman/userstory/story/destroy" class="ajax delete_form">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			<cts:Hidden name="id" value="${map.userStory.id }"/>
+	</form>
+		
 		<div>
 			<div class="alert alert-block alert-danger hidden">
 				Please check the fields marked with 
@@ -97,6 +102,8 @@
 				</div>
 			</div>
 		</div>
+		
+		
 			<div class="row margin-top-10">
 				<div class="col-md-8">
 					<cts:Button cssClass="back" spanClass="arrow-left" dAjax="true" dHref="/toc?type=privgrp&currprivgrp=3&currmodcode=WF"/>
@@ -118,6 +125,8 @@
 					</button>
 				</div>
 			</div>
+			
+			
 		
 	</div>
 </div>
@@ -131,9 +140,25 @@
 	$('#edit_btn').on("click",function(){
 		LoadMainContent('/taskman/userstory/story/edit/' + "${map.userStory.id}");			
 	});
+	
+	
 	$('#del_btn').on("click",function(){
-		LoadMainContent("/taskman/userstory/story/storylist");			
+		
+			swal({
+				title: "Are you sure?",
+				text: "Are you sure to delete this privilege?",
+				type: "warning",
+				showCancelButton: true,
+				confirmButtonColor: "#007AFF",
+				confirmButtonText: "Yes, delete it!",
+				closeOnConfirm: true
+			}, function() {
+				$(".delete_form").submit();
+				LoadMainContent("/taskman/userstory/story/create");	
+			});
+				
 	});
+
 	
 	
 </script>
