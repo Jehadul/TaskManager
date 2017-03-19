@@ -210,7 +210,7 @@
 											</a>
 										</li>
 										<li>
-											<sec:authorize access="hasRole('ROLE_USER')">
+										<%-- 	<sec:authorize access="hasRole('ROLE_USER')">
 												<!-- For login user -->
 												<c:url value="/logout" var="logoutUrl" />
 												<form action="${logoutUrl}" method="post" id="logoutForm">
@@ -219,7 +219,7 @@
 												</form>
 												<script>
 													function formSubmit() {
-														LoadMainContent("");
+														//LoadMainContent("");
 														document.getElementById("logoutForm").submit();
 													}
 												</script>
@@ -229,10 +229,19 @@
 														<a href="javascript:formSubmit()"> Log out</a>
 													</h2>
 												</c:if> 
-											</sec:authorize>
-								<!-- 			<a href="/logout">
-												Log Out
-											</a> -->
+											</sec:authorize> --%>
+											<%-- <c:url value="/logout" var="logoutUrl" /> --%>
+											<%-- <cts:AjaxForm action="/logout" dataHandler="showMessage" name="logoutForm" >
+												<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+												
+											</cts:AjaxForm> --%>
+											<form id="logoutForm" method="POST" action="/logout">
+												<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+											</form>
+												<li>
+													<a href="#" onclick="formSubmit()"> Logout</a>
+												</li>
+											
 										</li>
 									</ul>
 								</li>
