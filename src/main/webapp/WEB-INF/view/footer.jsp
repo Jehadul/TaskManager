@@ -274,6 +274,10 @@
 		</div>
 		<script>
 		
+		function formSubmit() { 
+			$("#logoutForm").submit();
+		}
+		
 		function msgCount(t){
 			$.get("common/message/msgcount", function(data) {
 				data = JSON.parse(data.data);
@@ -334,6 +338,7 @@
 	}); */
         
 </script>
+		
 		<script src="vendor/jquery/jquery.min.js"></script>
 		<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 		<script src="vendor/modernizr/modernizr.js"></script>
