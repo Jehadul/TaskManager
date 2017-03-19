@@ -82,7 +82,7 @@
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">		
-									<cts:Datepicker label="Start Date" name="start_date" cssClass="dirty-check  required"/>
+									<cts:Datepicker label="Start Date" name="start_date" cssClass="start-date-picker dirty-check  required"/>
 								</div>	
 							</div>
 							<div class="col-md-6">							
@@ -173,5 +173,9 @@ function loadUserStory(storydata){
 	HideModal('search-modal');	
 }
 
+/* 
+$('.start-date-picker ').on('changeDate', function(ev){
+    $(this).datepicker('hide');
+}); */
 
 </script>
