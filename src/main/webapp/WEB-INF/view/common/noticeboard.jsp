@@ -40,10 +40,16 @@
 							<c:forEach var="currentTasklist" items="${data.currentTasklist}">
 								<tr>
 									<td>
-										<cts:TextBox name="curr_task_title" value="${currentTasklist.getTaskTitle() }" cssClass="view"/>
+										<cts:TextBox name="curr_task_SuiteName" value="${currentTasklist.getSuiteName() }" cssClass="view"/>
 									</td>
 									<td>
-										<cts:TextBox name="curr_date_abc" value="${currentTasklist.getEstimatedTime() }" cssClass="view"/>
+										<cts:TextBox name="curr_task_ModuleName" value="${currentTasklist.getModuleName() }" cssClass="view"/>
+									</td>
+									<td>
+										<cts:TextBox name="curr_task_PrivGrpName" value="${currentTasklist.getPrivGrpName() }" cssClass="view"/>
+									</td>
+									<td>
+										<cts:TextBox name="curr_date_est" value="${currentTasklist.getEstimatedTime() }" cssClass="view"/>
 									</td>									
 									<td>
 										<cts:TextBox name="curr_start_time" value="${currentTasklist.getSpentTime() }" cssClass="view"/>
@@ -224,7 +230,24 @@
 				}
 			});
 		}
-		
-		
+		//reload();
+		function reload(){
+			$.ajax({
+		        url: "/reloadNoticeBoard",
+		        type: 'GET',
+		        dataType: 'json',
+		        success:function( response, status, xhr ) { 
+		        	var curr_task=response.data;
+		        	$('#curr_task_SuiteName').val(curr_task.suiteName);
+		        	$('#curr_task_ModuleName').val(curr_task.moduleName);
+		        	$('#curr_task_PrivGrpName').val(curr_task.privGrpName);
+		        	$('#curr_date_est').val(curr_task.estimatedTime);
+		        	$('#curr_start_time').val(curr_task.spentTime);
+		        	$('#curr_remaining_time').val(curr_task.remainingTime);
+		        	console.log(curr_task);
+		    	}
+		    });
+		}
+		var timeout =setInterval(reload, 10000);
 		
 	</script>
