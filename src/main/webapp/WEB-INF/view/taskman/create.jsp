@@ -139,7 +139,7 @@ InitHandlers();
 			$(".alert").removeClass("hidden");
 		}
 	}
-	function validate() {
+/* 	function validate() {
 		SyncOptionText();
 		var result = CheckRequired();
 		if (!result) {
@@ -148,7 +148,7 @@ InitHandlers();
 			$(".alert").removeClass("hidden");
 		}
 		return result;
-	}
+	} */
 	
 	
 </script>
