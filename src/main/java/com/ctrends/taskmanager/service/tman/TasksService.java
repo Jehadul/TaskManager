@@ -32,7 +32,13 @@ public class TasksService implements ITasksService {
 
 	@Override
 	public Map<String, String> insert(Map<String, String[]> requestMap) {
+		
+		UUID id=null;
+		
 		Map<String, String> data = new HashMap<String, String>();
+		
+		data.put("taskCode", requestMap.get("task_code")[0]);
+		boolean code = tasksDao.checkUnique(data);
 
 		Tasks tasks = new Tasks();
 		User currentUser = userService.getCurrentUser();
@@ -43,8 +49,9 @@ public class TasksService implements ITasksService {
 		tasks.setPrivGrpCode(Integer.parseInt(requestMap.get("priv_grp_code")[0]));
 		tasks.setPrivGrpName(requestMap.get("priv_grp_name")[0]);
 		tasks.setDescription(requestMap.get("description")[0]);
-		tasks.setStoryCode(requestMap.get("story_code")[0]);
+		tasks.setStoryCode(requestMap.get("story_code")[0].toUpperCase());
 
+		tasks.setTaskCode(requestMap.get("task_code")[0].toUpperCase());
 		tasks.setTaskTitle(requestMap.get("task_title")[0]);
 		tasks.setEstimatedTime(Double.parseDouble(requestMap.get("estimated_time")[0]));
 		tasks.setAsignee(requestMap.get("assignee")[0]);
@@ -63,9 +70,15 @@ public class TasksService implements ITasksService {
 		tasks.setCreatedByCompanyName(currentUser.getCompanyName());
 		tasks.setCreatedAt(new Timestamp(System.currentTimeMillis()));
 
-		UUID id = tasksDao.insertDoc(tasks);
-		data.put("id", id.toString());
-		return data;
+		
+		if(code){
+			id = tasksDao.insertDoc(tasks);
+			data.put("id", id.toString());
+			}
+			else{
+				data.put("id", null);
+			}
+			return data;
 	}
 
 	@Override
@@ -135,6 +148,7 @@ public class TasksService implements ITasksService {
 		tasks.setDescription(requestMap.get("description")[0]);
 		tasks.setStoryCode(requestMap.get("story_code")[0]);
 
+		tasks.setTaskCode(requestMap.get("task_code")[0]);
 		tasks.setTaskTitle(requestMap.get("task_title")[0]);
 		tasks.setEstimatedTime(Double.parseDouble(requestMap.get("estimated_time")[0]));
 		tasks.setAsignee(requestMap.get("assignee")[0]);
