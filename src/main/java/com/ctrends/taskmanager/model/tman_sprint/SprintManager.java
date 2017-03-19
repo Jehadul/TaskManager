@@ -38,38 +38,6 @@ public class SprintManager {
 	
 	@Column(name="priv_grp_name")
 	private String privGrpName;
-	
-	public String getSuiteCode() {
-		return suiteCode;
-	}
-
-	public void setSuiteCode(String suiteCode) {
-		this.suiteCode = suiteCode;
-	}
-
-	public String getModuleCode() {
-		return moduleCode;
-	}
-
-	public void setModuleCode(String moduleCode) {
-		this.moduleCode = moduleCode;
-	}
-
-	public int getPrivGrpCode() {
-		return privGrpCode;
-	}
-
-	public void setPrivGrpCode(int privGrpCode) {
-		this.privGrpCode = privGrpCode;
-	}
-
-	public String getPrivGrpName() {
-		return privGrpName;
-	}
-
-	public void setPrivGrpName(String privGrpName) {
-		this.privGrpName = privGrpName;
-	}
 
 	@Column(name="module_name")
 	private String moduleName;
@@ -101,6 +69,17 @@ public class SprintManager {
 	@Column(name="sprint_stories")
 	private String sprintStories;
 	
+	@Column(name="sprint_story_code")
+	private String sprintStoryCode;
+	
+	public String getSprintStoryCode() {
+		return sprintStoryCode;
+	}
+
+	public void setSprintStoryCode(String sprintStoryCode) {
+		this.sprintStoryCode = sprintStoryCode;
+	}
+
 	@Column(name="doa_type_code")
 	private String doaTypeCode;
 
@@ -288,6 +267,38 @@ public class SprintManager {
 
 	public void setSuiteName(String suiteName) {
 		this.suiteName = suiteName;
+	}
+
+	public String getSuiteCode() {
+		return suiteCode;
+	}
+
+	public void setSuiteCode(String suiteCode) {
+		this.suiteCode = suiteCode;
+	}
+
+	public String getModuleCode() {
+		return moduleCode;
+	}
+
+	public void setModuleCode(String moduleCode) {
+		this.moduleCode = moduleCode;
+	}
+
+	public int getPrivGrpCode() {
+		return privGrpCode;
+	}
+
+	public void setPrivGrpCode(int privGrpCode) {
+		this.privGrpCode = privGrpCode;
+	}
+
+	public String getPrivGrpName() {
+		return privGrpName;
+	}
+
+	public void setPrivGrpName(String privGrpName) {
+		this.privGrpName = privGrpName;
 	}
 
 	public String getModuleName() {

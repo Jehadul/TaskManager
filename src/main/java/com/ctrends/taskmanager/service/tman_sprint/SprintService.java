@@ -41,6 +41,7 @@ public class SprintService implements ISprintService {
 		sprint.setSprintGoal(requestMap.get("sprint_goal")[0]);
 		sprint.setSprintNumber(Double.parseDouble(requestMap.get("sprint_number")[0]));
 		sprint.setSprintStories(requestMap.get("sprint_stories")[0]);
+		sprint.setSprintStoryCode(requestMap.get("sprint_story_code")[0]);
 		
 		
 		if (requestMap.get("start_date")[0].equals("")) {			
@@ -102,6 +103,7 @@ public class SprintService implements ISprintService {
 		sprintManager.setSprintGoal(requestMap.get("sprint_goal")[0]);
 		sprintManager.setSprintNumber(Double.parseDouble(requestMap.get("sprint_number")[0]));
 		sprintManager.setSprintStories(requestMap.get("sprint_stories")[0]);	
+		sprintManager.setSprintStoryCode(requestMap.get("sprint_story_code")[0]);
 		sprintManager.setSprintDescription(requestMap.get("sprint_description")[0]);
 		
 		java.sql.Date startDate = (Date) Utility.toSqlDate(requestMap.get("start_date")[0]);

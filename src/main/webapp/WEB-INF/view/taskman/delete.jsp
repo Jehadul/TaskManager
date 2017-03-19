@@ -27,6 +27,7 @@
 								<th>Privilege Group</th>
 								<th>Description</th>
 								<th>Story Code</th>
+								<th>Task Code</th>
 								<th>Task Title</th>
 								<th>Estimated Time</th>
 								<th>Assignee</th>
@@ -43,6 +44,7 @@
 									<td><c:out value="${task.getPrivGrpName()}" /></td>
 									<td><c:out value="${task.getDescription()}" /></td>
 									<td><c:out value="${task.getStoryCode()}" /></td>
+									<td><c:out value="${task.getTaskCode()}" /></td>
 									<td><c:out value="${task.getTaskTitle()}" /></td>
 									<td><c:out value="${task.getEstimatedTime()}" /></td>
 									<td><c:out value="${task.getAsignee()}" /></td>

@@ -19,6 +19,9 @@ public class Tasks {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private UUID id;
 	
+	@Column(name = "task_code")
+	private String taskCode;
+	
 	@Column(name = "task_title")
 	private String taskTitle;
 	
@@ -797,6 +800,14 @@ public class Tasks {
 
 	public void setCostcenterName(String costcenterName) {
 		this.costcenterName = costcenterName;
+	}
+
+	public String getTaskCode() {
+		return taskCode;
+	}
+
+	public void setTaskCode(String taskCode) {
+		this.taskCode = taskCode;
 	}
 
 	

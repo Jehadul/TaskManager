@@ -42,18 +42,20 @@
 						<cts:Label name="Priv Group Name" labelFor="priv_grp_code"/>
 						:     <b>${map.tasks.privGrpCode}</b>
 					</div>
+					
 					<div class="form-group">
-						<cts:Label name="Description" labelFor="description"/>
-						 :     <b>${map.tasks.description}</b>
+						<cts:Label name="Story Code" labelFor="story_code"/>
+						 :     <b>${map.tasks.storyCode}</b>
 					</div>
 					<div class="form-group">
-						<cts:Label name="Story Name" labelFor="story_code"/>
-						 :     <b>${map.tasks.storyCode}</b>
+						<cts:Label name="Task Code" labelFor="task_code"/>
+						 :     <b>${map.tasks.taskCode}</b>
 					</div>
 					<div class="form-group">
 						<cts:Label name="Task Title" labelFor="task_title"/>
 						 :     <b>${map.tasks.taskTitle}</b>
 					</div>
+					
 					<div class="form-group">
 						<cts:Label name="Estimated Time" labelFor="estimated_time"/>
 						 :     <b>${map.tasks.estimatedTime}</b>
@@ -61,6 +63,10 @@
 					<div class="form-group">
 						<cts:Label name="Assignee" labelFor="assignee"/>
 						 :     <b>${map.tasks.asignee}</b>
+					</div>
+					<div class="form-group">
+						<cts:Label name="Description" labelFor="description"/>
+						 :     <b>${map.tasks.description}</b>
 					</div>
 					<%-- <div class="form-group">
 						<cts:Label name="Branch Name" labelFor="branch_code"/>

@@ -78,15 +78,27 @@
 								</select>	
 								<cts:Hidden name="priv_grp_name" value=""/>		
 					   </div>
-						<div class="form-group">
-								<cts:Label name="Description" labelFor="description"/>
-								<cts:TextArea name="description" value="${map.tasks.description}" cssClass="dirty-check required" readonly="" rows="3" cols=""/>
-						</div>
-					</div>
-					<div class="col-md-6">
-						<div class="form-group">
+					   <div class="form-group">
 							<cts:Label name="Story Code" labelFor="story_code"/>
 							<cts:TextBox name="story_code" value="${map.tasks.storyCode}" cssClass="dirty-check required" readonly=""/>
+						</div>
+					   <fieldset>
+								<legend>
+									Assignee&nbsp;&nbsp;
+								<cts:Button cssClass="find" spanClass="search" id="btnUser"/>			
+								</legend>
+								<div class="form-group">						
+									<%-- <cts:Label name="Assignee" labelFor="assignee"/> --%>
+									<cts:TextBox name="assignee" value="${map.tasks.asignee}" cssClass="dirty-check" readonly="readonly"/>
+								</div>
+						</fieldset>
+						
+					</div>
+					<div class="col-md-6">
+						
+						<div class="form-group">						
+							<cts:Label name="Task Code" labelFor="task_code"/>
+							<cts:TextBox name="task_code" value="${map.tasks.taskCode}" cssClass="dirty-check required" readonly=""/>
 						</div>
 						<div class="form-group">						
 							<cts:Label name="Task Title" labelFor="task_title"/>
@@ -96,9 +108,15 @@
 							<cts:Label name="Estimated Time" labelFor="estimated_time"/>
 							<cts:TextBox name="estimated_time" value="${map.tasks.estimatedTime}" cssClass="dirty-check required number" readonly=""/>
 						</div>
-						<div class="form-group">						
+						<%-- <div class="form-group">						
 							<cts:Label name="Assignee" labelFor="assignee"/>
 							<cts:TextBox name="assignee" value="${map.tasks.asignee}"  cssClass="dirty-check" readonly=""/>
+						</div> --%>
+						
+						
+						<div class="form-group">
+								<cts:Label name="Description" labelFor="description"/>
+								<cts:TextArea name="description" value="${map.tasks.description}" cssClass="dirty-check required" readonly="" rows="3" cols=""/>
 						</div>
 					</div>
 				</div>
@@ -168,6 +186,10 @@
 		var newModuleCode = $("#module_code").val();
 		var newPrivGroupCode = $("#priv_grp_code").val();
 		LoadMainContent("/taskman/tman/tasks/create/?suite_code=" + newSuiteCode + "&" + "module_code=" + newModuleCode + "&" + "priv_grp_code=" + newPrivGroupCode);
+	});
+	
+	$("#btnUser").on("click",function(){
+		ShowModal("/ac/user/searchuser/?action_type_code=SELECT&actioncallback=loadUser");
 	});
 	
 </script>

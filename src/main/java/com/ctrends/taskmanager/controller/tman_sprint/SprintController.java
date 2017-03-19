@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.core.Context;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -23,6 +24,7 @@ import com.ctrends.taskmanager.model.taskmanage.Module;
 import com.ctrends.taskmanager.model.taskmanage.PrivGroup;
 import com.ctrends.taskmanager.model.taskmanage.Suite;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManager;
+import com.ctrends.taskmanager.model.user.User;
 import com.ctrends.taskmanager.service.tman_sprint.ISprintService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -45,6 +47,7 @@ public class SprintController implements ISprintController {
 		return null;
 	}
 
+	
 	@RequestMapping(value = "/show/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@Override
@@ -163,18 +166,8 @@ public class SprintController implements ISprintController {
 				data.get("mode"), data);
 
 	}
-	
-	@Override
-	public ModelAndView showSearch(HttpServletRequest request) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public String search(HttpServletRequest request) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Override
@@ -245,6 +238,36 @@ public class SprintController implements ISprintController {
 		data.put("sprintlist", sprintlist);
 
 		return new ModelAndView("sprintmanager/sprintlist", "data", data);
+	}
+
+
+
+
+
+
+
+
+
+
+	@Override
+	public ModelAndView showSearch(HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+
+
+
+
+
+
+
+	@Override
+	public String search(HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
