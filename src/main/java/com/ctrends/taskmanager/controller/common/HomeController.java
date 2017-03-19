@@ -66,6 +66,20 @@ public class HomeController {
 
 	}
 
+	@RequestMapping(value = "/reloadNoticeBoard", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public WSResponse reloadNoticeBoard() {
+		Map<String, Object> data = new HashMap<String, Object>();
+		List<Tasks> tasklist=tasksService.getAllByCurrentUser();
+		List<Tasks> currentTasklist=tasksService.getCurrentTaskByCurrentUser();
+		//data.put("tasklist", tasklist);
+		data.put("currentTasklist", currentTasklist);
+		GsonBuilder gson = new GsonBuilder();
+		Gson g = gson.create();
+		
+		return new WSResponse("success", "", null, null, null, currentTasklist.get(0));
+
+	}
 
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
