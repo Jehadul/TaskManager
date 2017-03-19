@@ -76,8 +76,7 @@ public class HomeController {
 		data.put("currentTasklist", currentTasklist);
 		GsonBuilder gson = new GsonBuilder();
 		Gson g = gson.create();
-		
-		return new WSResponse("success", "", null, null, null, currentTasklist.get(0));
+		return new WSResponse("success", "", null, null, null, (currentTasklist.size()>0)?currentTasklist.get(0):new Tasks());
 
 	}
 
