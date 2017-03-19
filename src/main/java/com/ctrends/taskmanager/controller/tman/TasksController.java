@@ -151,8 +151,14 @@ public class TasksController implements ITasksController {
 
 		Map<String, String> data = tasksService.insert(tasks);
 
-		return new WSResponse("success", "Submitted Successfully", UUID.fromString(data.get("id")), null,
-				data.get("mode"), data);
+		if(data.get("id") == null){
+			return new WSResponse("error", "Task Code Must be Unique",null , null, null, data);
+		}
+		else{
+			UUID id = UUID.fromString(data.get("id"));
+			return new WSResponse("success", "Saved successfully", id, null, data.get("mode"), data);
+			
+		}
 
 	}
 

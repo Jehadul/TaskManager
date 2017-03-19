@@ -21,20 +21,22 @@
 						id="task_sort_result">
 						<thead>
 							<tr>
-								<th></th>
+								<th style="display:none"></th>
+								<th>Task Code</th>
 								<th>Task Title</th>
 								<th>Estimated Time</th>
 								<th>Spent Time</th>
 								<th>Remaining Time</th>
 								<th>Assignee</th>
-								<th>Action</th>
+								<th data-orderable="false">Action</th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach var="task" items="${data.tasklist}">
 								<tr>
-									<td><input type="hidden" name="id1" class="task_id" value="${task.getId()}" /></td>
-
+									<td style="display:none"><input type="hidden" name="id1" class="task_id" value="${task.getId()}" /></td>
+	
+									<td><c:out value="${task.getTaskCode()}" /></td>
 									<td><c:out value="${task.getTaskTitle()}" /></td>
 									<td><c:out value="${task.getEstimatedTime()}" /></td>
 									<td><c:out value="${task.getSpentTime()}" /></td>
@@ -57,6 +59,7 @@
 										</button> <!-- <button type="button" onclick="upRow(this);" class="btn-up btn btn-xs"><span class="fa fa-arrow-up"></span></button> 
 										<button type="button" onclick="downRow(this);" class="btn-down btn btn-xs"><span class="fa fa-arrow-down"></span></button> -->
 									<input type="hidden" name="id[]" class="task_id1" value="${task.getId()}" />	
+									<input type="hidden" name="task_code[]" class="task_code" value="${task.getTaskCode()}" />
 									<input type="hidden" name="task_title[]" class="task_title" value="${task.getTaskTitle()}" />
 									<input type="hidden" name="estimated_time[]" class="estimated_time" value="${task.getEstimatedTime()}" />
 									<input type="hidden" name="spent_time[]" class="spent_time" value="${task.getSpentTime()}" />

@@ -11,6 +11,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ctrends.taskmanager.dao.user.IUserDAO;
+import com.ctrends.taskmanager.dao.user.UserDAO;
 import com.ctrends.taskmanager.model.taskmanage.Module;
 import com.ctrends.taskmanager.model.taskmanage.PrivGroup;
 import com.ctrends.taskmanager.model.taskmanage.Privilege;
@@ -25,6 +27,9 @@ public class TasksDao implements ITasksDao {
 
 	@Autowired
 	private SessionFactory sessionfactory;
+	
+	@Autowired
+	IUserDAO userDAO;
 
 	@Autowired
 	IUserService userService;
@@ -240,6 +245,27 @@ public class TasksDao implements ITasksDao {
 			return tasksLi.get(0);
 		}
 		return null;
+	}
+
+	@Transactional
+	@Override
+	public boolean checkUnique(Map<String, String> requestMap) {
+		User currentUser = userDAO.getCurrentUser();
+		String companyCode = currentUser.getCompanyCode();
+		Query query = sessionfactory.getCurrentSession().createQuery("FROM Tasks WHERE taskCode =:taskCode AND companyCode=:companyCode");
+		query.setParameter("companyCode",companyCode);
+		query.setParameter("taskCode", requestMap.get("taskCode"));
+		
+		
+		Tasks tasks=(Tasks) query.uniqueResult();
+		
+
+	    if (tasks == null) {
+        	return true;
+        }
+        else{
+        	return false;
+        }
 	}
 
 }
