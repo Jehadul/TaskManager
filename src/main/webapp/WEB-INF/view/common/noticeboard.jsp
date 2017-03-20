@@ -33,7 +33,7 @@
 								<th>Estimated Time</th>
 								<th >Spent Time</th>
 								<th style="width:50px;">Remaining Time</th>
-								<th style="width:100px;">Action</th>	
+								<th style="width:102px;">Action</th>	
 							</tr>
 						</thead>
 						<tbody>
@@ -59,12 +59,13 @@
 									<td style="width:50px;">
 										<cts:TextBox name="curr_remaining_time" value="${currentTasklist.getRemainingTime() }" cssClass="view"/>
 									</td>	
-									<td style="width:100px;">
+									<td style="width:102px;">
 									<button  type="button" class="btn-edit btn btn-xs pull-left" id="start-timer">
 										<span id="tn">
 										<time>${data.spentTime}</time>
 										</span>
 										</button>
+										<span class="pull-left">&nbsp;</span>
 									<button type="button" onclick="stopTimer(this);" class="btn-del btn btn-xs pull-left" id="stop-timer">
 									<span class="fa fa-stop"></span></button> 
 									
