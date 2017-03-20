@@ -297,30 +297,15 @@ function validate(){
 				
 			}  
 	 
-		
-		if (!result) {
-			InitErrorChange();
-			$(".alert").html(error);
-			$(".alert").removeClass("hidden");
-		}
-		
 		if (!result) {
 			
 			error +="Please check the fields marked with X";
-			ShowErrorMsg('Task was not created', "Please check details.");
+			ShowErrorMsg('User Story was not Updated', "Please check details.");
 			InitErrorChange();
 			$(".alert").html(error);
 			$(".alert").removeClass("hidden");
 		}
-		else if(itemCode==""||itemName==""){
-			
-			error +="Only space is not allowed in required fields";
-			ShowErrorMsg('Task was not created', "Please check details.");
-			InitErrorChange();
-			$(".alert").html(error);
-			$(".alert").removeClass("hidden");
-			return false;
-		}
+		
 		
 		return result;
 }
