@@ -20,6 +20,12 @@
 	<!-- end: PAGE TITLE -->
 	<!-- start: USER PROFILE -->
 	<div class="container-fluid container-fullw bg-white">
+	
+	<form method="POST" action="/taskman/tman/sprint/destroy" class="ajax delete_form">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			<cts:Hidden name="id" value="${map.sprint.id }"/>
+	</form>
+		
 
 		<div>
 			<div class="alert alert-block alert-danger hidden">
@@ -132,10 +138,25 @@
 	$('#edit_btn').on("click",function(){
 		LoadMainContent('/taskman/tman/sprint/edit/' + "${map.sprint.id}");			
 	});
+	
 	$('#del_btn').on("click",function(){
-		$(".delete_form").submit();	
-		LoadMainContent("/taskman/tman/sprint/delete");			
-	});
+		
+		swal({
+			title: "Are you sure?",
+			text: "Are you sure to delete this privilege?",
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#007AFF",
+			confirmButtonText: "Yes, delete it!",
+			closeOnConfirm: true
+		}, function() {
+			$(".delete_form").submit();
+			LoadMainContent("/taskman/tman/sprint/create");	
+		});
+			
+});
 	
 	
 </script>
+
+
