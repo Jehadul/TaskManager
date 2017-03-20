@@ -64,7 +64,8 @@ public class HomeControllerTest {
 
 	@Test
 	public void testLogout_ReturnsModelAndView() {
-		ModelAndView mav = homeController.logout();
+		String a = "adv";
+		ModelAndView mav = homeController.logout(a);
 		assertTrue(mav.hasView());
 	}
 
