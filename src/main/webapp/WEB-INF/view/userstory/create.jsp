@@ -147,11 +147,11 @@ InitHandlers();
 	
 	function showMessage(data) {
 		if (data.outcome == 'success') {
-			ShowSuccessMsg('Tasks created', data.message);
+			ShowSuccessMsg('User Story created', data.message);
 			isDirty = false;
 			LoadMainContent('/taskman/userstory/story/show/' + data.id );
 		} else {
-			ShowErrorMsg('Tasks was not created', data.msg);
+			ShowErrorMsg('User Story was not created', data.msg);
 			var msg = ConcatWithBR(data.error);
 			$(".alert").html(msg);
 			$(".alert").removeClass("hidden");
@@ -186,13 +186,45 @@ InitHandlers();
 			var error = "";
 			var result = CheckRequired();
 			
-		
+			 if ( $("#suite_code").val() =="-1") {
+					error +="Please select Suite Code <br/>";
+					result = false;
+					
+				}  
+				 
+				 if ( $("#module_code").val() =="-1") {
+						error +="Please select Module Code <br/>";
+						result = false;
+						
+					}  
+				 
+				 if ( $("#priv_grp_code").val() =="-1") {
+						error +="Please select Priv Grp Code <br/>";
+						result = false;
+						
+					} 
+				 
+				 if ($("#privilege_code").val() =="" ) {
+						error +="Please Enter Privilege Code <br/> ";
+						result = false;
+						
+					} 
+				 
+				 
 			
 			if ($("#privilege_name").val() =="") {
 				error +="Please Enter privilege Name <br/> ";
 				result = false;
 				
 			} 
+			
+
+			if ($("#user_story_code").val() =="" ) {
+				error +="Please Enter User Story Code <br/> ";
+				result = false;
+				
+			} 
+			
 
 			if ($("#user_story_title").val() =="" ) {
 				error +="Please Enter User Story Title <br/> ";
@@ -200,17 +232,11 @@ InitHandlers();
 				
 			} 
 			
-			if ($("#privilege_code").val() =="" ) {
-				error +="Please Enter Privilege Code <br/> ";
-				result = false;
-				
-			} 
-			
-			if ($("#user_story_code").val() =="" ) {
-				error +="Please Enter User Story Code <br/> ";
-				result = false;
-				
-			} 
+			 if ( $("#priority_code").val() =="-1") {
+					error +="Please select Priority Code <br/>";
+					result = false;
+					
+				} 
 			
 			if ($("#story_order").val() =="" ) {
 				error +="Please Enter Story Order <br/> ";
@@ -218,55 +244,16 @@ InitHandlers();
 				
 			} 
 
-			 if ( $("#suite_code").val() =="-1") {
-				error +="Please select Suite Code <br/>";
-				result = false;
-				
-			}  
-			 
-			 if ( $("#module_code").val() =="-1") {
-					error +="Please select Module Code <br/>";
-					result = false;
+			 if (!result) {
 					
-				}  
-			 
-			 if ( $("#priv_grp_code").val() =="-1") {
-					error +="Please select Priv Grp Code <br/>";
-					result = false;
-					
-				} 
-			 
-			 if ( $("#priority_code").val() =="-1") {
-					error +="Please select Priority Code <br/>";
-					result = false;
-					
-				}  
-		 
-			
-			if (!result) {
-				InitErrorChange();
-				$(".alert").html(error);
-				$(".alert").removeClass("hidden");
-			} 
-			
-			if (!result) {
+					error +="Please check the fields marked with X";
+					ShowErrorMsg('User Story was not created', "Please check details.");
+					InitErrorChange();
+					$(".alert").html(error);
+					$(".alert").removeClass("hidden");
+				}
 				
-				error +="Please check the fields marked with X";
-				ShowErrorMsg('Task was not created', "Please check details.");
-				InitErrorChange();
-				$(".alert").html(error);
-				$(".alert").removeClass("hidden");
-			}
-			else if(itemCode==""||itemName==""){
 				
-				error +="Only space is not allowed in required fields";
-				ShowErrorMsg('Task was not created', "Please check details.");
-				InitErrorChange();
-				$(".alert").html(error);
-				$(".alert").removeClass("hidden");
-				return false;
-			}
-			
 			return result;
 		}
 	
