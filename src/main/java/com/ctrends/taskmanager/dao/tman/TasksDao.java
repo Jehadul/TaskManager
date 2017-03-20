@@ -197,15 +197,15 @@ public class TasksDao implements ITasksDao {
 	public List<Tasks> getCurrentTaskByCurrentUser() {
 		User currentUser = userService.getCurrentUser();
 		Query query = sessionfactory.getCurrentSession()
-				.createQuery("From TaskLog where createdByUsername =:userName and stopStatus =:stopStatus");
+				.createQuery("From TaskLog where createdByUsername =:userName and startStopStatus =:startStopStatus");
 		query.setParameter("userName", currentUser.getUsername());
-		query.setParameter("stopStatus", "false");
+		query.setParameter("startStopStatus", false);
 		List<TaskLog> tasksLi = query.list();
 
 		Query query1 = sessionfactory.getCurrentSession().createQuery("From Tasks where id =:id");
 
 		if (query.list().size() > 0) {
-			query1.setParameter("id", tasksLi.get(0).getTaskId());
+			query1.setParameter("id",  UUID.fromString(tasksLi.get(0).getTaskId()));
 			return query1.list();
 		}
 
