@@ -120,23 +120,7 @@
 		LoadMainContent('/taskman/tman/tasks/edit/' + taskId);
 	});
 
-	//refress call
-	var runningTaskLogId = "${data.taskloglist.taskId}";
-	if (runningTaskLogId != " ") {
-		var htmlRuning = ' <button type="button" class="btn-edit btn btn-xs" id="start-timer">'
-				+ '<div id="show-timer" >00:00:00s</div></button>'
-				+ '<button type="button" onclick="stopTimertest(this);" class="btn-del btn btn-xs" id="stop-timer">'
-				+ '<span class="fa fa-stop"></span></button>';
-
-		$('.task_id').each(function(index, element) {
-			if ($(this).val() == runningTaskLogId & index == 0) {
-				$(this).closest('tr').find('.time-start').before(htmlRuning);
-				stop = setTimeout("showTime()", 1000);
-				$(this).closest('tr').find('.time-start').addClass("hidden");
-				console.log(index);
-			}
-		});
-	}
+	
 
 	//start time log
 	var tnn = document.getElementById('tn'), start = document
@@ -191,7 +175,7 @@
 								+ '<time>00:00:00</time>'
 								+ '</span>'
 								+ '</button>'
-								+ '<button type="button" onclick="stopTimertest(this);" class="btn-del btn btn-xs" id="stop-timer">'
+								+ '<button type="button" onclick="stopTimer(this);" class="btn-del btn btn-xs" id="stop-timer">'
 								+ '<span class="fa fa-stop"></span></button> <span id="runningtask" style="color:green">Running</span>';
 
 						timer();
@@ -296,11 +280,11 @@
 				+ '<span class="fa fa-stop"></span></button> <span id="runningtask" style="color:green">Running</span>';
 
 		$('.task_id').each(function(index, element) {
-			if ($(this).val() == runningTaskLogId & index == 0) {
+			if ($(this).val() == runningTaskLogId) {
 				$(this).closest('tr').find('.time-start').before(html1);
 				timer();
 				$(this).closest('tr').find('.time-start').addClass("hidden");
-				console.log(index);
+				//console.log(index);
 			}
 		});
 	}
