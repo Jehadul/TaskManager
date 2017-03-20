@@ -24,6 +24,9 @@
 					Please check the fields marked with 
 					<span class="text-red fa fa-close"></span>.
 			</div>
+			
+			<div class="denotes-required">denotes a required field.</div>
+			
 			<div class="main-control">
 				<div class="row">
 					<div class="col-md-6">
@@ -299,7 +302,26 @@ function validate(){
 			InitErrorChange();
 			$(".alert").html(error);
 			$(".alert").removeClass("hidden");
-		} 
+		}
+		
+		if (!result) {
+			
+			error +="Please check the fields marked with X";
+			ShowErrorMsg('Task was not created', "Please check details.");
+			InitErrorChange();
+			$(".alert").html(error);
+			$(".alert").removeClass("hidden");
+		}
+		else if(itemCode==""||itemName==""){
+			
+			error +="Only space is not allowed in required fields";
+			ShowErrorMsg('Task was not created', "Please check details.");
+			InitErrorChange();
+			$(".alert").html(error);
+			$(".alert").removeClass("hidden");
+			return false;
+		}
+		
 		return result;
 }
 	
