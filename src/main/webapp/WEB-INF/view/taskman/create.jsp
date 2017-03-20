@@ -185,8 +185,10 @@ InitHandlers();
 	} */
 	
 	function validate() {
-		var itemCode = $("#task_code").val().trim();
-		var itemName = $("#task_title").val().trim();
+		var taskCode = $("#task_code").val().trim();
+		var taskName = $("#task_title").val().trim();
+		var estimatedTime = $("#estimated_time").val().trim();
+		var description = $("#description").val().trim();
 		var error = "";
 		
 		SyncOptionText();
@@ -231,7 +233,7 @@ InitHandlers();
 			$(".alert").html(error);
 			$(".alert").removeClass("hidden");
 		}
-		else if(itemCode==""||itemName==""){
+		else if(taskCode == ""|| taskName == "" || estimatedTime == "" || description == ""){
 			
 			error +="Only space is not allowed in required fields";
 			ShowErrorMsg('Task was not created', "Please check details.");
