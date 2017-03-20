@@ -39,10 +39,10 @@
 							<cts:Select list="${data.privgroups}"  name="priv_grp_code" value="${data.privGroupCode }" cssClass="required"/>
 							<cts:Hidden name="priv_grp_name" value=""/>
 						</div>
-						<div class="form-group">
+						<%-- <div class="form-group">
 							<cts:Label name="Story Code" labelFor="story_code"/>
 							<cts:TextBox name="story_code" cssClass="dirty-check uppercase required" readonly=""/>
-						</div>
+						</div> --%>
 						<fieldset>
 								<legend>
 									Assignee&nbsp;&nbsp;
@@ -51,6 +51,17 @@
 								<div class="form-group">						
 									<%-- <cts:Label name="Assignee" labelFor="assignee"/> --%>
 									<cts:TextBox name="assignee" cssClass="dirty-check" readonly="readonly"/>
+								</div>
+						</fieldset>
+						<fieldset>
+							<legend>
+									Story Code&nbsp;&nbsp;
+								<cts:Button cssClass="find" spanClass="search" id="btnStory"/>			
+							</legend>
+								<div class="form-group">						
+									<%-- <cts:Label name="Story Code" labelFor="story_code"/> --%>
+									<cts:Hidden name="story_code" cssClass="dirty-check"/>
+									<cts:TextBox name="story_name" cssClass="dirty-check" readonly="readonly"/>
 								</div>
 						</fieldset>
 						
@@ -132,6 +143,17 @@ InitHandlers();
 	function loadUser(userdata){ 
 		var emp = JSON.parse(unescape(userdata));			
 		$("#assignee").val(emp.username);	
+		HideModal('search-modal');	
+	}
+	
+	$("#btnStory").on("click",function(){
+		ShowModal("/taskman/userstory/story/searchstory/?action_type_code=SELECT&actioncallback=loadStory");
+	});
+
+	function loadStory(story){ 
+		var storyList = JSON.parse(unescape(story));			
+		$("#story_code").val(storyList.userStoryCode);	
+		$("#story_name").val(storyList.userStoryTitle);	
 		HideModal('search-modal');	
 	}
 	
