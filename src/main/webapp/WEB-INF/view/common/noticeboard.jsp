@@ -31,14 +31,16 @@
 								<th>Module</th>
 								<th>Privilege</th>
 								<th>Estimated Time</th>
-								<th>Spent Time</th>
-								<th>Remaining Time</th>
-								<th>Action</th>	
+								<th >Spent Time</th>
+								<th style="width:50px;">Remaining Time</th>
+								<th style="width:100px;">Action</th>	
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach var="currentTasklist" items="${data.currentTasklist}">
 								<tr>
+								   <%-- <td style="display:nome;"><input type="hidden" name="id1" class="task_id"
+									value="${currentTasklist.getId()}" /></td> --%>
 									<td>
 										<cts:TextBox name="curr_task_SuiteName" value="${currentTasklist.getSuiteName() }" cssClass="view"/>
 									</td>
@@ -51,12 +53,22 @@
 									<td>
 										<cts:TextBox name="curr_date_est" value="${currentTasklist.getEstimatedTime() }" cssClass="view"/>
 									</td>									
-									<td>
+									<td >
 										<cts:TextBox name="curr_start_time" value="${currentTasklist.getSpentTime() }" cssClass="view"/>
 									</td>													
-									<td>
+									<td style="width:50px;">
 										<cts:TextBox name="curr_remaining_time" value="${currentTasklist.getRemainingTime() }" cssClass="view"/>
-									</td>						
+									</td>	
+									<td style="width:100px;">
+									<button  type="button" class="btn-edit btn btn-xs pull-left" id="start-timer">
+										<span id="tn">
+										<time>${data.spentTime}</time>
+										</span>
+										</button>
+									<button type="button" onclick="stopTimer(this);" class="btn-del btn btn-xs pull-left" id="stop-timer">
+									<span class="fa fa-stop"></span></button> 
+									
+								</td>					
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -76,7 +88,7 @@
 								<th>Estimated Time</th>
 								<th>Spent Time</th>
 								<th>Remaining Time</th>
-								<th>Action</th>
+								<!-- <th>Action</th> -->
 							</tr>
 						</thead>
 						<tbody>
@@ -100,12 +112,12 @@
 									<td>
 										<cts:TextBox name="remaining_time" value="${task.getRemainingTime()}" cssClass="view"/>
 									</td>
-									<td>
+									<!-- <td>
 										<button type="button" onclick="startTimer(this);"
 											class="btn-timer btn btn-xs time-start">
 											<span class="fa fa-play"></span>
 										</button>
-									</td>
+									</td> -->
 															
 								</tr>
 							</c:forEach>
@@ -125,118 +137,17 @@
 		var startTime = $("#curr_start_time").val(); //alert(startTime)
 		
 		
-		var stop;
-		var html;
-		function startTimer(el) {
+		
 
-			var runningTime = $('#show-timer').text();
-			if (runningTime == "") {
-				swal(
-						{
-							title : "Do you want to start new task?",
-							text : "",
-							type : "warning",
-							showCancelButton : true,
-							confirmButtonColor : "#007AFF",
-							confirmButtonText : "Yes",
-							closeOnConfirm : true
-						},
-						function() {
-							html = ' <button type="button" class="btn-edit btn btn-xs" id="start-timer">'
-									+ '<div id="show-timer" >00:00:00s</div></button>'
-									+ '<button type="button" onclick="stopTimertest(this);" class="btn-del btn btn-xs" id="stop-timer">'
-									+ '<span class="fa fa-stop"></span></button>';
-							stop = setTimeout("showTime()", 1000);
-							$(el).before(html);
-							$(el).addClass("hidden");
-							var id = $(el).closest('tr').find('td')
-									.find('.task_id').val();
-							var dt = new Date();
-							var startTime = dt.toLocaleTimeString();
-							var taskTitle = $(el).closest('tr').find('td').find(
-									'.task_title').val();
+		
 
-							//start date
-							var today = new Date();
-							var dd = today.getDate();
-							var mm = today.getMonth() + 1;
-							var yyyy = today.getFullYear();
-							if (dd < 10) {
-								dd = '0' + dd;
-							}
-							if (mm < 10) {
-								mm = '0' + mm;
-							}
-							var today1 = dd + '-' + mm + '-' + yyyy;
-
-							//console.log(today);
-							$.ajax({
-								type : 'GET',
-								url : '/taskman/tman/tasks/timeLog/' + id + '/'
-										+ startTime + '/' + taskTitle + '/'
-										+ today1
-							});
-						});
-
-			} else {
-				swal({
-					title : "Another Task is already Running",
-					text : "Please stop running task",
-					type : "warning",
-					showCancelButton : false,
-					confirmButtonColor : "#007AFF",
-					confirmButtonText : "Ok",
-					closeOnConfirm : true
-				});
-			}
-		}
-
-		function stopTimertest(el) {
-			var id = $(el).closest('tr').find('td').find('.task_id').val();
-			console.log(id);
-			clearTimeout(stop);
-			$(".time-start").removeClass("hidden");
-			$("#start-timer").remove();
-			$("#stop-timer").remove();
-
-			var dt = new Date();
-			var stopTime = dt.toLocaleTimeString();
-			$.ajax({
-				type : 'GET',
-				url : '/taskman/tman/tasks/timeLogUpdate/' + id + '/' + stopTime
-			});
-
-		}
-
-		function showTime() {
-			var dt = new Date();
-			$('#show-timer').html(dt.toLocaleTimeString());
-			stop = setTimeout("showTime()", 1000);
-		}
-
-		var runningTaskLogId = "${data.taskloglist.taskId}";
-		if (runningTaskLogId != " ") {
-			var htmlRuning = ' <button type="button" class="btn-edit btn btn-xs" id="start-timer">'
-					+ '<div id="show-timer" >00:00:00s</div></button>'
-					+ '<button type="button" onclick="stopTimertest(this);" class="btn-del btn btn-xs" id="stop-timer">'
-					+ '<span class="fa fa-stop"></span></button>';
-
-			$('.task_id').each(function(index, element) {
-				if ($(this).val() == runningTaskLogId & index == 0) {
-					$(this).closest('tr').find('.time-start').before(htmlRuning);
-					stop = setTimeout("showTime()", 1000);
-					$(this).closest('tr').find('.time-start').addClass("hidden");
-					console.log(index);
-				}
-			});
-		}
 		//reload();
 		function reload(){
 			$.ajax({
 		        url: "/reloadNoticeBoard",
 		        type: 'GET',
 		        dataType: 'json',
-		        success:function( response, status, xhr ) { 
+		        success:function( response, status, xhr ) {
 		        	var curr_task=response.data;
 		        	$('#curr_task_SuiteName').val(curr_task.suiteName);
 		        	$('#curr_task_ModuleName').val(curr_task.moduleName);
@@ -248,6 +159,88 @@
 		    	}
 		    });
 		}
-		var timeout =setInterval(reload, 10000);
+		
+		/* var tnn = document.getElementById('tn'), 
+		start = document.getElementById('start'), 
+		stop = document.getElementById('stop'), 
+		clear = document.getElementById('clear'), */
+		var seconds = 0, minutes = 0, hours = 0, t;
+		var startsqlTime = "${data.spentTime}";	
+		if(startsqlTime != ""){
+			hours += parseInt(startsqlTime.split(":")[0]);
+			minutes += parseInt(startsqlTime.split(":")[1]);
+			seconds += parseInt(startsqlTime.split(":")[2]);
+		}
+		function add() {
+			seconds++;
+			if (seconds >= 60) {
+				seconds = 0;
+				minutes++;
+				if (minutes >= 60) {
+					minutes = 0;
+					hours++;
+				}
+			}
+
+			document.getElementById("tn").textContent = (hours ? (hours > 9 ? hours
+					: "0" + hours) : "00")
+					+ ":"
+					+ (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00")
+					+ ":" + (seconds > 9 ? seconds : "0" + seconds);
+
+			timer();
+		}
+		function timer() {		
+			t = setTimeout(add, 1000);		
+		}
+		var running_status = "${data.running_status}";
+		//console.log(running_status);
+		if(running_status == "true"){
+			//alert("timer on!")
+			timer();	
+		}
+		
+		function stopTimer(el) {
+			var id = $(el).closest('tr').find('.task_id').val();
+			
+			clearTimeout(t);
+			//$(".time-start").removeClass("hidden");
+			$("#start-timer").remove();
+			$("#stop-timer").remove();
+			//$("#runningtask").remove();
+
+			var stopTime = new Date();
+			console.log(stopTime+"::::::::::::::::::::stopstart:::::::::::::::::");
+			$.ajax({
+				type : 'GET',
+				url : '/taskman/tman/tasks/timeLogUpdate/' + id + '/' + stopTime
+			});
+
+		}
+		
+		//refress call
+		var runningTaskLogId = "${data.tasklog.taskId}";
+		var startsqlTime = "${data.tasklog.startTime}";
+		console.log(startsqlTime+"::::::::::t::::::::");
+		
+		/* if (runningTaskLogId != " ") {
+			var html1 = ' <button type="button" class="btn-edit btn btn-xs" id="start-timer">'
+				+ '<span id="tn">'
+				+ '<time>'+'${data.spentTime}'+'</time>'
+				+ '</span>'
+				+ '</button>'
+				+ '<button type="button" onclick="stopTimer(this);" class="btn-del btn btn-xs" id="stop-timer">'
+				+ '<span class="fa fa-stop"></span></button> <span id="runningtask" style="color:green">Running</span>';
+
+			$('.task_id').each(function(index, element) {
+				if ($(this).val() == runningTaskLogId & index == 0) {
+					$(this).closest('tr').find('.time-start').before(html1);
+					timer();
+					$(this).closest('tr').find('.time-start').addClass("hidden");
+					console.log(index);
+				}
+			});
+		} */
+		//var timeout =setInterval(reload, 10000);
 		
 	</script>
