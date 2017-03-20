@@ -127,6 +127,15 @@
 								<cts:TextArea name="description" value="${map.tasks.description}" cssClass="dirty-check required" readonly="" rows="3" cols=""/>
 						</div>
 						<fieldset>
+							<legend>
+									Story Code&nbsp;&nbsp;
+								<cts:Button cssClass="find" spanClass="search" id="btnStory"/>			
+							</legend>
+								<div class="form-group">						
+									<cts:TextBox name="story_code" value="${map.tasks.storyCode}" cssClass="dirty-check" readonly="readonly"/>
+								</div>
+						</fieldset>
+						<fieldset>
 								<legend>
 									Assignee&nbsp;&nbsp;
 								<cts:Button cssClass="find" spanClass="search" id="btnUser"/>			
@@ -134,15 +143,6 @@
 								<div class="form-group">						
 									<%-- <cts:Label name="Assignee" labelFor="assignee"/> --%>
 									<cts:TextBox name="assignee" value="${map.tasks.asignee}" cssClass="dirty-check" readonly="readonly"/>
-								</div>
-						</fieldset>
-						<fieldset>
-							<legend>
-									Story Code&nbsp;&nbsp;
-								<cts:Button cssClass="find" spanClass="search" id="btnStory"/>			
-							</legend>
-								<div class="form-group">						
-									<cts:TextBox name="story_code" value="${map.tasks.storyCode}" cssClass="dirty-check" readonly="readonly"/>
 								</div>
 						</fieldset>
 					</div>
