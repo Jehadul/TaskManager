@@ -69,6 +69,8 @@
 									<button type="button" onclick="stopTimer(this);" class="btn-del btn btn-xs pull-left" id="stop-timer">
 									<span class="fa fa-stop"></span></button> 
 									
+									<input type="hidden" name="id1" class="task_id"
+									value="${currentTasklist.getId()}" />
 								</td>					
 								</tr>
 							</c:forEach>
@@ -203,7 +205,8 @@
 		
 		function stopTimer(el) {
 			var id = $(el).closest('tr').find('.task_id').val();
-			
+			console.log("----------------");
+			console.log(id);
 			clearTimeout(t);
 			//$(".time-start").removeClass("hidden");
 			$("#start-timer").remove();
