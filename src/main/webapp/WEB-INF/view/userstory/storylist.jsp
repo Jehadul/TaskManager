@@ -113,7 +113,7 @@
 <script>
 	InitHandlers();
 	
-	
+	//InitDataTable("#user-story");
 	var delRow = function(el){
 		swal({
 			title: "Are you sure?",

@@ -77,7 +77,7 @@ if(!window.jQuery){window.location = "/?desturl=" + window.location.href;}
 		html += '			</thead>';
 		html += '			</tbody>';
     	for (var i = 0; i < data.length;  i++) {
-    		html += '			<tr><td><a href="story/show/'+data[i].userStoryCode +'?mode=' + mode + '" data-ajax="true">' + data[i].userStoryCode + '</a></td>';
+    		html += '			<tr><td><a href="/taskman/userstory/story/show/'+data[i].userStoryCode +'?mode=' + mode + '" data-ajax="true">' + data[i].userStoryCode + '</a></td>';
     		html += '				<td>' + data[i].userStoryTitle + '</td>';
     		html += '				<td>';
     		if (action == "SELECT") {
@@ -87,7 +87,7 @@ if(!window.jQuery){window.location = "/?desturl=" + window.location.href;}
 			}
     		if (!data[i].is_locked) {
     			if (action == "CREATE" || action == "EDIT") {
-	    			html += '              	<a href="story/edit/' + data[i].userStoryTitle + '?mode=' + mode + '"';
+	    			html += '              	<a href="/taskman/userstory/story/edit/' + data[i].userStoryTitle + '?mode=' + mode + '"';
 	    			html += '			    	class="btn btn-edit btn-sm" data-ajax="true"><span class="fa fa-edit"></span></a>';
 	    		}
 			}
