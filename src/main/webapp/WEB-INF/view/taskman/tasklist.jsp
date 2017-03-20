@@ -21,7 +21,7 @@
 					<thead>
 						<tr>
 							<th style="display: none"></th>
-							<th>Task Code</th>
+							<th>Task Id</th>
 							<th>Task Title</th>
 							<th>Estimated Time</th>
 							<th>Spent Time</th>

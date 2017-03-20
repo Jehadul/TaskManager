@@ -20,6 +20,10 @@
 	<div class="container-fluid container-fullw bg-white">
 		<cts:AjaxForm action="/taskman/tman/sprint/store" dataHandler="showMessage" >
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			<div class="alert alert-block alert-danger hidden">
+					Please check the fields marked with 
+					<span class="text-red fa fa-close"></span>.
+			</div>
 			<div class="main-control">
 				<div class="row">
 					<div class="col-md-6">
@@ -173,6 +177,77 @@ function loadUserStory(storydata){
 	HideModal('search-modal');	
 }
 
+
+function validate(){
+	
+	SyncOptionText();
+	
+	var error = "";
+	var result = CheckRequired();
+	
+
+	if ( $("#suite_code").val() =="-1") {
+		error +="Please select Suite Code <br/>";
+		result = false;
+		
+	}  
+	 
+	 if ( $("#module_code").val() =="-1") {
+			error +="Please select Module Code <br/>";
+			result = false;
+			
+		}  
+	 
+	 if ( $("#priv_grp_code").val() =="-1") {
+			error +="Please select Priv Grp Code <br/>";
+			result = false;
+			
+		} 
+	
+	if ($("#sprint_code").val() =="") {
+		error +="Please Enter Sprint Code<br/> ";
+		result = false;
+		
+	} 
+
+	if ($("#sprint_name").val() =="" ) {
+		error +="Please Enter Sprint Name <br/> ";
+		result = false;
+		
+	} 
+	
+	if ($("#sprint_number").val() =="" ) {
+		error +="Please Enter Sprint Number <br/> ";
+		result = false;
+		
+	} 
+	
+	if ($("#sprint_stories").val() =="" ) {
+		error +="Please Enter Sprint Stories <br/> ";
+		result = false;
+		
+	}  
+	
+	 if ($("#start_date").val() =="" ) {
+		error +="Please Select Start Date <br/> ";
+		result = false;
+		
+	} 
+
+	if ($("#end_date").val() =="" ) {
+		error +="Please Select End Date <br/> ";
+		result = false;
+		
+	} 
+	 
+	 
+	if (!result) {
+		InitErrorChange();
+		$(".alert").html(error);
+		$(".alert").removeClass("hidden");
+	} 
+	return result;
+}
 /* 
 $('.start-date-picker ').on('changeDate', function(ev){
     $(this).datepicker('hide');

@@ -120,7 +120,7 @@ public class SprintControllerTest {
     
     @Test
 	public void testDestroy_ReturnsWSResponse(){
-		UUID id=UUID.fromString("15243042-0be0-4919-91c7-ed30f8983e93");
+		UUID id=UUID.fromString("5635a524-0e95-4bb7-8967-02fa2ec0f5ab");
 		request.setParameter("id", String.valueOf(id));
 		request.setParameter("suite_code", "ertert");
 		request.setParameter("suite_name", "trtryry");

@@ -27,7 +27,7 @@ public class SprintDAOTest {
 	ISprintDAO sprintDao;
 	
 	//@Mock
-	private UUID id=UUID.fromString("669204b8-330a-4897-ab2a-65fdc6e1e0ff"); 
+	private UUID id=UUID.fromString("fa47205e-2c3c-4499-a133-5a7e1b8cd05c"); 
 		
 	String suiteCode=null;
 	String moduleCode=null;
@@ -83,6 +83,12 @@ public class SprintDAOTest {
 	public void testGetDocById_ReturnSprint() {
 		SprintManager spman = sprintDao.getDocById(id);
 		assertNotNull(spman);
+	}
+	
+	@Test
+	public void testDeleteDoc_ReturnUUID(){
+		UUID inId = sprintDao.deleteDoc(id); 
+		assertEquals(id.getClass(), inId.getClass());
 	}
 
 }
