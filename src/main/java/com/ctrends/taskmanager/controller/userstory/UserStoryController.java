@@ -255,7 +255,7 @@ public class UserStoryController implements IUserStoryController {
 		/*
 		 * GsonBuilder gson = new GsonBuilder(); Gson g = gson.create();
 		 */
-		return new ModelAndView("userstory/delete", "data", data);
+		return new ModelAndView("userstory/storylist", "data", data);
 	}
 	
 	
