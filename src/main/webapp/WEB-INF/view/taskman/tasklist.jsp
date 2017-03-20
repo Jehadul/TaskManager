@@ -252,14 +252,29 @@
 		$("#start-timer").remove();
 		$("#stop-timer").remove();
 		$("#runningtask").remove();
+	
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth() + 1;
+		var yyyy = today.getFullYear();
+		if (dd < 10) {
+			dd = '0' + dd;
+		}
+		if (mm < 10) {
+			mm = '0' + mm;
+		}
+		var day = dd + '-' + mm + '-' + yyyy;
+		var curr_hour = today.getHours();
+		var curr_min = today.getMinutes();
+		var curr_sec = today.getSeconds();
 
-		var stopTime = new Date();
-		console
-				.log(stopTime
-						+ "::::::::::::::::::::stopstart:::::::::::::::::");
+		var stopTime = day + " " + curr_hour + ":" + curr_min
+				+ ":" + curr_sec;
+		console.log(startTime);
+		
 		$.ajax({
 			type : 'GET',
-			url : '/taskman/tman/tasks/timeLogUpdate/' + id + '/' + stopTime
+			url : '/taskman/tman/tasks/timeLogUpdate/' + id + '/' + stopTime+'/'+day
 		});
 
 	}
