@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -14,8 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.ctrends.taskmanager.dao.tman.ITasksDao;
-import com.ctrends.taskmanager.model.taskmanage.Module;
-import com.ctrends.taskmanager.model.taskmanage.Suite;
 import com.ctrends.taskmanager.model.tman.TaskLog;
 import com.ctrends.taskmanager.model.tman.Tasks;
 import com.ctrends.taskmanager.model.user.User;
@@ -81,23 +80,43 @@ public class TasksService implements ITasksService {
 			return data;
 	}
 
+	/*SELECT EXTRACT(EPOCH FROM (stop_time-start_time))
+	FROM task_logs*/
 	@Override
 	public Map<String, String> insertTaskLog(Map<String, String> requestMap) {
 		Map<String, String> data = new HashMap<String, String>();
 		TaskLog taskLog = new TaskLog();
 		User currentUser = userService.getCurrentUser();
-		taskLog.setTaskId(UUID.fromString(requestMap.get("id")));
+		taskLog.setTaskId(requestMap.get("id"));
 		taskLog.setTaskTitle(requestMap.get("taskTitle"));
-		taskLog.setStartTime(requestMap.get("startTime"));
-		taskLog.setStopStatus("false");
-
+		
+		System.out.println(requestMap.get("startTime")+"::::::::::::::::p:::::::::::::::::");
+		SimpleDateFormat dsf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		Date s;
+		try {
+			s = dsf.parse(requestMap.get("startTime"));
+			Calendar calendar = Calendar.getInstance();
+			
+			calendar.setTime(s);
+		Timestamp hh = new Timestamp(calendar.getTime().getTime());
+		taskLog.setStartTime(hh);
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		
+		
+		taskLog.setStartStopStatus(false);
+		
 		String dat = requestMap.get("today");
-		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+		
 		java.util.Date dd;
 		try {
+			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 			dd = sdf.parse(dat);
 			java.sql.Date timeLogSqlDate = new java.sql.Date(dd.getTime());
-			taskLog.setDate(timeLogSqlDate);
+			taskLog.setStartDate(timeLogSqlDate);
 		} catch (ParseException e) {
 
 			e.printStackTrace();
@@ -118,9 +137,8 @@ public class TasksService implements ITasksService {
 
 		UUID id = tasksDao.insertTaskLogDoc(taskLog);
 		data.put("id", id.toString());
-		return data;
+		return null;
 	}
-
 	@Override
 	public List<Tasks> getAll() {
 		List<Tasks> taskLi = tasksDao.getAllDoc();
@@ -198,7 +216,7 @@ public class TasksService implements ITasksService {
 
 	@Override
 	public Map<String, String> updateTimeLog(Map<String, String> requestMap) {
-		Map<String, String> data = new HashMap<String, String>();
+		/*Map<String, String> data = new HashMap<String, String>();
 		TaskLog taskLog = tasksDao.getDocByIdTimeLog(UUID.fromString(requestMap.get("id")));
 		Tasks tasks = tasksDao.getDocById(UUID.fromString(requestMap.get("id")));
 		taskLog.setStopTime(requestMap.get("stopTime"));
@@ -243,7 +261,7 @@ public class TasksService implements ITasksService {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}*/
 
 		return null;
 	}
