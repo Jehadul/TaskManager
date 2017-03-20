@@ -88,8 +88,7 @@
 							</legend>
 								<div class="form-group">						
 									<%-- <cts:Label name="Story Code" labelFor="story_code"/> --%>
-									<cts:Hidden name="story_code" cssClass="dirty-check"/>
-									<cts:TextBox name="story_name" cssClass="dirty-check" readonly="readonly"/>
+									<cts:TextBox name="story_code" cssClass="dirty-check" readonly="readonly"/>
 								</div>
 						</fieldset>
 					</div>
@@ -159,7 +158,6 @@ InitHandlers();
 	function loadStory(story){ 
 		var storyList = JSON.parse(unescape(story));			
 		$("#story_code").val(storyList.userStoryCode);	
-		$("#story_name").val(storyList.userStoryTitle);	
 		HideModal('search-modal');	
 	}
 	
