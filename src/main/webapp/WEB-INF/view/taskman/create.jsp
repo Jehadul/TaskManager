@@ -72,16 +72,6 @@
 								<cts:TextArea name="description" cssClass="dirty-check required" readonly="" rows="3" cols=""/>
 						</div>
 						<fieldset>
-								<legend>
-									Assignee&nbsp;&nbsp;
-								<cts:Button cssClass="find" spanClass="search" id="btnUser"/>			
-								</legend>
-								<div class="form-group">						
-									<%-- <cts:Label name="Assignee" labelFor="assignee"/> --%>
-									<cts:TextBox name="assignee" cssClass="dirty-check" readonly="readonly"/>
-								</div>
-						</fieldset>
-						<fieldset>
 							<legend>
 									Story Code&nbsp;&nbsp;
 								<cts:Button cssClass="find" spanClass="search" id="btnStory"/>			
@@ -89,6 +79,16 @@
 								<div class="form-group">						
 									<%-- <cts:Label name="Story Code" labelFor="story_code"/> --%>
 									<cts:TextBox name="story_code" cssClass="dirty-check" readonly="readonly"/>
+								</div>
+						</fieldset>
+						<fieldset>
+								<legend>
+									Assignee&nbsp;&nbsp;
+								<cts:Button cssClass="find" spanClass="search" id="btnUser"/>			
+								</legend>
+								<div class="form-group">						
+									<%-- <cts:Label name="Assignee" labelFor="assignee"/> --%>
+									<cts:TextBox name="assignee" cssClass="dirty-check" readonly="readonly"/>
 								</div>
 						</fieldset>
 					</div>
@@ -185,39 +185,15 @@ InitHandlers();
 	} */
 	
 	function validate() {
-		var itemCode = $("#task_code").val().trim();
-		var itemName = $("#task_title").val().trim();
+		var taskCode = $("#task_code").val().trim();
+		var taskName = $("#task_title").val().trim();
+		var estimatedTime = $("#estimated_time").val().trim();
+		var description = $("#description").val().trim();
 		var error = "";
 		
 		SyncOptionText();
 		
 		var result = CheckRequired();
-		
-		  $(function() {
-		        $.fn.selectRange = function(start, end) {
-		            return this.each(function() {
-		                var self = this;
-		                if (self.setSelectionRange) {
-		                    self.focus();
-		                    self.setSelectionRange(start, end);
-		                } else if (self.createTextRange) {
-		                    var range = self.createTextRange();
-		                    range.collapse(true);
-		                    range.moveEnd('character', end);
-		                    range.moveStart('character', start);
-		                    range.select();
-		                }
-		            });
-		        };
-
-		        if(itemCode==""){
-		            $('#task_code').selectRange(0, 0);}
-		        else if(itemName==""){
-		            $('#task_title').selectRange(0, 0);}
-		         
-		        
-		    }); 
-		  
 
 			if ($("#suite_code").val() =="-1") {
 				error +="Must select new Suite <br/>";
@@ -236,6 +212,17 @@ InitHandlers();
 				result = false;
 				
 			}
+			
+			/* if ($("#assignee").val() =="") {
+				error +="Must select Assignee <br/>";
+				result = false;
+				
+			}	
+			
+			if ($("#story_code").val() ==""){
+				error +="Must select new Story Code <br/>";
+				result = false;
+			} */
 		
 		
 		if (!result) {
@@ -246,8 +233,7 @@ InitHandlers();
 			$(".alert").html(error);
 			$(".alert").removeClass("hidden");
 		}
-		
-		else if(itemCode==""||itemName==""){
+		else if(taskCode == ""|| taskName == "" || estimatedTime == "" || description == ""){
 			
 			error +="Only space is not allowed in required fields";
 			ShowErrorMsg('Task was not created', "Please check details.");

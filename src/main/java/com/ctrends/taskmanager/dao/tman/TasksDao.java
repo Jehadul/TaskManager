@@ -213,17 +213,17 @@ public class TasksDao implements ITasksDao {
 		return doc.getId();
 	}
 
-//	@Transactional
-//	@Override
-//	public List<Privilege> getBy(String suitCode, String modCode, int prvGrpCode) {
-//		String hqlQuery = "from Privilege where suiteCode =:suiteCode and  modCode =:modCode and  privGrpCode =:privGrpCode order by privSeq";
-//		Query query = sessionfactory.getCurrentSession().createQuery(hqlQuery);
-//		query.setParameter("suiteCode", suitCode);
-//		query.setParameter("modCode", modCode);
-//		query.setParameter("privGrpCode", prvGrpCode);
-//		List<Privilege> privilege = query.list();
-//		return privilege;
-//	}
+	@Transactional
+	@Override
+	public List<Privilege> getBy(String suitCode, String modCode, int prvGrpCode) {
+		String hqlQuery = "from Privilege where suiteCode =:suiteCode and  modCode =:modCode and  privGrpCode =:privGrpCode order by privSeq";
+		Query query = sessionfactory.getCurrentSession().createQuery(hqlQuery);
+		query.setParameter("suiteCode", suitCode);
+		query.setParameter("modCode", modCode);
+		query.setParameter("privGrpCode", prvGrpCode);
+		List<Privilege> privilege = query.list();
+		return privilege;
+	}
 
 	@Override
 	@Transactional
