@@ -20,26 +20,28 @@
 				<div class="table-responsive">
 					<table class="table table-striped table-hover"
 						id="sprint_sort_result">
-							<thead>
-								<tr>
-								<th></th>
+						<thead>
+							<tr>
+								<th style="display:none"></th>
 								<th>Suite Name</th>
 								<th>Module Name</th>
 								<th>Privilege Name</th>
 								<th>Sprint Name</th>
 								<th>Sprint Number</th>
-								<th>Action</th>
+								<th>Story Title</th>
+								<th data-orderable="false">Action</th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach var="sprint" items="${data.sprintlist}">
 								<tr>
-									<td><input type="hidden" name="id1" class="sprint_id" value="${sprint.getId()}" /></td>
+									<td style="display:none"><input type="hidden" name="id1" class="sprint_id" value="${sprint.getId()}" /></td>
 									<td><c:out value="${sprint.getSuiteName()}" /></td>
 									<td><c:out value="${sprint.getModuleName()}" /></td>
 									<td><c:out value="${sprint.getPrivilegeName()}" /></td>
 									<td><c:out value="${sprint.getSprintName()}" /></td>
 									<td><c:out value="${sprint.getSprintNumber()}" /></td>
+									<td><c:out value="${sprint.getSprintStories()}" /></td>
 									<td>
 										<button type="button" onclick="editRow(this);" class="btn-edit btn btn-xs">
 											<span class="fa fa-edit"></span>
@@ -105,6 +107,9 @@
 
 		LoadMainContent('/taskman/tman/sprint/edit/' + sprintId);
 	});
+	
+	
+
 	
 
 </script>

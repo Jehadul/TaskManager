@@ -66,15 +66,23 @@
 							<cts:TextBox name="sprint_number" cssClass="dirty-check required number" readonly=""/>
 						</div>
 						
-						<div class="form-group">
-							<cts:Label name="Sprint Stories" labelFor="sprint_stories"/>
-							<cts:TextBox name="sprint_stories" cssClass="dirty-check required" readonly=""/>
-						</div>
+						<fieldset>
+							<legend>
+								Pick Story&nbsp;&nbsp;
+							<cts:Button cssClass="find" spanClass="search" id="btnStorySearch"/>			
+							</legend>
+						
+							<div class="form-group">
+								<%-- <cts:Label name="Sprint Stories" labelFor="sprint_stories"/> --%>
+								<cts:TextBox name="sprint_stories" cssClass="dirty-check required" readonly="readonly"/>
+								<cts:Hidden name="sprint_story_code"/>
+							</div>
+						</fieldset>	
 						
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">		
-									<cts:Datepicker label="Start Date" name="start_date" cssClass="dirty-check  required"/>
+									<cts:Datepicker label="Start Date" name="start_date" cssClass="start-date-picker dirty-check  required"/>
 								</div>	
 							</div>
 							<div class="col-md-6">							
@@ -83,11 +91,7 @@
 								</div>
 							</div>	
 						</div>	
-						
-					
-						
-							
-						
+
 						<div class="form-group">
 								<cts:Label name="Description" labelFor="sprint_description"/>
 								<cts:TextArea name="sprint_description" cssClass="dirty-check" readonly="" rows="3" cols=""/>
@@ -155,5 +159,23 @@ function showMessage(data) {
 	}
 }
 
+
+// search and select story for stories field
+
+$("#btnStorySearch").on("click",function(){
+	ShowModal("/taskman/userstory/story/searchstory/?action_type_code=SELECT&actioncallback=loadUserStory");
+});
+
+function loadUserStory(storydata){ 
+	var story = JSON.parse(unescape(storydata));			
+	$("#sprint_stories").val(story.userStoryTitle);	
+	$("#sprint_story_code").val(story.userStoryCode);
+	HideModal('search-modal');	
+}
+
+/* 
+$('.start-date-picker ').on('changeDate', function(ev){
+    $(this).datepicker('hide');
+}); */
 
 </script>

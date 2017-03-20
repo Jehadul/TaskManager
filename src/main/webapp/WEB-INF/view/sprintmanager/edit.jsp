@@ -100,10 +100,21 @@
 								<cts:Label name="Sprint Number" labelFor="sprint_number"/>
 								<cts:TextBox name="sprint_number" value="${map.sprintManager.sprintNumber}" cssClass="dirty-check required" readonly=""/>
 						</div>
-						<div class="form-group">
-								<cts:Label name="Sprint Stories" labelFor="sprint_stories"/>
-								<cts:TextBox name="sprint_stories" value="${map.sprintManager.sprintStories}" cssClass="dirty-check required" readonly=""/>
-						</div>
+						
+						
+						
+						<fieldset>
+							<legend>
+								Pick Story&nbsp;&nbsp;
+							<cts:Button cssClass="find" spanClass="search" id="btnStorySearch"/>			
+							</legend>
+						
+							<div class="form-group">
+								<%-- <cts:Label name="Sprint Stories" labelFor="sprint_stories"/> --%>
+								<cts:TextBox name="sprint_stories" value="${map.sprintManager.sprintStories}"  cssClass="dirty-check required" readonly="readonly"/>
+								<cts:Hidden name="sprint_story_code" value="${map.sprintManager.sprintStoryCode}" />
+							</div>
+						</fieldset>	
 						
 						
 						<div class="row">
@@ -210,5 +221,21 @@
 		var newPrivGroupCode = $("#priv_grp_code").val();
 		LoadMainContent("/taskman/tman/sprint/create/?suite_code=" + newSuiteCode + "&" + "module_code=" + newModuleCode + "&" + "priv_grp_code=" + newPrivGroupCode);
 	});
+	
+	
+	
+	// search and select story for stories field
+
+	$("#btnStorySearch").on("click",function(){
+		ShowModal("/taskman/userstory/story/searchstory/?action_type_code=SELECT&actioncallback=loadUserStory");
+	});
+
+	function loadUserStory(storydata){ 
+		var story = JSON.parse(unescape(storydata));			
+		$("#sprint_stories").val(story.userStoryTitle);	
+		$("#sprint_story_code").val(story.userStoryCode);
+		HideModal('search-modal');	
+	}
+
 	
 </script>

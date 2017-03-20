@@ -170,4 +170,11 @@ public class UserStoryService implements IUserStoryService {
 		return id;
 	}
 
+
+	@Override
+	public List<UserStory> find(Map<String, String> searchingKey) {
+		// TODO Auto-generated method stub
+		return userStoryDAO.getDocs(searchingKey);
+	}
+
 }

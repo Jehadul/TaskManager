@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.core.Context;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -23,6 +24,7 @@ import com.ctrends.taskmanager.model.taskmanage.Module;
 import com.ctrends.taskmanager.model.taskmanage.PrivGroup;
 import com.ctrends.taskmanager.model.taskmanage.Privilege;
 import com.ctrends.taskmanager.model.taskmanage.Suite;
+import com.ctrends.taskmanager.model.user.User;
 import com.ctrends.taskmanager.model.userstory.UserStory;
 import com.ctrends.taskmanager.service.userstory.IUserStoryService;
 import com.google.gson.Gson;
@@ -236,17 +238,6 @@ public class UserStoryController implements IUserStoryController {
 		return new WSResponse("success", "User Story deleted successfully", id, null, "doc", null);
 	}
 
-	@Override
-	public ModelAndView showSearch(HttpServletRequest request) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String search(HttpServletRequest request) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public ModelAndView create() {
@@ -266,5 +257,51 @@ public class UserStoryController implements IUserStoryController {
 		 */
 		return new ModelAndView("userstory/delete", "data", data);
 	}
+	
+	
+	
+	
+	// Tanvir working
+	
+	
+	
+	
+	@RequestMapping(value = "/searchstory", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ModelAndView showSearch(@Context HttpServletRequest request) {
+		
+		
+		String actionTypeCode = request.getParameter("action_type_code");
+		Map<String, Object> data = new HashMap<String, Object>();
+		
+		data.put("action_type_code", actionTypeCode);
+		return new ModelAndView("userstory/searchstory", "data", data);
+	}
+	
+	
+	@RequestMapping(value = "/storySearch", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String search(@Context HttpServletRequest request) {
+		Map<String, String> searchingKey = new HashMap<String, String>();
+		
+		// if user input is null than convart it into empty String
+		if(request.getParameter("story_code")==null){
+			searchingKey.put("userStoryCode", "");
+		}else{
+			searchingKey.put("userStoryCode", request.getParameter("story_code"));
+		}
+		
+		if(request.getParameter("story_name")==null){
+			searchingKey.put("userStoryTitle", "");
+		}else{
+			searchingKey.put("userStoryTitle", request.getParameter("story_name"));
+		}
+
+		List<UserStory> data = userStoryService.find(searchingKey);
+		//jeson convert
+		GsonBuilder gBuilder = new GsonBuilder();
+		Gson gson = gBuilder.create();
+		
+		return gson.toJson(data);
+	}
+
 
 }
