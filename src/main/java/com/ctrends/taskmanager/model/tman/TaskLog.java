@@ -21,30 +21,33 @@ public class TaskLog {
 	private UUID id;
 	
 	@Column(name="task_id")
-	UUID taskId;
+	private String taskId;
 	
 	@Column(name="task_title")
-	String taskTitle;
+	private String taskTitle;
 	
 	@Column(name="start_time")
-	String startTime;
+	private Timestamp startTime;
 	
 	@Column(name="stop_time")
-	String stopTime;
+	private Timestamp stopTime;
 	
-	@Column(name="date")
-	Date date;
+	@Column(name="startDate")
+	Date startDate;
 	
+	@Column(name="stopDate")
+	Date stopDate;
+	
+	@Column(name="start_stop_status")
+	private boolean startStopStatus;
+	
+	
+
 	@Column(name="doa_type_code")
 	private String doaTypeCode;
 
 	@Column(name="doa_type_name")
-	private String doaTypeName;
-	
-	@Column(name="stop_status")
-	private String stopStatus;
-
-	
+	private String doaTypeName;	
 
 	@Column(name="doa_amount")
 	private double doaAmount;
@@ -222,12 +225,31 @@ public class TaskLog {
 		this.id = id;
 	}
 
-	public UUID getTaskId() {
+	
+	public String getTaskId() {
 		return taskId;
 	}
 
-	public void setTaskId(UUID taskId) {
+	public void setTaskId(String taskId) {
 		this.taskId = taskId;
+	}
+
+	
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public boolean isStartStopStatus() {
+		return startStopStatus;
+	}
+
+	public void setStartStopStatus(boolean startStopStatus) {
+		this.startStopStatus = startStopStatus;
 	}
 
 	public String getTaskTitle() {
@@ -238,30 +260,7 @@ public class TaskLog {
 		this.taskTitle = taskTitle;
 	}
 
-	public String getStartTime() {
-		return startTime;
-	}
-
-	public void setStartTime(String startTime) {
-		this.startTime = startTime;
-	}
-
-	public String getStopTime() {
-		return stopTime;
-	}
-
-	public void setStopTime(String stopTime) {
-		this.stopTime = stopTime;
-	}
-
-	public Date getDate() {
-		return date;
-	}
-
-	public void setDate(Date date) {
-		this.date = date;
-	}
-
+	
 	public String getDoaTypeCode() {
 		return doaTypeCode;
 	}
@@ -717,13 +716,30 @@ public class TaskLog {
 	public void setCostcenterName(String costcenterName) {
 		this.costcenterName = costcenterName;
 	}
-	public String getStopStatus() {
-		return stopStatus;
+	public Timestamp getStartTime() {
+		return startTime;
 	}
 
-	public void setStopStatus(String stopStatus) {
-		this.stopStatus = stopStatus;
+	public void setStartTime(Timestamp startTime) {
+		this.startTime = startTime;
 	}
+
+	public Timestamp getStopTime() {
+		return stopTime;
+	}
+
+	public void setStopTime(Timestamp stopTime) {
+		this.stopTime = stopTime;
+	}
+
+	public Date getStopDate() {
+		return stopDate;
+	}
+
+	public void setStopDate(Date stopDate) {
+		this.stopDate = stopDate;
+	}
+	
 	
 
 }

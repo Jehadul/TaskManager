@@ -5,32 +5,28 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.core.Context;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-import com.google.gson.Gson;
 
 import com.ctrends.taskmanager.bean.WSResponse;
-import com.ctrends.taskmanager.controller.tman.ITasksController;
 import com.ctrends.taskmanager.dao.tman.ITasksDao;
 import com.ctrends.taskmanager.model.taskmanage.Module;
 import com.ctrends.taskmanager.model.taskmanage.PrivGroup;
 import com.ctrends.taskmanager.model.taskmanage.Suite;
 import com.ctrends.taskmanager.model.tman.TaskLog;
 import com.ctrends.taskmanager.model.tman.Tasks;
-
 import com.ctrends.taskmanager.service.tman.ITasksService;
-
+import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 @RestController
@@ -49,12 +45,22 @@ public class TasksController implements ITasksController {
 
 		Map<String, Object> data = new HashMap<String, Object>();
 		List<Tasks> tasklist = tasksService.getAll();
-		TaskLog taskloglist = tasksService.getRunningTaskLogByCurrentUser();
+		TaskLog tasklog = tasksService.getRunningTaskLogByCurrentUser();
 		GsonBuilder gson = new GsonBuilder();
 		Gson g = gson.create();
-
+		long spentTimes= 0;
+		if(tasklog != null && tasklog.getStartTime() !=null){
+			spentTimes = System.currentTimeMillis()-tasklog.getStartTime().getTime();
+		}
+		String spentTime = String.format("%02d:%02d:%02d", 
+				TimeUnit.MILLISECONDS.toHours(spentTimes),
+				TimeUnit.MILLISECONDS.toMinutes(spentTimes) -  
+				TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(spentTimes)), // The change is in this line
+				TimeUnit.MILLISECONDS.toSeconds(spentTimes) - 
+				TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(spentTimes)));
 		data.put("tasklist", tasklist);
-		data.put("taskloglist", taskloglist);
+		data.put("tasklog", tasklog);
+		data.put("spentTime", spentTime);
 		// System.out.println(taskloglist.get(0).getTaskId()+":::::::::::::running
 		// taskId::::::::::::::");
 		return new ModelAndView("taskman/tasklist", "data", data);
