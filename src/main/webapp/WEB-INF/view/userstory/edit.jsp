@@ -20,6 +20,10 @@
 	<div class="container-fluid container-fullw bg-white">
 		<cts:AjaxForm action="/taskman/userstory/story/update" dataHandler="showMessage" >
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			<div class="alert alert-block alert-danger hidden">
+					Please check the fields marked with 
+					<span class="text-red fa fa-close"></span>.
+			</div>
 			<div class="main-control">
 				<div class="row">
 					<div class="col-md-6">
@@ -224,5 +228,79 @@
 	 $("#priority_code").on("change", function(){
 			$("input[name='priority']").val($("#priority_code option:selected").text());
 		});
+	 
+function validate(){
+			
+		var itemPrivilegeName = $("#privilege_name").val().trim();
+		
+		SyncOptionText();
+		
+		var error = "";
+		var result = CheckRequired();
+		
+	
+		
+		if ($("#privilege_name").val() =="") {
+			error +="Please Enter privilege Name <br/> ";
+			result = false;
+			
+		} 
+
+		if ($("#user_story_title").val() =="" ) {
+			error +="Please Enter User Story Title <br/> ";
+			result = false;
+			
+		} 
+		
+		if ($("#privilege_code").val() =="" ) {
+			error +="Please Enter Privilege Code <br/> ";
+			result = false;
+			
+		} 
+		
+		if ($("#user_story_code").val() =="" ) {
+			error +="Please Enter User Story Code <br/> ";
+			result = false;
+			
+		} 
+		
+		if ($("#story_order").val() =="" ) {
+			error +="Please Enter Story Order <br/> ";
+			result = false;
+			
+		} 
+
+		 if ( $("#suite_code").val() =="-1") {
+			error +="Please select Suite Code <br/>";
+			result = false;
+			
+		}  
+		 
+		 if ( $("#module_code").val() =="-1") {
+				error +="Please select Module Code <br/>";
+				result = false;
+				
+			}  
+		 
+		 if ( $("#priv_grp_code").val() =="-1") {
+				error +="Please select Priv Grp Code <br/>";
+				result = false;
+				
+			} 
+		 
+		 if ( $("#priority_code").val() =="-1") {
+				error +="Please select Priority Code <br/>";
+				result = false;
+				
+			}  
+	 
+		
+		if (!result) {
+			InitErrorChange();
+			$(".alert").html(error);
+			$(".alert").removeClass("hidden");
+		} 
+		return result;
+}
 	
 </script>
