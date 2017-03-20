@@ -3,6 +3,7 @@ package com.ctrends.taskmanager.controller.common;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ctrends.taskmanager.bean.WSResponse;
+import com.ctrends.taskmanager.model.tman.TaskLog;
 import com.ctrends.taskmanager.model.tman.Tasks;
 import com.ctrends.taskmanager.model.user.User;
 import com.ctrends.taskmanager.service.tman.ITasksService;
@@ -60,8 +62,23 @@ public class HomeController {
 		Map<String, Object> data = new HashMap<String, Object>();
 		List<Tasks> tasklist=tasksService.getAllByCurrentUser();
 		List<Tasks> currentTasklist=tasksService.getCurrentTaskByCurrentUser();
+		TaskLog tasklog = tasksService.getRunningTaskLogByCurrentUser();
+		
+		long spentTimes= 0;
+		if(tasklog != null && tasklog.getStartTime() !=null){
+			spentTimes = System.currentTimeMillis()-tasklog.getStartTime().getTime();
+		}
+		String spentTime = String.format("%02d:%02d:%02d", 
+				TimeUnit.MILLISECONDS.toHours(spentTimes),
+				TimeUnit.MILLISECONDS.toMinutes(spentTimes) -  
+				TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(spentTimes)), // The change is in this line
+				TimeUnit.MILLISECONDS.toSeconds(spentTimes) - 
+				TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(spentTimes)));
+		
 		data.put("tasklist", tasklist);
 		data.put("currentTasklist", currentTasklist);
+		data.put("spentTime", spentTime);
+		data.put("running_status", (currentTasklist!=null && currentTasklist.size()>0)?"true":"false");
 		return new ModelAndView("common/noticeboard", "data", data);
 
 	}

@@ -32,77 +32,79 @@
 				Please check the fields marked with 
 				<span class="text-red fa fa-close"></span>.
 			</div>
+			
 			<div class="row">
 				<div class="col-md-6">
-					<!-- <div class="denotes-required">denotes a required field.</div> -->
-					
-					<div class="form-group">
-						<cts:Label name="Suite Name" labelFor="suite_name"/>
-						:     <b>${map.sprint.suiteName}</b>
+					<div class="row">
+						<div class="col-md-4"><cts:Label name="Suite Name" labelFor="suite_name"/></div>
+						<div class="col-md-1">:</div>
+						<div class="col-md-7"><b>${map.sprint.suiteName}</b></div>
 					</div>
-					<div class="form-group">
-						<cts:Label name="Module Name" labelFor="module_name"/>
-						 :     <b>${map.sprint.moduleName}</b>
+					<div class="row">
+						<div class="col-md-4"><cts:Label name="Module Name" labelFor="module_name"/></div>
+						<div class="col-md-1">:</div>
+						<div class="col-md-7"><b>${map.sprint.moduleName}</b></div>
 					</div>
-					<div class="form-group">
-						<cts:Label name="Privilege Name" labelFor="privilege_name"/>
-						:     <b>${map.sprint.privilegeName}</b>
+					<div class="row">
+						<div class="col-md-4"><cts:Label name="Privilege Name" labelFor="privilege_name"/></div>
+						<div class="col-md-1">:</div>
+						<div class="col-md-7"><b>${map.sprint.privilegeName}</b></div>
 					</div>
-					<div class="form-group">
-						<cts:Label name="Sprint Name" labelFor="sprint_name"/>
-						 :     <b>${map.sprint.sprintName}</b>
+					<div class="row">
+						<div class="col-md-4"><cts:Label name="Sprint Name" labelFor="sprint_name"/></div>
+						<div class="col-md-1">:</div>
+						<div class="col-md-7"><b>${map.sprint.sprintName}</b></div>
 					</div>
-					<div class="form-group">
-						<cts:Label name="Srint Code" labelFor="sprint_code"/>
-						 :     <b>${map.sprint.sprintCode}</b>
+					<div class="row">
+						<div class="col-md-4"><cts:Label name="Srint Code" labelFor="sprint_code"/></div>
+						<div class="col-md-1">:</div>
+						<div class="col-md-7"><b>${map.sprint.sprintCode}</b></div>
 					</div>
-					
-					<div class="form-group">
-						<cts:Label name="Sprint Goal" labelFor="sprint_goal"/>
-						 :     <b>${map.sprint.sprintGoal}</b>
-					</div>
-					
-					<div class="form-group">
-						<cts:Label name="Sprint Number" labelFor="sprint_number"/>
-						 :     <b>${map.sprint.sprintNumber}</b>
-					</div>
-										
-					<div class="form-group">
-						<cts:Label name="Sprint Stories" labelFor="sprint_stories"/>
-						 :     <b>${map.sprint.sprintStories}</b>
-					</div>
-
-										
-					<div class="form-group">
-						<cts:Label name="Sprint Start Date" labelFor="start_date"/>
-						 :     <b>${map.sprint.startDate}</b>
-					</div>
-					
-															
-					<div class="form-group">
-						<cts:Label name="Sprint End Date" labelFor="end_date"/>
-						 :     <b>${map.sprint.endDate}</b>
-					</div>
-					
-																				
-					<div class="form-group">
-						<cts:Label name="Sprint Description" labelFor="sprint_description"/>
-						 :     <b>${map.sprint.sprintDescription}</b>
-					</div>
-					
-					
-					
-					<%-- <div class="form-group">
-						<cts:Label name="Branch Name" labelFor="branch_code"/>
-						 :     <b>${map.tasks.taskTitle}</b>
-					</div> --%>
 					
 				</div>
+				
 				<div class="col-md-6">
-					
-					
+					<div class="row">
+						<div class="col-md-4"><cts:Label name="Goal" labelFor="sprint_goal"/></div>
+						<div class="col-md-1">:</div>
+						<div class="col-md-7"><b>${map.sprint.sprintGoal}</b></div>
+					</div>
+					<div class="row">
+						<div class="col-md-4"><cts:Label name="Number" labelFor="sprint_number"/></div>
+						<div class="col-md-1">:</div>
+						<div class="col-md-7"><b>${map.sprint.sprintNumber}</b></div>
+					</div>
+					<div class="row">
+						<div class="col-md-4"><cts:Label name="Story" labelFor="sprint_stories"/></div>
+						<div class="col-md-1">:</div>
+						<div class="col-md-7"><b>${map.sprint.sprintStories}</b></div>
+					</div>
+					<div class="row">
+						<div class="col-md-4"><cts:Label name="Start Date" labelFor="start_date"/></div>
+						<div class="col-md-1">:</div>
+						<div class="col-md-7"><b>${map.sprint.startDate}</b></div>
+					</div>
+					<div class="row">
+						<div class="col-md-4"><cts:Label name="End Date" labelFor="end_date"/></div>
+						<div class="col-md-1">:</div>
+						<div class="col-md-7"><b>${map.sprint.endDate}</b></div>
+					</div>					
 				</div>
+				
+				<div class="col-md-12">
+					<div class="row">
+						<div class="col-md-12"><cts:Label name="Sprint Description" labelFor="sprint_description"/></div>
+						<div class="col-md-12"><b>${map.sprint.sprintDescription}</b></div>
+					</div>
+				</div>
+			
+
 			</div>
+				<br/>
+				<br/>
+				<br/>
+			
+
 		</div>
 			<div class="row margin-top-10">
 				<div class="col-md-8">
