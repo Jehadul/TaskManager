@@ -4,7 +4,7 @@
 	<section id="page-title" class="padding-top-10 padding-bottom-10">
 		<div class="row">
 			<div class="col-sm-8">
-				<h1 class="mainTitle">Create Task</h1>
+				<h1 class="mainTitle">Show Task</h1>
 			</div>
 			<ol class="breadcrumb padding-top-20">
 				<li><span>Taskman</span></li>
@@ -16,7 +16,12 @@
 	<!-- end: PAGE TITLE -->
 	<!-- start: USER PROFILE -->
 	<div class="container-fluid container-fullw bg-white">
-
+		
+		<form method="POST" action="/taskman/tman/tasks/destroy" class="ajax delete_form">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			<cts:Hidden name="id" value="${map.tasks.id }"/>
+		</form>
+		
 		<div>
 			<div class="alert alert-block alert-danger hidden">
 				Please check the fields marked with <span
@@ -135,7 +140,7 @@
 		</div>
 		<br /> <br /> <br />
 		<div class="row margin-top-10">
-			<div class="col-md-8">
+			<div class="col-md-9">
 				<cts:Button cssClass="back" spanClass="arrow-left" dAjax="true"
 					dHref="/toc?type=privgrp&currprivgrp=3&currmodcode=WF" />
 				<button class="btn btn-refresh refresh-linked" type="button">
@@ -147,7 +152,7 @@
 
 			</div>
 
-			<div class="col-md-4">
+			<div class="col-md-3">
 				<button id="edit_btn" class="btn btn-save" type="submit">
 					<span class="fa fa-edit"></span> Edit
 				</button>
@@ -169,8 +174,21 @@
 	$('#edit_btn').on("click", function() {
 		LoadMainContent('/taskman/tman/tasks/edit/' + "${map.tasks.id}");
 	});
-	$('#del_btn').on("click", function() {
-		$(".delete_form").submit();
-		LoadMainContent("/taskman/tman/tasks/create");
-	});
+	
+	$('#del_btn').on("click",function(){
+		
+		swal({
+			title: "Are you sure?",
+			text: "Are you sure to delete this privilege?",
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#007AFF",
+			confirmButtonText: "Yes, delete it!",
+			closeOnConfirm: true
+		}, function() {
+			$(".delete_form").submit();
+			LoadMainContent("/taskman/tman/tasks/create");	
+		});
+			
+});
 </script>
