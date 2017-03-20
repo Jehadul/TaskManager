@@ -31,9 +31,9 @@
 								<th>Module</th>
 								<th>Privilege</th>
 								<th>Estimated Time</th>
-								<th>Spent Time</th>
-								<th>Remaining Time</th>
-								<th>Action</th>	
+								<th >Spent Time</th>
+								<th style="width:50px;">Remaining Time</th>
+								<th style="width:100px;">Action</th>	
 							</tr>
 						</thead>
 						<tbody>
@@ -53,20 +53,20 @@
 									<td>
 										<cts:TextBox name="curr_date_est" value="${currentTasklist.getEstimatedTime() }" cssClass="view"/>
 									</td>									
-									<td>
+									<td >
 										<cts:TextBox name="curr_start_time" value="${currentTasklist.getSpentTime() }" cssClass="view"/>
 									</td>													
-									<td>
+									<td style="width:50px;">
 										<cts:TextBox name="curr_remaining_time" value="${currentTasklist.getRemainingTime() }" cssClass="view"/>
 									</td>	
-									<td>
-									<button type="button" class="btn-edit btn btn-xs" id="start-timer">
+									<td style="width:100px;">
+									<button  type="button" class="btn-edit btn btn-xs pull-left" id="start-timer">
 										<span id="tn">
 										<time>${data.spentTime}</time>
 										</span>
 										</button>
-									<button type="button" onclick="stopTimer(this);" class="btn-del btn btn-xs" id="stop-timer">
-									<span class="fa fa-stop"></span></button> <span id="runningtask" style="color:green">Running</span>
+									<button type="button" onclick="stopTimer(this);" class="btn-del btn btn-xs pull-left" id="stop-timer">
+									<span class="fa fa-stop"></span></button> 
 									
 								</td>					
 								</tr>
@@ -160,18 +160,17 @@
 		    });
 		}
 		
-		var tnn = document.getElementById('tn'), 
+		/* var tnn = document.getElementById('tn'), 
 		start = document.getElementById('start'), 
 		stop = document.getElementById('stop'), 
-		clear = document.getElementById('clear'),
-		seconds = 0, minutes = 0, hours = 0, t;
+		clear = document.getElementById('clear'), */
+		var seconds = 0, minutes = 0, hours = 0, t;
 		var startsqlTime = "${data.spentTime}";	
 		if(startsqlTime != ""){
 			hours += parseInt(startsqlTime.split(":")[0]);
 			minutes += parseInt(startsqlTime.split(":")[1]);
 			seconds += parseInt(startsqlTime.split(":")[2]);
 		}
-console.log(hours);
 		function add() {
 			seconds++;
 			if (seconds >= 60) {
@@ -194,15 +193,21 @@ console.log(hours);
 		function timer() {		
 			t = setTimeout(add, 1000);		
 		}
-		timer();
+		var running_status = "${data.running_status}";
+		//console.log(running_status);
+		if(running_status == "true"){
+			//alert("timer on!")
+			timer();	
+		}
+		
 		function stopTimer(el) {
 			var id = $(el).closest('tr').find('.task_id').val();
 			
 			clearTimeout(t);
-			$(".time-start").removeClass("hidden");
+			//$(".time-start").removeClass("hidden");
 			$("#start-timer").remove();
 			$("#stop-timer").remove();
-			$("#runningtask").remove();
+			//$("#runningtask").remove();
 
 			var stopTime = new Date();
 			console.log(stopTime+"::::::::::::::::::::stopstart:::::::::::::::::");
