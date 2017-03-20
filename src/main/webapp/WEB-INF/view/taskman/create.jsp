@@ -72,16 +72,6 @@
 								<cts:TextArea name="description" cssClass="dirty-check required" readonly="" rows="3" cols=""/>
 						</div>
 						<fieldset>
-								<legend>
-									Assignee&nbsp;&nbsp;
-								<cts:Button cssClass="find" spanClass="search" id="btnUser"/>			
-								</legend>
-								<div class="form-group">						
-									<%-- <cts:Label name="Assignee" labelFor="assignee"/> --%>
-									<cts:TextBox name="assignee" cssClass="dirty-check" readonly="readonly"/>
-								</div>
-						</fieldset>
-						<fieldset>
 							<legend>
 									Story Code&nbsp;&nbsp;
 								<cts:Button cssClass="find" spanClass="search" id="btnStory"/>			
@@ -89,6 +79,16 @@
 								<div class="form-group">						
 									<%-- <cts:Label name="Story Code" labelFor="story_code"/> --%>
 									<cts:TextBox name="story_code" cssClass="dirty-check" readonly="readonly"/>
+								</div>
+						</fieldset>
+						<fieldset>
+								<legend>
+									Assignee&nbsp;&nbsp;
+								<cts:Button cssClass="find" spanClass="search" id="btnUser"/>			
+								</legend>
+								<div class="form-group">						
+									<%-- <cts:Label name="Assignee" labelFor="assignee"/> --%>
+									<cts:TextBox name="assignee" cssClass="dirty-check" readonly="readonly"/>
 								</div>
 						</fieldset>
 					</div>
