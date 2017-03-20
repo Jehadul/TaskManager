@@ -142,7 +142,7 @@
 								<cts:Button cssClass="find" spanClass="search" id="btnStory"/>			
 							</legend>
 								<div class="form-group">						
-									<cts:TextBox name="story_code" value="${map.tasks.storyCode}" cssClass="dirty-check required" readonly="readonly"/>
+									<cts:TextBox name="story_code" value="${map.tasks.storyCode}" cssClass="dirty-check" readonly="readonly"/>
 								</div>
 						</fieldset>
 					</div>
