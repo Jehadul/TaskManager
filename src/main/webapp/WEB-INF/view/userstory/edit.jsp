@@ -131,7 +131,7 @@
 						
 						<div class="form-group">
 								<cts:Label name="Business Value" labelFor="business_value"/>
-								<cts:TextArea name="business_value" value="${map.userStory.businessValue}" cssClass="dirty-check number" readonly="" rows="3" cols=""/>
+								<cts:TextBox name="business_value" value="${map.userStory.businessValue}" cssClass="dirty-check number" readonly="" />
 						</div>
 						<div class="form-group">
 								<cts:Label name="Acceptence Criteria" labelFor="acceptance_criteria"/>

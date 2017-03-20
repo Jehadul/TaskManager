@@ -134,7 +134,7 @@
 	});
 	$('#del_btn').on("click",function(){
 		$(".delete_form").submit();	
-		LoadMainContent("/taskman/tman/sprint/create");			
+		LoadMainContent("/taskman/tman/sprint/delete");			
 	});
 	
 	
