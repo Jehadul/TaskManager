@@ -154,19 +154,12 @@ public class TasksDao implements ITasksDao {
 
 	@Transactional
 	@Override
-	public TaskLog getDocByIdTimeLog(UUID id) {
+	public TaskLog getDocByIdTimeLog(String id) {
 		Query query = sessionfactory.getCurrentSession()
-				.createQuery("From TaskLog WHERE taskId = :id and stopStatus=:status");
+				.createQuery("From TaskLog WHERE taskId = :id and startStopStatus=:startStopStatus");
 		query.setParameter("id", id);
-		query.setParameter("status", "false");
-		List<TaskLog> taskslogli = query.list();
-		// TaskLog tasks = (TaskLog) query.uniqueResult();
-		// if (tasks == null) {
-		// throw new UsernameNotFoundException("User with username '" + id + "'
-		// does not exist.");
-		// }
-		// /* System.out.println(user.getEmpName());*/
-		// return tasks;
+		query.setParameter("startStopStatus", false);
+		List<TaskLog> taskslogli = query.list();		
 		if (taskslogli.size() > 0) {
 			return taskslogli.get(0);
 		}

@@ -20,7 +20,7 @@ public interface ITasksDao extends ICommonDAO<Tasks> {
 	boolean checkUnique(Map<String, String> requestMap);
 	public List<PrivGroup> getPrivGroup(String suiteCode, String modeCode);
 	public UUID insertTaskLogDoc(TaskLog taskLog);
-	public TaskLog getDocByIdTimeLog(UUID id);
+	public TaskLog getDocByIdTimeLog(String id);
 	
 	public UUID updateTaskLogDoc(TaskLog doc);
 	List<Tasks> getDocsByCurrentUser();

@@ -192,32 +192,6 @@ InitHandlers();
 		SyncOptionText();
 		
 		var result = CheckRequired();
-		
-		  $(function() {
-		        $.fn.selectRange = function(start, end) {
-		            return this.each(function() {
-		                var self = this;
-		                if (self.setSelectionRange) {
-		                    self.focus();
-		                    self.setSelectionRange(start, end);
-		                } else if (self.createTextRange) {
-		                    var range = self.createTextRange();
-		                    range.collapse(true);
-		                    range.moveEnd('character', end);
-		                    range.moveStart('character', start);
-		                    range.select();
-		                }
-		            });
-		        };
-
-		        if(itemCode==""){
-		            $('#task_code').selectRange(0, 0);}
-		        else if(itemName==""){
-		            $('#task_title').selectRange(0, 0);}
-		         
-		        
-		    }); 
-		  
 
 			if ($("#suite_code").val() =="-1") {
 				error +="Must select new Suite <br/>";
@@ -236,6 +210,17 @@ InitHandlers();
 				result = false;
 				
 			}
+			
+			/* if ($("#assignee").val() =="") {
+				error +="Must select Assignee <br/>";
+				result = false;
+				
+			}	
+			
+			if ($("#story_code").val() ==""){
+				error +="Must select new Story Code <br/>";
+				result = false;
+			} */
 		
 		
 		if (!result) {
@@ -246,7 +231,6 @@ InitHandlers();
 			$(".alert").html(error);
 			$(".alert").removeClass("hidden");
 		}
-		
 		else if(itemCode==""||itemName==""){
 			
 			error +="Only space is not allowed in required fields";

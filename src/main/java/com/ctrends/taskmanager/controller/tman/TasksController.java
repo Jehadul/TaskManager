@@ -270,13 +270,15 @@ public class TasksController implements ITasksController {
 		return null;
 	}
 
-	@RequestMapping(value = "/timeLogUpdate/{id}/{stopTime}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/timeLogUpdate/{id}/{stopTime}/{day}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ModelAndView timeLogUpdate(@PathVariable(value = "id") UUID id,
-			@PathVariable(value = "stopTime") String stopTime) {
+			@PathVariable(value = "stopTime") String stopTime,
+			@PathVariable(value = "day") String day) {
 		Map<String, String> map = new HashMap<>();
 		map.put("id", id.toString());
 		map.put("stopTime", stopTime);
+		map.put("day", day);
 		Map<String, String> data = tasksService.updateTimeLog(map);
 		return null;
 	}
