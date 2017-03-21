@@ -38,29 +38,29 @@
 								<cts:Button cssClass="find" spanClass="search" id="btnStory"/>			
 							</legend>
 								<div class="form-group">
-									<cts:Label labelFor="suite_code" name="Suite Name"/>
-									<cts:TextBox name="suite_code" cssClass="dirty-check" readonly="readonly"/>
-									<cts:Hidden name="suite_name" value=""/>
+									<cts:Label labelFor="suite_name" name="Suite Name"/>
+									<cts:TextBox name="suite_name" cssClass="dirty-check" readonly="readonly"/>
+									<cts:Hidden name="suite_code" value=""/>
 								</div>
 								 <div class="form-group">
-									<cts:Label labelFor="module_code" name="Module Name"/>
-									<cts:TextBox name="module_code" cssClass="dirty-check" readonly="readonly"/>
-									<cts:Hidden name="module_name" value=""/>
+									<cts:Label labelFor="module_name" name="Module Name"/>
+									<cts:TextBox name="module_name" cssClass="dirty-check" readonly="readonly"/>
+									<cts:Hidden name="module_code" value=""/>
 								</div>
 								<div class="form-group">
-									<cts:Label labelFor="priv_grp_code" name="Privilege Group"/>
-									<cts:TextBox name="priv_grp_code" cssClass="dirty-check" readonly="readonly"/>
-									<cts:Hidden name="priv_grp_name" value=""/>
+									<cts:Label labelFor="priv_grp_name" name="Privilege Group"/>
+									<cts:TextBox name="priv_grp_name" cssClass="dirty-check" readonly="readonly"/>
+									<cts:Hidden name="priv_grp_code" value=""/>
 								</div>
 								<div class="form-group">
-									<cts:Label labelFor="privilege_code" name="Privilege Name"/>
-									<cts:TextBox name="privilege_code" cssClass="dirty-check" readonly="readonly"/>
-									<cts:Hidden name="privilege_name" value=""/>
+									<cts:Label labelFor="privilege_name" name="Privilege Name"/>
+									<cts:TextBox name="privilege_name" cssClass="dirty-check" readonly="readonly"/>
+									<cts:Hidden name="privilege_code" value=""/>
 								</div>
 								<div class="form-group">						
-									<cts:Label name="Story Code" labelFor="story_code"/>
-									<cts:TextBox name="story_code" cssClass="dirty-check" readonly="readonly"/>
-									<cts:Hidden name="story_title" value=""/>
+									<cts:Label name="Story Title" labelFor="story_title"/>
+									<cts:TextBox name="story_title" cssClass="dirty-check" readonly="readonly"/>
+									<cts:Hidden name="story_code" value=""/>
 								</div>
 								
 						</fieldset>
@@ -162,8 +162,10 @@ InitHandlers();
 	});
 
 	function loadUser(userdata){ 
-		var emp = JSON.parse(unescape(userdata));			
-		$("#assignee").val(emp.username);	
+		var emp = JSON.parse(unescape(userdata));
+		$("#emp_code").val(emp.empCode);
+		$("#emp_name").val(emp.empName);
+		$("#username").val(emp.username);	
 		HideModal('search-modal');	
 	}
 	
@@ -173,7 +175,16 @@ InitHandlers();
 
 	function loadStory(story){ 
 		var storyList = JSON.parse(unescape(story));			
-		$("#story_code").val(storyList.userStoryCode);	
+		$("#suite_code").val(storyList.suiteCode);	
+		$("#suite_name").val(storyList.suiteName);
+		$("#module_code").val(storyList.moduleCode);
+		$("#module_name").val(storyList.moduleName);
+		$("#priv_grp_code").val(storyList.privGrpCode);
+		$("#priv_grp_name").val(storyList.privGrpName);
+		$("#privilege_code").val(storyList.privilegeCode);
+		$("#privilege_name").val(storyList.privilegeName);
+		$("#story_code").val(storyList.userStoryCode);
+		$("#story_title").val(storyList.userStoryTitle);
 		HideModal('search-modal');	
 	}
 	
