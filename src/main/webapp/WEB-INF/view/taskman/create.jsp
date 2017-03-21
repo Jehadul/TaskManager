@@ -31,27 +31,49 @@
 			<div class="main-control">
 				<div class="row">
 					<div class="col-md-6">
+					
+						<fieldset>
+							<legend>
+									Story Details&nbsp;&nbsp;
+								<cts:Button cssClass="find" spanClass="search" id="btnStory"/>			
+							</legend>
+								<div class="form-group">
+									<cts:Label labelFor="suite_code" name="Suite Name"/>
+									<cts:TextBox name="suite_code" cssClass="dirty-check" readonly="readonly"/>
+									<cts:Hidden name="suite_name" value=""/>
+								</div>
+								 <div class="form-group">
+									<cts:Label labelFor="module_code" name="Module Name"/>
+									<cts:TextBox name="module_code" cssClass="dirty-check" readonly="readonly"/>
+									<cts:Hidden name="module_name" value=""/>
+								</div>
+								<div class="form-group">
+									<cts:Label labelFor="priv_grp_code" name="Privilege Group"/>
+									<cts:TextBox name="priv_grp_code" cssClass="dirty-check" readonly="readonly"/>
+									<cts:Hidden name="priv_grp_name" value=""/>
+								</div>
+								<div class="form-group">
+									<cts:Label labelFor="privilege_code" name="Privilege Name"/>
+									<cts:TextBox name="privilege_code" cssClass="dirty-check" readonly="readonly"/>
+									<cts:Hidden name="privilege_name" value=""/>
+								</div>
+								<div class="form-group">						
+									<cts:Label name="Story Code" labelFor="story_code"/>
+									<cts:TextBox name="story_code" cssClass="dirty-check" readonly="readonly"/>
+									<cts:Hidden name="story_title" value=""/>
+								</div>
+								
+						</fieldset>
+								<div class="form-group">						
+									<cts:Label name="Task Code" labelFor="task_code"/>
+									<cts:TextBox name="task_code" cssClass="dirty-check uppercase required" readonly=""/>
+								</div>
 						
-						<div class="form-group">
-							<cts:Label labelFor="suite_code" name="Suite Name"/>
-							<cts:Select list="${data.suiteCodes}"  name="suite_code" value="${data.suiteCode }" cssClass="required"/>
-							<cts:Hidden name="suite_name" value=""/>
-						</div>
-						 <div class="form-group">
-							<cts:Label labelFor="module_code" name="Module Name"/>
-							<cts:Select list="${data.moduleCodes}"  name="module_code" value="${data.moduleCode}" cssClass="required"/>
-							<cts:Hidden name="module_name" value=""/>
-						</div>
-						<div class="form-group">
-							<cts:Label labelFor="priv_grp_code" name="Privilege Group"/>
-							<cts:Select list="${data.privgroups}"  name="priv_grp_code" value="${data.privGroupCode }" cssClass="required"/>
-							<cts:Hidden name="priv_grp_name" value=""/>
-						</div>
 						
-						<div class="form-group">						
-							<cts:Label name="Task Code" labelFor="task_code"/>
-							<cts:TextBox name="task_code" cssClass="dirty-check uppercase required" readonly=""/>
-						</div>
+						
+					</div>
+					<div class="col-md-6">
+						
 						<div class="form-group">						
 							<cts:Label name="Task Title" labelFor="task_title"/>
 							<cts:TextBox name="task_title" cssClass="dirty-check required" readonly=""/>
@@ -62,10 +84,6 @@
 							<cts:TextBox name="estimated_time" cssClass="dirty-check required number" readonly=""/>
 						</div>
 						
-						
-					</div>
-					<div class="col-md-6">
-						
 							
 						<div class="form-group">
 								<cts:Label name="Description" labelFor="description"/>
@@ -73,22 +91,20 @@
 						</div>
 						<fieldset>
 								<legend>
-									Assignee&nbsp;&nbsp;
+									Assignee Details&nbsp;&nbsp;
 								<cts:Button cssClass="find" spanClass="search" id="btnUser"/>			
 								</legend>
 								<div class="form-group">						
-									<%-- <cts:Label name="Assignee" labelFor="assignee"/> --%>
-									<cts:TextBox name="assignee" cssClass="dirty-check" readonly="readonly"/>
+									<cts:Label name="Assignee Code" labelFor="emp_code"/>
+									<cts:TextBox name="emp_code" cssClass="dirty-check" readonly="readonly"/>
 								</div>
-						</fieldset>
-						<fieldset>
-							<legend>
-									Story Code&nbsp;&nbsp;
-								<cts:Button cssClass="find" spanClass="search" id="btnStory"/>			
-							</legend>
 								<div class="form-group">						
-									<%-- <cts:Label name="Story Code" labelFor="story_code"/> --%>
-									<cts:TextBox name="story_code" cssClass="dirty-check" readonly="readonly"/>
+									<cts:Label name="Assignee Name" labelFor="emp_name"/>
+									<cts:TextBox name="emp_name" cssClass="dirty-check" readonly="readonly"/>
+								</div>
+								<div class="form-group">						
+									<cts:Label name="Username" labelFor="username"/>
+									<cts:TextBox name="username" cssClass="dirty-check" readonly="readonly"/>
 								</div>
 						</fieldset>
 					</div>
@@ -185,39 +201,15 @@ InitHandlers();
 	} */
 	
 	function validate() {
-		var itemCode = $("#task_code").val().trim();
-		var itemName = $("#task_title").val().trim();
+		var taskCode = $("#task_code").val().trim();
+		var taskName = $("#task_title").val().trim();
+		var estimatedTime = $("#estimated_time").val().trim();
+		var description = $("#description").val().trim();
 		var error = "";
 		
 		SyncOptionText();
 		
 		var result = CheckRequired();
-		
-		  $(function() {
-		        $.fn.selectRange = function(start, end) {
-		            return this.each(function() {
-		                var self = this;
-		                if (self.setSelectionRange) {
-		                    self.focus();
-		                    self.setSelectionRange(start, end);
-		                } else if (self.createTextRange) {
-		                    var range = self.createTextRange();
-		                    range.collapse(true);
-		                    range.moveEnd('character', end);
-		                    range.moveStart('character', start);
-		                    range.select();
-		                }
-		            });
-		        };
-
-		        if(itemCode==""){
-		            $('#task_code').selectRange(0, 0);}
-		        else if(itemName==""){
-		            $('#task_title').selectRange(0, 0);}
-		         
-		        
-		    }); 
-		  
 
 			if ($("#suite_code").val() =="-1") {
 				error +="Must select new Suite <br/>";
@@ -236,6 +228,17 @@ InitHandlers();
 				result = false;
 				
 			}
+			
+			/* if ($("#assignee").val() =="") {
+				error +="Must select Assignee <br/>";
+				result = false;
+				
+			}	
+			
+			if ($("#story_code").val() ==""){
+				error +="Must select new Story Code <br/>";
+				result = false;
+			} */
 		
 		
 		if (!result) {
@@ -246,8 +249,7 @@ InitHandlers();
 			$(".alert").html(error);
 			$(".alert").removeClass("hidden");
 		}
-		
-		else if(itemCode==""||itemName==""){
+		else if(taskCode == ""|| taskName == "" || estimatedTime == "" || description == ""){
 			
 			error +="Only space is not allowed in required fields";
 			ShowErrorMsg('Task was not created', "Please check details.");

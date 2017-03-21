@@ -24,6 +24,7 @@
 					Please check the fields marked with 
 					<span class="text-red fa fa-close"></span>.
 				</div>
+				<div class="denotes-required">denotes a required field.</div>
 			<div class="main-control">
 				<div class="row">
 					<div class="col-md-6">
@@ -44,12 +45,14 @@
 							<cts:Hidden name="priv_grp_name" value=""/>
 						</div>
 						<div class="form-group">
-							<cts:Label labelFor="privilege_code" name="Privilege Code"/>
-							<cts:TextBox name="privilege_code" cssClass="dirty-check required "  readonly=""/>
+							<cts:Label labelFor="privilege_code" name="Privilege Name"/>
+							<cts:Select list="${data.privileges}"  name="privilege_code" value="${data.privCode }" cssClass="required"/>
+							<cts:Hidden name="privilege_name" value=""/>
 						</div>
 						<div class="form-group">
-							<cts:Label name="Privilege Name" labelFor="privilege_name"/>
-							<cts:TextBox name="privilege_name" cssClass="dirty-check required" readonly=""/>
+							<cts:Label labelFor="priority_code" name="Priority"/>
+							<cts:Select list="${data.priorities}"  name="priority_code" value="${data.priority }" cssClass="required"/>
+							<cts:Hidden name="priority" value=""/>
 						</div>
 						<div class="form-group">
 							<cts:Label name="Story Code" labelFor="user_story_code"/>
@@ -63,11 +66,6 @@
 						
 					</div>
 					<div class="col-md-6">
-						<div class="form-group">
-							<cts:Label labelFor="priority_code" name="Priority"/>
-							<cts:Select list="${data.priorities}"  name="priority_code" value="${data.priority }" cssClass="required"/>
-							<cts:Hidden name="priority" value=""/>
-						</div>
 						<div class="form-group">						
 							<cts:Label name="Story Order" labelFor="story_order"/>
 							<cts:TextBox name="story_order" cssClass="dirty-check required" readonly=""/>
@@ -115,8 +113,8 @@ InitHandlers();
 
 	$("input[name='suite_name']").val($("#suite_code option:selected").text());
 	$("input[name='module_name']").val($("#module_code option:selected").text());
+	$("input[name='priv_grp_name']").val($("#priv_grp_code option:selected").text());
 	
-	$("input[name='priv_name']").val($("#privilege_code option:selected").text());
 
 	$('#suite_code').on('change', function(){
 		var newSuiteCode = $("#suite_code").val();
@@ -135,9 +133,15 @@ InitHandlers();
 		var newSuiteCode = $("#suite_code").val();
 		var newModuleCode = $("#module_code").val();
 		var newPrivGroupCode = $("#priv_grp_code").val();
-		//var newPrivilege = newSuiteCode + "_" + newModuleCode + "_" + newPrivGroupCode;
-		//$("#priv_code").val(newPrivilege);
-		//LoadMainContent("/taskman/userstory/story/create/?suite_code=" + newSuiteCode + "&" + "module_code=" + newModuleCode + "&" + "priv_grp_code=" + newPrivGroupCode);
+		LoadMainContent("/taskman/userstory/story/create/?suite_code=" + newSuiteCode + "&" + "module_code=" + newModuleCode + "&" + "priv_grp_code=" + newPrivGroupCode);
+	});
+	
+	$('#privilege_code').on('change', function(){
+		var newSuiteCode = $("#suite_code").val();
+		var newModuleCode = $("#module_code").val();
+		var newPrivGroupCode = $("#priv_grp_code").val();
+		var newPrivCode = $("#privilege_code").val();
+		//LoadMainContent("/taskman/userstory/story/create/?suite_code=" + newSuiteCode + "&" + "module_code=" + newModuleCode + "&" + "priv_grp_code=" + newPrivGroupCode + "&" + "priv_grp_code=" +  newPrivCode);
 	});
 	
 	$("#priority_code").on("change", function(){
@@ -146,52 +150,96 @@ InitHandlers();
 	
 	function showMessage(data) {
 		if (data.outcome == 'success') {
-			ShowSuccessMsg('Tasks created', data.message);
+			ShowSuccessMsg('User Story created', data.message);
 			isDirty = false;
 			LoadMainContent('/taskman/userstory/story/show/' + data.id );
 		} else {
-			ShowErrorMsg('Tasks was not created', data.msg);
+			ShowErrorMsg('User Story was not created', data.msg);
 			var msg = ConcatWithBR(data.error);
 			$(".alert").html(msg);
 			$(".alert").removeClass("hidden");
 		}
 	}
 	
-	 $("#priv_grp_code").on("change", function(){
-		 $("input[name='priv_grp_name']").val($("#priv_grp_code option:selected").text());
+	/*  $("#priv_grp_code").on("change", function(){
+		 
 		 	$("#privilege_code").val("");
 			var newSuiteCode = $("#suite_code").val();  
 			var newModuleCode = $("#module_code").val();
 			var newPrivGroupCode = $("#priv_grp_code").val();
 			var newPrivCode = newSuiteCode+ "_" + newModuleCode + "_" + newPrivGroupCode + "_";
 				$("#privilege_code").val(newPrivCode);
-	 }); 
+	 });  */
 	 
 	 $("#privilege_code").on("change", function(){
+		 $("input[name='priv_name']").val($("#privilege_code option:selected").text());
 		 $("#user_story_code").val("");
+		 var newSuiteCode = $("#suite_code").val();  
+		 var newModuleCode = $("#module_code").val();
+		 var newPrivGroupCode = $("#priv_grp_code").val();
 		 var newPrivilegeCode = $("#privilege_code").val();
-		 var newUserStoryCode = newPrivilegeCode + ".";
+		 var newUserStoryCode = newSuiteCode+ "_" + newModuleCode + "_" + newPrivGroupCode + "_" + newPrivilegeCode + ".";
 		 $("#user_story_code").val(newUserStoryCode);
 		 
 	 });
 	 
 	
 	 function validate(){
-			
-			var itemPrivilegeName = $("#privilege_name").val().trim();
+		 
+		 	var storyCode = $("#user_story_code").val().trim();
+			var storyName = $("#user_story_title").val().trim();
+			var storyOrder = $("#story_order").val().trim();
 			
 			SyncOptionText();
 			
 			var error = "";
 			var result = CheckRequired();
 			
-		
+			 if ( $("#suite_code").val() =="-1") {
+					error +="Please select Suite Code <br/>";
+					result = false;
+					
+				}  
+				 
+				 if ( $("#module_code").val() =="-1") {
+						error +="Please select Module Code <br/>";
+						result = false;
+						
+					}  
+				 
+				 if ( $("#priv_grp_code").val() =="-1") {
+						error +="Please select Priv Grp Code <br/>";
+						result = false;
+						
+					} 
+				 
+				 if ($("#privilege_code").val() =="-1" ) {
+						error +="Please select Privilege Code <br/> ";
+						result = false;
+						
+					} 
+				 
+				 if ($("#priority_code").val() =="-1" ) {
+						error +="Please select Priority Code <br/> ";
+						result = false;
+						
+					} 
+				 
+				 
 			
-			if ($("#privilege_name").val() =="") {
+			/* if ($("#privilege_name").val() =="") {
 				error +="Please Enter privilege Name <br/> ";
 				result = false;
 				
 			} 
+			 */
+
+			if ($("#user_story_code").val() =="" ) {
+				error +="Please Enter User Story Code <br/> ";
+				result = false;
+				
+			} 
+			
 
 			if ($("#user_story_title").val() =="" ) {
 				error +="Please Enter User Story Title <br/> ";
@@ -199,17 +247,11 @@ InitHandlers();
 				
 			} 
 			
-			if ($("#privilege_code").val() =="" ) {
-				error +="Please Enter Privilege Code <br/> ";
-				result = false;
-				
-			} 
-			
-			if ($("#user_story_code").val() =="" ) {
-				error +="Please Enter User Story Code <br/> ";
-				result = false;
-				
-			} 
+			 if ( $("#priority_code").val() =="-1") {
+					error +="Please select Priority Code <br/>";
+					result = false;
+					
+				} 
 			
 			if ($("#story_order").val() =="" ) {
 				error +="Please Enter Story Order <br/> ";
@@ -217,36 +259,25 @@ InitHandlers();
 				
 			} 
 
-			 if ( $("#suite_code").val() =="-1") {
-				error +="Please select Suite Code <br/>";
-				result = false;
+			 if (!result) {
+					
+					error +="Please check the fields marked with X";
+					ShowErrorMsg('User Story was not created', "Please check details.");
+					InitErrorChange();
+					$(".alert").html(error);
+					$(".alert").removeClass("hidden");
+			 }
+			 else if(storyCode == ""|| storyName == "" || storyOrder == ""){
+					
+					error +="Only space is not allowed in required fields";
+					ShowErrorMsg('User Story was not created', "Please check details.");
+					InitErrorChange();
+					$(".alert").html(error);
+					$(".alert").removeClass("hidden");
+					return false;
+			 }
 				
-			}  
-			 
-			 if ( $("#module_code").val() =="-1") {
-					error +="Please select Module Code <br/>";
-					result = false;
-					
-				}  
-			 
-			 if ( $("#priv_grp_code").val() =="-1") {
-					error +="Please select Priv Grp Code <br/>";
-					result = false;
-					
-				} 
-			 
-			 if ( $("#priority_code").val() =="-1") {
-					error +="Please select Priority Code <br/>";
-					result = false;
-					
-				}  
-		 
-			
-			if (!result) {
-				InitErrorChange();
-				$(".alert").html(error);
-				$(".alert").removeClass("hidden");
-			} 
+				
 			return result;
 		}
 	
