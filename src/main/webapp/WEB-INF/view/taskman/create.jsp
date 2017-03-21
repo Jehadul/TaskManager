@@ -131,31 +131,6 @@
 </div>
 <script>
 InitHandlers();
-
-	$("input[name='suite_name']").val($("#suite_code option:selected").text());
-	$("input[name='module_name']").val($("#module_code option:selected").text());
-	$("input[name='priv_grp_name']").val($("#priv_grp_code option:selected").text());
-
-	$('#suite_code').on('change', function(){
-		var newSuiteCode = $("#suite_code").val();
-		LoadMainContent("/taskman/tman/tasks/create/?suite_code=" + newSuiteCode);
-	
-	});
-	
-	$('#module_code').on('change', function(){
-		var newSuiteCode = $("#suite_code").val();
-		var newModuleCode = $("#module_code").val();
-		LoadMainContent("/taskman/tman/tasks/create/?suite_code=" + newSuiteCode + "&" + "module_code=" + newModuleCode);
-	
-	});
-	
-	$('#priv_grp_code').on('change', function(){
-		var newSuiteCode = $("#suite_code").val();
-		var newModuleCode = $("#module_code").val();
-		var newPrivGroupCode = $("#priv_grp_code").val();
-		LoadMainContent("/taskman/tman/tasks/create/?suite_code=" + newSuiteCode + "&" + "module_code=" + newModuleCode + "&" + "priv_grp_code=" + newPrivGroupCode);
-	}); 
-	
 	
 	$("#btnUser").on("click",function(){
 		ShowModal("/ac/user/searchuser/?action_type_code=SELECT&actioncallback=loadUser");
