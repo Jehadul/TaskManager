@@ -103,7 +103,7 @@
 									<td><c:out value="${task.getEstimatedTime()}" /></td>
 									<td><c:out value="${task.getSpentTime()}" /></td>
 									<td><c:out value="${task.getRemainingTime()}" /></td>
-									<td><c:out value="${task.getAsignee()}" /></td>
+									<td><c:out value="${task.empName}" /></td>
 									<td>
 										<button type="button" onclick="editRow(this);"
 											class="btn-edit btn btn-xs">
@@ -132,7 +132,7 @@
 										name="remaining_time[]" class="remaining_time"
 										value="${task.getRemainingTime()}" /> <input type="hidden"
 										name="assignee[]" class="assignee"
-										value="${task.getAsignee()}" />
+										value="${task.empName}" />
 
 									</td>
 								</tr>
