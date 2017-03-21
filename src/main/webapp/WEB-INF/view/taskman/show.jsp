@@ -108,7 +108,7 @@
 							<td class="width-150"><cts:Label name="Assignee"
 									labelFor="assignee" /></td>
 							<td class="width-50">:</td>
-							<td><b>${map.tasks.asignee}</b></td>
+							<td><b>${map.tasks.empName}</b></td>
 						</tr>
 					</table>
 				</div>
