@@ -77,7 +77,9 @@ public class HomeController {
 		
 		data.put("tasklist", tasklist);
 		data.put("currentTasklist", currentTasklist);
+		data.put("tasklog", tasklog);
 		data.put("spentTime", spentTime);
+		data.put("running_taskId", (currentTasklist!=null && currentTasklist.size()>0)?currentTasklist.get(0).getId().toString():"");
 		data.put("running_status", (currentTasklist!=null && currentTasklist.size()>0)?"true":"false");
 		return new ModelAndView("common/noticeboard", "data", data);
 
