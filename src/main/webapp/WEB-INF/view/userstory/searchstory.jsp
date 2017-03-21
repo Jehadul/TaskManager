@@ -18,7 +18,7 @@ if(!window.jQuery){window.location = "/?desturl=" + window.location.href;}
 	<div class="container-fluid">
 		<c:choose>
 			<c:when test="${data.action_type_code != 'CREATE'}">
-				<cts:AjaxForm action="/taskman/userstory/story/storySearch" dataHandler="PopulateSearch">
+			<form method="POST" class="ajax" data-handler="PopulateSearch" action="/taskman/userstory/story/storySearch">
 				<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token}"/>
 		<div class="form-group">
 			<div class="row">
@@ -42,10 +42,14 @@ if(!window.jQuery){window.location = "/?desturl=" + window.location.href;}
 		</div>
 		<div class="row margin-top-10">
 			<div class="col-md-12">
-				<cts:Submit cssClass="search pull-right" spanClass="search" name="Search"/>
+				<div class="col-md-12">
+					<button type="submit" class="btn btn-search pull-right">
+						<span class="fa fa-search">Search</span>
+					</button>
+				</div>
 			</div>
 		</div>	
-		</cts:AjaxForm>
+		</form>
 		</c:when>
 		<c:otherwise>
 		<div class="row" >
@@ -61,6 +65,7 @@ if(!window.jQuery){window.location = "/?desturl=" + window.location.href;}
 </div>
 <script>
 	function PopulateSearch(data, mode) {
+		console.log(data);
 		if (mode == "success") {
 			mode = "doc";
 		}
