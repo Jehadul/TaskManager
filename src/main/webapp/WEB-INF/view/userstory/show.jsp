@@ -29,177 +29,164 @@
 				Please check the fields marked with <span
 					class="text-red fa fa-close"></span>.
 			</div>
+
+
+
 			<div class="row">
-				<div class="col-md-6">
-					<!-- <div class="denotes-required">denotes a required field.</div> -->
+				<div class="col-sm-6">
+					<table>
+						<tr>
+							<td class="width-150"><cts:Label name="Suite Name"
+									labelFor="suite_name" /></td>
+							<td class="width-50">:</td>
+							<td><b>${map.userStory.suiteName}</b></td>
+						</tr>
+					</table>
 
-					<div class="row">
-						<div class="col-md-4">
-							<cts:Label name="Suite Name" labelFor="suite_name" />
-						</div>
-						<div class="col-md-1">:</div>
-						<div class="col-md-7">
-							<b>${map.userStory.suiteName}</b>
-						</div>
-					</div>
+					<table>
+						<tr>
+							<td class="width-150"><cts:Label name="Module Name"
+									labelFor="module_name" /></td>
+							<td class="width-50">:</td>
+							<td><b>${map.userStory.moduleName}</b></td>
+						</tr>
+					</table>
 
-					<div class="row">
-						<div class="col-md-4">
-							<cts:Label name="Module Name" labelFor="module_name" />
-						</div>
-						<div class="col-md-1">:</div>
-						<div class="col-md-7">
-							<b>${map.userStory.moduleName}</b>
-						</div>
-					</div>
+					<table>
+						<tr>
+							<td class="width-150"><cts:Label name="Privilege Group Name"
+									labelFor="priv_grp_name" /></td>
+							<td class="width-50">:</td>
+							<td><b>${map.userStory.privGrpName}</b></td>
+						</tr>
+					</table>
 
-					<div class="row">
-						<div class="col-md-4">
-							<cts:Label name="Privilege Group Name" labelFor="priv_grp_name" />
-						</div>
-						<div class="col-md-1">:</div>
-						<div class="col-md-7">
-							<b>${map.userStory.privGrpName}</b>
-						</div>
-					</div>
+					<table>
+						<tr>
+							<td class="width-150"><cts:Label name="Privilege Code"
+									labelFor="privilege_code" /></td>
+							<td class="width-50">:</td>
+							<td><b>${map.userStory.privilegeCode}</b></td>
+						</tr>
+					</table>
 
-					<div class="row">
-						<div class="col-md-4">
-							<cts:Label name="Privilege Code" labelFor="privilege_code" />
-						</div>
-						<div class="col-md-1">:</div>
-						<div class="col-md-7">
-							<b>${map.userStory.privilegeCode}</b>
-						</div>
-					</div>
+					<table>
+						<tr>
+							<td class="width-150"><cts:Label name="Privilege Name"
+									labelFor="privilege_name" /></td>
+							<td class="width-50">:</td>
+							<td><b>${map.userStory.privilegeName}</b></td>
+						</tr>
+					</table>
 
-
-					<div class="row">
-						<div class="col-md-4">
-							<cts:Label name="Privilege Name" labelFor="privilege_name" />
-						</div>
-						<div class="col-md-1">:</div>
-						<div class="col-md-7">
-							<b>${map.userStory.privilegeName}</b>
-						</div>
-					</div>
-
-					<div class="row">
-						<div class="col-md-4">
-							<cts:Label name="User Story Code" labelFor="user_story_code" />
-						</div>
-						<div class="col-md-1">:</div>
-						<div class="col-md-7">
-							<b>${map.userStory.userStoryCode}</b>
-						</div>
-					</div>
-
+					<table>
+						<tr>
+							<td class="width-150"><cts:Label name="User Story Code"
+									labelFor="user_story_code" /></td>
+							<td class="width-50">:</td>
+							<td><b>${map.userStory.userStoryCode}</b></td>
+						</tr>
+					</table>
 				</div>
+				<div class="col-sm-6">
+					<table>
+						<tr>
+							<td class="width-150"><cts:Label name="User Story Title"
+									labelFor="user_story_title" /></td>
+							<td class="width-50">:</td>
+							<td><b>${map.userStory.userStoryTitle}</b></td>
+						</tr>
+					</table>
 
-				<div class="col-md-6">
-					<div class="row">
-						<div class="col-md-4">
-							<cts:Label name="User Story Title" labelFor="user_story_title" />
-						</div>
-						<div class="col-md-1">:</div>
-						<div class="col-md-7">
-							<b>${map.userStory.userStoryTitle}</b>
-						</div>
-					</div>
+					<table>
+						<tr>
+							<td class="width-150"><cts:Label name="Priority"
+									labelFor="priority" /></td>
+							<td class="width-50">:</td>
+							<td><b>${map.userStory.priority}</b></td>
+						</tr>
+					</table>
 
-					<div class="row">
-						<div class="col-md-4">
-							<cts:Label name="Priority" labelFor="priority" />
-						</div>
-						<div class="col-md-1">:</div>
-						<div class="col-md-7">
-							<b>${map.userStory.priority}</b>
-						</div>
-					</div>
+					<table>
+						<tr>
+							<td class="width-150"><cts:Label name="Story Order"
+									labelFor="story_order" /></td>
+							<td class="width-50">:</td>
+							<td><b>${map.userStory.storyOrder}</b></td>
+						</tr>
+					</table>
 
-					<div class="row">
-						<div class="col-md-4">
-							<cts:Label name="Story Order" labelFor="story_order" />
-						</div>
-						<div class="col-md-1">:</div>
-						<div class="col-md-7">
-							<b>${map.userStory.storyOrder}</b>
-						</div>
-					</div>
+					<table>
+						<tr>
+							<td class="width-150"><cts:Label name="Acceptance Criteria"
+									labelFor="acceptance_criteria" /></td>
+							<td class="width-50">:</td>
+							<td><b>${map.userStory.acceptanceCriteria}</b></td>
+						</tr>
+					</table>
 
-					<div class="row">
-						<div class="col-md-4">
-							<cts:Label name="Acceptance Criteria"
-								labelFor="acceptance_criteria" />
-						</div>
-						<div class="col-md-1">:</div>
-						<div class="col-md-7">
-							<b>${map.userStory.acceptanceCriteria}</b>
-						</div>
-					</div>
+					<table>
+						<tr>
+							<td class="width-150"><cts:Label name="Business Value"
+									labelFor="business_value" /></td>
+							<td class="width-50">:</td>
+							<td><b>${map.userStory.businessValue}</b></td>
+						</tr>
+					</table>
 
-					<div class="row">
-						<div class="col-md-4">
-							<cts:Label name="Business Value" labelFor="business_value" />
-						</div>
-						<div class="col-md-1">:</div>
-						<div class="col-md-7">
-							<b>${map.userStory.businessValue}</b>
-						</div>
-					</div>
-
-					<div class="row">
-						<div class="col-md-4">
-							<cts:Label name="Size" labelFor="size" />
-						</div>
-						<div class="col-md-1">:</div>
-						<div class="col-md-7">
-							<b>${map.userStory.size}</b>
-						</div>
-					</div>
+					<table>
+						<tr>
+							<td class="width-150"><cts:Label name="Size" labelFor="size" /></td>
+							<td class="width-50">:</td>
+							<td><b>${map.userStory.size}</b></td>
+						</tr>
+					</table>
 				</div>
-
 
 				<div class="col-md-12">
-					<div class="row">
-						<div class="col-md-2">
-							<cts:Label name="Description" labelFor="description" />
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-12">
-							<b>${map.userStory.description}</b>
-						</div>
-					</div>
+					<table>
+						<tr>
+							<td class="width-150"><cts:Label name="Description"
+									labelFor="description" /></td>
+							<td class="width-50">:</td>
+							<td><b>${map.userStory.description}</b></td>
+						</tr>
+					</table>
 				</div>
 
+
 			</div>
+
+
+
+			<div class="row margin-top-30 margin-bottom-30 margin-right-5">
+
+				<div class="col-md-auto">
+					<cts:Button cssClass="back" spanClass="arrow-left" dAjax="true"
+						dHref="/toc?type=privgrp&currprivgrp=3&currmodcode=WF" />
+					<button class="btn btn-refresh refresh-linked" type="button">
+						<span class="fa fa-refresh"></span>
+					</button>
+					<button class="btn btn-help" type="button">
+						<span class="fa fa-question"></span>
+					</button>
+				</div>
+
+				<div class="align-right">
+					<button id="edit_btn" class="btn btn-save" type="submit">
+						<span class="fa fa-edit"></span> Edit
+					</button>
+					<button id="del_btn" class="btn btn-del" type="submit">
+						<span class="fa fa-trash"></span> Delete
+					</button>
+				</div>
+				
+			</div>
+
+
 		</div>
 
-<br/> <br/> <br/>
 
-		<div class="row margin-top-10">
-			<div class="col-md-8">
-				<cts:Button cssClass="back" spanClass="arrow-left" dAjax="true"
-					dHref="/toc?type=privgrp&currprivgrp=3&currmodcode=WF" />
-				<button class="btn btn-refresh refresh-linked" type="button">
-					<span class="fa fa-refresh"></span>
-				</button>
-				<button class="btn btn-help" type="button">
-					<span class="fa fa-question"></span>
-				</button>
-
-			</div>
-
-			<div class="col-md-4">
-				<button id="edit_btn" class="btn btn-save" type="submit">
-					<span class="fa fa-edit"></span> Edit
-				</button>
-				<button id="del_btn" class="btn btn-del" type="submit">
-					<span class="fa fa-trash"></span> Delete
-				</button>
-			</div>
-		</div>
 
 
 
