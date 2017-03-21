@@ -156,6 +156,7 @@
 
 <script>
 	InitHandlers();
+	InitDataTable("#task_sort_result");
 	var startDate = $("#curr_date_abc").val(); //alert(startDate);
 	var startTime = $("#curr_start_time").val(); //alert(startTime)
 
@@ -268,9 +269,11 @@
 						$.ajax({
 							type : 'GET',
 							url : '/taskman/tman/tasks/timeLog/' + id + '/'
-									+ startTime + '/' + taskTitle + '/' + day
+									+ startTime + '/' + taskTitle + '/' + day,
+							success : function(response, status, xhr) {
+										LoadMainContent("/");
+									}
 						});
-						LoadMainContent("/");
 					});
 
 		} else {
@@ -316,10 +319,11 @@
 		$.ajax({
 			type : 'GET',
 			url : '/taskman/tman/tasks/timeLogUpdate/' + id + '/' + stopTime
-					+ '/' + day
+					+ '/' + day,
+			success : function(response, status, xhr) {
+						LoadMainContent("/");
+					}
 		});
-		LoadMainContent("/");
-
 	}
 
 	

@@ -258,9 +258,12 @@
 		
 		$.ajax({
 			type : 'GET',
-			url : '/taskman/tman/tasks/timeLogUpdate/' + id + '/' + stopTime+'/'+day
+			url : '/taskman/tman/tasks/timeLogUpdate/' + id + '/' + stopTime+'/'+day,
+			success : function(response, status, xhr) {
+				LoadMainContent("/taskman/tman/tasks/tasklist");
+			}
 		});
-
+		
 	}
 
 	//refress call
