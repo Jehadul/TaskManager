@@ -25,26 +25,11 @@ public class Tasks {
 	@Column(name = "task_title")
 	private String taskTitle;
 	
-	@Column(name = "estimated_time")
-	private double estimatedTime;
+	@Column(name="story_code")
+	private String storyCode;
 	
-	@Column(name="priv_grp_code")
-	private int privGrpCode;
-
-	@Column(name="priv_grp_name")
-	private String privGrpName;
-	
-	@Column(name = "spent_time")
-	private double spentTime;
-	
-	@Column(name = "remaining_time")
-	private double remainingTime;
-	
-	@Column(name = "asignee")
-	private String asignee;
-	
-	@Column(name="description")
-	private String description;
+	@Column(name="story_title")
+	private String storyTitle;
 	
 	@Column(name="suite_code")
 	private String suiteCode;
@@ -52,14 +37,44 @@ public class Tasks {
 	@Column(name="suite_name")
 	private String suiteName;
 	
-	@Column(name="story_code")
-	private String storyCode;
-	
 	@Column(name="module_code")
 	private String moduleCode;
 	
 	@Column(name="module_name")
 	private String moduleName;
+	
+	@Column(name="privilege_code")
+	private int privilegeCode;
+
+	@Column(name="privilege_name")
+	private String privilegeName;
+	
+	@Column(name="priv_grp_code")
+	private int privGrpCode;
+
+	@Column(name="priv_grp_name")
+	private String privGrpName;
+	
+	@Column(name = "estimated_time")
+	private double estimatedTime;
+	
+	@Column(name = "spent_time")
+	private double spentTime;
+	
+	@Column(name = "remaining_time")
+	private double remainingTime;
+	
+	@Column(name = "emp_code")
+	private String empCode;
+	
+	@Column(name = "emp_name")
+	private String empName;
+	
+	@Column(name = "username")
+	private String username;
+	
+	@Column(name="description")
+	private String description;
 	
 	@Column(name="doa_type_code")
 	private String doaTypeCode;
@@ -242,6 +257,14 @@ public class Tasks {
 		this.id = id;
 	}
 
+	public String getTaskCode() {
+		return taskCode;
+	}
+
+	public void setTaskCode(String taskCode) {
+		this.taskCode = taskCode;
+	}
+
 	public String getTaskTitle() {
 		return taskTitle;
 	}
@@ -250,60 +273,20 @@ public class Tasks {
 		this.taskTitle = taskTitle;
 	}
 
-	public double getEstimatedTime() {
-		return estimatedTime;
+	public String getStoryCode() {
+		return storyCode;
 	}
 
-	public void setEstimatedTime(double estimatedTime) {
-		this.estimatedTime = estimatedTime;
+	public void setStoryCode(String storyCode) {
+		this.storyCode = storyCode;
 	}
 
-	public int getPrivGrpCode() {
-		return privGrpCode;
+	public String getStoryTitle() {
+		return storyTitle;
 	}
 
-	public void setPrivGrpCode(int privGrpCode) {
-		this.privGrpCode = privGrpCode;
-	}
-
-	public String getPrivGrpName() {
-		return privGrpName;
-	}
-
-	public void setPrivGrpName(String privGrpName) {
-		this.privGrpName = privGrpName;
-	}
-
-	public double getSpentTime() {
-		return spentTime;
-	}
-
-	public void setSpentTime(double spentTime) {
-		this.spentTime = spentTime;
-	}
-
-	public double getRemainingTime() {
-		return remainingTime;
-	}
-
-	public void setRemainingTime(double remainingTime) {
-		this.remainingTime = remainingTime;
-	}
-
-	public String getAsignee() {
-		return asignee;
-	}
-
-	public void setAsignee(String asignee) {
-		this.asignee = asignee;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
+	public void setStoryTitle(String storyTitle) {
+		this.storyTitle = storyTitle;
 	}
 
 	public String getSuiteCode() {
@@ -322,14 +305,6 @@ public class Tasks {
 		this.suiteName = suiteName;
 	}
 
-	public String getStoryCode() {
-		return storyCode;
-	}
-
-	public void setStoryCode(String storyCode) {
-		this.storyCode = storyCode;
-	}
-
 	public String getModuleCode() {
 		return moduleCode;
 	}
@@ -344,6 +319,94 @@ public class Tasks {
 
 	public void setModuleName(String moduleName) {
 		this.moduleName = moduleName;
+	}
+
+	public int getPrivilegeCode() {
+		return privilegeCode;
+	}
+
+	public void setPrivilegeCode(int privilegeCode) {
+		this.privilegeCode = privilegeCode;
+	}
+
+	public String getPrivilegeName() {
+		return privilegeName;
+	}
+
+	public void setPrivilegeName(String privilegeName) {
+		this.privilegeName = privilegeName;
+	}
+
+	public int getPrivGrpCode() {
+		return privGrpCode;
+	}
+
+	public void setPrivGrpCode(int privGrpCode) {
+		this.privGrpCode = privGrpCode;
+	}
+
+	public String getPrivGrpName() {
+		return privGrpName;
+	}
+
+	public void setPrivGrpName(String privGrpName) {
+		this.privGrpName = privGrpName;
+	}
+
+	public double getEstimatedTime() {
+		return estimatedTime;
+	}
+
+	public void setEstimatedTime(double estimatedTime) {
+		this.estimatedTime = estimatedTime;
+	}
+
+	public double getSpentTime() {
+		return spentTime;
+	}
+
+	public void setSpentTime(double spentTime) {
+		this.spentTime = spentTime;
+	}
+
+	public double getRemainingTime() {
+		return remainingTime;
+	}
+
+	public void setRemainingTime(double remainingTime) {
+		this.remainingTime = remainingTime;
+	}
+	
+	public String getEmpCode() {
+		return empCode;
+	}
+
+	public void setEmpCode(String empCode) {
+		this.empCode = empCode;
+	}
+
+	public String getEmpName() {
+		return empName;
+	}
+
+	public void setEmpName(String empName) {
+		this.empName = empName;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public String getDoaTypeCode() {
@@ -802,13 +865,5 @@ public class Tasks {
 		this.costcenterName = costcenterName;
 	}
 
-	public String getTaskCode() {
-		return taskCode;
-	}
-
-	public void setTaskCode(String taskCode) {
-		this.taskCode = taskCode;
-	}
-
-	
+		
 }
