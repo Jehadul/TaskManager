@@ -45,12 +45,14 @@
 							<cts:Hidden name="priv_grp_name" value=""/>
 						</div>
 						<div class="form-group">
-							<cts:Label labelFor="privilege_code" name="Privilege Code"/>
-							<cts:TextBox name="privilege_code" cssClass="dirty-check required "  readonly=""/>
+							<cts:Label labelFor="privilege_code" name="Privilege Name"/>
+							<cts:Select list="${data.privileges}"  name="privilege_code" value="${data.privCode }" cssClass="required"/>
+							<cts:Hidden name="privilege_name" value=""/>
 						</div>
 						<div class="form-group">
-							<cts:Label name="Privilege Name" labelFor="privilege_name"/>
-							<cts:TextBox name="privilege_name" cssClass="dirty-check required" readonly=""/>
+							<cts:Label labelFor="priority_code" name="Priority"/>
+							<cts:Select list="${data.priorities}"  name="priority_code" value="${data.priority }" cssClass="required"/>
+							<cts:Hidden name="priority" value=""/>
 						</div>
 						<div class="form-group">
 							<cts:Label name="Story Code" labelFor="user_story_code"/>
@@ -64,11 +66,6 @@
 						
 					</div>
 					<div class="col-md-6">
-						<div class="form-group">
-							<cts:Label labelFor="priority_code" name="Priority"/>
-							<cts:Select list="${data.priorities}"  name="priority_code" value="${data.priority }" cssClass="required"/>
-							<cts:Hidden name="priority" value=""/>
-						</div>
 						<div class="form-group">						
 							<cts:Label name="Story Order" labelFor="story_order"/>
 							<cts:TextBox name="story_order" cssClass="dirty-check required" readonly=""/>
@@ -116,8 +113,8 @@ InitHandlers();
 
 	$("input[name='suite_name']").val($("#suite_code option:selected").text());
 	$("input[name='module_name']").val($("#module_code option:selected").text());
+	$("input[name='priv_grp_name']").val($("#priv_grp_code option:selected").text());
 	
-	$("input[name='priv_name']").val($("#privilege_code option:selected").text());
 
 	$('#suite_code').on('change', function(){
 		var newSuiteCode = $("#suite_code").val();
@@ -136,9 +133,15 @@ InitHandlers();
 		var newSuiteCode = $("#suite_code").val();
 		var newModuleCode = $("#module_code").val();
 		var newPrivGroupCode = $("#priv_grp_code").val();
-		//var newPrivilege = newSuiteCode + "_" + newModuleCode + "_" + newPrivGroupCode;
-		//$("#priv_code").val(newPrivilege);
-		//LoadMainContent("/taskman/userstory/story/create/?suite_code=" + newSuiteCode + "&" + "module_code=" + newModuleCode + "&" + "priv_grp_code=" + newPrivGroupCode);
+		LoadMainContent("/taskman/userstory/story/create/?suite_code=" + newSuiteCode + "&" + "module_code=" + newModuleCode + "&" + "priv_grp_code=" + newPrivGroupCode);
+	});
+	
+	$('#privilege_code').on('change', function(){
+		var newSuiteCode = $("#suite_code").val();
+		var newModuleCode = $("#module_code").val();
+		var newPrivGroupCode = $("#priv_grp_code").val();
+		var newPrivCode = $("#privilege_code").val();
+		//LoadMainContent("/taskman/userstory/story/create/?suite_code=" + newSuiteCode + "&" + "module_code=" + newModuleCode + "&" + "priv_grp_code=" + newPrivGroupCode + "&" + "priv_grp_code=" +  newPrivCode);
 	});
 	
 	$("#priority_code").on("change", function(){
@@ -158,20 +161,24 @@ InitHandlers();
 		}
 	}
 	
-	 $("#priv_grp_code").on("change", function(){
-		 $("input[name='priv_grp_name']").val($("#priv_grp_code option:selected").text());
+	/*  $("#priv_grp_code").on("change", function(){
+		 
 		 	$("#privilege_code").val("");
 			var newSuiteCode = $("#suite_code").val();  
 			var newModuleCode = $("#module_code").val();
 			var newPrivGroupCode = $("#priv_grp_code").val();
 			var newPrivCode = newSuiteCode+ "_" + newModuleCode + "_" + newPrivGroupCode + "_";
 				$("#privilege_code").val(newPrivCode);
-	 }); 
+	 });  */
 	 
 	 $("#privilege_code").on("change", function(){
+		 $("input[name='priv_name']").val($("#privilege_code option:selected").text());
 		 $("#user_story_code").val("");
+		 var newSuiteCode = $("#suite_code").val();  
+		 var newModuleCode = $("#module_code").val();
+		 var newPrivGroupCode = $("#priv_grp_code").val();
 		 var newPrivilegeCode = $("#privilege_code").val();
-		 var newUserStoryCode = newPrivilegeCode + ".";
+		 var newUserStoryCode = newSuiteCode+ "_" + newModuleCode + "_" + newPrivGroupCode + "_" + newPrivilegeCode + ".";
 		 $("#user_story_code").val(newUserStoryCode);
 		 
 	 });
