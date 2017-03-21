@@ -30,8 +30,7 @@
 		
 			<div class="main-control">
 				<div class="row">
-					<div class="col-md-6">
-						
+					<div class="col-md-6">					
 						<div class="form-group">
 							<cts:Label labelFor="suite_code" name="Suite Name"/>
 							<cts:Select list="${data.suiteCodes}"  name="suite_code" value="${data.suiteCode }" cssClass="required"/>
@@ -50,34 +49,29 @@
 						
 						<div class="form-group">						
 							<cts:Label name="Task Code" labelFor="task_code"/>
-							<cts:TextBox name="task_code" cssClass="dirty-check uppercase required" readonly=""/>
+							<cts:TextBox name="task_code" cssClass="dirty-check uppercase" readonly="required"/>
 						</div>
 						<div class="form-group">						
 							<cts:Label name="Task Title" labelFor="task_title"/>
-							<cts:TextBox name="task_title" cssClass="dirty-check required" readonly=""/>
+							<cts:TextBox name="task_title" cssClass="dirty-check" readonly="required"/>
 						</div>
 						
 						<div class="form-group">
 							<cts:Label name="Estimated Time (Hour)" labelFor="estimated_time"/>
-							<cts:TextBox name="estimated_time" cssClass="dirty-check required number" readonly=""/>
-						</div>
-						
-						
+							<cts:TextBox name="estimated_time" cssClass="dirty-check number" readonly="required"/>
+						</div>					
 					</div>
 					<div class="col-md-6">
-						
-							
 						<div class="form-group">
 								<cts:Label name="Description" labelFor="description"/>
-								<cts:TextArea name="description" cssClass="dirty-check required" readonly="" rows="3" cols=""/>
+								<cts:TextArea name="description" cssClass="dirty-check " readonly="" rows="3" cols="required"/>
 						</div>
 						<fieldset>
 							<legend>
 									Story Code&nbsp;&nbsp;
-								<cts:Button cssClass="find" spanClass="search" id="btnStory"/>			
+								<cts:Button cssClass="find" spanClass="search" id="btnStory"/>		
 							</legend>
 								<div class="form-group">						
-									<%-- <cts:Label name="Story Code" labelFor="story_code"/> --%>
 									<cts:TextBox name="story_code" cssClass="dirty-check" readonly="readonly"/>
 								</div>
 						</fieldset>
@@ -104,9 +98,7 @@
 						</button>
 					</div>
 					<div class="col-md-4">
-						<button id="submit" class="btn btn-save pull-right" type="submit">
-									<span class="fa fa-save"></span> &nbsp;Save
-						</button>
+						<cts:Submit cssClass="save pull-right" spanClass="save" name="Save"/>
 					</div>
 				</div>
 			</div>
@@ -150,17 +142,7 @@ InitHandlers();
 		$("#assignee").val(emp.username);	
 		HideModal('search-modal');	
 	}
-	
-	$("#btnStory").on("click",function(){
-		ShowModal("/taskman/userstory/story/searchstory/?action_type_code=SELECT&actioncallback=loadStory");
-	});
-
-	function loadStory(story){ 
-		var storyList = JSON.parse(unescape(story));			
-		$("#story_code").val(storyList.userStoryCode);	
-		HideModal('search-modal');	
-	}
-	
+		
 	function showMessage(data) {
 		if (data.outcome == 'success') {
 			ShowSuccessMsg('Tasks created', data.message);
@@ -173,16 +155,6 @@ InitHandlers();
 			$(".alert").removeClass("hidden");
 		}
 	}
-/* 	function validate() {
-		SyncOptionText();
-		var result = CheckRequired();
-		if (!result) {
-			ShowErrorMsg('User was not created', "Please check details.");
-			InitErrorChange();
-			$(".alert").removeClass("hidden");
-		}
-		return result;
-	} */
 	
 	function validate() {
 		var taskCode = $("#task_code").val().trim();
@@ -192,6 +164,8 @@ InitHandlers();
 		var error = "";
 		
 		SyncOptionText();
+		
+		return;
 		
 		var result = CheckRequired();
 
@@ -245,6 +219,17 @@ InitHandlers();
 		
 		
 		return result;
+	}
+
+	
+	$("#btnStory").on("click",function(){
+		ShowModal("/taskman/userstory/story/searchstory/?action_type_code=SELECT&actioncallback=loadStory");
+	});
+
+	function loadStory(story){ 
+		var storyList = JSON.parse(unescape(story));			
+		$("#story_code").val(storyList.userStoryCode);	
+		HideModal('search-modal');	
 	}
 	
 	

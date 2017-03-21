@@ -273,6 +273,7 @@ public class UserStoryController implements IUserStoryController {
 		String actionTypeCode = request.getParameter("action_type_code");
 		Map<String, Object> data = new HashMap<String, Object>();
 		
+		System.out.println("actionTypeCode::"+actionTypeCode);
 		data.put("action_type_code", actionTypeCode);
 		return new ModelAndView("userstory/searchstory", "data", data);
 	}
@@ -281,7 +282,7 @@ public class UserStoryController implements IUserStoryController {
 	@RequestMapping(value = "/storySearch", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String search(@Context HttpServletRequest request) {
 		Map<String, String> searchingKey = new HashMap<String, String>();
-		
+		System.out.println("Hello");
 		// if user input is null than convart it into empty String
 		if(request.getParameter("story_code")==null){
 			searchingKey.put("userStoryCode", "");
@@ -295,11 +296,13 @@ public class UserStoryController implements IUserStoryController {
 			searchingKey.put("userStoryTitle", request.getParameter("story_name"));
 		}
 
+		System.out.println("story_code::"+request.getParameter("story_code"));
 		List<UserStory> data = userStoryService.find(searchingKey);
 		//jeson convert
 		GsonBuilder gBuilder = new GsonBuilder();
 		Gson gson = gBuilder.create();
 		
+		System.out.println(":::"+gson.toJson(data));
 		return gson.toJson(data);
 	}
 
