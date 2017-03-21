@@ -156,6 +156,7 @@
 
 <script>
 	InitHandlers();
+	InitDataTable("#task_sort_result");
 	var startDate = $("#curr_date_abc").val(); //alert(startDate);
 	var startTime = $("#curr_start_time").val(); //alert(startTime)
 
