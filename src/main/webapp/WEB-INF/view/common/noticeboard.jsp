@@ -269,9 +269,11 @@
 						$.ajax({
 							type : 'GET',
 							url : '/taskman/tman/tasks/timeLog/' + id + '/'
-									+ startTime + '/' + taskTitle + '/' + day
+									+ startTime + '/' + taskTitle + '/' + day,
+							success : function(response, status, xhr) {
+										LoadMainContent("/");
+									}
 						});
-						LoadMainContent("/");
 					});
 
 		} else {
@@ -317,10 +319,11 @@
 		$.ajax({
 			type : 'GET',
 			url : '/taskman/tman/tasks/timeLogUpdate/' + id + '/' + stopTime
-					+ '/' + day
+					+ '/' + day,
+			success : function(response, status, xhr) {
+						LoadMainContent("/");
+					}
 		});
-		LoadMainContent("/");
-
 	}
 
 	
