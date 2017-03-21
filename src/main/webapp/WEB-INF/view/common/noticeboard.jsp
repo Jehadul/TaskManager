@@ -23,7 +23,7 @@
 					<table class="table table-striped table-hover">
 						<thead>
 							<tr>
-								<th>Desc.</th>
+								<th>Description</th>
 								<th>Suite</th>
 								<th>Module</th>
 								<th>Privilege</th>
@@ -113,11 +113,12 @@
 											class="btn-edit btn btn-xs">
 											<span class="fa fa-edit"></span>
 										</button>
-
+										<c:if test="${task.getSpentTime()==0}">
 										<button type="button" onclick="delRow(this);"
 											class="btn-del btn btn-xs">
 											<span class="fa fa-trash"></span>
 										</button>
+										</c:if>
 										<button type="button" onclick="startTimeFromList(this)" id="start"
 											class="btn-timer btn btn-xs time-start">
 											<span class="fa fa-play"></span>
@@ -165,6 +166,35 @@
 	var startTime = $("#curr_start_time").val(); //alert(startTime)
 
 	//reload();
+	window.setInterval(function(){
+		  
+		}, 10000);
+	
+	var delRow = function(el) {
+		swal({
+			title : "Are you sure?",
+			text : "Are you sure to delete this privilege?",
+			type : "warning",
+			showCancelButton : true,
+			confirmButtonColor : "#007AFF",
+			confirmButtonText : "Yes, delete it!",
+			closeOnConfirm : true
+		}, function() {
+			$("input[name='id']").val(
+					$(el).closest("tr").find(".task_id").val());
+			$(el).closest("tr").remove();
+			$(".delete_form").submit();
+		});
+	};
+
+	$('.btn-edit').on("click", function() {/* console.log($(".task_id").val()) */
+		var currentRow = $(this).closest("tr");
+		currentRow.addClass("current-row");
+
+		var taskId = currentRow.find(".task_id").val();
+
+		LoadMainContent('/taskman/tman/tasks/edit/' + taskId);
+	});
 	function reload() {
 		$.ajax({
 			url : "/reloadNoticeBoard",
