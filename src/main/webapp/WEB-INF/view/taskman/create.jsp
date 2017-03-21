@@ -162,7 +162,7 @@ InitHandlers();
 		$("#story_title").val(storyList.userStoryTitle);
 		HideModal('search-modal');	
 	}
-	
+
 	function showMessage(data) {
 		if (data.outcome == 'success') {
 			ShowSuccessMsg('Tasks created', data.message);
@@ -175,16 +175,6 @@ InitHandlers();
 			$(".alert").removeClass("hidden");
 		}
 	}
-/* 	function validate() {
-		SyncOptionText();
-		var result = CheckRequired();
-		if (!result) {
-			ShowErrorMsg('User was not created', "Please check details.");
-			InitErrorChange();
-			$(".alert").removeClass("hidden");
-		}
-		return result;
-	} */
 	
 	function validate() {
 		var taskCode = $("#task_code").val().trim();
@@ -194,6 +184,8 @@ InitHandlers();
 		var error = "";
 		
 		SyncOptionText();
+		
+		//return;
 		
 		var result = CheckRequired();
 
@@ -248,6 +240,17 @@ InitHandlers();
 		
 		return result;
 	}
+
+	
+/* 	$("#btnStory").on("click",function(){
+		ShowModal("/taskman/userstory/story/searchstory/?action_type_code=SELECT&actioncallback=loadStory");
+	});
+
+	function loadStory(story){ 
+		var storyList = JSON.parse(unescape(story));			
+		$("#story_code").val(storyList.userStoryCode);	
+		HideModal('search-modal');	
+	} */
 	
 	
 </script>

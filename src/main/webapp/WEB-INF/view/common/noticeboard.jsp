@@ -23,6 +23,7 @@
 					<table class="table table-striped table-hover">
 						<thead>
 							<tr>
+								<th>Desc.</th>
 								<th>Suite</th>
 								<th>Module</th>
 								<th>Privilege</th>
@@ -37,6 +38,9 @@
 								<tr>
 									<%-- <td style="display:nome;"><input type="hidden" name="id1" class="task_id"
 									value="${currentTasklist.getId()}" /></td> --%>
+									<td><cts:TextBox name="curr_task_PrivGrpName"
+											value="${currentTasklist.description}" cssClass="view" />
+									</td>
 									<td><cts:TextBox name="curr_task_SuiteName"
 											value="${currentTasklist.getSuiteName() }" cssClass="view" />
 									</td>
@@ -156,6 +160,7 @@
 
 <script>
 	InitHandlers();
+	InitDataTable("#task_sort_result");
 	var startDate = $("#curr_date_abc").val(); //alert(startDate);
 	var startTime = $("#curr_start_time").val(); //alert(startTime)
 
@@ -268,9 +273,11 @@
 						$.ajax({
 							type : 'GET',
 							url : '/taskman/tman/tasks/timeLog/' + id + '/'
-									+ startTime + '/' + taskTitle + '/' + day
+									+ startTime + '/' + taskTitle + '/' + day,
+							success : function(response, status, xhr) {
+										LoadMainContent("/");
+									}
 						});
-						LoadMainContent("/");
 					});
 
 		} else {
@@ -316,10 +323,11 @@
 		$.ajax({
 			type : 'GET',
 			url : '/taskman/tman/tasks/timeLogUpdate/' + id + '/' + stopTime
-					+ '/' + day
+					+ '/' + day,
+			success : function(response, status, xhr) {
+						LoadMainContent("/");
+					}
 		});
-		LoadMainContent("/");
-
 	}
 
 	
