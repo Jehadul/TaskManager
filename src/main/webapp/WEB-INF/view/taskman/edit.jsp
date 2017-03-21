@@ -29,7 +29,91 @@
 			<div class="denotes-required">denotes a required field.</div>
 			
 			<div class="main-control">
-				<div class="row">
+			
+			<div class="row">
+					<div class="col-md-6">
+					
+						<fieldset>
+							<legend>
+									Story Details&nbsp;&nbsp;
+								<cts:Button cssClass="find" spanClass="search" id="btnStory"/>			
+							</legend>
+								<div class="form-group">
+									<cts:Label labelFor="suite_name" name="Suite Name"/>
+									<cts:TextBox name="suite_name" cssClass="dirty-check" readonly="readonly" value="${map.tasks.suiteCode}"/>
+									<cts:Hidden name="suite_code" value=""/>
+									<cts:Hidden name="id" value="${map.tasks.id}"/>
+								</div>
+								 <div class="form-group">
+									<cts:Label labelFor="module_name" name="Module Name"/>
+									<cts:TextBox name="module_name" cssClass="dirty-check" readonly="readonly" value="${map.tasks.moduleCode}"/>
+									<cts:Hidden name="module_code" value=""/>
+								</div>
+								<div class="form-group">
+									<cts:Label labelFor="priv_grp_name" name="Privilege Group"/>
+									<cts:TextBox name="priv_grp_name" cssClass="dirty-check" readonly="readonly" value="${map.tasks.privGrpCode}"/>
+									<cts:Hidden name="priv_grp_code" value=""/>
+								</div>
+								<div class="form-group">
+									<cts:Label labelFor="privilege_name" name="Privilege Name"/>
+									<cts:TextBox name="privilege_name" cssClass="dirty-check" readonly="readonly" value="${map.tasks.privilegeName}"/>
+									<cts:Hidden name="privilege_code" value=""/>
+								</div>
+								<div class="form-group">						
+									<cts:Label name="Story Title" labelFor="story_title"/>
+									<cts:TextBox name="story_title" cssClass="dirty-check" readonly="readonly" value="${map.tasks.storyTitle}"/>
+									<cts:Hidden name="story_code" value=""/>
+								</div>
+								
+						</fieldset>
+								<div class="form-group">						
+									<cts:Label name="Task Code" labelFor="task_code"/>
+									<cts:TextBox name="task_code" cssClass="dirty-check uppercase required" readonly="" value="${map.tasks.taskCode}"/>
+								</div>
+						
+						
+						
+					</div>
+					<div class="col-md-6">
+						
+						<div class="form-group">						
+							<cts:Label name="Task Title" labelFor="task_title"/>
+							<cts:TextBox name="task_title" cssClass="dirty-check required" readonly="" value="${map.tasks.taskTitle}"/>
+						</div>
+						
+						<div class="form-group">
+							<cts:Label name="Estimated Time (Hour)" labelFor="estimated_time"/>
+							<cts:TextBox name="estimated_time" cssClass="dirty-check required number" readonly="" value="${map.tasks.estimatedTime}"/>
+						</div>
+						
+							
+						<div class="form-group">
+								<cts:Label name="Description" labelFor="description"/>
+								<cts:TextArea name="description" cssClass="dirty-check required" readonly="" rows="3" cols="" value="${map.tasks.description}"/>
+						</div>
+						<fieldset>
+								<legend>
+									Assignee Details&nbsp;&nbsp;
+								<cts:Button cssClass="find" spanClass="search" id="btnUser"/>			
+								</legend>
+								<div class="form-group">						
+									<cts:Label name="Assignee Code" labelFor="emp_code"/>
+									<cts:TextBox name="emp_code" cssClass="dirty-check" readonly="readonly" value="${map.tasks.empCode}"/>
+								</div>
+								<div class="form-group">						
+									<cts:Label name="Assignee Name" labelFor="emp_name"/>
+									<cts:TextBox name="emp_name" cssClass="dirty-check" readonly="readonly" value="${map.tasks.empName}"/>
+								</div>
+								<div class="form-group">						
+									<cts:Label name="Username" labelFor="username"/>
+									<cts:TextBox name="username" cssClass="dirty-check" readonly="readonly" value="${map.tasks.username}"/>
+								</div>
+						</fieldset>
+					</div>
+				</div>
+			
+			
+				<%-- <div class="row">
 					<div class="col-md-6">
 						<div class="form-group">
 							<label for="suite_code" class="control-label">Suite Name</label>
@@ -86,7 +170,7 @@
 								</select>	
 								<cts:Hidden name="priv_grp_name" value=""/>		
 					   </div>
-					   <%-- <div class="form-group">
+					   <div class="form-group">
 							<cts:Label name="Story Code" labelFor="story_code"/>
 							<cts:TextBox name="story_code" value="${map.tasks.storyCode}" cssClass="dirty-check required" readonly=""/>
 						</div>
@@ -99,7 +183,7 @@
 									<cts:Label name="Assignee" labelFor="assignee"/>
 									<cts:TextBox name="assignee" value="${map.tasks.asignee}" cssClass="dirty-check" readonly="readonly"/>
 								</div>
-						</fieldset> --%>
+						</fieldset>
 						<div class="form-group">						
 							<cts:Label name="Task Code" labelFor="task_code"/>
 							<cts:TextBox name="task_code" value="${map.tasks.taskCode}" cssClass="dirty-check required" readonly=""/>
@@ -116,10 +200,10 @@
 					<div class="col-md-6">
 						
 						
-						<%-- <div class="form-group">						
+						<div class="form-group">						
 							<cts:Label name="Assignee" labelFor="assignee"/>
 							<cts:TextBox name="assignee" value="${map.tasks.asignee}"  cssClass="dirty-check" readonly=""/>
-						</div> --%>
+						</div>
 						
 						
 						<div class="form-group">
@@ -141,34 +225,28 @@
 								<cts:Button cssClass="find" spanClass="search" id="btnUser"/>			
 								</legend>
 								<div class="form-group">						
-									<%-- <cts:Label name="Assignee" labelFor="assignee"/> --%>
+									<cts:Label name="Assignee" labelFor="assignee"/>
 									<cts:TextBox name="assignee" value="${map.tasks.asignee}" cssClass="dirty-check" readonly="readonly"/>
 								</div>
 						</fieldset>
 					</div>
+				</div> --%>
+			<div class="row">
+					<div class="col-md-8">
+						 <cts:Button cssClass="back" spanClass="arrow-left" dAjax="true" dHref="/toc?type=privgrp&currprivgrp=3&currmodcode=SA" />
+						<button class="btn btn-refresh" type="button">
+							<span class="fa fa-refresh"></span>
+						</button>
+						<button class="btn btn-help" type="button">
+							<span class="fa fa-question"></span>
+						</button>
+					</div>
+					<div class="col-md-4">
+						<button id="submit" class="btn btn-save pull-right" type="submit">
+									<span class="fa fa-save"></span> &nbsp;Save
+						</button>
+					</div>
 				</div>
-				<div class="row margin-top-10">
-			<div class="col-md-8">
-						<button class="btn btn-back" data-ajax="true"
-						data-href="/toc?type=privgrp&currprivgrp=3&currmodcode=PM"
-						title="Back" type="button">
-						<span class="fa fa-arrow-left"></span>
-					</button>
-					<button class="btn btn-refresh refresh-linked" type="button">
-						<span class="fa fa-refresh"></span>
-					</button>
-					<button class="btn btn-help" type="button">
-						<span class="fa fa-question"></span>
-					</button>
-
-				</div>
-
-				<div class="col-md-4">
-				<button class="btn btn-save pull-right" type="submit">
-						<span class="fa fa-save"></span> Save
-					</button>
-				</div>
-			</div>
 			</div>
 		</cts:AjaxForm>
 	</div>
@@ -176,10 +254,6 @@
 <script>
 
    InitHandlers();
-   
-   	$("input[name='suite_name']").val($("#suite_code option:selected").text());
-	$("input[name='module_name']").val($("#module_code option:selected").text());
-	$("input[name='priv_grp_name']").val($("#priv_grp_code option:selected").text());
    
    function showMessage(data) {
 		if (data.outcome == 'success') {

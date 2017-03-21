@@ -42,19 +42,25 @@ public class TasksService implements ITasksService {
 
 		Tasks tasks = new Tasks();
 		User currentUser = userService.getCurrentUser();
+		
 		tasks.setSuiteCode(requestMap.get("suite_code")[0]);
 		tasks.setSuiteName(requestMap.get("suite_name")[0]);
 		tasks.setModuleCode(requestMap.get("module_code")[0]);
 		tasks.setModuleName(requestMap.get("module_name")[0]);
 		tasks.setPrivGrpCode(Integer.parseInt(requestMap.get("priv_grp_code")[0]));
 		tasks.setPrivGrpName(requestMap.get("priv_grp_name")[0]);
+		tasks.setPrivilegeCode(requestMap.get("privilege_code")[0]);
+		tasks.setPrivilegeName(requestMap.get("privilege_name")[0]);
 		tasks.setDescription(requestMap.get("description")[0]);
-		tasks.setStoryCode(requestMap.get("story_code")[0].toUpperCase());
+		tasks.setStoryCode(requestMap.get("story_code")[0]);
+		tasks.setStoryTitle(requestMap.get("story_title")[0]);
+		tasks.setEmpCode(requestMap.get("emp_code")[0]);
+		tasks.setEmpName(requestMap.get("emp_name")[0]);
+		tasks.setUsername(requestMap.get("username")[0]);
 
-		tasks.setTaskCode(requestMap.get("task_code")[0].toUpperCase());
+		tasks.setTaskCode(requestMap.get("task_code")[0]);
 		tasks.setTaskTitle(requestMap.get("task_title")[0]);
 		tasks.setEstimatedTime(Double.parseDouble(requestMap.get("estimated_time")[0]));
-		tasks.setAsignee(requestMap.get("assignee")[0]);
 
 		tasks.setClientCode(currentUser.getClientCode());
 		tasks.setClientName(currentUser.getClientName());
@@ -162,51 +168,32 @@ public class TasksService implements ITasksService {
 		tasks.setModuleName(requestMap.get("module_name")[0]);
 		tasks.setPrivGrpCode(Integer.parseInt(requestMap.get("priv_grp_code")[0]));
 		tasks.setPrivGrpName(requestMap.get("priv_grp_name")[0]);
+		tasks.setPrivilegeCode(requestMap.get("privilege_code")[0]);
+		tasks.setPrivilegeName(requestMap.get("privilege_name")[0]);
 		tasks.setDescription(requestMap.get("description")[0]);
 		tasks.setStoryCode(requestMap.get("story_code")[0]);
+		tasks.setStoryTitle(requestMap.get("story_title")[0]);
+		tasks.setEmpCode(requestMap.get("emp_code")[0]);
+		tasks.setEmpName(requestMap.get("emp_name")[0]);
+		tasks.setUsername(requestMap.get("username")[0]);
 
 		tasks.setTaskCode(requestMap.get("task_code")[0]);
 		tasks.setTaskTitle(requestMap.get("task_title")[0]);
 		tasks.setEstimatedTime(Double.parseDouble(requestMap.get("estimated_time")[0]));
-		tasks.setAsignee(requestMap.get("assignee")[0]);
 
 		tasks.setClientCode(currentUser.getClientCode());
 		tasks.setClientName(currentUser.getClientName());
 		tasks.setCompanyCode(currentUser.getCompanyCode());
 		tasks.setCompanyName(currentUser.getCompanyName());
-		tasks.setUpdatedByCode(currentUser.getEmpCode());
-		tasks.setUpdatedByName(currentUser.getEmpName());
-		tasks.setUpdatedByUsername(currentUser.getUsername());
-		tasks.setUpdatedByEmail(currentUser.getEmail());
-		tasks.setUpdatedByCompanyCode(currentUser.getCompanyCode());
-		tasks.setUpdatedByCompanyName(currentUser.getCompanyName());
-		tasks.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
-
-		tasks.setUpdatedByCode(currentUser.getUpdatedByCode());
-		tasks.setUpdatedByName(currentUser.getUpdatedByName());
-		tasks.setUpdatedByCompanyCode(currentUser.getCompanyCode());
-		tasks.setUpdatedByCompanyName(currentUser.getCompanyName());
-		tasks.setUpdatedByEmail(currentUser.getEmail());
-		tasks.setUpdatedByUsername(currentUser.getUsername());
-
-		tasks.setClientCode(currentUser.getClientCode());
-		tasks.setClientName(currentUser.getClientName());
-		tasks.setCompanyCode(currentUser.getCompanyCode());
-		tasks.setCompanyName(currentUser.getCompanyName());
-		tasks.setUpdatedByCode(currentUser.getEmpCode());
-		tasks.setUpdatedByName(currentUser.getEmpName());
-		tasks.setUpdatedByUsername(currentUser.getUsername());
-		tasks.setUpdatedByEmail(currentUser.getEmail());
-		tasks.setUpdatedByCompanyCode(currentUser.getCompanyCode());
-		tasks.setUpdatedByCompanyName(currentUser.getCompanyName());
-		tasks.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
-
-		tasks.setUpdatedByCode(currentUser.getUpdatedByCode());
-		tasks.setUpdatedByName(currentUser.getUpdatedByName());
-		tasks.setUpdatedByCompanyCode(currentUser.getCompanyCode());
-		tasks.setUpdatedByCompanyName(currentUser.getCompanyName());
-		tasks.setUpdatedByEmail(currentUser.getEmail());
-		tasks.setUpdatedByUsername(currentUser.getUsername());
+		tasks.setCreatedByCode(currentUser.getCreatedByCode());
+		tasks.setCreatedByName(currentUser.getCreatedByName());
+		tasks.setCreatedByCode(currentUser.getEmpCode());
+		tasks.setCreatedByName(currentUser.getEmpName());
+		tasks.setCreatedByUsername(currentUser.getUsername());
+		tasks.setCreatedByEmail(currentUser.getEmail());
+		tasks.setCreatedByCompanyCode(currentUser.getCompanyCode());
+		tasks.setCreatedByCompanyName(currentUser.getCompanyName());
+		tasks.setCreatedAt(new Timestamp(System.currentTimeMillis()));
 
 		UUID id = tasksDao.updateDoc(tasks);
 		data.put("id", id.toString());

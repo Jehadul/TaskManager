@@ -34,101 +34,127 @@
 			</div>
 			
 			<div class="row">
-				<div class="col-md-6">
-					<div class="row">
-						<div class="col-md-4"><cts:Label name="Suite Name" labelFor="suite_name"/></div>
-						<div class="col-md-1">:</div>
-						<div class="col-md-7"><b>${map.sprint.suiteName}</b></div>
-					</div>
-					<div class="row">
-						<div class="col-md-4"><cts:Label name="Module Name" labelFor="module_name"/></div>
-						<div class="col-md-1">:</div>
-						<div class="col-md-7"><b>${map.sprint.moduleName}</b></div>
-					</div>
-					<div class="row">
-						<div class="col-md-4"><cts:Label name="Privilege Name" labelFor="privilege_name"/></div>
-						<div class="col-md-1">:</div>
-						<div class="col-md-7"><b>${map.sprint.privilegeName}</b></div>
-					</div>
-					<div class="row">
-						<div class="col-md-4"><cts:Label name="Sprint Name" labelFor="sprint_name"/></div>
-						<div class="col-md-1">:</div>
-						<div class="col-md-7"><b>${map.sprint.sprintName}</b></div>
-					</div>
-					<div class="row">
-						<div class="col-md-4"><cts:Label name="Srint Code" labelFor="sprint_code"/></div>
-						<div class="col-md-1">:</div>
-						<div class="col-md-7"><b>${map.sprint.sprintCode}</b></div>
-					</div>
-					
-				</div>
 				
 				<div class="col-md-6">
-					<div class="row">
-						<div class="col-md-4"><cts:Label name="Goal" labelFor="sprint_goal"/></div>
-						<div class="col-md-1">:</div>
-						<div class="col-md-7"><b>${map.sprint.sprintGoal}</b></div>
-					</div>
-					<div class="row">
-						<div class="col-md-4"><cts:Label name="Number" labelFor="sprint_number"/></div>
-						<div class="col-md-1">:</div>
-						<div class="col-md-7"><b>${map.sprint.sprintNumber}</b></div>
-					</div>
-					<div class="row">
-						<div class="col-md-4"><cts:Label name="Story" labelFor="sprint_stories"/></div>
-						<div class="col-md-1">:</div>
-						<div class="col-md-7"><b>${map.sprint.sprintStories}</b></div>
-					</div>
-					<div class="row">
-						<div class="col-md-4"><cts:Label name="Start Date" labelFor="start_date"/></div>
-						<div class="col-md-1">:</div>
-						<div class="col-md-7"><b>${map.sprint.startDate}</b></div>
-					</div>
-					<div class="row">
-						<div class="col-md-4"><cts:Label name="End Date" labelFor="end_date"/></div>
-						<div class="col-md-1">:</div>
-						<div class="col-md-7"><b>${map.sprint.endDate}</b></div>
-					</div>					
+					<table>
+                        <tr>
+                            <td class="width-150"><cts:Label name="Suite Name" labelFor="suite_name"/></td>
+								<td class="width-50">:</td>
+								<td><b>${map.sprint.suiteName}</b></td>
+                        </tr>
+                    </table>
+					<table>
+                        <tr>
+                            <td class="width-150"><cts:Label name="Module Name" labelFor="module_name"/></td>
+								<td class="width-50">:</td>
+								<td><b>${map.sprint.moduleName}</b></td>
+                        </tr>
+                    </table>
+					<table>
+                        <tr>
+                            <td class="width-150"><cts:Label name="Privilege Name" labelFor="privilege_name"/></td>
+								<td class="width-50">:</td>
+								<td><b>${map.sprint.privilegeName}</b></td>
+                        </tr>
+                    </table>
+					<table>
+                        <tr>
+                            <td class="width-150"><cts:Label name="Sprint Name" labelFor="sprint_name"/></td>
+								<td class="width-50">:</td>
+								<td><b>${map.sprint.sprintName}</b></td>
+                        </tr>
+                    </table>
+					<table>
+                        <tr>
+                            <td class="width-150"><cts:Label name="Srint Code" labelFor="sprint_code"/></td>
+								<td class="width-50">:</td>
+								<td><b>${map.sprint.sprintCode}</b></td>
+                        </tr>
+                    </table>
 				</div>
-				
-				<div class="col-md-12">
-					<div class="row">
-						<div class="col-md-12"><cts:Label name="Sprint Description" labelFor="sprint_description"/></div>
-						<div class="col-md-12"><b>${map.sprint.sprintDescription}</b></div>
-					</div>
+				<div class="col-md-6">
+
+					<table>
+                        <tr>
+                            <td class="width-150"><cts:Label name="Goal" labelFor="sprint_goal"/></td>
+								<td class="width-50">:</td>
+								<td><b>${map.sprint.sprintGoal}</b></td>
+                        </tr>
+                    </table>
+					<table>
+                        <tr>
+                            <td class="width-150"><cts:Label name="Number" labelFor="sprint_number"/></td>
+								<td class="width-50">:</td>
+								<td><b>${map.sprint.sprintNumber}</b></td>
+                        </tr>
+                    </table>
+					<table>
+                        <tr>
+                            <td class="width-150"><cts:Label name="Story" labelFor="sprint_stories"/></td>
+								<td class="width-50">:</td>
+								<td><b>${map.sprint.sprintStories}</b></td>
+                        </tr>
+                    </table>
+					<table>
+                        <tr>
+                            <td class="width-150"><cts:Label name="Start Date" labelFor="start_date"/></td>
+								<td class="width-50">:</td>
+								<td><b>${map.sprint.startDate}</b></td>
+                        </tr>
+                    </table>
+					<table>
+                        <tr>
+                            <td class="width-150"><cts:Label name="End Date" labelFor="end_date"/></td>
+								<td class="width-50">:</td>
+								<td><b>${map.sprint.endDate}</b></td>
+                        </tr>
+                    </table>	
 				</div>
+                <div class="col-md-12">
+                    <table>
+                        <tr>
+                            <td class="width-150"><cts:Label name="Sprint Description" labelFor="sprint_description"/></td>
+                            <td class="width-50">:</td>
+                            <td><b>${map.sprint.sprintDescription}</b></td>
+                        </tr>
+                    </table>
+                </div>
 			
 
 			</div>
-				<br/>
-				<br/>
-				<br/>
+			<br/>
+			<br/>
+			<br/>
 			
 
 		</div>
-			<div class="row margin-top-10">
-				<div class="col-md-8">
-					<cts:Button cssClass="back" spanClass="arrow-left" dAjax="true" dHref="/toc?type=privgrp&currprivgrp=3&currmodcode=WF"/>
-					<button class="btn btn-refresh refresh-linked" type="button">
-						<span class="fa fa-refresh"></span>
-					</button>
-					<button class="btn btn-help" type="button">
-						<span class="fa fa-question"></span>
-					</button>
-
-				</div>
-
-				<div class="col-md-4">
-					<button id="edit_btn" class="btn btn-save" type="submit">
-						<span class="fa fa-edit"></span> Edit
-					</button>
-					<button id="del_btn" class="btn btn-del" type="submit">
-						<span class="fa fa-trash"></span> Delete
-					</button>
-				</div>
-			</div>
 		
-	</div>
+		
+		
+		<div class="row margin-top-30 margin-bottom-30">
+
+              <div class="col-md-auto">
+				<cts:Button cssClass="back" spanClass="arrow-left" dAjax="true" dHref="/toc?type=privgrp&currprivgrp=3&currmodcode=WF"/>
+				<button class="btn btn-refresh refresh-linked" type="button">
+					<span class="fa fa-refresh"></span>
+				</button>
+				<button class="btn btn-help" type="button">
+					<span class="fa fa-question"></span>
+				</button>
+
+			</div>
+
+			<div class="align-right">
+				<button id="edit_btn" class="btn btn-save" type="submit">
+					<span class="fa fa-edit"></span> Edit
+				</button>
+				<button id="del_btn" class="btn btn-del" type="submit">
+					<span class="fa fa-trash"></span> Delete
+				</button>
+			</div>
+		</div>
+		
+	
 </div>
 
 <script>

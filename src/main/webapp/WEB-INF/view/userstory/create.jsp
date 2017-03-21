@@ -185,8 +185,10 @@ InitHandlers();
 	 
 	
 	 function validate(){
-			
-			var itemPrivilegeName = $("#privilege_name").val().trim();
+		 
+		 	var storyCode = $("#user_story_code").val().trim();
+			var storyName = $("#user_story_title").val().trim();
+			var storyOrder = $("#story_order").val().trim();
 			
 			SyncOptionText();
 			
@@ -211,20 +213,26 @@ InitHandlers();
 						
 					} 
 				 
-				 if ($("#privilege_code").val() =="" ) {
-						error +="Please Enter Privilege Code <br/> ";
+				 if ($("#privilege_code").val() =="-1" ) {
+						error +="Please select Privilege Code <br/> ";
+						result = false;
+						
+					} 
+				 
+				 if ($("#priority_code").val() =="-1" ) {
+						error +="Please select Priority Code <br/> ";
 						result = false;
 						
 					} 
 				 
 				 
 			
-			if ($("#privilege_name").val() =="") {
+			/* if ($("#privilege_name").val() =="") {
 				error +="Please Enter privilege Name <br/> ";
 				result = false;
 				
 			} 
-			
+			 */
 
 			if ($("#user_story_code").val() =="" ) {
 				error +="Please Enter User Story Code <br/> ";
@@ -258,7 +266,16 @@ InitHandlers();
 					InitErrorChange();
 					$(".alert").html(error);
 					$(".alert").removeClass("hidden");
-				}
+			 }
+			 else if(storyCode == ""|| storyName == "" || storyOrder == ""){
+					
+					error +="Only space is not allowed in required fields";
+					ShowErrorMsg('User Story was not created', "Please check details.");
+					InitErrorChange();
+					$(".alert").html(error);
+					$(".alert").removeClass("hidden");
+					return false;
+			 }
 				
 				
 			return result;
