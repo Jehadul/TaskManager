@@ -52,11 +52,33 @@
 							<cts:TextBox name="task_code" cssClass="dirty-check uppercase" readonly="required"/>
 						</div>
 					<div class="col-md-6">
-					
+						<div class="form-group">						
+							<cts:Label name="Task Code" labelFor="task_code"/>
+							<cts:TextBox name="task_code" cssClass="dirty-check uppercase required" readonly=""/>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">						
+							<cts:Label name="Task Title" labelFor="task_title"/>
+							<cts:TextBox name="task_title" cssClass="dirty-check" readonly="required"/>
+						</div>
+						
+						<div class="form-group">
+							<cts:Label name="Estimated Time (Hour)" labelFor="estimated_time"/>
+							<cts:TextBox name="estimated_time" cssClass="dirty-check number" readonly="required"/>
+						</div>					
+					</div>
+					<div class="col-md-6">
+							<cts:TextBox name="estimated_time" cssClass="dirty-check required number" readonly=""/>
+						</div>
+						<div class="form-group">
+								<cts:Label name="Description" labelFor="description"/>
+								<cts:TextArea name="description" cssClass="dirty-check " readonly="" rows="3" cols="required"/>
+						</div>
 						<fieldset>
 							<legend>
-									Story Details&nbsp;&nbsp;
-								<cts:Button cssClass="find" spanClass="search" id="btnStory"/>			
+									Story Code&nbsp;&nbsp;
+								<cts:Button cssClass="find" spanClass="search" id="btnStory"/>		
 							</legend>
 								<div class="form-group">
 									<cts:Label labelFor="suite_name" name="Suite Name"/>
@@ -82,42 +104,6 @@
 									<cts:Label name="Story Title" labelFor="story_title"/>
 									<cts:TextBox name="story_title" cssClass="dirty-check" readonly="readonly"/>
 									<cts:Hidden name="story_code" value=""/>
-								</div>
-								
-						</fieldset>
-								<div class="form-group">						
-									<cts:Label name="Task Code" labelFor="task_code"/>
-									<cts:TextBox name="task_code" cssClass="dirty-check uppercase required" readonly=""/>
-								</div>
-						
-						
-						
-					</div>
-					<div class="col-md-6">
-						<div class="form-group">						
-							<cts:Label name="Task Title" labelFor="task_title"/>
-							<cts:TextBox name="task_title" cssClass="dirty-check" readonly="required"/>
-						</div>
-						
-						<div class="form-group">
-							<cts:Label name="Estimated Time (Hour)" labelFor="estimated_time"/>
-							<cts:TextBox name="estimated_time" cssClass="dirty-check number" readonly="required"/>
-						</div>					
-					</div>
-					<div class="col-md-6">
-							<cts:TextBox name="estimated_time" cssClass="dirty-check required number" readonly=""/>
-						</div>
-						<div class="form-group">
-								<cts:Label name="Description" labelFor="description"/>
-								<cts:TextArea name="description" cssClass="dirty-check " readonly="" rows="3" cols="required"/>
-						</div>
-						<fieldset>
-							<legend>
-									Story Code&nbsp;&nbsp;
-								<cts:Button cssClass="find" spanClass="search" id="btnStory"/>		
-							</legend>
-								<div class="form-group">						
-									<cts:TextBox name="story_code" cssClass="dirty-check" readonly="readonly"/>
 								</div>
 						</fieldset>
 						<fieldset>
@@ -191,7 +177,6 @@ InitHandlers();
 		$("#story_title").val(storyList.userStoryTitle);
 		HideModal('search-modal');	
 	}
-	
 
 	function showMessage(data) {
 		if (data.outcome == 'success') {
@@ -272,7 +257,7 @@ InitHandlers();
 	}
 
 	
-	$("#btnStory").on("click",function(){
+/* 	$("#btnStory").on("click",function(){
 		ShowModal("/taskman/userstory/story/searchstory/?action_type_code=SELECT&actioncallback=loadStory");
 	});
 
@@ -280,7 +265,7 @@ InitHandlers();
 		var storyList = JSON.parse(unescape(story));			
 		$("#story_code").val(storyList.userStoryCode);	
 		HideModal('search-modal');	
-	}
+	} */
 	
 	
 </script>
