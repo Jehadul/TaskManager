@@ -44,7 +44,7 @@ public class Tasks {
 	private String moduleName;
 	
 	@Column(name="privilege_code")
-	private int privilegeCode;
+	private String privilegeCode;
 
 	@Column(name="privilege_name")
 	private String privilegeName;
@@ -321,11 +321,11 @@ public class Tasks {
 		this.moduleName = moduleName;
 	}
 
-	public int getPrivilegeCode() {
+	public String getPrivilegeCode() {
 		return privilegeCode;
 	}
 
-	public void setPrivilegeCode(int privilegeCode) {
+	public void setPrivilegeCode(String privilegeCode) {
 		this.privilegeCode = privilegeCode;
 	}
 
