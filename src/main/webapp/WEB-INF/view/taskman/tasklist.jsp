@@ -41,7 +41,7 @@
 								<td><c:out value="${task.getEstimatedTime()}" /></td>
 								<td><c:out value="${task.getSpentTime()}" /></td>
 								<td><c:out value="${task.getRemainingTime()}" /></td>
-								<td><c:out value="${task.getAsignee()}" /></td>
+								<td><c:out value="${task.empName}" /></td>
 								<td>
 									<button type="button" onclick="editRow(this);"
 										class="btn-edit btn btn-xs">
@@ -71,7 +71,7 @@
 									value="${task.getSpentTime()}" /> <input type="hidden"
 									name="remaining_time[]" class="remaining_time"
 									value="${task.getRemainingTime()}" /> <input type="hidden"
-									name="assignee[]" class="assignee" value="${task.getAsignee()}" />
+									name="assignee[]" class="assignee" value="${task.empName}" />
 
 								</td>
 							</tr>
@@ -258,9 +258,12 @@
 		
 		$.ajax({
 			type : 'GET',
-			url : '/taskman/tman/tasks/timeLogUpdate/' + id + '/' + stopTime+'/'+day
+			url : '/taskman/tman/tasks/timeLogUpdate/' + id + '/' + stopTime+'/'+day,
+			success : function(response, status, xhr) {
+				LoadMainContent("/taskman/tman/tasks/tasklist");
+			}
 		});
-
+		
 	}
 
 	//refress call

@@ -236,6 +236,79 @@
 		$("#sprint_story_code").val(story.userStoryCode);
 		HideModal('search-modal');	
 	}
+	
+	
+	
+	function validate(){
+		
+		SyncOptionText();
+		
+		var error = "";
+		var result = CheckRequired();
+		
+
+		if ( $("#suite_code").val() =="-1") {
+			error +="Please select Suite Code <br/>";
+			result = false;
+			
+		}  
+		 
+		 if ( $("#module_code").val() =="-1") {
+				error +="Please select Module Code <br/>";
+				result = false;
+				
+			}  
+		 
+		 if ( $("#priv_grp_code").val() =="-1") {
+				error +="Please select Priv Grp Code <br/>";
+				result = false;
+				
+			} 
+		
+		if ($("#sprint_code").val() =="") {
+			error +="Please Enter Sprint Code<br/> ";
+			result = false;
+			
+		} 
+
+		if ($("#sprint_name").val() =="" ) {
+			error +="Please Enter Sprint Name <br/> ";
+			result = false;
+			
+		} 
+		
+		if ($("#sprint_number").val() =="" ) {
+			error +="Please Enter Sprint Number <br/> ";
+			result = false;
+			
+		} 
+		
+		if ($("#sprint_stories").val() =="" ) {
+			error +="Please Enter Sprint Stories <br/> ";
+			result = false;
+			
+		}  
+		
+		 if ($("#start_date").val() =="" ) {
+			error +="Please Select Start Date <br/> ";
+			result = false;
+			
+		} 
+
+		if ($("#end_date").val() =="" ) {
+			error +="Please Select End Date <br/> ";
+			result = false;
+			
+		} 
+		 
+		 
+		if (!result) {
+			InitErrorChange();
+			$(".alert").html(error);
+			$(".alert").removeClass("hidden");
+		} 
+		return result;
+	}
 
 	
 </script>
