@@ -64,10 +64,20 @@ function CheckRequired(selector){
 		selector = ".main-content"
 	}
 
-	$(selector).find("input.required, select.required, textarea.required").each(function(i, item){
+	$(selector).find("input.required, textarea.required").each(function(i, item){
 		$(this).removeClass("error");
 		MarkCross($(this).closest(".form-group").find("label"), false);
 		if ($(item).val().trim() == "") {
+			result = false;
+			$(this).addClass("error");
+			MarkCross($(this).closest(".form-group").find("label"), true);
+		}
+	});
+	
+	$(selector).find("select.required").each(function(i, item){
+		$(this).removeClass("error");
+		MarkCross($(this).closest(".form-group").find("label"), false);
+		if ($(item).val().trim() == "" || $(item).val().trim() == "-1") {
 			result = false;
 			$(this).addClass("error");
 			MarkCross($(this).closest(".form-group").find("label"), true);
