@@ -10,10 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ctrends.taskmanager.dao.user.IUserDAO;
 import com.ctrends.taskmanager.model.taskmanage.Module;
 import com.ctrends.taskmanager.model.taskmanage.PrivGroup;
 import com.ctrends.taskmanager.model.taskmanage.Suite;
+import com.ctrends.taskmanager.model.tman.Tasks;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManager;
+import com.ctrends.taskmanager.model.tman_sprint.SprintManagerDetails;
+import com.ctrends.taskmanager.model.user.User;
 import com.ctrends.taskmanager.model.userstory.UserStory;
 
 @Repository("sprintDAO")
@@ -22,6 +26,9 @@ public class SprintDAO implements ISprintDAO {
 	
 	@Autowired
 	private SessionFactory sessionfactory;
+	
+	@Autowired
+	IUserDAO userDAO;
 	
 	@Transactional
 	@Override
@@ -49,10 +56,23 @@ public class SprintDAO implements ISprintDAO {
 		return null;
 	}
 
-	@Transactional
+	/*@Transactional
 	@Override
 	public UUID insertDoc(SprintManager doc) {
 		UUID id = (UUID) sessionfactory.getCurrentSession().save(doc);
+		sessionfactory.getCurrentSession().flush();
+		return id;
+	}*/
+	@Transactional
+	@Override
+	public UUID insertDoc(SprintManager sprint) {
+		for (int i = 0; i < sprint.getSteps().size(); i++) {
+			SprintManagerDetails sprintDetails = new SprintManagerDetails();
+			sprintDetails = sprint.getSteps().get(i);
+			sessionfactory.getCurrentSession().save(sprintDetails);
+			sessionfactory.getCurrentSession().flush();
+		}
+		UUID id = (UUID) sessionfactory.getCurrentSession().save(sprint);
 		sessionfactory.getCurrentSession().flush();
 		return id;
 	}
@@ -119,5 +139,49 @@ public class SprintDAO implements ISprintDAO {
 		List<PrivGroup> privGroup = query.list();
 		return privGroup;
 	}
+
+	/*@Transactional
+	@Override
+	public boolean checkUnique(Map<String, String> param) {
+		User currentUser = userDAO.getCurrentUser();
+		String companyCode = currentUser.getCompanyCode();
+		Query query = sessionfactory.getCurrentSession().createQuery("FROM SprintManager WHERE sprintCode =:sprintCode AND companyCode=:companyCode");
+		query.setParameter("companyCode",companyCode);
+		query.setParameter("sprintCode", param.get("sprintCode"));
+		
+		
+		SprintManager sprint=(SprintManager) query.uniqueResult();
+		
+
+	    if (sprint == null) {
+        	return true;
+        }
+        else{
+        	return false;
+        }
+	}*/
+	@Transactional
+	@Override
+	public boolean checkUnique(Map<String, Object> param) {
+		User currentUser = userDAO.getCurrentUser();
+		String companyCode = currentUser.getCompanyCode();
+		Query query = sessionfactory.getCurrentSession().createQuery("FROM SprintManager WHERE sprintCode =:sprintCode AND companyCode=:companyCode");
+		query.setParameter("companyCode",companyCode);
+		query.setParameter("sprintCode", param.get("sprintCode"));
+		
+		
+		SprintManager sprint=(SprintManager) query.uniqueResult();
+		
+
+	    if (sprint == null) {
+        	return true;
+        }
+        else{
+        	return false;
+        }
+	}
+
+	 
+
 
 }

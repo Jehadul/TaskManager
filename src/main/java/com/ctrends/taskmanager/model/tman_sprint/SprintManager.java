@@ -2,6 +2,7 @@ package com.ctrends.taskmanager.model.tman_sprint;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -10,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "tman_sprints")
@@ -80,20 +82,6 @@ public class SprintManager {
 		this.sprintStoryCode = sprintStoryCode;
 	}
 
-	@Column(name="doa_type_code")
-	private String doaTypeCode;
-
-	@Column(name="doa_type_name")
-	private String doaTypeName;
-
-	@Column(name="doa_amount")
-	private double doaAmount;
-
-	@Column(name="doa_currency_code")
-	private String doaCurrencyCode;
-
-	@Column(name="doa_currency_name")
-	private String doaCurrencyName;
 
 	@Column(name="created_by_code")
 	private String createdByCode;
@@ -252,6 +240,19 @@ public class SprintManager {
 	
 	@Column(name="costcenter_name")
 	private String costcenterName;
+	
+	@Transient
+	private List<SprintManagerDetails> steps;
+	
+	
+
+	public List<SprintManagerDetails> getSteps() {
+		return steps;
+	}
+
+	public void setSteps(List<SprintManagerDetails> steps) {
+		this.steps = steps;
+	}
 
 	public UUID getId() {
 		return id;
@@ -381,45 +382,6 @@ public class SprintManager {
 		this.sprintStories = sprintStories;
 	}
 
-	public String getDoaTypeCode() {
-		return doaTypeCode;
-	}
-
-	public void setDoaTypeCode(String doaTypeCode) {
-		this.doaTypeCode = doaTypeCode;
-	}
-
-	public String getDoaTypeName() {
-		return doaTypeName;
-	}
-
-	public void setDoaTypeName(String doaTypeName) {
-		this.doaTypeName = doaTypeName;
-	}
-
-	public double getDoaAmount() {
-		return doaAmount;
-	}
-
-	public void setDoaAmount(double doaAmount) {
-		this.doaAmount = doaAmount;
-	}
-
-	public String getDoaCurrencyCode() {
-		return doaCurrencyCode;
-	}
-
-	public void setDoaCurrencyCode(String doaCurrencyCode) {
-		this.doaCurrencyCode = doaCurrencyCode;
-	}
-
-	public String getDoaCurrencyName() {
-		return doaCurrencyName;
-	}
-
-	public void setDoaCurrencyName(String doaCurrencyName) {
-		this.doaCurrencyName = doaCurrencyName;
-	}
 
 	public String getCreatedByCode() {
 		return createdByCode;
