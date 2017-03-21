@@ -63,6 +63,7 @@ public class TasksControllerTest {
 
 
 	@Test
+	@WithMockUser("CTS0104")
 	public void testIndex_ReturnsModelAndView() throws Exception {
 		ModelAndView mav = tasksController.index();
 		assertTrue(mav.hasView());
@@ -70,7 +71,7 @@ public class TasksControllerTest {
 
 	@Test 
 	public void testShow_ReturnModelAndView(){ 
-		UUID id=UUID.fromString("81d5a03e-62f6-4857-bb97-116c5aa23018");
+		UUID id=UUID.fromString("3fc64424-88d2-4f8e-b86e-e61e8fc24976");
 		ModelAndView ar = tasksController.show(id);
 		assertTrue(ar.hasView());
 	}
@@ -82,12 +83,13 @@ public class TasksControllerTest {
 	
 	@Test 
 	public void testEdit_ReturnModelAndView(){ 
-		UUID id=UUID.fromString("81d5a03e-62f6-4857-bb97-116c5aa23018");
+		UUID id=UUID.fromString("3fc64424-88d2-4f8e-b86e-e61e8fc24976");
 		ModelAndView ar = tasksController.edit(id);
 		assertTrue(ar.hasView());
 	}
 	
 	@Test 
+	@WithMockUser("CTS0104")
 	public void testDelete_ReturnModelAndView(){
 		ModelAndView ar = tasksController.delete();
 		assertTrue(ar.hasView());
@@ -102,11 +104,17 @@ public class TasksControllerTest {
 		request.addParameter("module_name", "Employee Database");
 		request.addParameter("priv_grp_code", String.valueOf(1));
 		request.addParameter("priv_grp_name", "Reporting and Analysis");
+		request.addParameter("privilege_code", "xvbhxf");
+		request.addParameter("privilege_name", "xvbhxf");
 		request.addParameter("description", "xvbhxf");
 		request.addParameter("story_code", "xvbhxf");
+		request.addParameter("story_title", "xvbhxf");
+		request.setParameter("task_code", "xvbhxf");
 		request.addParameter("task_title", "xvbhxf");
+		request.addParameter("emp_code", "xvbhxf");
+		request.addParameter("emp_name", "xvbhxf");
+		request.addParameter("username", "xvbhxf");
 		request.addParameter("estimated_time", String.valueOf(1));
-		request.addParameter("assignee", "xvbhxf");
 		WSResponse ar = tasksController.store(request);
 		assertTrue(ar.getClass()==WSResponse.class);
 	}
@@ -114,19 +122,25 @@ public class TasksControllerTest {
 	@Test 
 	@WithMockUser("CTS0104")
 	public void testUpdate_ReturnWsResponse(){ 
-		UUID id=UUID.fromString("285d4d33-8de2-4768-8fac-3e4bb4147d75");
+		UUID id=UUID.fromString("3fc64424-88d2-4f8e-b86e-e61e8fc24976");
 		request.setParameter("id", String.valueOf(id));
-		request.setParameter("suite_code", "ertert");
-		request.setParameter("suite_name", "trtryry");
-		request.setParameter("module_code", "ED");
-		request.setParameter("module_name", "Employee Database");
-		request.setParameter("priv_grp_code", String.valueOf(1));
-		request.setParameter("priv_grp_name", "Reporting and Analysis");
-		request.setParameter("description", "xvbhxf");
-		request.setParameter("story_code", "xvbhxf");
-		request.setParameter("task_title", "xvbhxf");
-		request.setParameter("estimated_time", String.valueOf(1));
-		request.setParameter("assignee", "xvbhxf");
+		request.addParameter("suite_code", "HRM");
+		request.addParameter("suite_name", "Human Resources");
+		request.addParameter("module_code", "ED");
+		request.addParameter("module_name", "Employee Database");
+		request.addParameter("priv_grp_code", String.valueOf(1));
+		request.addParameter("priv_grp_name", "Reporting and Analysis");
+		request.addParameter("privilege_code", "xvbhxf");
+		request.addParameter("privilege_name", "xvbhxf");
+		request.addParameter("description", "xvbhxf");
+		request.addParameter("story_code", "xvbhxf");
+		request.addParameter("story_title", "xvbhxf");
+		request.setParameter("task_code", "xvbhxf");
+		request.addParameter("task_title", "xvbhxf");
+		request.addParameter("emp_code", "xvbhxf");
+		request.addParameter("emp_name", "xvbhxf");
+		request.addParameter("username", "xvbhxf");
+		request.addParameter("estimated_time", String.valueOf(1));
 		WSResponse ar = tasksController.update(request);
 		assertTrue(ar.getClass()==WSResponse.class);
 	}
@@ -148,19 +162,25 @@ public class TasksControllerTest {
 	@Test 
 	@WithMockUser("CTS0104")
 	public void testDestroy_ReturnsWSResponse(){
-		UUID id=UUID.fromString("7d31e40b-0954-4172-9920-0255b172138e");
+		UUID id=UUID.fromString("b6d3d639-2c5c-4d27-995f-d7c1b02a30bf");
 		request.setParameter("id", String.valueOf(id));
-		request.setParameter("suite_code", "ertert");
-		request.setParameter("suite_name", "trtryry");
-		request.setParameter("module_code", "ED");
-		request.setParameter("module_name", "Employee Database");
-		request.setParameter("priv_grp_code", String.valueOf(1));
-		request.setParameter("priv_grp_name", "Reporting and Analysis");
-		request.setParameter("description", "xvbhxf");
-		request.setParameter("story_code", "xvbhxf");
-		request.setParameter("task_title", "xvbhxf");
-		request.setParameter("estimated_time", String.valueOf(1));
-		request.setParameter("assignee", "xvbhxf");
+		request.addParameter("suite_code", "HRM");
+		request.addParameter("suite_name", "Human Resources");
+		request.addParameter("module_code", "ED");
+		request.addParameter("module_name", "Employee Database");
+		request.addParameter("priv_grp_code", String.valueOf(1));
+		request.addParameter("priv_grp_name", "Reporting and Analysis");
+		request.addParameter("privilege_code", "xvbhxf");
+		request.addParameter("privilege_name", "xvbhxf");
+		request.addParameter("description", "xvbhxf");
+		request.addParameter("story_code", "xvbhxf");
+		request.addParameter("story_title", "xvbhxf");
+		request.setParameter("task_code", "xvbhxf");
+		request.addParameter("task_title", "xvbhxf");
+		request.addParameter("emp_code", "xvbhxf");
+		request.addParameter("emp_name", "xvbhxf");
+		request.addParameter("username", "xvbhxf");
+		request.addParameter("estimated_time", String.valueOf(1));
 		WSResponse ar = tasksController.destroy(request); 
 		assertTrue(ar.getClass()==WSResponse.class);
 	}
@@ -176,17 +196,23 @@ public class TasksControllerTest {
 	@Test 
 	@WithMockUser("CTS0104")
 	public void testCreateWithParam_ReturnsWSResponse(){
-		request.setParameter("suite_code", "ertert");
-		request.setParameter("suite_name", "trtryry");
-		request.setParameter("module_code", "ED");
-		request.setParameter("module_name", "Employee Database");
-		request.setParameter("priv_grp_code", String.valueOf(1));
-		request.setParameter("priv_grp_name", "Reporting and Analysis");
-		request.setParameter("description", "xvbhxf");
-		request.setParameter("story_code", "xvbhxf");
-		request.setParameter("task_title", "xvbhxf");
-		request.setParameter("estimated_time", String.valueOf(1));
-		request.setParameter("assignee", "xvbhxf");
+		request.addParameter("suite_code", "HRM");
+		request.addParameter("suite_name", "Human Resources");
+		request.addParameter("module_code", "ED");
+		request.addParameter("module_name", "Employee Database");
+		request.addParameter("priv_grp_code", String.valueOf(1));
+		request.addParameter("priv_grp_name", "Reporting and Analysis");
+		request.addParameter("privilege_code", "xvbhxf");
+		request.addParameter("privilege_name", "xvbhxf");
+		request.addParameter("description", "xvbhxf");
+		request.addParameter("story_code", "xvbhxf");
+		request.addParameter("story_title", "xvbhxf");
+		request.setParameter("task_code", "xvbhxf");
+		request.addParameter("task_title", "xvbhxf");
+		request.addParameter("emp_code", "xvbhxf");
+		request.addParameter("emp_name", "xvbhxf");
+		request.addParameter("username", "xvbhxf");
+		request.addParameter("estimated_time", String.valueOf(1));
 		ModelAndView ar = tasksController.create(request); 
 		assertTrue(ar.getClass()==ModelAndView.class);
 	}
@@ -204,7 +230,7 @@ public class TasksControllerTest {
 	@Test
 	@WithMockUser("CTS0104")
 	public void testTimeLog_ReturnsModelAndView(){
-		UUID id=UUID.fromString("81d5a03e-62f6-4857-bb97-116c5aa23018");
+		UUID id=UUID.fromString("3fc64424-88d2-4f8e-b86e-e61e8fc24976");
 		ModelAndView ar = tasksController.timeLog(id, st, st, st);
 		assertTrue(ar.hasView());
 	}
@@ -212,8 +238,8 @@ public class TasksControllerTest {
 	@Test
 	@WithMockUser("CTS0104")
 	public void testTimeLogUpdate_ReturnsModelAndView(){
-		UUID id=UUID.fromString("81d5a03e-62f6-4857-bb97-116c5aa23018");
-		ModelAndView ar = tasksController.timeLogUpdate(id, st);
+		UUID id=UUID.fromString("3fc64424-88d2-4f8e-b86e-e61e8fc24976");
+		ModelAndView ar = tasksController.timeLogUpdate(id, st, st);
 		assertTrue(ar.hasView());
 	}
 

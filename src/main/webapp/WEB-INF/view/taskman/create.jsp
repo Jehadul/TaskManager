@@ -30,12 +30,55 @@
 		
 			<div class="main-control">
 				<div class="row">
+					<div class="col-md-6">					
+						<div class="form-group">
+							<cts:Label labelFor="suite_code" name="Suite Name"/>
+							<cts:Select list="${data.suiteCodes}"  name="suite_code" value="${data.suiteCode }" cssClass="required"/>
+							<cts:Hidden name="suite_name" value=""/>
+						</div>
+						 <div class="form-group">
+							<cts:Label labelFor="module_code" name="Module Name"/>
+							<cts:Select list="${data.moduleCodes}"  name="module_code" value="${data.moduleCode}" cssClass="required"/>
+							<cts:Hidden name="module_name" value=""/>
+						</div>
+						<div class="form-group">
+							<cts:Label labelFor="priv_grp_code" name="Privilege Group"/>
+							<cts:Select list="${data.privgroups}"  name="priv_grp_code" value="${data.privGroupCode }" cssClass="required"/>
+							<cts:Hidden name="priv_grp_name" value=""/>
+						</div>
+						
+						<div class="form-group">						
+							<cts:Label name="Task Code" labelFor="task_code"/>
+							<cts:TextBox name="task_code" cssClass="dirty-check uppercase" readonly="required"/>
+						</div>
 					<div class="col-md-6">
-					
+						<div class="form-group">						
+							<cts:Label name="Task Code" labelFor="task_code"/>
+							<cts:TextBox name="task_code" cssClass="dirty-check uppercase required" readonly=""/>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">						
+							<cts:Label name="Task Title" labelFor="task_title"/>
+							<cts:TextBox name="task_title" cssClass="dirty-check" readonly="required"/>
+						</div>
+						
+						<div class="form-group">
+							<cts:Label name="Estimated Time (Hour)" labelFor="estimated_time"/>
+							<cts:TextBox name="estimated_time" cssClass="dirty-check number" readonly="required"/>
+						</div>					
+					</div>
+					<div class="col-md-6">
+							<cts:TextBox name="estimated_time" cssClass="dirty-check required number" readonly=""/>
+						</div>
+						<div class="form-group">
+								<cts:Label name="Description" labelFor="description"/>
+								<cts:TextArea name="description" cssClass="dirty-check " readonly="" rows="3" cols="required"/>
+						</div>
 						<fieldset>
 							<legend>
-									Story Details&nbsp;&nbsp;
-								<cts:Button cssClass="find" spanClass="search" id="btnStory"/>			
+									Story Code&nbsp;&nbsp;
+								<cts:Button cssClass="find" spanClass="search" id="btnStory"/>		
 							</legend>
 								<div class="form-group">
 									<cts:Label labelFor="suite_name" name="Suite Name"/>
@@ -62,33 +105,7 @@
 									<cts:TextBox name="story_title" cssClass="dirty-check" readonly="readonly"/>
 									<cts:Hidden name="story_code" value=""/>
 								</div>
-								
 						</fieldset>
-								<div class="form-group">						
-									<cts:Label name="Task Code" labelFor="task_code"/>
-									<cts:TextBox name="task_code" cssClass="dirty-check uppercase required" readonly=""/>
-								</div>
-						
-						
-						
-					</div>
-					<div class="col-md-6">
-						
-						<div class="form-group">						
-							<cts:Label name="Task Title" labelFor="task_title"/>
-							<cts:TextBox name="task_title" cssClass="dirty-check required" readonly=""/>
-						</div>
-						
-						<div class="form-group">
-							<cts:Label name="Estimated Time (Hour)" labelFor="estimated_time"/>
-							<cts:TextBox name="estimated_time" cssClass="dirty-check required number" readonly=""/>
-						</div>
-						
-							
-						<div class="form-group">
-								<cts:Label name="Description" labelFor="description"/>
-								<cts:TextArea name="description" cssClass="dirty-check required" readonly="" rows="3" cols=""/>
-						</div>
 						<fieldset>
 								<legend>
 									Assignee Details&nbsp;&nbsp;
@@ -120,9 +137,7 @@
 						</button>
 					</div>
 					<div class="col-md-4">
-						<button id="submit" class="btn btn-save pull-right" type="submit">
-									<span class="fa fa-save"></span> &nbsp;Save
-						</button>
+						<cts:Submit cssClass="save pull-right" spanClass="save" name="Save"/>
 					</div>
 				</div>
 			</div>
@@ -162,7 +177,7 @@ InitHandlers();
 		$("#story_title").val(storyList.userStoryTitle);
 		HideModal('search-modal');	
 	}
-	
+
 	function showMessage(data) {
 		if (data.outcome == 'success') {
 			ShowSuccessMsg('Tasks created', data.message);
@@ -175,16 +190,6 @@ InitHandlers();
 			$(".alert").removeClass("hidden");
 		}
 	}
-/* 	function validate() {
-		SyncOptionText();
-		var result = CheckRequired();
-		if (!result) {
-			ShowErrorMsg('User was not created', "Please check details.");
-			InitErrorChange();
-			$(".alert").removeClass("hidden");
-		}
-		return result;
-	} */
 	
 	function validate() {
 		var taskCode = $("#task_code").val().trim();
@@ -194,6 +199,8 @@ InitHandlers();
 		var error = "";
 		
 		SyncOptionText();
+		
+		return;
 		
 		var result = CheckRequired();
 
@@ -248,6 +255,17 @@ InitHandlers();
 		
 		return result;
 	}
+
+	
+/* 	$("#btnStory").on("click",function(){
+		ShowModal("/taskman/userstory/story/searchstory/?action_type_code=SELECT&actioncallback=loadStory");
+	});
+
+	function loadStory(story){ 
+		var storyList = JSON.parse(unescape(story));			
+		$("#story_code").val(storyList.userStoryCode);	
+		HideModal('search-modal');	
+	} */
 	
 	
 </script>

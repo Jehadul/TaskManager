@@ -18,7 +18,7 @@ if(!window.jQuery){window.location = "/?desturl=" + window.location.href;}
 	<div class="container-fluid">
 		<c:choose>
 			<c:when test="${data.action_type_code != 'CREATE'}">
-				<cts:AjaxForm action="/ac/user/userSearch" dataHandler="PopulateSearch">
+				<form method="POST" class="ajax" data-handler="PopulateSearch" action="/ac/user/userSearch">
 				<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token}"/>
 		<div class="form-group">
 			<div class="row">
@@ -45,7 +45,7 @@ if(!window.jQuery){window.location = "/?desturl=" + window.location.href;}
 				<cts:Submit cssClass="search pull-right" spanClass="search" name="Search"/>
 			</div>
 		</div>	
-		</cts:AjaxForm>
+		</form>
 		</c:when>
 		<c:otherwise>
 		<div class="row" >

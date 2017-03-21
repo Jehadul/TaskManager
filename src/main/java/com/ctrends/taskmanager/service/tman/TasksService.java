@@ -185,39 +185,15 @@ public class TasksService implements ITasksService {
 		tasks.setClientName(currentUser.getClientName());
 		tasks.setCompanyCode(currentUser.getCompanyCode());
 		tasks.setCompanyName(currentUser.getCompanyName());
-		tasks.setUpdatedByCode(currentUser.getEmpCode());
-		tasks.setUpdatedByName(currentUser.getEmpName());
-		tasks.setUpdatedByUsername(currentUser.getUsername());
-		tasks.setUpdatedByEmail(currentUser.getEmail());
-		tasks.setUpdatedByCompanyCode(currentUser.getCompanyCode());
-		tasks.setUpdatedByCompanyName(currentUser.getCompanyName());
-		tasks.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
-
-		tasks.setUpdatedByCode(currentUser.getUpdatedByCode());
-		tasks.setUpdatedByName(currentUser.getUpdatedByName());
-		tasks.setUpdatedByCompanyCode(currentUser.getCompanyCode());
-		tasks.setUpdatedByCompanyName(currentUser.getCompanyName());
-		tasks.setUpdatedByEmail(currentUser.getEmail());
-		tasks.setUpdatedByUsername(currentUser.getUsername());
-
-		tasks.setClientCode(currentUser.getClientCode());
-		tasks.setClientName(currentUser.getClientName());
-		tasks.setCompanyCode(currentUser.getCompanyCode());
-		tasks.setCompanyName(currentUser.getCompanyName());
-		tasks.setUpdatedByCode(currentUser.getEmpCode());
-		tasks.setUpdatedByName(currentUser.getEmpName());
-		tasks.setUpdatedByUsername(currentUser.getUsername());
-		tasks.setUpdatedByEmail(currentUser.getEmail());
-		tasks.setUpdatedByCompanyCode(currentUser.getCompanyCode());
-		tasks.setUpdatedByCompanyName(currentUser.getCompanyName());
-		tasks.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
-
-		tasks.setUpdatedByCode(currentUser.getUpdatedByCode());
-		tasks.setUpdatedByName(currentUser.getUpdatedByName());
-		tasks.setUpdatedByCompanyCode(currentUser.getCompanyCode());
-		tasks.setUpdatedByCompanyName(currentUser.getCompanyName());
-		tasks.setUpdatedByEmail(currentUser.getEmail());
-		tasks.setUpdatedByUsername(currentUser.getUsername());
+		tasks.setCreatedByCode(currentUser.getCreatedByCode());
+		tasks.setCreatedByName(currentUser.getCreatedByName());
+		tasks.setCreatedByCode(currentUser.getEmpCode());
+		tasks.setCreatedByName(currentUser.getEmpName());
+		tasks.setCreatedByUsername(currentUser.getUsername());
+		tasks.setCreatedByEmail(currentUser.getEmail());
+		tasks.setCreatedByCompanyCode(currentUser.getCompanyCode());
+		tasks.setCreatedByCompanyName(currentUser.getCompanyName());
+		tasks.setCreatedAt(new Timestamp(System.currentTimeMillis()));
 
 		UUID id = tasksDao.updateDoc(tasks);
 		data.put("id", id.toString());
