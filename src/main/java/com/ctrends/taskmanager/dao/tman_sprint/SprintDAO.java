@@ -33,10 +33,15 @@ public class SprintDAO implements ISprintDAO {
 	@Autowired
 	IUserDAO userDAO;
 	
+	@Autowired
+	IUserService userService;
+	
 	@Transactional
 	@Override
 	public List<SprintManager> getAllDoc() {
-		Query query=sessionfactory.getCurrentSession().createQuery("From SprintManager");
+		User currentUser = userService.getCurrentUser();
+		Query query = sessionfactory.getCurrentSession().createQuery("From SprintManager where createdByUsername =:userName");
+		query.setParameter("userName", currentUser.getUsername());
 		List<SprintManager> splist=query.list();
 		return splist;
 	}
