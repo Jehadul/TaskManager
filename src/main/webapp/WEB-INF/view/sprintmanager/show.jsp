@@ -33,7 +33,8 @@
                         <tr>
                             <td class="width-150"><cts:Label name="Suite Name" labelFor="suite_name"/></td>
 								<td class="width-50">:</td>
-								<td><b>${map.sprint.suiteName}</b></td>
+								<td><b>${map.sprint.suiteName}</b>
+								<cts:Hidden name="id" value="${map.sprint.id }"/></td>
                         </tr>
                     </table>
 					<table>
@@ -118,33 +119,6 @@
 			<br/>
 			<br/>
 			<br/>
-<!-- 			<div id="WorkflowBlocks" class="panel-group accordion"> -->
-<!-- 				<fieldset> -->
-<!--                      <legend> -->
-<!--                          Sprint Stories&nbsp;&nbsp;       -->
-<!--                      </legend><br> -->
-<!--                      <div class="col-md-12"> -->
-<!--                          <div class="table-responsive"> -->
-<!--                              <table class="data-grid width-full" id="user-story">   -->
-<!--                                  <thead> -->
-<!--                                       <tr> -->
-<!--                                         <th class="align-center width-140">Story Code</th> -->
-<!-- 							<th class="align-center width-140">Story Name</th> -->
-<!--                                      </tr> -->
-<!--                                  </thead> -->
-<!--                                  <tbody> -->
-<%--                                  	<c:forEach var="story" items="${map.sprint.steps}"> --%>
-<!--                                          <tr> -->
-<%--                                      <td><c:out value="${story.sprintStoryCode}"></c:out></td>    --%>
-<%--                                            <td><c:out value="${story.sprintStoryName}"></c:out></td>  --%>
-<!--                                          </tr>    -->
-<%--                                      </c:forEach>          --%>
-<!--                                  </tbody> -->
-<!--                              </table> -->
-<!--                          </div> -->
-<!--                      </div>                     -->
-<!--             	</fieldset> -->
-<!-- 			</div> -->
 
 				<div id="WorkflowBlocks" class="panel-group accordion">
 				<c:set var="prevBlockId" value="" />
@@ -226,9 +200,7 @@
 </div>
 <script>
 	InitHandlers();
-	$(function() {
-		$("#suite_code").focus();
-	});
+	$("#suite_code").focus();
 	
 	$('#edit_btn').on("click",function(){
 		LoadMainContent('/taskman/tman/sprint/edit/' + "${map.sprint.id}");			
