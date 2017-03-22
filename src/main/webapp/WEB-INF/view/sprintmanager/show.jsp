@@ -23,7 +23,7 @@
 	
 			<form method="POST" action="/taskman/tman/sprint/destroy" class="ajax delete_form">
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-					<cts:Hidden name="id" value="${map.sprint.id }"/>
+					<cts:TextBox name="id" value="${map.sprint.id }"/>
 			</form>
 		
 			<div class="row">
@@ -34,7 +34,7 @@
                             <td class="width-150"><cts:Label name="Suite Name" labelFor="suite_name"/></td>
 								<td class="width-50">:</td>
 								<td><b>${map.sprint.suiteName}</b>
-								<cts:Hidden name="id" value="${map.sprint.id }"/></td>
+								</td>
                         </tr>
                     </table>
 					<table>
@@ -201,7 +201,7 @@
 <script>
 	InitHandlers();
 	$("#suite_code").focus();
-	
+
 	$('#edit_btn').on("click",function(){
 		LoadMainContent('/taskman/tman/sprint/edit/' + "${map.sprint.id}");			
 	});
