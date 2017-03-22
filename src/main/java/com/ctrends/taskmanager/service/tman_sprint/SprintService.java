@@ -57,6 +57,19 @@ public class SprintService implements ISprintService {
 		sprint.setSprintNumber(Double.parseDouble(requestMap.get("sprint_number")[0]));
 		//sprint.setSprintStories(requestMap.get("sprint_stories")[0]);
 		//sprint.setSprintStoryCode(requestMap.get("sprint_story_code")[0]);
+		sprint.setClientCode(currentUser.getClientCode());
+		sprint.setClientName(currentUser.getClientName());
+		sprint.setCompanyCode(currentUser.getCompanyCode());
+		sprint.setCompanyName(currentUser.getCompanyName());
+		sprint.setCreatedByCode(currentUser.getCreatedByCode());
+		sprint.setCreatedByName(currentUser.getCreatedByName());
+		sprint.setCreatedByCode(currentUser.getEmpCode());
+		sprint.setCreatedByName(currentUser.getEmpName());
+		sprint.setCreatedByUsername(currentUser.getUsername());
+		sprint.setCreatedByEmail(currentUser.getEmail());
+		sprint.setCreatedByCompanyCode(currentUser.getCompanyCode());
+		sprint.setCreatedByCompanyName(currentUser.getCompanyName());
+		sprint.setCreatedAt(new Timestamp(System.currentTimeMillis()));
 		
 		if (requestMap.get("start_date")[0].equals("")) {			
 			sprint.setStartDate(new Date(System.currentTimeMillis()));
