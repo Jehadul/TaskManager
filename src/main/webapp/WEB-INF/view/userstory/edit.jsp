@@ -26,14 +26,25 @@
 			</div>
 			
 			<div class="denotes-required">denotes a required field.</div>
-			
+			<cts:Hidden name="id" value="${map.userStory.id}"/>
 			<div class="main-control">
 				<div class="row">
 					<div class="col-md-6">
-						<div class="form-group">
+						
+					 <div class="form-group">
+						 
+									<%-- <cts:Label labelFor="suite_code" name="Suite Name"/>
+									<cts:TextBox name="suite_code" cssClass="dirty-check" readonly="readonly" value="${map.userStory.suiteCode}"/>
+									<cts:Hidden name="suite_name" value=""/>
+									<cts:Hidden name="id" value="${map.userStory.id}"/>
+									 --%>
+									
+									
+						</div> 
+					<div class="form-group">
 							<label for="suite_code" class="control-label">Suite Name</label>
-								<cts:Hidden name="id" value="${map.userStory.id}"/>
-								<select id="suite_code" class="form-control required" name="suite_code">
+								
+								<select id="suite_code" class="form-control" name="suite_code">
 									<c:forEach items="${map.suiteCodes}" var="item">
 									<c:choose>
 										<c:when test="${item.getKey() == map.userStory.suiteCode}">
@@ -47,11 +58,11 @@
 									</c:forEach>
 								</select>	
 								<cts:Hidden name="suite_name" value=""/>		
-					   </div>
+					   </div> 
 					   
 						<div class="form-group">
 							<label for="module_code" class="control-label">Module Name</label>
-								<select id="module_code" class="form-control required" name="module_code">
+								<select id="module_code" class="form-control" name="module_code">
 									<c:forEach items="${map.moduleCodes}" var="item">
 									<c:choose>
 										<c:when test="${item.getKey() == map.userStory.moduleCode}">
@@ -70,7 +81,7 @@
 					   <div class="form-group">
 							<label for="suite_code" class="control-label">Privilege Group</label>
 								
-								<select id="priv_grp_code" class="form-control required" name="priv_grp_code">
+								<select id="priv_grp_code" class="form-control " name="priv_grp_code">
 									<c:forEach items="${map.privGrpCodes}" var="item">
 									<c:choose>
 										<c:when test="${item.getKey() == map.userStory.privGrpCode}">
@@ -88,7 +99,7 @@
 					   
 					   <div class="form-group">
 							<cts:Label name="Privilege Code" labelFor="privilege_code" />
-							<cts:TextBox name="privilege_code" cssClass="dirty-check required "  value="${map.userStory.privilegeCode}" readonly=""/>
+							<cts:TextBox name="privilege_code" cssClass="dirty-check "  value="${map.userStory.privilegeCode}" readonly=""/>
 						</div>
 						<div class="form-group">
 							<cts:Label  labelFor="privilege_name" name="Privilege Name"/>
@@ -182,7 +193,7 @@
 
    InitHandlers();
    
-   	$("input[name='suite_name']").val($("#suite_code option:selected").text());
+   	$("input[name='suite_name']").val($("#suite_code").text());
 	$("input[name='module_name']").val($("#module_code option:selected").text());
 	$("input[name='priv_grp_name']").val($("#priv_grp_code option:selected").text());
    
@@ -232,6 +243,11 @@
 			$("input[name='priority']").val($("#priority_code option:selected").text());
 		});
 	 
+	 $("#suite_code").attr("disabled", "disabled");
+	 $("#module_code").attr("disabled", "disabled");
+	 $("#priv_grp_code").attr("disabled", "disabled");
+	 $("#privilege_code").attr("disabled", "disabled");
+	  
 function validate(){
 			
 		var itemPrivilegeName = $("#privilege_name").val().trim();
