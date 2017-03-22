@@ -8,7 +8,7 @@
 			</div>
 			<ol class="breadcrumb padding-top-20">
 				<li>
-					<span>Taskman</span>
+					<span>Sprint</span>
 				</li>
 				<li class="active">
 					<span>Edit Sprint</span>
@@ -148,28 +148,29 @@
 						</div>	
 					</div>
 				</div>
-				<div class="row margin-top-10">
-			<div class="col-md-8">
-						<button class="btn btn-back" data-ajax="true"
-						data-href="/toc?type=privgrp&currprivgrp=3&currmodcode=PM"
-						title="Back" type="button">
-						<span class="fa fa-arrow-left"></span>
-					</button>
-					<button class="btn btn-refresh refresh-linked" type="button">
-						<span class="fa fa-refresh"></span>
-					</button>
-					<button class="btn btn-help" type="button">
-						<span class="fa fa-question"></span>
-					</button>
-
+				<div class="row margin-top-30 margin-bottom-30 margin-right-5">
+					<div class="col-md-auto">
+							<button class="btn btn-back" data-ajax="true"
+							data-href="/toc?type=privgrp&currprivgrp=3&currmodcode=PM"
+							title="Back" type="button">
+							<span class="fa fa-arrow-left"></span>
+						</button>
+						<button class="btn btn-refresh refresh-linked" type="button">
+							<span class="fa fa-refresh"></span>
+						</button>
+						<button class="btn btn-help" type="button">
+							<span class="fa fa-question"></span>
+						</button>
+	
+					</div>
+	
+					<div class="align-right">
+					<button class="btn btn-save pull-right" type="submit">
+							<span class="fa fa-save"></span> Update
+						</button>
+					</div>
 				</div>
-
-				<div class="col-md-4">
-				<button class="btn btn-save pull-right" type="submit">
-						<span class="fa fa-save"></span> Save
-					</button>
-				</div>
-			</div>
+			
 			</div>
 		</cts:AjaxForm>
 	</div>
@@ -191,11 +192,11 @@
    function showMessage(data) {
 		if (data.outcome == 'success') {
 			isDirty = false ;
-			ShowSuccessMsg('Sprint Manager Updated', data.msg);
+			ShowSuccessMsg('Sprint Updated', data.msg);
 			
 			LoadMainContent('/taskman/tman/sprint/show/'+ data.id);
 		} else {
-			ShowErrorMsg('Sprint Manager was not Updated', data.msg);
+			ShowErrorMsg('Sprint was not Updated', data.msg);
 			var msg = ConcatWithBR(data.error);
 			$(".alert").html(msg);
 			$(".alert").removeClass("hidden");
