@@ -153,7 +153,7 @@
 						</div>
 						<div class="form-group">
 								<cts:Label name="Story Order" labelFor="story_order"/>
-								<cts:TextBox name="story_order" value="${map.userStory.storyOrder}" cssClass="dirty-check required" readonly="" />
+								<cts:TextBox name="story_order" value="${map.userStory.storyOrder}" cssClass="dirty-check required number" readonly="" />
 						</div>
 						<div class="form-group">
 								<cts:Label name="Story Size" labelFor="size"/>
