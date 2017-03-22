@@ -233,7 +233,7 @@ public class UserStoryController implements IUserStoryController {
 
 		Map<String, String> data = userStoryService.update(userStory);
 
-		return new WSResponse("success", "Submitted Successfully", UUID.fromString(data.get("id")), null,
+		return new WSResponse("success", "Updated Successfully", UUID.fromString(data.get("id")), null,
 				data.get("mode"), data);
 	}
 
