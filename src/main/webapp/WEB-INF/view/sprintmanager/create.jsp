@@ -94,7 +94,7 @@
 							</div>
 							<div class="col-md-6">							
 								<div class="form-group">		
-									<cts:Datepicker label="End Date" name="end_date" cssClass="dirty-check required"/>
+									<cts:Datepicker label="End Date" name="end_date" cssClass="end-date-picker dirty-check required"/>
 								</div>
 							</div>	
 							<div class="col-md-12">
@@ -336,5 +336,21 @@ var loadUserStory = function(data){
 $('.start-date-picker ').on('changeDate', function(ev){
     $(this).datepicker('hide');
 }); */
+
+
+
+
+$('.end-date-picker ').on('changeDate', function(ev){
+	var startDate = $("#start_date").val();
+	var endDate = $("#end_date").val();
+	if(startDate>endDate){
+		$("#end_date").val("");
+		alert("end date should be after start date");
+	}
+	
+});
+
+
+
 
 </script>
