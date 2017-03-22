@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ctrends.taskmanager.dao.user.IUserDAO;
+import com.ctrends.taskmanager.model.tman.Tasks;
+import com.ctrends.taskmanager.model.user.User;
 import com.ctrends.taskmanager.model.userstory.UserStory;
 
 @Repository("userStoryDao")
@@ -17,6 +20,10 @@ public class UserStoryDAO implements IUserStoryDAO {
 	
 	@Autowired
 	private SessionFactory sessionFactory;
+	
+	@Autowired
+	IUserDAO userDAO;
+	
 
 	@Transactional
 	@Override
@@ -75,6 +82,30 @@ public class UserStoryDAO implements IUserStoryDAO {
 		sessionFactory.getCurrentSession().delete(app);
 		sessionFactory.getCurrentSession().flush();
 		return id;
+	}
+	
+	@Transactional
+	@Override
+	public boolean checkUnique(Map<String, String> requestMap) {
+		// TODO Auto-generated method stub
+		User currentUser = userDAO.getCurrentUser();
+		String companyCode = currentUser.getCompanyCode();
+		Query query = sessionFactory.getCurrentSession().createQuery("FROM UserStory WHERE userStoryCode =:userStoryCode AND companyCode=:companyCode");
+		query.setParameter("companyCode",companyCode);
+		query.setParameter("userStoryCode", requestMap.get("userStoryCode"));
+		
+		
+		
+		UserStory userstory = (UserStory) query.uniqueResult();
+
+	    if (userstory == null) {
+        	return true;
+        }
+        else{
+        	return false;
+        }
+		
+		
 	}
 	
 
