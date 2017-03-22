@@ -1,6 +1,7 @@
 package com.ctrends.taskmanager.service.tman;
 
 import java.sql.Timestamp;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -14,7 +15,6 @@ import java.util.concurrent.TimeUnit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.ctrends.taskmanager.bean.Utility;
 import com.ctrends.taskmanager.dao.tman.ITasksDao;
 import com.ctrends.taskmanager.model.tman.TaskLog;
 import com.ctrends.taskmanager.model.tman.Tasks;
@@ -42,7 +42,7 @@ public class TasksService implements ITasksService {
 
 		Tasks tasks = new Tasks();
 		User currentUser = userService.getCurrentUser();
-		
+
 		tasks.setSuiteCode(requestMap.get("suite_code")[0]);
 		tasks.setSuiteName(requestMap.get("suite_name")[0]);
 		tasks.setModuleCode(requestMap.get("module_code")[0]);
@@ -206,7 +206,6 @@ public class TasksService implements ITasksService {
 		TaskLog taskLog = tasksDao.getDocByIdTimeLog(requestMap.get("id"));
 		Tasks tasks = tasksDao.getDocById(UUID.fromString(requestMap.get("id")));
 
-		
 		SimpleDateFormat dsf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 		Date s;
 		try {
@@ -217,7 +216,7 @@ public class TasksService implements ITasksService {
 			Timestamp hh = new Timestamp(calendar.getTime().getTime());
 			taskLog.setStopTime(hh);
 			taskLog.setStartStopStatus(true);
-			
+
 			String dat = requestMap.get("day");
 
 			java.util.Date dd;
@@ -230,30 +229,48 @@ public class TasksService implements ITasksService {
 
 				e.printStackTrace();
 			}
+
+			double time = tasks.getSpentTime();
+			DecimalFormat df = new DecimalFormat("#.##");      
+			time = Double.valueOf(df.format(time));
+
+			System.out.println(time);
 			
-			long startSqlTime = hh.getTime() - taskLog.getStartTime().getTime();		
+			String numberD = String.valueOf(time);
+			
+			double spentSqlTime = hh.getTime() - taskLog.getStartTime().getTime();
+			long spentWithSqlTime = (long) (spentSqlTime + (((int)time * 3600)+(Integer.parseInt(numberD.substring(numberD.indexOf( "." )+1))*60))*1000);
+			double aa = tasks.getSpentTime();
+			
+			String spentTime = String.format("%02d.%02d", 
+					TimeUnit.MILLISECONDS.toHours(spentWithSqlTime),
+					TimeUnit.MILLISECONDS.toMinutes(spentWithSqlTime) -  
+					TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(spentWithSqlTime)));
 
-			String spentTimes = String.format("%02d.%02d", TimeUnit.MILLISECONDS.toHours(startSqlTime),
-					TimeUnit.MILLISECONDS.toMinutes(startSqlTime)
-							- TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(startSqlTime)));
-			String spentSqlTime = String.valueOf(tasks.getSpentTime() + Double.parseDouble(spentTimes));
-			System.out.println(spentSqlTime + ":::::::::::::spentSqlTime:::::::::::::::::");
-			/*int beforeDotValue = Integer.parseInt(spentSqlTime.split(".")[0]);
-			int afterDotValue = Integer.parseInt(spentSqlTime.split(".")[1]);
+			double updateSpentTimes = Double.parseDouble(spentTime);
 
-			if (afterDotValue > 60) {
-				beforeDotValue += afterDotValue % 60;
-				afterDotValue += afterDotValue - (afterDotValue % 60);
-			}
-			String spentUpdateTime = String.valueOf(afterDotValue) + "." + String.valueOf(beforeDotValue);*/
-			tasks.setSpentTime(Double.parseDouble(spentSqlTime));
+			time = tasks.getEstimatedTime();
+			time = Double.valueOf(df.format(time));
 
-			tasks.setRemainingTime(tasks.getEstimatedTime() - Double.parseDouble(spentSqlTime));
+			System.out.println(time);
+			
+			numberD = String.valueOf(time);
+			
+			long remainingMillisTime = (long)(((((int)time * 3600)+(Integer.parseInt(numberD.substring(numberD.indexOf( "." )+1))*60))*1000)-spentWithSqlTime);			
+			
+			String spentTime2 = String.format("%02d.%02d", 
+					TimeUnit.MILLISECONDS.toHours(remainingMillisTime),
+					TimeUnit.MILLISECONDS.toMinutes(remainingMillisTime) -  
+					TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(remainingMillisTime)));
+			
+			double updateRemainingTimes = Double.parseDouble(spentTime2);
+
+			tasks.setSpentTime(updateSpentTimes);
+
+			tasks.setRemainingTime(updateRemainingTimes);
 
 			tasksDao.updateTaskLogDoc(taskLog);
 			tasksDao.updateSpantTimeDoc(tasks);
-			System.out.println(spentSqlTime + ":::::::::::::spentTimes:::::::::::::::::");
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

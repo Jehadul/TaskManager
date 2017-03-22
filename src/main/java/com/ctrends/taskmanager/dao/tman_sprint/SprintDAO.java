@@ -19,6 +19,7 @@ import com.ctrends.taskmanager.model.tman_sprint.SprintManager;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManagerDetails;
 import com.ctrends.taskmanager.model.user.User;
 import com.ctrends.taskmanager.model.userstory.UserStory;
+import com.ctrends.taskmanager.service.user.IUserService;
 
 @Repository("sprintDAO")
 public class SprintDAO implements ISprintDAO {
@@ -30,10 +31,15 @@ public class SprintDAO implements ISprintDAO {
 	@Autowired
 	IUserDAO userDAO;
 	
+	@Autowired
+	IUserService userService;
+	
 	@Transactional
 	@Override
 	public List<SprintManager> getAllDoc() {
-		Query query=sessionfactory.getCurrentSession().createQuery("From SprintManager");
+		User currentUser = userService.getCurrentUser();
+		Query query=sessionfactory.getCurrentSession().createQuery("From SprintManager where createdByUsername =:userName");
+		query.setParameter("userName", currentUser.getUsername());
 		List<SprintManager> splist=query.list();
 		return splist;
 	}
@@ -41,13 +47,16 @@ public class SprintDAO implements ISprintDAO {
 	@Transactional
 	@Override
 	public SprintManager getDocById(UUID id) {
-		Query query = sessionfactory.getCurrentSession().createQuery("From SprintManager WHERE id = :id");
-		query.setParameter("id", id);
-		List<SprintManager> pt = query.list();
-		if(pt.size()>0){
-			return pt.get(0);
-		}
-		return null;
+		Query sprintManagerQuery = sessionfactory.getCurrentSession().createQuery("From SprintManager WHERE id = :id");
+		sprintManagerQuery.setParameter("id", id);
+		
+		SprintManager sprintManager=(SprintManager)sprintManagerQuery.list().get(0);
+		
+		Query sprintManagerDetailsQuery=sessionfactory.getCurrentSession().createQuery("From SprintManagerDetails where sprintCode =:sprintCode");
+		sprintManagerDetailsQuery.setParameter("sprintCode", sprintManager.getSprintCode());
+		List<SprintManagerDetails> pt = sprintManagerDetailsQuery.list();
+		sprintManager.setSteps(pt);
+		return sprintManager;
 	}
 
 	@Override

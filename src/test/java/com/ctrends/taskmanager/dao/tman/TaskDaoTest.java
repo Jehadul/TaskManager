@@ -143,14 +143,14 @@ public class TaskDaoTest {
 		assertNotNull(privGrpList);
 	}
 	
-	@Test
+	/*@Test
 	@WithMockUser("CTS0001")
 	public void testGetDocByIdTimeLog_ReturnsTaskLog(){
 		UUID uuid=UUID.fromString("842e997d-63f9-4abd-befc-aaa28c49c70a");
 		TaskLog doc=new TaskLog();
-		TaskLog taskLog=taskDao.getDocByIdTimeLog(uuid);
+		TaskLog taskLog=taskDao.getDocByIdTimeLog(UUID);
 		assertEquals(doc.getClass(), taskLog.getClass());
-	}
+	}*/
 	
 	@Test
 	public void testUpdateTaskLogDoc_ReturnsUUID(){

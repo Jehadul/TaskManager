@@ -23,7 +23,7 @@
 					<table class="table table-striped table-hover">
 						<thead>
 							<tr>
-								<th>Desc.</th>
+								<th>Description</th>
 								<th>Suite</th>
 								<th>Module</th>
 								<th>Privilege</th>
@@ -61,8 +61,8 @@
 											value="${currentTasklist.getRemainingTime() }"
 											cssClass="view" /></td>
 									<td style="width: 102px;">
-										<button type="button" class="btn-edit btn btn-xs pull-left"
-											id="start-timer">
+										<button type="button" class="btn btn-xs pull-left"
+											id="start-timer" style="border:1px solid #008800;color:#008800">
 											<span id="tn"> <time>${data.spentTime}</time>
 											</span>
 										</button> <span class="pull-left">&nbsp;</span>
@@ -113,11 +113,12 @@
 											class="btn-edit btn btn-xs">
 											<span class="fa fa-edit"></span>
 										</button>
-
+										
 										<button type="button" onclick="delRow(this);"
 											class="btn-del btn btn-xs">
 											<span class="fa fa-trash"></span>
 										</button>
+										
 										<button type="button" onclick="startTimeFromList(this)" id="start"
 											class="btn-timer btn btn-xs time-start">
 											<span class="fa fa-play"></span>
@@ -165,6 +166,50 @@
 	var startTime = $("#curr_start_time").val(); //alert(startTime)
 
 	//reload();
+	window.setInterval(function(){
+		  
+		}, 10000);
+	
+	var delRow = function(el) {
+		var spentTime = $(el).closest("tr").find(".spent_time").val();
+		if(spentTime =="0.0"){
+			swal({
+				title : "Are you sure?",
+				text : "Are you sure to delete this privilege?",
+				type : "warning",
+				showCancelButton : true,
+				confirmButtonColor : "#007AFF",
+				confirmButtonText : "Yes, delete it!",
+				closeOnConfirm : true
+			}, function() {
+				$("input[name='id']").val(
+						$(el).closest("tr").find(".task_id").val());
+				$(el).closest("tr").remove();
+				$(".delete_form").submit();
+			});
+		}else{
+			swal({
+				title : "Can't Delete This Task",
+				text : "Task is in Progress",
+				type : "warning",
+				showCancelButton : false,
+				confirmButtonColor : "#007AFF",
+				confirmButtonText : "OK",
+				closeOnConfirm : true
+			});
+		}
+		
+		
+	};
+
+	$('.btn-edit').on("click", function() {/* console.log($(".task_id").val()) */
+		var currentRow = $(this).closest("tr");
+		currentRow.addClass("current-row");
+
+		var taskId = currentRow.find(".task_id").val();
+
+		LoadMainContent('/taskman/tman/tasks/edit/' + taskId);
+	});
 	function reload() {
 		$.ajax({
 			url : "/reloadNoticeBoard",
@@ -232,7 +277,7 @@
 						closeOnConfirm : true
 					},
 					function() {
-						html = ' <button type="button" class="btn-edit btn btn-xs" id="start-timer">'
+						html = ' <button type="button" class="btn btn-xs" id="start-timer" style="border:1px solid #008800;color:#008800">'
 								+ '<span id="tn">'
 								+ '<time>00:00:00</time>'
 								+ '</span>'
