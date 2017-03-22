@@ -33,15 +33,28 @@
 						
 					 <div class="form-group">
 						 
-									<%-- <cts:Label labelFor="suite_code" name="Suite Name"/>
-									<cts:TextBox name="suite_code" cssClass="dirty-check" readonly="readonly" value="${map.userStory.suiteCode}"/>
-									<cts:Hidden name="suite_name" value=""/>
+									<cts:Label labelFor="suite_name" name="Suite Name"/>
+									<cts:TextBox name="suite_name" cssClass="dirty-check" readonly="readonly" value="${map.userStory.suiteName}"/>
+									<cts:Hidden name="suite_code" value="${map.userStory.suiteCode}"/>
 									<cts:Hidden name="id" value="${map.userStory.id}"/>
-									 --%>
 									
-									
-						</div> 
+					</div> 
 					<div class="form-group">
+						 
+									<cts:Label labelFor="module_name" name="Module Name"/>
+									<cts:TextBox name="module_name" cssClass="dirty-check" readonly="readonly" value="${map.userStory.moduleName}"/>
+									<cts:Hidden name="module_code" value="${map.userStory.moduleCode}"/>
+									
+					</div> 
+					
+					<div class="form-group">
+									<cts:Label labelFor="priv_grp_name" name="Privilege Group"/>
+									<cts:TextBox name="priv_grp_name" cssClass="dirty-check" readonly="readonly" value="${map.userStory.privGrpName}"/>
+									<cts:Hidden name="priv_grp_code" value="${map.userStory.privGrpCode}"/>
+					</div> 
+					
+					
+					<%-- <div class="form-group">
 							<label for="suite_code" class="control-label">Suite Name</label>
 								
 								<select id="suite_code" class="form-control" name="suite_code">
@@ -58,9 +71,9 @@
 									</c:forEach>
 								</select>	
 								<cts:Hidden name="suite_name" value=""/>		
-					   </div> 
+					   </div>  --%>
 					   
-						<div class="form-group">
+						<%-- <div class="form-group">
 							<label for="module_code" class="control-label">Module Name</label>
 								<select id="module_code" class="form-control" name="module_code">
 									<c:forEach items="${map.moduleCodes}" var="item">
@@ -95,11 +108,11 @@
 									</c:forEach>
 								</select>	
 								<cts:Hidden name="priv_grp_name" value=""/>		
-					   </div>
+					   </div> --%>
 					   
 					   <div class="form-group">
 							<cts:Label name="Privilege Code" labelFor="privilege_code" />
-							<cts:TextBox name="privilege_code" cssClass="dirty-check "  value="${map.userStory.privilegeCode}" readonly=""/>
+							<cts:TextBox name="privilege_code" cssClass="dirty-check " value="${map.userStory.privilegeCode}" readonly="readonly"/>
 						</div>
 						<div class="form-group">
 							<cts:Label  labelFor="privilege_name" name="Privilege Name"/>
@@ -193,10 +206,6 @@
 
    InitHandlers();
    
-   	$("input[name='suite_name']").val($("#suite_code").text());
-	$("input[name='module_name']").val($("#module_code option:selected").text());
-	$("input[name='priv_grp_name']").val($("#priv_grp_code option:selected").text());
-   
    function showMessage(data) {
 		if (data.outcome == 'success') {
 			isDirty = false ;
@@ -211,7 +220,7 @@
 		}
 	}
 
-	$('#suite_code').on('change', function(){
+	/* $('#suite_code').on('change', function(){
 		var newSuiteCode = $("#suite_code").val();
 		LoadMainContent("/taskman/userstory/story/create/?suite_code=" + newSuiteCode);
 	
@@ -237,16 +246,16 @@
 		 var newUserStoryCode = newPrivilegeCode + ".";
 		 $("#user_story_code").val(newUserStoryCode);
 		 
-	 });
+	 }); */
 	 
 	 $("#priority_code").on("change", function(){
 			$("input[name='priority']").val($("#priority_code option:selected").text());
 		});
 	 
-	 $("#suite_code").attr("disabled", "disabled");
+/* 	 $("#suite_code").attr("disabled", "disabled");
 	 $("#module_code").attr("disabled", "disabled");
 	 $("#priv_grp_code").attr("disabled", "disabled");
-	 $("#privilege_code").attr("disabled", "disabled");
+	 $("#privilege_code").attr("disabled", "disabled"); */
 	  
 function validate(){
 			
