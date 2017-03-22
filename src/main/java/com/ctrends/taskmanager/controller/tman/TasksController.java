@@ -162,7 +162,7 @@ public class TasksController implements ITasksController {
 		}
 		else{
 			UUID id = UUID.fromString(data.get("id"));
-			return new WSResponse("success", "Saved successfully", id, null, data.get("mode"), data);
+			return new WSResponse("success", "Saved Successfully", id, null, data.get("mode"), data);
 			
 		}
 
@@ -175,7 +175,7 @@ public class TasksController implements ITasksController {
 
 		Map<String, String> data = tasksService.update(tasks);
 
-		return new WSResponse("success", "Submitted Successfully", UUID.fromString(data.get("id")), null,
+		return new WSResponse("success", "Updated Successfully", UUID.fromString(data.get("id")), null,
 				data.get("mode"), data);
 
 	}
