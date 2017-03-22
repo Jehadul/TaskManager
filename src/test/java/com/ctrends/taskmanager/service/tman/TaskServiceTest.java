@@ -207,7 +207,7 @@ public class TaskServiceTest {
 	    
 		tasks.setTaskTitle(requestMap.get("task_title")[0]);
 		tasks.setEstimatedTime(Double.parseDouble(requestMap.get("estimated_time")[0]));
-		tasks.setAsignee(requestMap.get("assignee")[0]);
+		//tasks.setAsignee(requestMap.get("assignee")[0]);
 		
 	
 		UUID uid= tasksService.delete(requestMap);
