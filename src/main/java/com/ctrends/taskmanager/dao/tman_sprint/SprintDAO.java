@@ -41,13 +41,16 @@ public class SprintDAO implements ISprintDAO {
 	@Transactional
 	@Override
 	public SprintManager getDocById(UUID id) {
-		Query query = sessionfactory.getCurrentSession().createQuery("From SprintManager WHERE id = :id");
-		query.setParameter("id", id);
-		List<SprintManager> pt = query.list();
-		if(pt.size()>0){
-			return pt.get(0);
-		}
-		return null;
+		Query sprintManagerQuery = sessionfactory.getCurrentSession().createQuery("From SprintManager WHERE id = :id");
+		sprintManagerQuery.setParameter("id", id);
+		
+		SprintManager sprintManager=(SprintManager)sprintManagerQuery.list().get(0);
+		
+		Query sprintManagerDetailsQuery=sessionfactory.getCurrentSession().createQuery("From SprintManagerDetails where sprintCode =:sprintCode");
+		sprintManagerDetailsQuery.setParameter("sprintCode", sprintManager.getSprintCode());
+		List<SprintManagerDetails> pt = sprintManagerDetailsQuery.list();
+		sprintManager.setSteps(pt);
+		return sprintManager;
 	}
 
 	@Override
