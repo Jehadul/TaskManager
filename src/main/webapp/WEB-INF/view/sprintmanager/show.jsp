@@ -8,7 +8,7 @@
 			</div>
 			<ol class="breadcrumb padding-top-20">
 				<li>
-					<span>Taskman</span>
+					<span>Sprint</span>
 				</li>
 				<li class="active">
 					<span>Show Sprint</span>
@@ -21,18 +21,12 @@
 	<!-- start: USER PROFILE -->
 	<div class="container-fluid container-fullw bg-white">
 	
-<<<<<<< HEAD
-			<form method="POST" action="/taskman/tman/sprint/destroy" class="ajax delete_form">
-					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-					<cts:TextBox name="id" value="${map.sprint.id }"/>
-			</form>
-=======
-	<form method="POST" action="/taskman/tman/sprint/destroy" class="ajax delete_form">
-			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-			<cts:Hidden name="id" value="${map.sprint.id }"/>
-	</form>
->>>>>>> 1d5b0fc4db057c2c5d63145f4dc676fbdae7ec13
-		
+
+		<form method="POST" action="/taskman/tman/sprint/destroy" class="ajax delete_form">
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+				<cts:TextBox name="id" value="${map.sprint.id }"/>
+		</form>
+
 
 		<div>
 			<div class="alert alert-block alert-danger hidden">
@@ -143,10 +137,11 @@
 		
 		
 		
-		<div class="row margin-top-30 margin-bottom-30">
+	<div class="row margin-bottom-30 margin-right-5">
 
-              <div class="col-md-auto">
-				<cts:Button cssClass="back" spanClass="arrow-left" dAjax="true" dHref="/toc?type=privgrp&currprivgrp=3&currmodcode=WF"/>
+			<div class="col-md-auto">
+				<cts:Button cssClass="back" spanClass="arrow-left" dAjax="true"
+					dHref="/toc?type=privgrp&currprivgrp=3&currmodcode=WF" />
 				<button class="btn btn-refresh refresh-linked" type="button">
 					<span class="fa fa-refresh"></span>
 				</button>
@@ -187,7 +182,7 @@
 		
 		swal({
 			title: "Are you sure?",
-			text: "Are you sure to delete this privilege?",
+			text: "Are you sure to delete this sprint?",
 			type: "warning",
 			showCancelButton: true,
 			confirmButtonColor: "#007AFF",
