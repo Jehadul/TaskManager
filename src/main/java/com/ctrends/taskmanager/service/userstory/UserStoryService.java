@@ -27,7 +27,12 @@ public class UserStoryService implements IUserStoryService {
 	
 	@Override
 	public Map<String, String> insert(Map<String, String[]> requestMap) {
+		UUID id = null;
+		
 		Map<String, String> data = new HashMap<String,String>();
+		
+		data.put("userStoryCode", requestMap.get("user_story_code")[0]);
+		boolean code = userStoryDAO.checkUnique(data);
 		
 		UserStory userStory=new UserStory();
 		User currentUser = userService.getCurrentUser();
@@ -69,8 +74,15 @@ public class UserStoryService implements IUserStoryService {
 		userStory.setCreatedByCompanyName(currentUser.getCompanyName());
 		userStory.setCreatedAt(new Timestamp(System.currentTimeMillis()));
 		
-		UUID id = userStoryDAO.insertDoc(userStory);
-		data.put("id", id.toString());
+		/*UUID id = userStoryDAO.insertDoc(userStory);
+		data.put("id", id.toString());*/
+		
+		if (code) {
+			id = userStoryDAO.insertDoc(userStory);
+			data.put("id", id.toString());
+		} else {
+			data.put("id", null);
+		}
 		return data ;
 	}
 
