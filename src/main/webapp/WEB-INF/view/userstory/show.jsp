@@ -8,7 +8,7 @@
 			</div>
 			<ol class="breadcrumb padding-top-20">
 				<li><span>User Story</span></li>
-				<li class="active"><span>User Story</span></li>
+				<li class="active"><span>Show User Story</span></li>
 			</ol>
 		</div>
 	</section>
@@ -210,7 +210,7 @@
 
 		swal({
 			title : "Are you sure?",
-			text : "Are you sure to delete this privilege?",
+			text : "Are you sure to delete this user story?",
 			type : "warning",
 			showCancelButton : true,
 			confirmButtonColor : "#007AFF",
