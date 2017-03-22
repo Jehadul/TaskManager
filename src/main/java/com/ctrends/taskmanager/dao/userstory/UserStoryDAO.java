@@ -15,7 +15,7 @@ import com.ctrends.taskmanager.model.tman.Tasks;
 import com.ctrends.taskmanager.model.user.User;
 import com.ctrends.taskmanager.model.userstory.UserStory;
 
-@Repository("userStoryDao")
+@Repository("userStoryDao") 
 public class UserStoryDAO implements IUserStoryDAO {
 	
 	@Autowired
@@ -102,7 +102,7 @@ public class UserStoryDAO implements IUserStoryDAO {
         	return true;
         }
         else{
-        	return false;
+        	return false; 
         }
 		
 		
