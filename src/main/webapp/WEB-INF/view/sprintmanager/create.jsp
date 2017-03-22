@@ -14,7 +14,7 @@
 					<span>Create Sprint</span>
 				</li>
 			</ol>
-		</div>
+		</div> 
 	</section>
 
 	<div class="container-fluid container-fullw bg-white">
