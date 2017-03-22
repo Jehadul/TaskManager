@@ -252,8 +252,11 @@ public class SprintService implements ISprintService {
 		//boolean rules = sprintDao.validate(param);;
 		boolean rules = sprintDao.checkUnique(param);
 		SprintManager sprint = sprintDao.getDocById(UUID.fromString(requestMap.get("id")[0]));
-		sprint.setSuiteName(requestMap.get("suite_name")[0]);	
+		sprint.setSuiteCode(requestMap.get("suite_code")[0]);
+		sprint.setSuiteName(requestMap.get("suite_name")[0]);
+		sprint.setModuleCode(requestMap.get("module_code")[0]);
 		sprint.setModuleName(requestMap.get("module_name")[0]);
+		sprint.setPrivGrpCode(Integer.parseInt(requestMap.get("priv_grp_code")[0]));
 		sprint.setPrivilegeName(requestMap.get("priv_grp_name")[0]);
 		sprint.setSprintCode(requestMap.get("sprint_code")[0]);
 		sprint.setSprintName(requestMap.get("sprint_name")[0]);
@@ -293,6 +296,7 @@ public class SprintService implements ISprintService {
 			stroyDetails.setSprintStoryCode(storyCode[i]);
 			stroyDetails.setSprintStoryName(storyName[i]);
 			
+			stroyDetails.setSprintCode(requestMap.get("sprint_code")[0]);
 			stroyDetails.setCreatedByCode(currentUser.getCreatedByCode());
 			stroyDetails.setCreatedByName(currentUser.getCreatedByName());
 			stroyDetails.setCreatedByUsername(currentUser.getCreatedByUsername());
@@ -319,7 +323,7 @@ public class SprintService implements ISprintService {
 		}
 		sprint.setSteps(storyDetailsList);
 		if(rules){
-			id = sprintDao.insertDoc(sprint);
+			id = sprintDao.updateDoc(sprint);
 			strid = id.toString();
 			data.put("id", strid);
 		}
@@ -329,7 +333,6 @@ public class SprintService implements ISprintService {
 		}
 
 		return data;
-		
 	}
 	
 	
