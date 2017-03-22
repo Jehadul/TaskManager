@@ -21,10 +21,10 @@
 	<!-- start: USER PROFILE -->
 	<div class="container-fluid container-fullw bg-white">
 	
-	<form method="POST" action="/taskman/tman/sprint/destroy" class="ajax delete_form">
-			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-			<cts:Hidden name="id" value="${map.sprint.id }"/>
-	</form>
+			<form method="POST" action="/taskman/tman/sprint/destroy" class="ajax delete_form">
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+					<cts:Hidden name="id" value="${map.sprint.id }"/>
+			</form>
 		
 			<div class="row">
 				
@@ -118,35 +118,87 @@
 			<br/>
 			<br/>
 			<br/>
-			<div id="WorkflowBlocks" class="panel-group accordion">
-				<fieldset>
-                     <legend>
-                         Sprint Stories&nbsp;&nbsp;      
-                     </legend><br>
-                         <div class="col-md-12">
-                             <div class="table-responsive">
-                                 <table class="data-grid width-full" id="user-story">  
-                                     <thead>
-                                          <tr>
-                                            <th class="align-center width-140">Story Code</th>
-											<th class="align-center width-140">Story Name</th>
-                                         </tr>
-                                     </thead>
-                                     <tbody>
-                                     	<c:forEach var="story" items="${map.sprint.steps}">
-                                             <tr>
-		                                       <td><c:out value="${story.sprintStoryCode}"></c:out></td>   
-                                               <td><c:out value="${story.sprintStoryName}"></c:out></td> 
-                                             </tr>   
-                                         </c:forEach>         
-                                     </tbody>
-                                 </table>
-                             </div>
-                         </div>                    
-                    </fieldset>
-			</div>
+<!-- 			<div id="WorkflowBlocks" class="panel-group accordion"> -->
+<!-- 				<fieldset> -->
+<!--                      <legend> -->
+<!--                          Sprint Stories&nbsp;&nbsp;       -->
+<!--                      </legend><br> -->
+<!--                      <div class="col-md-12"> -->
+<!--                          <div class="table-responsive"> -->
+<!--                              <table class="data-grid width-full" id="user-story">   -->
+<!--                                  <thead> -->
+<!--                                       <tr> -->
+<!--                                         <th class="align-center width-140">Story Code</th> -->
+<!-- 							<th class="align-center width-140">Story Name</th> -->
+<!--                                      </tr> -->
+<!--                                  </thead> -->
+<!--                                  <tbody> -->
+<%--                                  	<c:forEach var="story" items="${map.sprint.steps}"> --%>
+<!--                                          <tr> -->
+<%--                                      <td><c:out value="${story.sprintStoryCode}"></c:out></td>    --%>
+<%--                                            <td><c:out value="${story.sprintStoryName}"></c:out></td>  --%>
+<!--                                          </tr>    -->
+<%--                                      </c:forEach>          --%>
+<!--                                  </tbody> -->
+<!--                              </table> -->
+<!--                          </div> -->
+<!--                      </div>                     -->
+<!--             	</fieldset> -->
+<!-- 			</div> -->
 
-	</div>
+				<div id="WorkflowBlocks" class="panel-group accordion">
+				<c:set var="prevBlockId" value="" />
+				<c:set var="nextBlockId" value="" />
+				<c:forEach var="i" begin="0" end="${map.sprint.steps.size()-1}">
+					<c:if test="${!map.sprint.steps[i].sprintCode.equals(prevBlockId)}">
+						<div class="wf-block panel panel-light-grey" data-id="${map.sprint.steps[i].sprintCode}">
+							<div class="panel-heading">
+								<h5 class="panel-title">
+									<a class="accordion-toggle bold" data-toggle="collapse"
+										data-parent="#accordion"
+										href="#wf_block${map.sprint.steps[i].sprintCode}"><i
+										class="icon-arrow"></i> <span class="wf-block-title">
+											Sprint Code:${map.sprint.steps[i].sprintCode}</span>
+									</a>
+								</h5>
+							</div>
+							<div id="wf_block${map.sprint.steps[i].sprintCode}"
+								class="panel-collapse collapse in">
+								<div class="panel-body">
+									<table class="wf-step-list table table-striped table-hover">
+										<thead>
+											<tr>
+												<th>Story Code</th>
+												<th>Story Name</th>
+											</tr>
+										</thead>
+										<tbody>
+											</c:if>
+											<c:choose>
+												<c:when test="${i < map.sprint.steps.size()-1}">
+													<c:set var="nextBlockId"
+														value="${map.sprint.steps[i+1].sprintCode}" />
+												</c:when>
+												<c:otherwise>
+													<c:set var="nextBlockId" value="" />
+												</c:otherwise>
+											</c:choose>
+											<tr>
+												<td>${map.sprint.steps[i].sprintStoryCode}</td>
+												<td>${map.sprint.steps[i].sprintStoryName}</td>
+											</tr>
+										</tbody>
+										<c:if test="${!map.sprint.steps[i].sprintCode.equals(nextBlockId)}">
+									</table>
+								</div>
+							</div>
+						</div>
+					</c:if>
+					<c:set var="prevBlockId" value="${map.sprint.steps[i].sprintCode}" />
+				</c:forEach>
+			</div>
+				
+		</div>
 		
 		<div class="row margin-top-30 margin-bottom-30">
 
