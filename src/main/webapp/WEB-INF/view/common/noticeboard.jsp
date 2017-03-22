@@ -113,12 +113,12 @@
 											class="btn-edit btn btn-xs">
 											<span class="fa fa-edit"></span>
 										</button>
-										<c:if test="${task.getSpentTime()==0}">
+										
 										<button type="button" onclick="delRow(this);"
 											class="btn-del btn btn-xs">
 											<span class="fa fa-trash"></span>
 										</button>
-										</c:if>
+										
 										<button type="button" onclick="startTimeFromList(this)" id="start"
 											class="btn-timer btn btn-xs time-start">
 											<span class="fa fa-play"></span>
@@ -171,20 +171,35 @@
 		}, 10000);
 	
 	var delRow = function(el) {
-		swal({
-			title : "Are you sure?",
-			text : "Are you sure to delete this privilege?",
-			type : "warning",
-			showCancelButton : true,
-			confirmButtonColor : "#007AFF",
-			confirmButtonText : "Yes, delete it!",
-			closeOnConfirm : true
-		}, function() {
-			$("input[name='id']").val(
-					$(el).closest("tr").find(".task_id").val());
-			$(el).closest("tr").remove();
-			$(".delete_form").submit();
-		});
+		var spentTime = $(el).closest("tr").find(".spent_time").val();
+		if(spentTime =="0.0"){
+			swal({
+				title : "Are you sure?",
+				text : "Are you sure to delete this privilege?",
+				type : "warning",
+				showCancelButton : true,
+				confirmButtonColor : "#007AFF",
+				confirmButtonText : "Yes, delete it!",
+				closeOnConfirm : true
+			}, function() {
+				$("input[name='id']").val(
+						$(el).closest("tr").find(".task_id").val());
+				$(el).closest("tr").remove();
+				$(".delete_form").submit();
+			});
+		}else{
+			swal({
+				title : "Can't Delete This Task",
+				text : "Task is in Progress",
+				type : "warning",
+				showCancelButton : false,
+				confirmButtonColor : "#007AFF",
+				confirmButtonText : "OK",
+				closeOnConfirm : true
+			});
+		}
+		
+		
 	};
 
 	$('.btn-edit').on("click", function() {/* console.log($(".task_id").val()) */
