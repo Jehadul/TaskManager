@@ -19,6 +19,7 @@ import com.ctrends.taskmanager.model.tman_sprint.SprintManager;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManagerDetails;
 import com.ctrends.taskmanager.model.user.User;
 import com.ctrends.taskmanager.model.userstory.UserStory;
+import com.ctrends.taskmanager.service.user.IUserService;
 
 @Repository("sprintDAO")
 public class SprintDAO implements ISprintDAO {
@@ -30,10 +31,15 @@ public class SprintDAO implements ISprintDAO {
 	@Autowired
 	IUserDAO userDAO;
 	
+	@Autowired
+	IUserService userService;
+	
 	@Transactional
 	@Override
 	public List<SprintManager> getAllDoc() {
-		Query query=sessionfactory.getCurrentSession().createQuery("From SprintManager");
+		User currentUser = userService.getCurrentUser();
+		Query query=sessionfactory.getCurrentSession().createQuery("From SprintManager where createdByUsername =:userName");
+		query.setParameter("userName", currentUser.getUsername());
 		List<SprintManager> splist=query.list();
 		return splist;
 	}
