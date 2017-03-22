@@ -14,11 +14,9 @@ import com.ctrends.taskmanager.dao.user.IUserDAO;
 import com.ctrends.taskmanager.model.taskmanage.Module;
 import com.ctrends.taskmanager.model.taskmanage.PrivGroup;
 import com.ctrends.taskmanager.model.taskmanage.Suite;
-import com.ctrends.taskmanager.model.tman.Tasks;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManager;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManagerDetails;
 import com.ctrends.taskmanager.model.user.User;
-import com.ctrends.taskmanager.model.userstory.UserStory;
 import com.ctrends.taskmanager.service.user.IUserService;
 
 @Repository("sprintDAO")
@@ -189,8 +187,23 @@ public class SprintDAO implements ISprintDAO {
         	return false;
         }
 	}
+	
+	@Transactional
+	@Override
+	public UUID updateDetail(SprintManagerDetails sprintDetail) {
+		sessionfactory.getCurrentSession().saveOrUpdate(sprintDetail);
+		sessionfactory.getCurrentSession().flush();
+		return sprintDetail.getId();
+	}
 
-	 
+	@Override
+	@Transactional
+	public List<SprintManagerDetails> findBySprintCode(String sprintCode) {
+		Query query = sessionfactory.getCurrentSession()
+				.createQuery("from SprintManagerDetails where sprintCode =:sprintCode ");
+		query.setParameter("sprintCode", sprintCode);
+		return query.list();
+	} 
 
 
 }
