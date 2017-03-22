@@ -10,7 +10,6 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.config.annotation.authentication.configurers.userdetails.DaoAuthenticationConfigurer;
 import org.springframework.stereotype.Service;
 
 import com.ctrends.taskmanager.bean.Utility;
@@ -61,20 +60,6 @@ public class SprintService implements ISprintService {
 		sprint.setSprintNumber(Double.parseDouble(requestMap.get("sprint_number")[0]));
 		//sprint.setSprintStories(requestMap.get("sprint_stories")[0]);
 		//sprint.setSprintStoryCode(requestMap.get("sprint_story_code")[0]);
-		
-		sprint.setClientCode(currentUser.getClientCode());
-		sprint.setClientName(currentUser.getClientName());
-		sprint.setCompanyCode(currentUser.getCompanyCode());
-		sprint.setCompanyName(currentUser.getCompanyName());
-		sprint.setCreatedByCode(currentUser.getCreatedByCode());
-		sprint.setCreatedByName(currentUser.getCreatedByName());
-		sprint.setCreatedByCode(currentUser.getEmpCode());
-		sprint.setCreatedByName(currentUser.getEmpName());
-		sprint.setCreatedByUsername(currentUser.getUsername());
-		sprint.setCreatedByEmail(currentUser.getEmail());
-		sprint.setCreatedByCompanyCode(currentUser.getCompanyCode());
-		sprint.setCreatedByCompanyName(currentUser.getCompanyName());
-		sprint.setCreatedAt(new Timestamp(System.currentTimeMillis()));
 		
 		if (requestMap.get("start_date")[0].equals("")) {			
 			sprint.setStartDate(new Date(System.currentTimeMillis()));
@@ -255,7 +240,6 @@ public class SprintService implements ISprintService {
 		Map<String, String> data = new HashMap<String, String>();
 		User currentUser = userService.getCurrentUser();
 		String strid = null;
-		UUID id;
 		
 	/*************************Master data sent from view*******************************/
 		
@@ -298,6 +282,8 @@ public class SprintService implements ISprintService {
 		}
 		sprint.setSprintDescription(requestMap.get("sprint_description")[0]);
 		
+		UUID id = sprintDao.updateDoc(sprint);
+		
 		/**********************Detail item data sent from view*********************************/
 
 		String[] storyCode			= (String[]) requestMap.get("story_code[]"); 
@@ -336,16 +322,38 @@ public class SprintService implements ISprintService {
 			storyDetailsList.add(i,stroyDetails);	
 		}
 		sprint.setSteps(storyDetailsList);
-		if(rules){
-			id = sprintDao.updateDoc(sprint);
-			strid = id.toString();
-			data.put("id", strid);
-		}
-		else{
-			data.put("id", null);
+		
+		String [] ids = new String[sprint.getSteps().size()];				/*wf.getSteps() will give a replica of details table*/
+		List<SprintManagerDetails> sprintDetailList = sprint.getSteps();
+		
+		for(int i = 0; i < sprint.getSteps().size(); i++){
 			
+			SprintManagerDetails detailSprint = sprintDetailList.get(i);
+			sprintDao.updateDetail(detailSprint);
+			 ids[i]= detailSprint.getId().toString();                    				/*set each steps id into ids[i]*/
 		}
 
+		List<SprintManagerDetails> listSprintDetail = sprintDao.findBySprintCode(sprint.getSprintCode());
+		
+		for(int i = 0 ;i < listSprintDetail.size(); i++){
+			String detailId = "";
+			boolean key = true;
+			for (int j = 0; j < ids.length; j++) {
+				
+				detailId = listSprintDetail.get(i).getId().toString();
+				
+				if ( detailId.equals(ids[j])) {
+					key = false;
+				} 
+			}
+			
+			if(key){
+				sprintDao.deleteDoc(UUID.fromString(detailId));
+			}
+			
+		
+		}
+		data.put("id", id.toString());
 		return data;
 	}
 	
