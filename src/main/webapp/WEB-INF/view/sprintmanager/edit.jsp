@@ -86,90 +86,80 @@
 								<cts:Label name="Sprint Name" labelFor="sprint_name"/>
 								<cts:TextBox name="sprint_name" value="${map.sprintManager.sprintName}" cssClass="dirty-check required" readonly="" />
 						</div>
-						
-						
+					</div>
+					<div class="col-md-6">
 						<div class="form-group">
 								<cts:Label name="Sprint Goal" labelFor="sprint_goal"/>
 								<cts:TextBox name="sprint_goal" value="${map.sprintManager.sprintGoal}" cssClass="dirty-check required" readonly=""/>
 						</div>
-						
-					</div>
-					<div class="col-md-6">
-						
 						<div class="form-group">
 								<cts:Label name="Sprint Number" labelFor="sprint_number"/>
 								<cts:TextBox name="sprint_number" value="${map.sprintManager.sprintNumber}" cssClass="dirty-check required" readonly=""/>
 						</div>
-						
-						
-						
-						<fieldset>
-							<legend>
-								Pick Story&nbsp;&nbsp;
-							<cts:Button cssClass="find" spanClass="search" id="btnStorySearch"/>			
-							</legend>
-						
-							<div class="form-group">
-								<%-- <cts:Label name="Sprint Stories" labelFor="sprint_stories"/> --%>
-								<cts:TextBox name="sprint_stories" value="${map.sprintManager.sprintStories}"  cssClass="dirty-check required" readonly="readonly"/>
-								<cts:Hidden name="sprint_story_code" value="${map.sprintManager.sprintStoryCode}" />
-							</div>
-						</fieldset>	
-						
-						
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">		
 									 <cts:Datepicker label="Start Date" name="start_date" value="${map.sprintManager.startDate}" cssClass="dirty-check" />
-							</div>	
+								</div>	
 							</div>
 							<div class="col-md-6">							
 								<div class="form-group">		
 									 <cts:Datepicker label="End Date" name="end_date" value="${map.sprintManager.endDate}" cssClass="dirty-check" />
-							</div>
+								</div>
 							</div>	
 						</div>
-						
-						
-						
-						<%-- <div class="form-group">
-								
-							 <cts:Datepicker label="Start Date" name="start_date" value="${map.sprintManager.startDate}" cssClass="dirty-check" />
-						</div> 
-						
 						<div class="form-group">
-								
-							 <cts:Datepicker label="End Date" name="end_date" value="${map.sprintManager.endDate}" cssClass="dirty-check" />
-						</div>  --%>
-						
-							<div class="form-group">
-								<cts:Label name="Description" labelFor="sprint_description"/>
-								<cts:TextArea name="sprint_description" value="${ map.sprintManager.sprintDescription}" cssClass="dirty-check" readonly="" rows="3" cols=""/>
+							<cts:Label name="Description" labelFor="sprint_description"/>
+							<cts:TextArea name="sprint_description" value="${ map.sprintManager.sprintDescription}" cssClass="dirty-check" readonly="" rows="3" cols=""/>
 						</div>	
 					</div>
 				</div>
-				<div class="row margin-top-10">
-			<div class="col-md-8">
-						<button class="btn btn-back" data-ajax="true"
-						data-href="/toc?type=privgrp&currprivgrp=3&currmodcode=PM"
-						title="Back" type="button">
-						<span class="fa fa-arrow-left"></span>
-					</button>
-					<button class="btn btn-refresh refresh-linked" type="button">
-						<span class="fa fa-refresh"></span>
-					</button>
-					<button class="btn btn-help" type="button">
-						<span class="fa fa-question"></span>
-					</button>
-
+				<div class="row">
+							<div class="col-md-12">
+								<fieldset id="fs_multiple_employees" style="display: block;">
+									<legend>
+										Sprint Stories&nbsp;&nbsp;
+										<button id="btnAddStories" class="btn btn-find" type="button">
+											<span class="fa fa-plus"></span>
+										</button>
+									</legend>
+									<div class="table-responsive">
+										<table class="table table-striped table-hover" id=story_list>
+											<thead>
+												<tr>
+													<th>Code</th>
+													<th>Name</th>
+												</tr>
+											</thead>
+											<tbody>
+											</tbody>
+										</table>
+									</div>
+								</fieldset>
+							</div>
+						</div>
+			<div class="row margin-top-10">
+					<div class="col-md-8">
+							<button class="btn btn-back" data-ajax="true"
+							data-href="/toc?type=privgrp&currprivgrp=3&currmodcode=PM"
+							title="Back" type="button">
+							<span class="fa fa-arrow-left"></span>
+						</button>
+						<button class="btn btn-refresh refresh-linked" type="button">
+							<span class="fa fa-refresh"></span>
+						</button>
+						<button class="btn btn-help" type="button">
+							<span class="fa fa-question"></span>
+						</button>
+	
+					</div>
+	
+					<div class="col-md-4">
+					<button class="btn btn-save pull-right" type="submit">
+							<span class="fa fa-save"></span> Save
+						</button>
+					</div>
 				</div>
-
-				<div class="col-md-4">
-				<button class="btn btn-save pull-right" type="submit">
-						<span class="fa fa-save"></span> Save
-					</button>
-				</div>
-			</div>
 			</div>
 		</cts:AjaxForm>
 	</div>
@@ -187,6 +177,8 @@
    	$("input[name='suite_name']").val($("#suite_code option:selected").text());
 	$("input[name='module_name']").val($("#module_code option:selected").text());
 	$("input[name='priv_grp_name']").val($("#priv_grp_code option:selected").text());
+	
+	$("input[name='story_code[]']").val(map.sprintManager.)
    
    function showMessage(data) {
 		if (data.outcome == 'success') {
@@ -226,17 +218,44 @@
 	
 	// search and select story for stories field
 
-	$("#btnStorySearch").on("click",function(){
+/* 	$("#btnStorySearch").on("click",function(){
 		ShowModal("/taskman/userstory/story/searchstory/?action_type_code=SELECT&actioncallback=loadUserStory");
-	});
+	}); */
 
-	function loadUserStory(storydata){ 
+/* 	function loadUserStory(storydata){ 
 		var story = JSON.parse(unescape(storydata));			
 		$("#sprint_stories").val(story.userStoryTitle);	
 		$("#sprint_story_code").val(story.userStoryCode);
 		HideModal('search-modal');	
 	}
-	
+	 */
+	 
+	 $("#btnAddStories").on("click",function(){
+			ShowModal("/taskman/userstory/story/searchstory/?action_type_code=SELECT&actioncallback=loadUserStory");
+		});
+	 
+	 var loadUserStory = function(data){ 
+			var story = JSON.parse(unescape(data));
+			var storyCode          = story.userStoryCode;   
+			var storyName          = story.userStoryTitle;    
+			
+
+				var html = '<tr>' +					
+								'<td>'+ 
+									'<input name="story_code[]" type="text" class="project_code view" value="' + storyCode + '" />' +
+								'</td>'+
+								'<td>'+ 
+									'<input name="story_name[]" type="text" class="project_name view"  value="' + storyName + '" />' +
+								'</td>'+				
+							'</tr>';
+			
+				
+				/*------------------------ project rate edit----------------- */
+				
+				$("#story_list tbody").append(html);
+			
+			HideModal('search-modal');	
+		};
 	
 	
 	function validate(){
