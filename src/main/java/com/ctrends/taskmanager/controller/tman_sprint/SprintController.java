@@ -167,13 +167,10 @@ public class SprintController implements ISprintController {
 	@RequestMapping(value = "/update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Override
 	public WSResponse update(HttpServletRequest request) {
-		Map<String, String[]> sprintManager = request.getParameterMap();
-
+		Map<String,String[]> sprintManager = request.getParameterMap();	
 		Map<String, String> data = sprintService.update(sprintManager);
-
-		return new WSResponse("success", "Submitted Successfully", UUID.fromString(data.get("id")), null,
-				data.get("mode"), data);
-
+		UUID id = UUID.fromString(data.get("id"));
+		return new WSResponse("success", "Updated successfully", id, null, data.get("mode"), data);
 	}
 
 
