@@ -130,8 +130,9 @@
 							</fieldset>	
 						</div>				
 					</div>
-				<div class="row">
-					<div class="col-md-8">
+				
+				<div class="row margin-top-30 margin-bottom-30 margin-right-5">
+					<div class="col-md-auto">
 						 <cts:Button cssClass="back" spanClass="arrow-left" dAjax="true" dHref="/toc?type=privgrp&currprivgrp=3&currmodcode=SA" />
 						<button class="btn btn-refresh" type="button">
 							<span class="fa fa-refresh"></span>
@@ -140,7 +141,7 @@
 							<span class="fa fa-question"></span>
 						</button>
 					</div>
-					<div class="col-md-4">
+					<div class="align-right">
 						<button id="submit" class="btn btn-save pull-right" type="submit">
 									<span class="fa fa-save"></span> &nbsp;Save
 						</button>
