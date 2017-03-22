@@ -61,8 +61,8 @@
 											value="${currentTasklist.getRemainingTime() }"
 											cssClass="view" /></td>
 									<td style="width: 102px;">
-										<button type="button" class="btn-edit btn btn-xs pull-left"
-											id="start-timer">
+										<button type="button" class="btn btn-xs pull-left"
+											id="start-timer" style="border:1px solid #008800;color:#008800">
 											<span id="tn"> <time>${data.spentTime}</time>
 											</span>
 										</button> <span class="pull-left">&nbsp;</span>
@@ -262,7 +262,7 @@
 						closeOnConfirm : true
 					},
 					function() {
-						html = ' <button type="button" class="btn-edit btn btn-xs" id="start-timer">'
+						html = ' <button type="button" class="btn btn-xs" id="start-timer" style="border:1px solid #008800;color:#008800">'
 								+ '<span id="tn">'
 								+ '<time>00:00:00</time>'
 								+ '</span>'
