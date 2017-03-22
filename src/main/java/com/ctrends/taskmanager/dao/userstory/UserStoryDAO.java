@@ -10,18 +10,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ctrends.taskmanager.model.user.User;
 import com.ctrends.taskmanager.model.userstory.UserStory;
+import com.ctrends.taskmanager.service.user.IUserService;
 
 @Repository("userStoryDao")
 public class UserStoryDAO implements IUserStoryDAO {
 	
 	@Autowired
 	private SessionFactory sessionFactory;
+	
+	@Autowired
+	IUserService userService;
 
 	@Transactional
 	@Override
 	public List<UserStory> getAllDoc() {
-		Query query=sessionFactory.getCurrentSession().createQuery("From UserStory Order By priorityCode");
+		User currentUser = userService.getCurrentUser();
+		Query query = sessionFactory.getCurrentSession().createQuery("From UserStory where createdByUsername =:userName");
+		query.setParameter("userName", currentUser.getUsername());	
 		List<UserStory> userStoryLi=query.list();
 		return userStoryLi;
 	}
