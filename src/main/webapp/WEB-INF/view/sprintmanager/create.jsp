@@ -8,7 +8,7 @@
 			</div>
 			<ol class="breadcrumb padding-top-20">
 				<li>
-					<span>Taskman</span>
+					<span>Sprint</span>
 				</li>
 				<li class="active">
 					<span>Create Sprint</span>
@@ -198,9 +198,9 @@ function showMessage(data) {
 		isDirty = false;
 		LoadMainContent('/taskman/tman/sprint/show/' + data.id);
 	} else {
-		ShowErrorMsg('Sprint was not created', data.msg);
+		ShowErrorMsg('Sprint was not created', data.message);
 		var msg = ConcatWithBR(data.error);
-		$(".alert").html(msg);
+		$(".alert").html(message);
 		$(".alert").removeClass("hidden");
 	}
 }
@@ -212,15 +212,29 @@ $("#btnStorySearch").on("click",function(){
 	ShowModal("/taskman/userstory/story/searchstory/?action_type_code=SELECT&actioncallback=loadUserStory");
 });
 
+var i = 0;
 var loadUserStory = function(data){ 
 	var story = JSON.parse(unescape(data));
 	var storyCode          = story.userStoryCode;   
-	var storyName          = story.userStoryTitle;    
+	var storyName          = story.userStoryTitle;   
+	var rows = $("#story_list tbody tr");
+	
+	for(var i = 0; i< rows.length; i++){
+		var code = $(rows[i]).find("#code_"+i).attr("value");
+ 		if(code == storyCode){
+ 			ShowErrorMsg('Sprint Stories already in use');
+ 			$(".alert").html(msg);
+ 			$(".alert").removeClass("hidden");
+		}
+		
+	}
+	
+ 
 	
 
 		var html = '<tr>' +					
 						'<td>'+ 
-							'<input name="story_code[]" type="text" class="project_code view" value="' + storyCode + '" />' +
+							'<input name="story_code[]" type="text" id="code_'+i+'" class="project_code view" value="' + storyCode + '" />' +
 						'</td>'+
 						'<td>'+ 
 							'<input name="story_name[]" type="text" class="project_name view"  value="' + storyName + '" />' +
@@ -231,40 +245,51 @@ var loadUserStory = function(data){
 		/*------------------------ project rate edit----------------- */
 		
 		$("#story_list tbody").append(html);
+		i++;
 	
 	HideModal('search-modal');	
 };
 
-/* function loadUserStory(storydata){ 
-	var story = JSON.parse(unescape(storydata));			
-	/* $("#sprint_stories").val(story.userStoryTitle);	
-	$("#sprint_story_code").val(story.userStoryCode); */
-	//HideModal('search-modal');	
-/* } */ 
+var checkProjectDates = function()
+{
+	var startDate= $('#start_date').val();
+	var endDate= $('#end_date').val();
+	
+	if(startDate != '' && endDate != '')
+	{
+		if ( new Date(startDate) > new Date(endDate)) {
+			ShowErrorMsg('',"Please ensure that the Sprint End Date is greater than or equal to the Start Date");
+			return false;
+		}
+	}
+	return true;
+};
 
 
-/* function validate(){
+ function validate(){
+		var storyCode = $("#sprint_code").val().trim();
+		var storyNumber = $("#sprint_number").val().trim();
 	
 	SyncOptionText();
 	
 	var error = "";
 	var result = CheckRequired();
 	
-
+	
 	if ( $("#suite_code").val() =="-1") {
-		error +="Please select Suite Code <br/>";
+		error +="Please select Suite Name <br/>";
 		result = false;
 		
 	}  
 	 
 	 if ( $("#module_code").val() =="-1") {
-			error +="Please select Module Code <br/>";
+			error +="Please select Module Name <br/>";
 			result = false;
 			
 		}  
 	 
 	 if ( $("#priv_grp_code").val() =="-1") {
-			error +="Please select Priv Grp Code <br/>";
+			error +="Please select Privilege Group Name <br/>";
 			result = false;
 			
 		} 
@@ -304,6 +329,12 @@ var loadUserStory = function(data){
 		result = false;
 		
 	} 
+	
+	
+	if (!checkProjectDates()) {
+		result = false;
+		error += "Please ensure that the Sprint End Date is greater than or equal to the Start Date.<br />";
+	}
 	 
 	 
 	if (!result) {
@@ -315,15 +346,15 @@ var loadUserStory = function(data){
 	if (!result) {
 		
 		error +="Please check the fields marked with X";
-		ShowErrorMsg('Task was not created', "Please check details.");
+		ShowErrorMsg('Sprint was not created', "Please check details.");
 		InitErrorChange();
 		$(".alert").html(error);
 		$(".alert").removeClass("hidden");
 	}
-	else if(itemCode==""||itemName==""){
+	else if(storyCode==""||storyNumber==""){
 		
 		error +="Only space is not allowed in required fields";
-		ShowErrorMsg('Task was not created', "Please check details.");
+		ShowErrorMsg('Sprint was not created', "Please check details.");
 		InitErrorChange();
 		$(".alert").html(error);
 		$(".alert").removeClass("hidden");
@@ -331,10 +362,7 @@ var loadUserStory = function(data){
 	}
 	
 	return result;
-} */
-/* 
-$('.start-date-picker ').on('changeDate', function(ev){
-    $(this).datepicker('hide');
-}); */
+} 
+
 
 </script>
