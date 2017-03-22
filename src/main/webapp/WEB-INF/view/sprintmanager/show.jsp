@@ -26,13 +26,6 @@
 			<cts:Hidden name="id" value="${map.sprint.id }"/>
 	</form>
 		
-
-		<div>
-			<div class="alert alert-block alert-danger hidden">
-				Please check the fields marked with 
-				<span class="text-red fa fa-close"></span>.
-			</div>
-			
 			<div class="row">
 				
 				<div class="col-md-6">
@@ -125,11 +118,35 @@
 			<br/>
 			<br/>
 			<br/>
-			
+			<div id="WorkflowBlocks" class="panel-group accordion">
+				<fieldset>
+                     <legend>
+                         Sprint Stories&nbsp;&nbsp;      
+                     </legend><br>
+                         <div class="col-md-12">
+                             <div class="table-responsive">
+                                 <table class="data-grid width-full" id="user-story">  
+                                     <thead>
+                                          <tr>
+                                            <th class="align-center width-140">Story Code</th>
+											<th class="align-center width-140">Story Name</th>
+                                         </tr>
+                                     </thead>
+                                     <tbody>
+                                     	<c:forEach var="story" items="${map.sprint.steps}">
+                                             <tr>
+		                                       <td><c:out value="${story.sprintStoryCode}"></c:out></td>   
+                                               <td><c:out value="${story.sprintStoryName}"></c:out></td> 
+                                             </tr>   
+                                         </c:forEach>         
+                                     </tbody>
+                                 </table>
+                             </div>
+                         </div>                    
+                    </fieldset>
+			</div>
 
-		</div>
-		
-		
+	</div>
 		
 		<div class="row margin-top-30 margin-bottom-30">
 
@@ -154,9 +171,7 @@
 			</div>
 		</div>
 		
-	
 </div>
-
 <script>
 	InitHandlers();
 	$(function() {
