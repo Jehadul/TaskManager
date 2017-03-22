@@ -7,7 +7,7 @@
 				<h1 class="mainTitle">Show Task</h1>
 			</div>
 			<ol class="breadcrumb padding-top-20">
-				<li><span>Taskman</span></li>
+				<li><span>Task</span></li>
 				<li class="active"><span>Show Task</span></li>
 			</ol>
 		</div>
@@ -128,7 +128,7 @@
 		</div>
 		<br /> <br /> <br />
 
-		<div class="row margin-top-30 margin-bottom-30">
+		<div class="row margin-top-30 margin-bottom-30 margin-right-5">
 
 			<div class="col-md-auto">
 				<cts:Button cssClass="back" spanClass="arrow-left" dAjax="true"
@@ -167,7 +167,7 @@
 
 		swal({
 			title : "Are you sure?",
-			text : "Are you sure to delete this privilege?",
+			text : "Are you sure to delete this task?",
 			type : "warning",
 			showCancelButton : true,
 			confirmButtonColor : "#007AFF",

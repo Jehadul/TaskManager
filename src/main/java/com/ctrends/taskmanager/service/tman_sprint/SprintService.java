@@ -48,11 +48,8 @@ public class SprintService implements ISprintService {
 		
 		SprintManager sprint = new SprintManager();
 		
-		sprint.setSuiteCode(requestMap.get("suite_code")[0]);
-		sprint.setSuiteName(requestMap.get("suite_name")[0]);
-		sprint.setModuleCode(requestMap.get("module_code")[0]);
+		sprint.setSuiteName(requestMap.get("suite_name")[0]);	
 		sprint.setModuleName(requestMap.get("module_name")[0]);
-		sprint.setPrivGrpCode(Integer.parseInt(requestMap.get("priv_grp_code")[0]));
 		sprint.setPrivilegeName(requestMap.get("priv_grp_name")[0]);
 		sprint.setSprintCode(requestMap.get("sprint_code")[0]);
 		sprint.setSprintName(requestMap.get("sprint_name")[0]);
@@ -92,7 +89,6 @@ public class SprintService implements ISprintService {
 			stroyDetails.setSprintStoryCode(storyCode[i]);
 			stroyDetails.setSprintStoryName(storyName[i]);
 			
-			stroyDetails.setSprintCode(requestMap.get("sprint_code")[0]);
 			stroyDetails.setCreatedByCode(currentUser.getCreatedByCode());
 			stroyDetails.setCreatedByName(currentUser.getCreatedByName());
 			stroyDetails.setCreatedByUsername(currentUser.getCreatedByUsername());
@@ -231,6 +227,7 @@ public class SprintService implements ISprintService {
 		UUID id = sprintDao.updateDoc(sprintManager);
 		data.put("id", id.toString());
 		return data;
+
 	}*/
 	
 	
@@ -355,9 +352,9 @@ public class SprintService implements ISprintService {
 		}
 		data.put("id", id.toString());
 		return data;
+=======
+>>>>>>> 1d5b0fc4db057c2c5d63145f4dc676fbdae7ec13
 	}
-	
-	
 
 	@Override
 	public UUID delete(Map<String, String[]> requestMap) {

@@ -24,7 +24,6 @@ import com.ctrends.taskmanager.model.taskmanage.Module;
 import com.ctrends.taskmanager.model.taskmanage.PrivGroup;
 import com.ctrends.taskmanager.model.taskmanage.Suite;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManager;
-import com.ctrends.taskmanager.model.tman_sprint.SprintManagerDetails;
 import com.ctrends.taskmanager.model.user.User;
 import com.ctrends.taskmanager.service.tman_sprint.ISprintService;
 import com.google.gson.Gson;
@@ -54,20 +53,12 @@ public class SprintController implements ISprintController {
 	@Override
 	public ModelAndView show(@PathVariable(value = "id") UUID id) {
 		SprintManager sprint = sprintService.getById(id);
-		List<SprintManagerDetails> sprintmanageLi = sprint.getSteps();
-		System.out.println(sprint.getSteps()+"asjkdbsjkfbsdjkf");
-		for(int i=0;i<sprintmanageLi.size();i++){
-		    System.out.println(sprintmanageLi.get(i).getSprintCode()+"hgghcghvbbgfgdghdfghfghfghfdghfghf");
-		} 
 		Map<String, Object> map = new HashMap<>();
-		String wfPublish = sprint.getStatus();
-		GsonBuilder gson = new GsonBuilder();
-		Gson g = gson.create();
+
 		map.put("mode", "doc");
 		map.put("sprint", sprint);
-		map.put("wfJson", g.toJson(sprint));
-		map.put("wfPublishJson", g.toJson(wfPublish));
-		map.put("wfPublish", wfPublish);
+		GsonBuilder gson = new GsonBuilder();
+		Gson g = gson.create();
 		// map.put("quesJson", g.toJson(q));
 		return new ModelAndView("sprintmanager/show", "map", map);
 
@@ -169,8 +160,10 @@ public class SprintController implements ISprintController {
 	public WSResponse update(HttpServletRequest request) {
 		Map<String,String[]> sprintManager = request.getParameterMap();	
 		Map<String, String> data = sprintService.update(sprintManager);
+
 		UUID id = UUID.fromString(data.get("id"));
 		return new WSResponse("success", "Updated successfully", id, null, data.get("mode"), data);
+
 	}
 
 

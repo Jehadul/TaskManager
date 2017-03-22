@@ -8,7 +8,7 @@
 			</div>
 			<ol class="breadcrumb padding-top-20">
 				<li>
-					<span>Sprint</span>
+					<span>Taskman</span>
 				</li>
 				<li class="active">
 					<span>Create Sprint</span>
@@ -94,7 +94,7 @@
 							</div>
 							<div class="col-md-6">							
 								<div class="form-group">		
-									<cts:Datepicker label="End Date" name="end_date" cssClass="dirty-check required"/>
+									<cts:Datepicker label="End Date" name="end_date" cssClass="end-date-picker dirty-check required"/>
 								</div>
 							</div>	
 							<div class="col-md-12">
@@ -198,9 +198,9 @@ function showMessage(data) {
 		isDirty = false;
 		LoadMainContent('/taskman/tman/sprint/show/' + data.id);
 	} else {
-		ShowErrorMsg('Sprint was not created', data.message);
+		ShowErrorMsg('Sprint was not created', data.msg);
 		var msg = ConcatWithBR(data.error);
-		$(".alert").html(message);
+		$(".alert").html(msg);
 		$(".alert").removeClass("hidden");
 	}
 }
@@ -212,29 +212,15 @@ $("#btnStorySearch").on("click",function(){
 	ShowModal("/taskman/userstory/story/searchstory/?action_type_code=SELECT&actioncallback=loadUserStory");
 });
 
-var i = 0;
 var loadUserStory = function(data){ 
 	var story = JSON.parse(unescape(data));
 	var storyCode          = story.userStoryCode;   
-	var storyName          = story.userStoryTitle;   
-	var rows = $("#story_list tbody tr");
-	
-	for(var i = 0; i< rows.length; i++){
-		var code = $(rows[i]).find("#code_"+i).attr("value");
- 		if(code == storyCode){
- 			ShowErrorMsg('Sprint Stories already in use');
- 			$(".alert").html(msg);
- 			$(".alert").removeClass("hidden");
-		}
-		
-	}
-	
- 
+	var storyName          = story.userStoryTitle;    
 	
 
 		var html = '<tr>' +					
 						'<td>'+ 
-							'<input name="story_code[]" type="text" id="code_'+i+'" class="project_code view" value="' + storyCode + '" />' +
+							'<input name="story_code[]" type="text" class="project_code view" value="' + storyCode + '" />' +
 						'</td>'+
 						'<td>'+ 
 							'<input name="story_name[]" type="text" class="project_name view"  value="' + storyName + '" />' +
@@ -245,51 +231,40 @@ var loadUserStory = function(data){
 		/*------------------------ project rate edit----------------- */
 		
 		$("#story_list tbody").append(html);
-		i++;
 	
 	HideModal('search-modal');	
 };
 
-var checkProjectDates = function()
-{
-	var startDate= $('#start_date').val();
-	var endDate= $('#end_date').val();
-	
-	if(startDate != '' && endDate != '')
-	{
-		if ( new Date(startDate) > new Date(endDate)) {
-			ShowErrorMsg('',"Please ensure that the Sprint End Date is greater than or equal to the Start Date");
-			return false;
-		}
-	}
-	return true;
-};
+/* function loadUserStory(storydata){ 
+	var story = JSON.parse(unescape(storydata));			
+	/* $("#sprint_stories").val(story.userStoryTitle);	
+	$("#sprint_story_code").val(story.userStoryCode); */
+	//HideModal('search-modal');	
+/* } */ 
 
 
- function validate(){
-		var storyCode = $("#sprint_code").val().trim();
-		var storyNumber = $("#sprint_number").val().trim();
+/* function validate(){
 	
 	SyncOptionText();
 	
 	var error = "";
 	var result = CheckRequired();
 	
-	
+
 	if ( $("#suite_code").val() =="-1") {
-		error +="Please select Suite Name <br/>";
+		error +="Please select Suite Code <br/>";
 		result = false;
 		
 	}  
 	 
 	 if ( $("#module_code").val() =="-1") {
-			error +="Please select Module Name <br/>";
+			error +="Please select Module Code <br/>";
 			result = false;
 			
 		}  
 	 
 	 if ( $("#priv_grp_code").val() =="-1") {
-			error +="Please select Privilege Group Name <br/>";
+			error +="Please select Priv Grp Code <br/>";
 			result = false;
 			
 		} 
@@ -329,12 +304,6 @@ var checkProjectDates = function()
 		result = false;
 		
 	} 
-	
-	
-	if (!checkProjectDates()) {
-		result = false;
-		error += "Please ensure that the Sprint End Date is greater than or equal to the Start Date.<br />";
-	}
 	 
 	 
 	if (!result) {
@@ -346,15 +315,15 @@ var checkProjectDates = function()
 	if (!result) {
 		
 		error +="Please check the fields marked with X";
-		ShowErrorMsg('Sprint was not created', "Please check details.");
+		ShowErrorMsg('Task was not created', "Please check details.");
 		InitErrorChange();
 		$(".alert").html(error);
 		$(".alert").removeClass("hidden");
 	}
-	else if(storyCode==""||storyNumber==""){
+	else if(itemCode==""||itemName==""){
 		
 		error +="Only space is not allowed in required fields";
-		ShowErrorMsg('Sprint was not created', "Please check details.");
+		ShowErrorMsg('Task was not created', "Please check details.");
 		InitErrorChange();
 		$(".alert").html(error);
 		$(".alert").removeClass("hidden");
@@ -362,7 +331,26 @@ var checkProjectDates = function()
 	}
 	
 	return result;
-} 
+} */
+/* 
+$('.start-date-picker ').on('changeDate', function(ev){
+    $(this).datepicker('hide');
+}); */
+
+
+
+
+$('.end-date-picker ').on('changeDate', function(ev){
+	var startDate = $("#start_date").val();
+	var endDate = $("#end_date").val();
+	if(startDate>endDate){
+		$("#end_date").val("");
+		alert("end date should be after start date");
+	}
+	
+});
+
+
 
 
 </script>

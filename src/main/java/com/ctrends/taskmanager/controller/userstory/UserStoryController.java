@@ -159,9 +159,17 @@ public class UserStoryController implements IUserStoryController {
 		Map<String, String[]> userStory = request.getParameterMap();
 
 		Map<String, String> data = userStoryService.insert(userStory);
+		
+		if(data.get("id") == null){
+			return new WSResponse("error", "Story Code Must be Unique",null , null, null, data);
+		}
+		else{
+			UUID id = UUID.fromString(data.get("id"));
+			return new WSResponse("success", "Saved successfully", id, null, data.get("mode"), data);
+			
+		}
 
-		return new WSResponse("success", "Submitted Successfully", UUID.fromString(data.get("id")), null,
-				data.get("mode"), data);
+		
 	}
 
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -225,7 +233,7 @@ public class UserStoryController implements IUserStoryController {
 
 		Map<String, String> data = userStoryService.update(userStory);
 
-		return new WSResponse("success", "Submitted Successfully", UUID.fromString(data.get("id")), null,
+		return new WSResponse("success", "Updated Successfully", UUID.fromString(data.get("id")), null,
 				data.get("mode"), data);
 	}
 
