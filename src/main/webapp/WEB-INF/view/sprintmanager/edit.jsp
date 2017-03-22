@@ -178,7 +178,7 @@
 	$("input[name='module_name']").val($("#module_code option:selected").text());
 	$("input[name='priv_grp_name']").val($("#priv_grp_code option:selected").text());
 	
-	$("input[name='story_code[]']").val(map.sprintManager.)
+	//$("input[name='story_code[]']").val(map.sprintManager.)
    
    function showMessage(data) {
 		if (data.outcome == 'success') {
