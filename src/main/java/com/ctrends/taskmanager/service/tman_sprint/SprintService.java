@@ -49,11 +49,8 @@ public class SprintService implements ISprintService {
 		
 		SprintManager sprint = new SprintManager();
 		
-		sprint.setSuiteCode(requestMap.get("suite_code")[0]);
-		sprint.setSuiteName(requestMap.get("suite_name")[0]);
-		sprint.setModuleCode(requestMap.get("module_code")[0]);
+		sprint.setSuiteName(requestMap.get("suite_name")[0]);	
 		sprint.setModuleName(requestMap.get("module_name")[0]);
-		sprint.setPrivGrpCode(Integer.parseInt(requestMap.get("priv_grp_code")[0]));
 		sprint.setPrivilegeName(requestMap.get("priv_grp_name")[0]);
 		sprint.setSprintCode(requestMap.get("sprint_code")[0]);
 		sprint.setSprintName(requestMap.get("sprint_name")[0]);
@@ -61,20 +58,6 @@ public class SprintService implements ISprintService {
 		sprint.setSprintNumber(Double.parseDouble(requestMap.get("sprint_number")[0]));
 		//sprint.setSprintStories(requestMap.get("sprint_stories")[0]);
 		//sprint.setSprintStoryCode(requestMap.get("sprint_story_code")[0]);
-		
-		sprint.setClientCode(currentUser.getClientCode());
-		sprint.setClientName(currentUser.getClientName());
-		sprint.setCompanyCode(currentUser.getCompanyCode());
-		sprint.setCompanyName(currentUser.getCompanyName());
-		sprint.setCreatedByCode(currentUser.getCreatedByCode());
-		sprint.setCreatedByName(currentUser.getCreatedByName());
-		sprint.setCreatedByCode(currentUser.getEmpCode());
-		sprint.setCreatedByName(currentUser.getEmpName());
-		sprint.setCreatedByUsername(currentUser.getUsername());
-		sprint.setCreatedByEmail(currentUser.getEmail());
-		sprint.setCreatedByCompanyCode(currentUser.getCompanyCode());
-		sprint.setCreatedByCompanyName(currentUser.getCompanyName());
-		sprint.setCreatedAt(new Timestamp(System.currentTimeMillis()));
 		
 		if (requestMap.get("start_date")[0].equals("")) {			
 			sprint.setStartDate(new Date(System.currentTimeMillis()));
@@ -107,7 +90,6 @@ public class SprintService implements ISprintService {
 			stroyDetails.setSprintStoryCode(storyCode[i]);
 			stroyDetails.setSprintStoryName(storyName[i]);
 			
-			stroyDetails.setSprintCode(requestMap.get("sprint_code")[0]);
 			stroyDetails.setCreatedByCode(currentUser.getCreatedByCode());
 			stroyDetails.setCreatedByName(currentUser.getCreatedByName());
 			stroyDetails.setCreatedByUsername(currentUser.getCreatedByUsername());
@@ -203,7 +185,7 @@ public class SprintService implements ISprintService {
 		return sprintDao.getDocById(id);
 	}
 
-/*	@Override
+	@Override
 	public Map<String, String> update(Map<String, String[]> requestMap) {
 		Map<String, String> data = new HashMap<String, String>();
 		User currentUser = userService.getCurrentUser();
@@ -246,110 +228,7 @@ public class SprintService implements ISprintService {
 		UUID id = sprintDao.updateDoc(sprintManager);
 		data.put("id", id.toString());
 		return data;
-	}*/
-	
-	
-	@Override
-	public Map<String, String> update(Map<String, String[]> requestMap) {
-		
-		Map<String, String> data = new HashMap<String, String>();
-		User currentUser = userService.getCurrentUser();
-		String strid = null;
-		UUID id;
-		
-	/*************************Master data sent from view*******************************/
-		
-		Map<String,Object> param = new HashMap<String,Object>();
-		
-		param.put("sprintCode", requestMap.get("sprint_code")[0].toUpperCase());
-		
-		//boolean rules = sprintDao.validate(param);;
-		boolean rules = sprintDao.checkUnique(param);
-		SprintManager sprint = sprintDao.getDocById(UUID.fromString(requestMap.get("id")[0]));
-		sprint.setSuiteCode(requestMap.get("suite_code")[0]);
-		sprint.setSuiteName(requestMap.get("suite_name")[0]);
-		sprint.setModuleCode(requestMap.get("module_code")[0]);
-		sprint.setModuleName(requestMap.get("module_name")[0]);
-		sprint.setPrivGrpCode(Integer.parseInt(requestMap.get("priv_grp_code")[0]));
-		sprint.setPrivilegeName(requestMap.get("priv_grp_name")[0]);
-		sprint.setSprintCode(requestMap.get("sprint_code")[0]);
-		sprint.setSprintName(requestMap.get("sprint_name")[0]);
-		sprint.setSprintGoal(requestMap.get("sprint_goal")[0]);
-		sprint.setSprintNumber(Double.parseDouble(requestMap.get("sprint_number")[0]));
-		//sprint.setSprintStories(requestMap.get("sprint_stories")[0]);
-		//sprint.setSprintStoryCode(requestMap.get("sprint_story_code")[0]);
-		
-		if (requestMap.get("start_date")[0].equals("")) {			
-			sprint.setStartDate(new Date(System.currentTimeMillis()));
-		}else{			
-			String startDate = requestMap.get("start_date")[0];
-			java.util.Date startDateUtil = Utility.stringToDate(startDate);
-			java.sql.Date startDateSql = (Date) Utility.fromUtiltoSql(startDateUtil);
-			sprint.setStartDate(startDateSql);
-		}		
-		
-		if (requestMap.get("end_date")[0].equals("")) {			
-			sprint.setEndDate(new Date(System.currentTimeMillis()));
-		}else{			
-			String endDate = requestMap.get("end_date")[0];
-			java.util.Date endDateUtil = Utility.stringToDate(endDate);
-			java.sql.Date endDateSql = (Date) Utility.fromUtiltoSql(endDateUtil);
-			sprint.setEndDate(endDateSql);
-		}
-		sprint.setSprintDescription(requestMap.get("sprint_description")[0]);
-		
-		/**********************Detail item data sent from view*********************************/
-
-		String[] storyCode			= (String[]) requestMap.get("story_code[]"); 
-		String[] storyName 			= (String[]) requestMap.get("story_name[]");
-		
-		List<SprintManagerDetails> storyDetailsList = new ArrayList<SprintManagerDetails>();
-		for(int i = 0; i< storyCode.length; i++){
-			SprintManagerDetails stroyDetails = new SprintManagerDetails();
-			
-			stroyDetails.setSprintStoryCode(storyCode[i]);
-			stroyDetails.setSprintStoryName(storyName[i]);
-			
-			stroyDetails.setSprintCode(requestMap.get("sprint_code")[0]);
-			stroyDetails.setCreatedByCode(currentUser.getCreatedByCode());
-			stroyDetails.setCreatedByName(currentUser.getCreatedByName());
-			stroyDetails.setCreatedByUsername(currentUser.getCreatedByUsername());
-			stroyDetails.setCreatedByCode(currentUser.getEmpCode());
-			stroyDetails.setCreatedByName(currentUser.getEmpName());
-			stroyDetails.setCreatedByUsername(currentUser.getUsername());
-			stroyDetails.setCreatedByEmail(currentUser.getEmail());
-			stroyDetails.setCreatedByCompanyCode(currentUser.getCompanyCode());
-			stroyDetails.setCreatedByCompanyName(currentUser.getCompanyName());
-			stroyDetails.setCreatedAt(new Timestamp(System.currentTimeMillis())); 
-			
-			//stroyDetails.setClientCode(currentUser.getClientCode());
-			stroyDetails.setClientName(currentUser.getClientName());
-			stroyDetails.setCompanyCode(currentUser.getCompanyCode());
-			//stroyDetails.setCompanyName(currentUser.getCompanyName());
-			stroyDetails.setUpdatedByCode(currentUser.getEmpCode());            
-			stroyDetails.setUpdatedByName(currentUser.getEmpName());
-			stroyDetails.setUpdatedByUsername(currentUser.getUsername());
-			stroyDetails.setUpdatedByEmail(currentUser.getEmail());
-			stroyDetails.setUpdatedByCompanyCode(currentUser.getCompanyCode());
-			stroyDetails.setUpdatedByCompanyName(currentUser.getCompanyName());
-			//stroyDetails.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
-			storyDetailsList.add(i,stroyDetails);	
-		}
-		sprint.setSteps(storyDetailsList);
-		if(rules){
-			id = sprintDao.updateDoc(sprint);
-			strid = id.toString();
-			data.put("id", strid);
-		}
-		else{
-			data.put("id", null);
-			
-		}
-
-		return data;
 	}
-	
-	
 
 	@Override
 	public UUID delete(Map<String, String[]> requestMap) {
