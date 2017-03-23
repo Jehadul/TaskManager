@@ -45,7 +45,6 @@
 								<td><b>${map.sprint.suiteName}</b>
 								</td>
 
-								<td><b>${map.sprint.suiteName}</b></td>
 
                         </tr>
                     </table>
