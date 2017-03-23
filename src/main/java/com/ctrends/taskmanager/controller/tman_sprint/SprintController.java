@@ -24,6 +24,7 @@ import com.ctrends.taskmanager.model.taskmanage.Module;
 import com.ctrends.taskmanager.model.taskmanage.PrivGroup;
 import com.ctrends.taskmanager.model.taskmanage.Suite;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManager;
+import com.ctrends.taskmanager.model.tman_sprint.SprintManagerDetails;
 import com.ctrends.taskmanager.model.user.User;
 import com.ctrends.taskmanager.service.tman_sprint.ISprintService;
 import com.google.gson.Gson;
@@ -53,10 +54,13 @@ public class SprintController implements ISprintController {
 	@Override
 	public ModelAndView show(@PathVariable(value = "id") UUID id) {
 		SprintManager sprint = sprintService.getById(id);
+		List<SprintManagerDetails> sprintDetails = sprintService.getByIdSprintCode(sprint.getSprintCode());
 		Map<String, Object> map = new HashMap<>();
+		System.out.println(sprintDetails.get(0).getSprintStoryName());
 
 		map.put("mode", "doc");
 		map.put("sprint", sprint);
+		map.put("sprintDetails", sprintDetails);
 		GsonBuilder gson = new GsonBuilder();
 		Gson g = gson.create();
 		// map.put("quesJson", g.toJson(q));
@@ -119,12 +123,15 @@ public class SprintController implements ISprintController {
 		}
 
 		SprintManager sprintManager = sprintService.getById(id);
+		
+		List<SprintManagerDetails> sprintDetails = sprintService.getByIdSprintCode(sprintManager.getSprintCode());
 
 		map.put("mode", "doc");
 		map.put("sprintManager", sprintManager);
 		map.put("suiteCodes", suiteCodes);
 		map.put("moduleCodes", moduleCodes);
 		map.put("privGrpCodes", privGrpCodes);
+		map.put("sprintDetails", sprintDetails);
 
 		GsonBuilder gson = new GsonBuilder();
 		Gson g = gson.create();
@@ -160,9 +167,10 @@ public class SprintController implements ISprintController {
 	public WSResponse update(HttpServletRequest request) {
 		Map<String,String[]> sprintManager = request.getParameterMap();	
 		Map<String, String> data = sprintService.update(sprintManager);
+		System.out.println(request.getParameter("sprint_code"));
 
-		UUID id = UUID.fromString(data.get("id"));
-		return new WSResponse("success", "Updated successfully", id, null, data.get("mode"), data);
+		return new WSResponse("success", "Updated Successfully", UUID.fromString(data.get("id")), null,
+				data.get("mode"), data);
 
 	}
 
