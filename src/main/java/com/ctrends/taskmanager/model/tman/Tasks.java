@@ -59,10 +59,10 @@ public class Tasks {
 	private double estimatedTime;
 	
 	@Column(name = "spent_time")
-	private double spentTime;
+	private long spentTime;
 	
 	@Column(name = "remaining_time")
-	private double remainingTime;
+	private long remainingTime;
 	
 	@Column(name = "emp_code")
 	private String empCode;
@@ -361,22 +361,26 @@ public class Tasks {
 		this.estimatedTime = estimatedTime;
 	}
 
-	public double getSpentTime() {
+	
+	
+	
+
+	public long getSpentTime() {
 		return spentTime;
 	}
 
-	public void setSpentTime(double spentTime) {
+	public void setSpentTime(long spentTime) {
 		this.spentTime = spentTime;
 	}
 
-	public double getRemainingTime() {
+	public long getRemainingTime() {
 		return remainingTime;
 	}
 
-	public void setRemainingTime(double remainingTime) {
+	public void setRemainingTime(long remainingTime) {
 		this.remainingTime = remainingTime;
 	}
-	
+
 	public String getEmpCode() {
 		return empCode;
 	}

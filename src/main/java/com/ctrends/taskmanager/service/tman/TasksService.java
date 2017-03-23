@@ -230,45 +230,68 @@ public class TasksService implements ITasksService {
 				e.printStackTrace();
 			}
 
-			double time = tasks.getSpentTime();
-			DecimalFormat df = new DecimalFormat("#.##");      
-			time = Double.valueOf(df.format(time));
+			/*
+			 * double time = tasks.getSpentTime(); DecimalFormat df = npublic
+			 * double getSpentTime() { return spentTime; }
+			 * 
+			 * public void setSpentTime(double spentTime) { this.spentTime =
+			 * spentTime; }
+			 * 
+			 * public double getRemainingTime() { return remainingTime; }
+			 * 
+			 * public void setRemainingTime(double remainingTime) {
+			 * this.remainingTime = remainingTime; }ew DecimalFormat("#.##");
+			 * time = Double.valueOf(df.format(time));
+			 * 
+			 * System.out.println(time);
+			 * 
+			 * String numberD = String.valueOf(time);
+			 * 
+			 * double spentSqlTime = hh.getTime() -
+			 * taskLog.getStartTime().getTime(); long spentWithSqlTime = (long)
+			 * (spentSqlTime + (((int)time *
+			 * 3600)+(Integer.parseInt(numberD.substring(numberD.indexOf( "."
+			 * )+1))*60))*1000); double aa = tasks.getSpentTime();
+			 * 
+			 * String spentTime = String.format("%02d.%02d",
+			 * TimeUnit.MILLISECONDS.toHours(spentWithSqlTime),
+			 * TimeUnit.MILLISECONDS.toMinutes(spentWithSqlTime) -
+			 * TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(
+			 * spentWithSqlTime)));
+			 * 
+			 * double updateSpentTimes = Double.parseDouble(spentTime);
+			 * 
+			 * time = tasks.getEstimatedTime(); time =
+			 * Double.valueOf(df.format(time));
+			 * 
+			 * System.out.println(time);
+			 * 
+			 * numberD = String.valueOf(time);
+			 * 
+			 * long remainingMillisTime = (long)(((((int)time *
+			 * 3600)+(Integer.parseInt(numberD.substring(numberD.indexOf( "."
+			 * )+1))*60))*1000)-spentWithSqlTime);
+			 * 
+			 * String spentTime2 = String.format("%02d.%02d",
+			 * TimeUnit.MILLISECONDS.toHours(remainingMillisTime),
+			 * TimeUnit.MILLISECONDS.toMinutes(remainingMillisTime) -
+			 * TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(
+			 * remainingMillisTime)));
+			 * 
+			 * double updateRemainingTimes = Double.parseDouble(spentTime2);
+			 * 
+			 * 
+			 */
+			long spentTotalTime = tasks.getSpentTime() + (hh.getTime() - taskLog.getStartTime().getTime());
+			tasks.setSpentTime(spentTotalTime);
 
-			System.out.println(time);
-			
-			String numberD = String.valueOf(time);
-			
-			double spentSqlTime = hh.getTime() - taskLog.getStartTime().getTime();
-			long spentWithSqlTime = (long) (spentSqlTime + (((int)time * 3600)+(Integer.parseInt(numberD.substring(numberD.indexOf( "." )+1))*60))*1000);
-			double aa = tasks.getSpentTime();
-			
-			String spentTime = String.format("%02d.%02d", 
-					TimeUnit.MILLISECONDS.toHours(spentWithSqlTime),
-					TimeUnit.MILLISECONDS.toMinutes(spentWithSqlTime) -  
-					TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(spentWithSqlTime)));
+			long remaingSqlTimeHours = Long.parseLong(String.valueOf(tasks.getEstimatedTime()).split("\\.")[0]);
+			long remaingsqlTimeMin = Long.parseLong(String.valueOf(tasks.getEstimatedTime()).split("\\.")[1]);
 
-			double updateSpentTimes = Double.parseDouble(spentTime);
-
-			time = tasks.getEstimatedTime();
-			time = Double.valueOf(df.format(time));
-
-			System.out.println(time);
+			long estimateSqlTime = (remaingSqlTimeHours * 60 * 60 * 1000) + (remaingsqlTimeMin * 60*1000);
+			long remaingTotalTime = estimateSqlTime - spentTotalTime;
+			tasks.setRemainingTime(remaingTotalTime);
 			
-			numberD = String.valueOf(time);
-			
-			long remainingMillisTime = (long)(((((int)time * 3600)+(Integer.parseInt(numberD.substring(numberD.indexOf( "." )+1))*60))*1000)-spentWithSqlTime);			
-			
-			String spentTime2 = String.format("%02d.%02d", 
-					TimeUnit.MILLISECONDS.toHours(remainingMillisTime),
-					TimeUnit.MILLISECONDS.toMinutes(remainingMillisTime) -  
-					TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(remainingMillisTime)));
-			
-			double updateRemainingTimes = Double.parseDouble(spentTime2);
-
-			tasks.setSpentTime(updateSpentTimes);
-
-			tasks.setRemainingTime(updateRemainingTimes);
-
 			tasksDao.updateTaskLogDoc(taskLog);
 			tasksDao.updateSpantTimeDoc(tasks);
 		} catch (Exception e) {

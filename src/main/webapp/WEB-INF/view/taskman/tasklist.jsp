@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="cts" uri="/WEB-INF/custom.tld"%>
 <div class="wrap-content container" id="container">
 	<section id="page-title" class="padding-top-10 padding-bottom-10">
@@ -23,7 +24,7 @@
 							<th style="display: none"></th>
 							<th>Task Id</th>
 							<th>Task Title</th>
-							<th>Estimated Time</th>
+							<th>Estimated Time(Hours)</th>
 							<th>Spent Time</th>
 							<th>Remaining Time</th>
 							<th>Assignee</th>
@@ -31,6 +32,7 @@
 						</tr>
 					</thead>
 					<tbody>
+						<c:set var="count" value="0" scope="request" />
 						<c:forEach var="task" items="${data.tasklist}">
 							<tr>
 								<td style="display: none"><input type="hidden" name="id1"
@@ -39,8 +41,8 @@
 								<td><c:out value="${task.getTaskCode()}" /></td>
 								<td><c:out value="${task.getTaskTitle()}" /></td>
 								<td><c:out value="${task.getEstimatedTime()}" /></td>
-								<td><c:out value="${task.getSpentTime()}" /></td>
-								<td><c:out value="${task.getRemainingTime()}" /></td>
+								<td><c:out value="${data.sp[count]}" /></td>
+								<td><c:out value="${data.rem[count]}" /></td>
 								<td><c:out value="${task.empName}" /></td>
 								<td>
 									<button type="button" onclick="editRow(this);"
@@ -55,9 +57,7 @@
 									<button type="button" onclick="startTime(this)" id="start"
 										class="btn-timer btn btn-xs time-start">
 										<span class="fa fa-play"></span>
-									</button>
-									
-									 <!-- <button type="button" onclick="upRow(this);" class="btn-up btn btn-xs"><span class="fa fa-arrow-up"></span></button> 
+									</button> <!-- <button type="button" onclick="upRow(this);" class="btn-up btn btn-xs"><span class="fa fa-arrow-up"></span></button> 
 										<button type="button" onclick="downRow(this);" class="btn-down btn btn-xs"><span class="fa fa-arrow-down"></span></button> -->
 									<input type="hidden" name="id[]" class="task_id1"
 									value="${task.getId()}" /> <input type="hidden"
@@ -75,6 +75,7 @@
 
 								</td>
 							</tr>
+							<c:set var="count" value="${count + 1}" scope="request" />
 						</c:forEach>
 					</tbody>
 				</table>
@@ -112,7 +113,7 @@
 		});
 
 		var spentTime = $(el).closest("tr").find(".spent_time").val();
-		if(spentTime =="0.0"){
+		if (spentTime == "00:00:00") {
 			swal({
 				title : "Are you sure?",
 				text : "Are you sure to delete this task?",
@@ -135,7 +136,7 @@
 					}
 				});
 			});
-		}else{
+		} else {
 			swal({
 				title : "Can't Delete This Task",
 				text : "Task is in Progress",
@@ -146,7 +147,6 @@
 				closeOnConfirm : true
 			});
 		}
-		
 	};
 
 	$('.btn-edit').on("click", function() {/* console.log($(".task_id").val()) */
@@ -157,8 +157,6 @@
 
 		LoadMainContent('/taskman/tman/tasks/edit/' + taskId);
 	});
-
-	
 
 	//start time log
 	var tnn = document.getElementById('tn'), start = document
@@ -274,7 +272,7 @@
 		$("#start-timer").remove();
 		$("#stop-timer").remove();
 		$("#runningtask").remove();
-	
+
 		var today = new Date();
 		var dd = today.getDate();
 		var mm = today.getMonth() + 1;
@@ -290,18 +288,17 @@
 		var curr_min = today.getMinutes();
 		var curr_sec = today.getSeconds();
 
-		var stopTime = day + " " + curr_hour + ":" + curr_min
-				+ ":" + curr_sec;
-		console.log(startTime);
-		
+		var stopTime = day + " " + curr_hour + ":" + curr_min + ":" + curr_sec;
+
 		$.ajax({
 			type : 'GET',
-			url : '/taskman/tman/tasks/timeLogUpdate/' + id + '/' + stopTime+'/'+day,
+			url : '/taskman/tman/tasks/timeLogUpdate/' + id + '/' + stopTime
+					+ '/' + day,
 			success : function(response, status, xhr) {
 				LoadMainContent("/taskman/tman/tasks/tasklist");
 			}
 		});
-		
+
 	}
 
 	//refress call
@@ -318,7 +315,7 @@
 				+ '</span>'
 				+ '</button>'
 				+ '<button type="button" onclick="stopTimer(this);" class="btn-del btn btn-xs" id="stop-timer">'
-				+ '<span class="fa fa-stop"></span></button> <span id="runningtask" style="color:green">Running</span>';
+				+ '<span class="fa fa-stop"></span></button> <span id="runningtask" style="color:green; font-size:8pt">Running</span>';
 
 		$('.task_id').each(function(index, element) {
 			if ($(this).val() == runningTaskLogId) {
@@ -329,4 +326,10 @@
 			}
 		});
 	}
+	console.log("${data.rem[0]}");
 </script>
+<style>
+button#stop-timer {
+	margin-left: 2px;
+} 
+</style>

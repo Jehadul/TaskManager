@@ -1,5 +1,6 @@
 package com.ctrends.taskmanager.controller.common;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -63,7 +64,14 @@ public class HomeController {
 		List<Tasks> tasklist=tasksService.getAllByCurrentUser();
 		List<Tasks> currentTasklist=tasksService.getCurrentTaskByCurrentUser();
 		TaskLog tasklog = tasksService.getRunningTaskLogByCurrentUser();
-		
+		List<String> sp = new ArrayList<>();
+		List<String> rem = new ArrayList<>();
+		for(int i= 0; i<tasklist.size(); i++){
+			long spentSqlTime = tasklist.get(i).getSpentTime();
+			long remainingsqlTime = tasklist.get(i).getRemainingTime();
+			sp.add(spentTimeCalculation(spentSqlTime));
+			rem.add(spentTimeCalculation(remainingsqlTime));		
+		}
 		long spentTimes= 0;
 		if(tasklog != null && tasklog.getStartTime() !=null){
 			spentTimes = System.currentTimeMillis()-tasklog.getStartTime().getTime();
@@ -81,8 +89,28 @@ public class HomeController {
 		data.put("spentTime", spentTime);
 		data.put("running_taskId", (currentTasklist!=null && currentTasklist.size()>0)?currentTasklist.get(0).getId().toString():"");
 		data.put("running_status", (currentTasklist!=null && currentTasklist.size()>0)?"true":"false");
+		data.put("sp", sp);
+		data.put("rem", rem);
+		try {
+			data.put("currentSpentTime", (currentTasklist.size()>0)? spentTimeCalculation(currentTasklist.get(0).getSpentTime()):"00:00:00" );
+			data.put("currentRemainingTime", (currentTasklist.size()>0)? spentTimeCalculation(currentTasklist.get(0).getRemainingTime()) : "00:00:00");
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		
 		return new ModelAndView("common/noticeboard", "data", data);
 
+	}
+	public String spentTimeCalculation(long millisecons){
+		return String.format("%02d:%02d:%02d", 
+				TimeUnit.MILLISECONDS.toHours(millisecons),
+				TimeUnit.MILLISECONDS.toMinutes(millisecons) -  
+				TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millisecons)), // The change is in this line
+				TimeUnit.MILLISECONDS.toSeconds(millisecons) - 
+				TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisecons)));
+		
+		
 	}
 
 	@RequestMapping(value = "/reloadNoticeBoard", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)

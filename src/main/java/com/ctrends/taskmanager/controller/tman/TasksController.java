@@ -1,5 +1,6 @@
 package com.ctrends.taskmanager.controller.tman;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -45,13 +46,23 @@ public class TasksController implements ITasksController {
 
 		Map<String, Object> data = new HashMap<String, Object>();
 		List<Tasks> tasklist = tasksService.getAll();
+		List<String> sp = new ArrayList<>();
+		List<String> rem = new ArrayList<>();
 		TaskLog tasklog = tasksService.getRunningTaskLogByCurrentUser();
 		GsonBuilder gson = new GsonBuilder();
 		Gson g = gson.create();
+		for(int i= 0; i<tasklist.size(); i++){
+			long spentSqlTime = tasklist.get(i).getSpentTime();
+			long remainingsqlTime = tasklist.get(i).getRemainingTime();
+			sp.add(spentTimeCalculation(spentSqlTime));
+			rem.add(spentTimeCalculation(remainingsqlTime));		
+		}
+		
 		long spentTimes= 0;
 		if(tasklog != null && tasklog.getStartTime() !=null){
 			spentTimes = System.currentTimeMillis()-tasklog.getStartTime().getTime();
 		}
+		
 		String spentTime = String.format("%02d:%02d:%02d", 
 				TimeUnit.MILLISECONDS.toHours(spentTimes),
 				TimeUnit.MILLISECONDS.toMinutes(spentTimes) -  
@@ -61,9 +72,22 @@ public class TasksController implements ITasksController {
 		data.put("tasklist", tasklist);
 		data.put("tasklog", tasklog);
 		data.put("spentTime", spentTime);
+		data.put("sp", sp);
+		data.put("rem", rem);
 		// System.out.println(taskloglist.get(0).getTaskId()+":::::::::::::running
 		// taskId::::::::::::::");
 		return new ModelAndView("taskman/tasklist", "data", data);
+	}
+	
+	public String spentTimeCalculation(long millisecons){
+		return String.format("%02d:%02d:%02d", 
+				TimeUnit.MILLISECONDS.toHours(millisecons),
+				TimeUnit.MILLISECONDS.toMinutes(millisecons) -  
+				TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millisecons)), // The change is in this line
+				TimeUnit.MILLISECONDS.toSeconds(millisecons) - 
+				TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisecons)));
+		
+		
 	}
 
 	@RequestMapping(value = "/show/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

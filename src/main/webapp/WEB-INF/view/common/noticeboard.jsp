@@ -27,7 +27,7 @@
 								<th>Suite</th>
 								<th>Module</th>
 								<th>Privilege</th>
-								<th>Estimated Time</th>
+								<th>Estimated Time(Hours)</th>
 								<th>Spent Time</th>
 								<th style="width: 50px;">Remaining Time</th>
 								<th style="width: 102px;">Action</th>
@@ -39,8 +39,7 @@
 									<%-- <td style="display:nome;"><input type="hidden" name="id1" class="task_id"
 									value="${currentTasklist.getId()}" /></td> --%>
 									<td><cts:TextBox name="curr_task_PrivGrpName"
-											value="${currentTasklist.description}" cssClass="view" />
-									</td>
+											value="${currentTasklist.description}" cssClass="view" /></td>
 									<td><cts:TextBox name="curr_task_SuiteName"
 											value="${currentTasklist.getSuiteName() }" cssClass="view" />
 									</td>
@@ -54,15 +53,16 @@
 											value="${currentTasklist.getEstimatedTime() }"
 											cssClass="view" /></td>
 									<td><cts:TextBox name="curr_start_time"
-											value="${currentTasklist.getSpentTime() }" cssClass="view" />
+											value="${data.currentSpentTime }" cssClass="view" />
 									</td>
 									<td style="width: 50px;"><cts:TextBox
 											name="curr_remaining_time"
-											value="${currentTasklist.getRemainingTime() }"
+											value="${data.currentRemainingTime}"
 											cssClass="view" /></td>
 									<td style="width: 102px;">
-										<button type="button" class="btn-edit btn btn-xs pull-left"
-											id="start-timer">
+										<button type="button" class="btn btn-xs pull-left"
+											id="start-timer"
+											style="border: 1px solid #008800; color: #008800">
 											<span id="tn"> <time>${data.spentTime}</time>
 											</span>
 										</button> <span class="pull-left">&nbsp;</span>
@@ -88,7 +88,7 @@
 								<th style="display: none"></th>
 								<th>Task Id</th>
 								<th>Task Title</th>
-								<th>Estimated Time</th>
+								<th>Estimated Time(Hours)</th>
 								<th>Spent Time</th>
 								<th>Remaining Time</th>
 								<th>Assignee</th>
@@ -96,51 +96,51 @@
 							</tr>
 						</thead>
 						<tbody>
+							<c:set var="count" value="0" scope="request" />
 							<c:forEach var="task" items="${data.tasklist}">
-							<c:if test="${task.getId().toString() != data.running_taskId}">
-								<tr>
-									<td style="display: none"><input type="hidden" name="id1"
-										class="task_id" value="${task.getId()}" /></td>
+								<c:if test="${task.getId().toString() != data.running_taskId}">
+									<tr>
+										<td style="display: none"><input type="hidden" name="id1"
+											class="task_id" value="${task.getId()}" /></td>
 
-									<td><c:out value="${task.getTaskCode()}" /></td>
-									<td><c:out value="${task.getTaskTitle()}" /></td>
-									<td><c:out value="${task.getEstimatedTime()}" /></td>
-									<td><c:out value="${task.getSpentTime()}" /></td>
-									<td><c:out value="${task.getRemainingTime()}" /></td>
-									<td><c:out value="${task.empName}" /></td>
-									<td>
-										<button type="button" onclick="editRow(this);"
-											class="btn-edit btn btn-xs">
-											<span class="fa fa-edit"></span>
-										</button>
+										<td><c:out value="${task.getTaskCode()}" /></td>
+										<td><c:out value="${task.getTaskTitle()}" /></td>
+										<td><c:out value="${task.getEstimatedTime()}" /></td>
+										<td><c:out value="${data.sp[count]}" /></td>
+										<td><c:out value="${data.rem[count]}" /></td>
 
-										<button type="button" onclick="delRow(this);"
-											class="btn-del btn btn-xs">
-											<span class="fa fa-trash"></span>
-										</button>
-										<button type="button" onclick="startTimeFromList(this)" id="start"
-											class="btn-timer btn btn-xs time-start">
-											<span class="fa fa-play"></span>
-										</button> <!-- <button type="button" onclick="upRow(this);" class="btn-up btn btn-xs"><span class="fa fa-arrow-up"></span></button> 
-										<button type="button" onclick="downRow(this);" class="btn-down btn btn-xs"><span class="fa fa-arrow-down"></span></button> -->
-										<input type="hidden" name="id[]" class="task_id1"
-										value="${task.getId()}" /> <input type="hidden"
-										name="task_code[]" class="task_code"
-										value="${task.getTaskCode()}" /> <input type="hidden"
-										name="task_title[]" class="task_title"
-										value="${task.getTaskTitle()}" /> <input type="hidden"
-										name="estimated_time[]" class="estimated_time"
-										value="${task.getEstimatedTime()}" /> <input type="hidden"
-										name="spent_time[]" class="spent_time"
-										value="${task.getSpentTime()}" /> <input type="hidden"
-										name="remaining_time[]" class="remaining_time"
-										value="${task.getRemainingTime()}" /> <input type="hidden"
-										name="assignee[]" class="assignee"
-										value="${task.empName}" />
+										<td><c:out value="${task.empName}" /></td>
+										<td>
+											<button type="button" onclick="editRow(this);"
+												class="btn-edit btn btn-xs">
+												<span class="fa fa-edit"></span>
+											</button>
+											<button type="button" onclick="delRow(this);"
+												class="btn-del btn btn-xs">
+												<span class="fa fa-trash"></span>
+											</button>
 
-									</td>
-								</tr>
+											<button type="button" onclick="startTimeFromList(this)"
+												id="start" class="btn-timer btn btn-xs time-start">
+												<span class="fa fa-play"></span></button> 
+											<input type="hidden" name="id[]" class="task_id1"
+											value="${task.getId()}" /> <input type="hidden"
+											name="task_code[]" class="task_code"
+											value="${task.getTaskCode()}" /> <input type="hidden"
+											name="task_title[]" class="task_title"
+											value="${task.getTaskTitle()}" /> <input type="hidden"
+											name="estimated_time[]" class="estimated_time"
+											value="${task.getEstimatedTime()}" /> <input type="hidden"
+											name="spent_time[]" class="spent_time"
+											value="${task.getSpentTime()}" /> <input type="hidden"
+											name="remaining_time[]" class="remaining_time"
+											value="${task.getRemainingTime()}" /> <input type="hidden"
+											name="assignee[]" class="assignee" value="${task.empName}" />
+
+										</td>
+									</tr>
 								</c:if>
+								<c:set var="count" value="${count + 1}" scope="request" />
 							</c:forEach>
 						</tbody>
 					</table>
@@ -165,6 +165,50 @@
 	var startTime = $("#curr_start_time").val(); //alert(startTime)
 
 	//reload();
+	window.setInterval(function() {
+
+	}, 10000);
+
+	var delRow = function(el) {
+		var spentTime = $(el).closest("tr").find(".spent_time").val();
+		if (spentTime == "00:00:00") {
+			swal({
+				title : "Are you sure?",
+				text : "Are you sure to delete this privilege?",
+				type : "warning",
+				showCancelButton : true,
+				confirmButtonColor : "#007AFF",
+				confirmButtonText : "Yes, delete it!",
+				closeOnConfirm : true
+			}, function() {
+				$("input[name='id']").val(
+						$(el).closest("tr").find(".task_id").val());
+				$(el).closest("tr").remove();
+				$(".delete_form").submit();
+			});
+		} else {
+			swal({
+				title : "Can't Delete This Task",
+				text : "Task is in Progress",
+				type : "warning",
+				showCancelButton : false,
+				confirmButtonColor : "#007AFF",
+				confirmButtonText : "OK",
+				closeOnConfirm : true
+			});
+		}
+
+	};
+
+	$('.btn-edit').on("click", function() {/* console.log($(".task_id").val()) */
+		var currentRow = $(this).closest("tr");
+		currentRow.addClass("current-row");
+
+		var taskId = currentRow.find(".task_id").val();
+
+		LoadMainContent('/taskman/tman/tasks/edit/' + taskId);
+	});
+	
 	function reload() {
 		$.ajax({
 			url : "/reloadNoticeBoard",
@@ -217,7 +261,7 @@
 		//alert("timer on!")
 		timer();
 	}
-	
+
 	function startTimeFromList(el) {
 		var runningTime = $('#tn').text();
 		if (runningTime == "") {
@@ -275,8 +319,8 @@
 							url : '/taskman/tman/tasks/timeLog/' + id + '/'
 									+ startTime + '/' + taskTitle + '/' + day,
 							success : function(response, status, xhr) {
-										LoadMainContent("/");
-									}
+								LoadMainContent("/");
+							}
 						});
 					});
 
@@ -325,11 +369,8 @@
 			url : '/taskman/tman/tasks/timeLogUpdate/' + id + '/' + stopTime
 					+ '/' + day,
 			success : function(response, status, xhr) {
-						LoadMainContent("/");
-					}
+				LoadMainContent("/");
+			}
 		});
 	}
-
-	
-	
 </script>
