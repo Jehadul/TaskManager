@@ -232,11 +232,11 @@
 	function showMessage(data) {
 		if (data.outcome == 'success') {
 			isDirty = false;
-			ShowSuccessMsg('User Story Updated', data.msg);
+			ShowSuccessMsg('User Story Updated', data.message);
 
 			LoadMainContent('/taskman/userstory/story/show/' + data.id);
 		} else {
-			ShowErrorMsg('User Story was not updated', data.msg);
+			ShowErrorMsg('User Story was not updated', data.message);
 			var msg = ConcatWithBR(data.error);
 			$(".alert").html(msg);
 			$(".alert").removeClass("hidden");
