@@ -87,7 +87,7 @@ public class SprintController implements ISprintController {
 		
 		
 
-		return new WSResponse("success", "Saved Successfully", UUID.fromString(data.get("id")), null,
+		return new WSResponse("success", "Saved successfully", UUID.fromString(data.get("id")), null,
 				data.get("mode"), data);
 	}
 
