@@ -192,11 +192,11 @@
    function showMessage(data) {
 		if (data.outcome == 'success') {
 			isDirty = false ;
-			ShowSuccessMsg('Sprint Updated', data.msg);
+			ShowSuccessMsg('Sprint Updated', data.message);
 			
 			LoadMainContent('/taskman/tman/sprint/show/'+ data.id);
 		} else {
-			ShowErrorMsg('Sprint was not Updated', data.msg);
+			ShowErrorMsg('Sprint was not Updated', data.message);
 			var msg = ConcatWithBR(data.error);
 			$(".alert").html(msg);
 			$(".alert").removeClass("hidden");
