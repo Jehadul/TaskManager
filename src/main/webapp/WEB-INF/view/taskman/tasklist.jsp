@@ -24,7 +24,7 @@
 							<th style="display: none"></th>
 							<th>Task Id</th>
 							<th>Task Title</th>
-							<th>Estimated Time</th>
+							<th>Estimated Time(Hours)</th>
 							<th>Spent Time</th>
 							<th>Remaining Time</th>
 							<th>Assignee</th>
