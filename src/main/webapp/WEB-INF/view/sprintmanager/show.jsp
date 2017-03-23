@@ -24,7 +24,7 @@
 
 		<form method="POST" action="/taskman/tman/sprint/destroy" class="ajax delete_form">
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-				<cts:TextBox name="id" value="${map.sprint.id }"/>
+				<cts:Hidden name="id" value="${map.sprint.id }"/>
 		</form>
 
 
@@ -145,6 +145,9 @@
 				<button class="btn btn-refresh refresh-linked" type="button">
 					<span class="fa fa-refresh"></span>
 				</button>
+				<button id="del_btn" class="btn btn-del" type="button">
+					<span class="fa fa-trash"></span>
+				</button>
 				<button class="btn btn-help" type="button">
 					<span class="fa fa-question"></span>
 				</button>
@@ -155,9 +158,9 @@
 				<button id="edit_btn" class="btn btn-save" type="submit">
 					<span class="fa fa-edit"></span> Edit
 				</button>
-				<button id="del_btn" class="btn btn-del" type="submit">
-					<span class="fa fa-trash"></span> Delete
-				</button>
+<!-- 				<button id="del_btn" class="btn btn-del" type="submit"> -->
+<!-- 					<span class="fa fa-trash"></span> Delete -->
+<!-- 				</button> -->
 			</div>
 		</div>
 		
