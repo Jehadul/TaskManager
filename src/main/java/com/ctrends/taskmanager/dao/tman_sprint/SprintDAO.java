@@ -57,6 +57,27 @@ public class SprintDAO implements ISprintDAO {
 		}
 		return null;
 	}
+	
+	@Transactional
+	@Override
+	public SprintManagerDetails getDocByIdSprintCode(String sprintCode) {
+		Query query = sessionfactory.getCurrentSession().createQuery("From SprintManagerDetails WHERE sprintCode = :sprintCode");
+		query.setParameter("sprintCode", sprintCode);
+		List<SprintManagerDetails> pt = query.list();
+		if(pt.size()>0){
+			return pt.get(0);
+		}
+		return null;
+	}
+	@Transactional
+	@Override
+	public List<SprintManagerDetails> getDocByIdStoryCode(String sprintCode) {
+		Query query = sessionfactory.getCurrentSession().createQuery("From SprintManagerDetails WHERE sprintCode = :sprintCode");
+		query.setParameter("sprintCode", sprintCode);
+		List<SprintManagerDetails> pt = query.list();
+		
+		return pt;
+	}
 
 	@Override
 	public List<SprintManager> getDocs(Map<String, String> params) {
