@@ -195,7 +195,7 @@ var loadUserStory = function(data){
 
 function showMessage(data) {
 	if (data.outcome == 'success') {
-		ShowSuccessMsg('Sprint created', data.message);
+		ShowSuccessMsg('Sprint Created', data.message);
 		isDirty = false;
 		LoadMainContent('/taskman/tman/sprint/show/' + data.id);
 	} else {
