@@ -8,7 +8,7 @@
 			</div>
 			<ol class="breadcrumb padding-top-20">
 				<li><span>User Story</span></li>
-				<li class="active"><span>User Story</span></li>
+				<li class="active"><span>Show User Story</span></li>
 			</ol>
 		</div>
 	</section>
@@ -167,18 +167,22 @@
 					<button class="btn btn-refresh refresh-linked" type="button">
 						<span class="fa fa-refresh"></span>
 					</button>
+					<button id="del_btn" class="btn btn-del" type="button">
+						<span class="fa fa-trash"></span>
+					</button>
 					<button class="btn btn-help" type="button">
 						<span class="fa fa-question"></span>
 					</button>
+					
 				</div>
 
 				<div class="align-right">
 					<button id="edit_btn" class="btn btn-save" type="submit">
 						<span class="fa fa-edit"></span> Edit
 					</button>
-					<button id="del_btn" class="btn btn-del" type="submit">
-						<span class="fa fa-trash"></span> Delete
-					</button>
+<!-- 					<button id="del_btn" class="btn btn-del" type="submit"> -->
+<!-- 						<span class="fa fa-trash"></span> Delete -->
+<!-- 					</button> -->
 				</div>
 				
 			</div>
@@ -210,7 +214,7 @@
 
 		swal({
 			title : "Are you sure?",
-			text : "Are you sure to delete this privilege?",
+			text : "Are you sure to delete this user story?",
 			type : "warning",
 			showCancelButton : true,
 			confirmButtonColor : "#007AFF",

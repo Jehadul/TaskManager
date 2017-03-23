@@ -8,7 +8,7 @@
 			</div>
 			<ol class="breadcrumb padding-top-20">
 				<li>
-					<span>Taskman</span>
+					<span>Sprint</span>
 				</li>
 				<li class="active">
 					<span>Show Sprint</span>
@@ -21,11 +21,19 @@
 	<!-- start: USER PROFILE -->
 	<div class="container-fluid container-fullw bg-white">
 	
-	<form method="POST" action="/taskman/tman/sprint/destroy" class="ajax delete_form">
-			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-			<cts:Hidden name="id" value="${map.sprint.id }"/>
-	</form>
-		
+
+		<form method="POST" action="/taskman/tman/sprint/destroy" class="ajax delete_form">
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+				<cts:Hidden name="id" value="${map.sprint.id }"/>
+		</form>
+
+
+		<div>
+			<div class="alert alert-block alert-danger hidden">
+				Please check the fields marked with 
+				<span class="text-red fa fa-close"></span>.
+			</div>
+			
 			<div class="row">
 				
 				<div class="col-md-6">
@@ -33,7 +41,12 @@
                         <tr>
                             <td class="width-150"><cts:Label name="Suite Name" labelFor="suite_name"/></td>
 								<td class="width-50">:</td>
+
+								<td><b>${map.sprint.suiteName}</b>
+								</td>
+
 								<td><b>${map.sprint.suiteName}</b></td>
+
                         </tr>
                     </table>
 					<table>
@@ -118,42 +131,22 @@
 			<br/>
 			<br/>
 			<br/>
-			<div id="WorkflowBlocks" class="panel-group accordion">
-				<fieldset>
-                     <legend>
-                         Sprint Stories&nbsp;&nbsp;      
-                     </legend><br>
-                         <div class="col-md-12">
-                             <div class="table-responsive">
-                                 <table class="data-grid width-full" id="user-story">  
-                                     <thead>
-                                          <tr>
-                                            <th class="align-center width-140">Story Code</th>
-											<th class="align-center width-140">Story Name</th>
-                                         </tr>
-                                     </thead>
-                                     <tbody>
-                                     	<c:forEach var="story" items="${map.sprint.steps}">
-                                             <tr>
-		                                       <td><c:out value="${story.sprintStoryCode}"></c:out></td>   
-                                               <td><c:out value="${story.sprintStoryName}"></c:out></td> 
-                                             </tr>   
-                                         </c:forEach>         
-                                     </tbody>
-                                 </table>
-                             </div>
-                         </div>                    
-                    </fieldset>
-			</div>
+			
 
-	</div>
+		</div>
 		
-		<div class="row margin-top-30 margin-bottom-30">
+		
+		
+	<div class="row margin-bottom-30 margin-right-5">
 
-              <div class="col-md-auto">
-				<cts:Button cssClass="back" spanClass="arrow-left" dAjax="true" dHref="/toc?type=privgrp&currprivgrp=3&currmodcode=WF"/>
+			<div class="col-md-auto">
+				<cts:Button cssClass="back" spanClass="arrow-left" dAjax="true"
+					dHref="/toc?type=privgrp&currprivgrp=3&currmodcode=WF" />
 				<button class="btn btn-refresh refresh-linked" type="button">
 					<span class="fa fa-refresh"></span>
+				</button>
+				<button id="del_btn" class="btn btn-del" type="button">
+					<span class="fa fa-trash"></span>
 				</button>
 				<button class="btn btn-help" type="button">
 					<span class="fa fa-question"></span>
@@ -165,15 +158,21 @@
 				<button id="edit_btn" class="btn btn-save" type="submit">
 					<span class="fa fa-edit"></span> Edit
 				</button>
-				<button id="del_btn" class="btn btn-del" type="submit">
-					<span class="fa fa-trash"></span> Delete
-				</button>
+<!-- 				<button id="del_btn" class="btn btn-del" type="submit"> -->
+<!-- 					<span class="fa fa-trash"></span> Delete -->
+<!-- 				</button> -->
 			</div>
 		</div>
 		
+	
 </div>
+
 <script>
 	InitHandlers();
+
+	$("#suite_code").focus();
+
+
 	$(function() {
 		$("#suite_code").focus();
 	});
@@ -186,7 +185,7 @@
 		
 		swal({
 			title: "Are you sure?",
-			text: "Are you sure to delete this privilege?",
+			text: "Are you sure to delete this sprint?",
 			type: "warning",
 			showCancelButton: true,
 			confirmButtonColor: "#007AFF",

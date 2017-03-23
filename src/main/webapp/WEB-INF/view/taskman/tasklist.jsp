@@ -8,7 +8,7 @@
 				<h1 class="mainTitle">Task List</h1>
 			</div>
 			<ol class="breadcrumb padding-top-20">
-				<li><span>Taskman</span></li>
+				<li><span>Task</span></li>
 				<li class="active"><span>Task List</span></li>
 			</ol>
 		</div>
@@ -96,11 +96,27 @@
 	InitDataTable("#task_sort_result");
 
 	var delRow = function(el) {
+
+		swal({
+			title : "Are you sure?",
+			text : "Are you sure to delete this privilege?",
+			type : "warning",
+			showCancelButton : true,
+			confirmButtonColor : "#007AFF",
+			confirmButtonText : "Yes, delete it!",
+			closeOnConfirm : true
+		}, function() {
+			$("input[name='id']").val(
+					$(el).closest("tr").find(".task_id").val());
+			$(el).closest("tr").remove();
+			$(".delete_form").submit();
+		});
+
 		var spentTime = $(el).closest("tr").find(".spent_time").val();
 		if (spentTime == "00:00:00") {
 			swal({
 				title : "Are you sure?",
-				text : "Are you sure to delete this privilege?",
+				text : "Are you sure to delete this task?",
 				type : "warning",
 				showCancelButton : true,
 				confirmButtonColor : "#007AFF",
@@ -111,6 +127,14 @@
 						$(el).closest("tr").find(".task_id").val());
 				$(el).closest("tr").remove();
 				$(".delete_form").submit();
+				
+				$.ajax({
+					type : 'GET',
+					url : '/taskman/tman/tasks/tasklist',
+					success : function(response, status, xhr) {
+						LoadMainContent("/taskman/tman/tasks/tasklist");
+					}
+				});
 			});
 		} else {
 			swal({
@@ -123,7 +147,6 @@
 				closeOnConfirm : true
 			});
 		}
-
 	};
 
 	$('.btn-edit').on("click", function() {/* console.log($(".task_id").val()) */

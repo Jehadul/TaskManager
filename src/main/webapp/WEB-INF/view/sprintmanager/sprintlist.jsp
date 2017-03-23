@@ -7,7 +7,7 @@
 				<h1 class="mainTitle">Sprint List</h1>
 			</div>
 			<ol class="breadcrumb padding-top-20">
-				<li><span>Taskman</span></li>
+				<li><span>Sprint</span></li>
 				<li class="active"><span>Sprint List</span></li>
 			</ol>
 		</div>
@@ -84,7 +84,7 @@
 	var delRow = function(el) {
 		swal({
 			title : "Are you sure?",
-			text : "Are you sure to delete this privilege?",
+			text : "Are you sure to delete this sprint?",
 			type : "warning",
 			showCancelButton : true,
 			confirmButtonColor : "#007AFF",
@@ -95,6 +95,15 @@
 			$("input[name='id']").val($(el).closest("tr").find(".sprint_id").val());
 			$(el).closest("tr").remove();
 			$(".delete_form").submit();
+			
+			$.ajax({
+				type : 'GET',
+				url : '/taskman/tman/sprint/sprintlist',
+				success : function(response, status, xhr) {
+					LoadMainContent("/taskman/tman/sprint/sprintlist");
+				}
+			});
+			
 		});
 	};
 	

@@ -8,7 +8,7 @@
 			</div>
 			<ol class="breadcrumb padding-top-20">
 				<li>
-					<span>Taskman</span>
+					<span>Task</span>
 				</li>
 				<li class="active">
 					<span>Edit Task</span>
@@ -112,7 +112,7 @@
 					</div>
 				</div>
 			
-				<div class="row">
+				<%-- <div class="row">
 					<div class="col-md-8">
 						 <cts:Button cssClass="back" spanClass="arrow-left" dAjax="true" dHref="/toc?type=privgrp&currprivgrp=3&currmodcode=SA" />
 						<button class="btn btn-refresh" type="button">
@@ -127,6 +127,26 @@
 									<span class="fa fa-save"></span> &nbsp;Save
 						</button>
 					</div>
+				</div> --%>
+				
+				<div class="row margin-top-30 margin-bottom-30 margin-right-5">
+
+					<div class="col-md-auto">
+						<cts:Button cssClass="back" spanClass="arrow-left" dAjax="true"
+							dHref="/toc?type=privgrp&currprivgrp=3&currmodcode=WF" />
+						<button class="btn btn-refresh refresh-linked" type="button">
+							<span class="fa fa-refresh"></span>
+						</button>
+						<button class="btn btn-help" type="button">
+							<span class="fa fa-question"></span>
+						</button>
+					</div>
+
+					<div class="align-right">
+						<button id="edit_btn" class="btn btn-save" type="submit">
+							<span class="fa fa-save"></span> Update
+						</button>
+					</div>
 				</div>
 			</div>
 		</cts:AjaxForm>
@@ -139,11 +159,11 @@
    function showMessage(data) {
 		if (data.outcome == 'success') {
 			isDirty = false ;
-			ShowSuccessMsg('Tasks Updated', data.msg);
+			ShowSuccessMsg('Task Updated', data.message);
 			
 			LoadMainContent('/taskman/tman/tasks/show/'+ data.id);
 		} else {
-			ShowErrorMsg('Tasks was not Updated', data.msg);
+			ShowErrorMsg('Task was not Updated', data.msg);
 			var msg = ConcatWithBR(data.error);
 			$(".alert").html(msg);
 			$(".alert").removeClass("hidden");

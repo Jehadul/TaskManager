@@ -68,7 +68,7 @@
 					<div class="col-md-6">
 						<div class="form-group">						
 							<cts:Label name="Story Order" labelFor="story_order"/>
-							<cts:TextBox name="story_order" cssClass="dirty-check required" readonly=""/>
+							<cts:TextBox name="story_order" cssClass="dirty-check number required" readonly=""/>
 						</div>
 						<div class="form-group">
 							<cts:Label name="Story Size" labelFor="size"/>
@@ -88,8 +88,8 @@
 						</div>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-md-8">
+				<div class="row margin-top-30 margin-bottom-30 margin-right-5">
+					<div class="col-md-auto">
 						 <cts:Button cssClass="back" spanClass="arrow-left" dAjax="true" dHref="/toc?type=privgrp&currprivgrp=3&currmodcode=SA" />
 						<button class="btn btn-refresh" type="button">
 							<span class="fa fa-refresh"></span>
@@ -98,7 +98,7 @@
 							<span class="fa fa-question"></span>
 						</button>
 					</div>
-					<div class="col-md-4">
+					<div class="align-right">
 						<button id="submit" class="btn btn-save pull-right" type="submit">
 									<span class="fa fa-save"></span> &nbsp;Save
 						</button>
@@ -150,15 +150,17 @@ InitHandlers();
 	
 	function showMessage(data) {
 		if (data.outcome == 'success') {
-			ShowSuccessMsg('User Story created', data.message);
+			ShowSuccessMsg('User Story Created', data.message);
 			isDirty = false;
 			LoadMainContent('/taskman/userstory/story/show/' + data.id );
 		} else {
-			ShowErrorMsg('User Story was not created', data.msg);
+			ShowErrorMsg('User Story was not created', data.message);
 			var msg = ConcatWithBR(data.error);
 			$(".alert").html(msg);
 			$(".alert").removeClass("hidden");
 		}
+		
+		
 	}
 	
 	/*  $("#priv_grp_code").on("change", function(){
@@ -171,7 +173,7 @@ InitHandlers();
 				$("#privilege_code").val(newPrivCode);
 	 });  */
 	 
-	 $("#privilege_code").on("change", function(){
+	     $("#privilege_code").on("change", function(){
 		 $("input[name='priv_name']").val($("#privilege_code option:selected").text());
 		 $("#user_story_code").val("");
 		 var newSuiteCode = $("#suite_code").val();  
@@ -181,7 +183,7 @@ InitHandlers();
 		 var newUserStoryCode = newSuiteCode+ "_" + newModuleCode + "_" + newPrivGroupCode + "_" + newPrivilegeCode + ".";
 		 $("#user_story_code").val(newUserStoryCode);
 		 
-	 });
+	 }); 
 	 
 	
 	 function validate(){
@@ -196,31 +198,31 @@ InitHandlers();
 			var result = CheckRequired();
 			
 			 if ( $("#suite_code").val() =="-1") {
-					error +="Please select Suite Code <br/>";
+					error +="Please select Suite Name <br/>";
 					result = false;
 					
 				}  
 				 
 				 if ( $("#module_code").val() =="-1") {
-						error +="Please select Module Code <br/>";
+						error +="Please select Module Name <br/>";
 						result = false;
 						
 					}  
 				 
 				 if ( $("#priv_grp_code").val() =="-1") {
-						error +="Please select Priv Grp Code <br/>";
+						error +="Please select Privilege Group <br/>";
 						result = false;
 						
 					} 
 				 
 				 if ($("#privilege_code").val() =="-1" ) {
-						error +="Please select Privilege Code <br/> ";
+						error +="Please select Privilege Name <br/> ";
 						result = false;
 						
 					} 
 				 
 				 if ($("#priority_code").val() =="-1" ) {
-						error +="Please select Priority Code <br/> ";
+						error +="Please select Priority <br/> ";
 						result = false;
 						
 					} 
@@ -235,23 +237,23 @@ InitHandlers();
 			 */
 
 			if ($("#user_story_code").val() =="" ) {
-				error +="Please Enter User Story Code <br/> ";
+				error +="Please Enter Story Code <br/> ";
 				result = false;
 				
 			} 
 			
 
 			if ($("#user_story_title").val() =="" ) {
-				error +="Please Enter User Story Title <br/> ";
+				error +="Please Enter Story Title <br/> ";
 				result = false;
 				
 			} 
 			
-			 if ( $("#priority_code").val() =="-1") {
+			 /* if ( $("#priority_code").val() =="-1") {
 					error +="Please select Priority Code <br/>";
 					result = false;
 					
-				} 
+				}  */
 			
 			if ($("#story_order").val() =="" ) {
 				error +="Please Enter Story Order <br/> ";

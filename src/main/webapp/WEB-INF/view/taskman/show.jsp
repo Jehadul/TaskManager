@@ -7,7 +7,7 @@
 				<h1 class="mainTitle">Show Task</h1>
 			</div>
 			<ol class="breadcrumb padding-top-20">
-				<li><span>Taskman</span></li>
+				<li><span>Task</span></li>
 				<li class="active"><span>Show Task</span></li>
 			</ol>
 		</div>
@@ -128,13 +128,16 @@
 		</div>
 		<br /> <br /> <br />
 
-		<div class="row margin-top-30 margin-bottom-30">
+		<div class="row margin-top-30 margin-bottom-30 margin-right-5">
 
 			<div class="col-md-auto">
 				<cts:Button cssClass="back" spanClass="arrow-left" dAjax="true"
 					dHref="/toc?type=privgrp&currprivgrp=3&currmodcode=WF" />
 				<button class="btn btn-refresh refresh-linked" type="button">
 					<span class="fa fa-refresh"></span>
+				</button>
+				<button id="del_btn" class="btn btn-del" type="button">
+					<span class="fa fa-trash"></span>
 				</button>
 				<button class="btn btn-help" type="button">
 					<span class="fa fa-question"></span>
@@ -145,9 +148,9 @@
 				<button id="edit_btn" class="btn btn-save" type="submit">
 					<span class="fa fa-edit"></span> Edit
 				</button>
-				<button id="del_btn" class="btn btn-del" type="submit">
+				<!-- <button id="del_btn" class="btn btn-del" type="submit">
 					<span class="fa fa-trash"></span> Delete
-				</button>
+				</button> -->
 			</div>
 		</div>
 	</div>
@@ -167,7 +170,7 @@
 
 		swal({
 			title : "Are you sure?",
-			text : "Are you sure to delete this privilege?",
+			text : "Are you sure to delete this task?",
 			type : "warning",
 			showCancelButton : true,
 			confirmButtonColor : "#007AFF",

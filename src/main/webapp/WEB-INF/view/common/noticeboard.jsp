@@ -23,7 +23,7 @@
 					<table class="table table-striped table-hover">
 						<thead>
 							<tr>
-								<th>Description</th>
+								<th>Desc.</th>
 								<th>Suite</th>
 								<th>Module</th>
 								<th>Privilege</th>
@@ -60,9 +60,14 @@
 											value="${data.currentRemainingTime}"
 											cssClass="view" /></td>
 									<td style="width: 102px;">
+<<<<<<< HEAD
 										<button type="button" class="btn btn-xs pull-left"
 											id="start-timer"
 											style="border: 1px solid #008800; color: #008800">
+=======
+										<button type="button" class="btn-edit btn btn-xs pull-left"
+											id="start-timer">
+>>>>>>> 66a3f8a405b72cd5d5a4fce92ff581884ef3d906
 											<span id="tn"> <time>${data.spentTime}</time>
 											</span>
 										</button> <span class="pull-left">&nbsp;</span>
@@ -116,6 +121,7 @@
 												<span class="fa fa-edit"></span>
 											</button>
 
+<<<<<<< HEAD
 											<button type="button" onclick="delRow(this);"
 												class="btn-del btn btn-xs">
 												<span class="fa fa-trash"></span>
@@ -125,6 +131,28 @@
 												id="start" class="btn-timer btn btn-xs time-start">
 												<span class="fa fa-play"></span>
 											</button> <!-- <button type="button" onclick="upRow(this);" class="btn-up btn btn-xs"><span class="fa fa-arrow-up"></span></button> 
+=======
+									<td><c:out value="${task.getTaskCode()}" /></td>
+									<td><c:out value="${task.getTaskTitle()}" /></td>
+									<td><c:out value="${task.getEstimatedTime()}" /></td>
+									<td><c:out value="${task.getSpentTime()}" /></td>
+									<td><c:out value="${task.getRemainingTime()}" /></td>
+									<td><c:out value="${task.empName}" /></td>
+									<td>
+										<button type="button" onclick="editRow(this);"
+											class="btn-edit btn btn-xs">
+											<span class="fa fa-edit"></span>
+										</button>
+
+										<button type="button" onclick="delRow(this);"
+											class="btn-del btn btn-xs">
+											<span class="fa fa-trash"></span>
+										</button>
+										<button type="button" onclick="startTimeFromList(this)" id="start"
+											class="btn-timer btn btn-xs time-start">
+											<span class="fa fa-play"></span>
+										</button> <!-- <button type="button" onclick="upRow(this);" class="btn-up btn btn-xs"><span class="fa fa-arrow-up"></span></button> 
+>>>>>>> 66a3f8a405b72cd5d5a4fce92ff581884ef3d906
 										<button type="button" onclick="downRow(this);" class="btn-down btn btn-xs"><span class="fa fa-arrow-down"></span></button> -->
 											<input type="hidden" name="id[]" class="task_id1"
 											value="${task.getId()}" /> <input type="hidden"
@@ -211,6 +239,7 @@
 
 		LoadMainContent('/taskman/tman/tasks/edit/' + taskId);
 	});
+	
 	function reload() {
 		$.ajax({
 			url : "/reloadNoticeBoard",
@@ -278,7 +307,7 @@
 						closeOnConfirm : true
 					},
 					function() {
-						html = ' <button type="button" class="btn btn-xs" id="start-timer" style="border:1px solid #008800;color:#008800">'
+						html = ' <button type="button" class="btn-edit btn btn-xs" id="start-timer">'
 								+ '<span id="tn">'
 								+ '<time>00:00:00</time>'
 								+ '</span>'
