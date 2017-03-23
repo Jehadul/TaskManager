@@ -40,18 +40,18 @@
 							</legend>
 								<div class="form-group">
 									<cts:Label labelFor="suite_name" name="Suite Name"/>
-									<cts:TextBox name="suite_name" cssClass="dirty-check" readonly="readonly" value="${map.tasks.suiteName}"/>
+									<cts:TextBox name="suite_name" cssClass="dirty-check required" readonly="readonly" value="${map.tasks.suiteName}"/>
 									<cts:Hidden name="suite_code" value="${map.tasks.suiteCode}"/>
 									<cts:Hidden name="id" value="${map.tasks.id}"/>
 								</div>
 								 <div class="form-group">
 									<cts:Label labelFor="module_name" name="Module Name"/>
-									<cts:TextBox name="module_name" cssClass="dirty-check" readonly="readonly" value="${map.tasks.moduleName}"/>
+									<cts:TextBox name="module_name" cssClass="dirty-check required" readonly="readonly" value="${map.tasks.moduleName}"/>
 									<cts:Hidden name="module_code" value="${map.tasks.moduleCode}"/>
 								</div>
 								<div class="form-group">
 									<cts:Label labelFor="priv_grp_name" name="Privilege Group"/>
-									<cts:TextBox name="priv_grp_name" cssClass="dirty-check" readonly="readonly" value="${map.tasks.privGrpName}"/>
+									<cts:TextBox name="priv_grp_name" cssClass="dirty-check required" readonly="readonly" value="${map.tasks.privGrpName}"/>
 									<cts:Hidden name="priv_grp_code" value="${map.tasks.privGrpCode}"/>
 								</div>
 								<div class="form-group">
@@ -98,7 +98,7 @@
 								</legend>
 								<div class="form-group">						
 									<cts:Label name="Assignee Code" labelFor="emp_code"/>
-									<cts:TextBox name="emp_code" cssClass="dirty-check" readonly="readonly" value="${map.tasks.empCode}"/>
+									<cts:TextBox name="emp_code" cssClass="dirty-check required" readonly="readonly" value="${map.tasks.empCode}"/>
 								</div>
 								<div class="form-group">						
 									<cts:Label name="Assignee Name" labelFor="emp_name"/>
@@ -106,7 +106,7 @@
 								</div>
 								<div class="form-group">						
 									<cts:Label name="Username" labelFor="username"/>
-									<cts:TextBox name="username" cssClass="dirty-check" readonly="readonly" value="${map.tasks.username}"/>
+									<cts:TextBox name="username" cssClass="dirty-check required" readonly="readonly" value="${map.tasks.username}"/>
 								</div>
 						</fieldset>
 					</div>
