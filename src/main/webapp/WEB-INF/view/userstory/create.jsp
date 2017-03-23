@@ -150,7 +150,7 @@ InitHandlers();
 	
 	function showMessage(data) {
 		if (data.outcome == 'success') {
-			ShowSuccessMsg('User Story created', data.message);
+			ShowSuccessMsg('User Story Created', data.message);
 			isDirty = false;
 			LoadMainContent('/taskman/userstory/story/show/' + data.id );
 		} else {
