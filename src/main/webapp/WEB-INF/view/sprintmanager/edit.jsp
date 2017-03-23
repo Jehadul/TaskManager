@@ -88,11 +88,6 @@
 						</div>
 						
 						
-						<div class="form-group">
-								<cts:Label name="Sprint Goal" labelFor="sprint_goal"/>
-								<cts:TextBox name="sprint_goal" value="${map.sprintManager.sprintGoal}" cssClass="dirty-check required" readonly=""/>
-						</div>
-						
 					</div>
 					<div class="col-md-6">
 						
@@ -100,9 +95,14 @@
 								<cts:Label name="Sprint Number" labelFor="sprint_number"/>
 								<cts:TextBox name="sprint_number" value="${map.sprintManager.sprintNumber}" cssClass="dirty-check required" readonly=""/>
 						</div>
+												
+						<div class="form-group">
+								<cts:Label name="Sprint Goal" labelFor="sprint_goal"/>
+								<cts:TextBox name="sprint_goal" value="${map.sprintManager.sprintGoal}" cssClass="dirty-check required" readonly=""/>
+						</div>
 						
 						
-						
+						<%-- 
 						<fieldset>
 							<legend>
 								Pick Story&nbsp;&nbsp;
@@ -110,11 +110,11 @@
 							</legend>
 						
 							<div class="form-group">
-								<%-- <cts:Label name="Sprint Stories" labelFor="sprint_stories"/> --%>
+								<cts:Label name="Sprint Stories" labelFor="sprint_stories"/>
 								<cts:TextBox name="sprint_stories" value="${map.sprintManager.sprintStories}"  cssClass="dirty-check required" readonly="readonly"/>
 								<cts:Hidden name="sprint_story_code" value="${map.sprintManager.sprintStoryCode}" />
 							</div>
-						</fieldset>	
+						</fieldset>	 --%>
 						
 						
 						<div class="row">
@@ -148,6 +148,28 @@
 						</div>	
 					</div>
 				</div>
+				
+				<div class="row">
+						<div class="col-md-12">
+							<fieldset id="fs_multiple_employees" style="display: block;">
+									<legend>Sprint Stories&nbsp;&nbsp; 
+									<button id="btnAddStories" class="btn btn-find" type="button"><span class="fa fa-plus"></span></button>	
+									</legend>
+			 						<div class="table-responsive">
+					           			<table class="table table-striped table-hover" id=story_list>
+						           			<thead>
+												<tr>
+													<th>Code</th>
+													<th>Name</th>
+												</tr>
+											</thead>
+											<tbody>
+											</tbody>
+										</table>
+									</div>
+							</fieldset>	
+						</div>				
+					</div>
 				<div class="row margin-top-30 margin-bottom-30 margin-right-5">
 					<div class="col-md-auto">
 							<button class="btn btn-back" data-ajax="true"
@@ -227,7 +249,7 @@
 	
 	// search and select story for stories field
 
-	$("#btnStorySearch").on("click",function(){
+	/* $("#btnStorySearch").on("click",function(){
 		ShowModal("/taskman/userstory/story/searchstory/?action_type_code=SELECT&actioncallback=loadUserStory");
 	});
 
@@ -237,7 +259,21 @@
 		$("#sprint_story_code").val(story.userStoryCode);
 		HideModal('search-modal');	
 	}
-	
+	 */
+	 
+	 $("#btnAddStories").on("click",function(){
+			ShowModal("/taskman/userstory/story/searchstory/?action_type_code=SELECT&actioncallback=loadUserStory");
+		});
+
+		var loadUserStory = function(data){ 
+			var stroies = JSON.parse(unescape(data));
+			var html = '<tr>' +
+							'<td>' + stroies.userStoryCode + '</td>' +
+							'<td>' + stroies.userStoryTitle + '</td>' +
+						'</tr>';
+			$("#employee_list tbody").append(html);
+			HideModal('search-modal');	
+		};
 	
 	
 	function validate(){
