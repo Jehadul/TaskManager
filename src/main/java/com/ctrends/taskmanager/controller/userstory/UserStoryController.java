@@ -268,12 +268,6 @@ public class UserStoryController implements IUserStoryController {
 	
 	
 	
-	
-	// Tanvir working
-	
-	
-	
-	
 	@RequestMapping(value = "/searchstory", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ModelAndView showSearch(@Context HttpServletRequest request) {
 		

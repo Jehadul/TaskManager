@@ -37,19 +37,19 @@
 							</legend>
 							<div class="form-group">
 								<cts:Label labelFor="suite_name" name="Suite Name" />
-								<cts:TextBox name="suite_name" cssClass="dirty-check"
+								<cts:TextBox name="suite_name" cssClass="dirty-check required"
 									readonly="readonly" />
 								<cts:Hidden name="suite_code" value="" />
 							</div>
 							<div class="form-group">
 								<cts:Label labelFor="module_name" name="Module Name" />
-								<cts:TextBox name="module_name" cssClass="dirty-check"
+								<cts:TextBox name="module_name" cssClass="dirty-check required"
 									readonly="readonly" />
 								<cts:Hidden name="module_code" value="" />
 							</div>
 							<div class="form-group">
 								<cts:Label labelFor="priv_grp_name" name="Privilege Group" />
-								<cts:TextBox name="priv_grp_name" cssClass="dirty-check"
+								<cts:TextBox name="priv_grp_name" cssClass="dirty-check required"
 									readonly="readonly" />
 								<cts:Hidden name="priv_grp_code" value="" />
 							</div>
@@ -103,7 +103,7 @@
 							</legend>
 							<div class="form-group">
 								<cts:Label name="Assignee Code" labelFor="emp_code" />
-								<cts:TextBox name="emp_code" cssClass="dirty-check"
+								<cts:TextBox name="emp_code" cssClass="dirty-check required"
 									readonly="readonly" />
 							</div>
 							<div class="form-group">
@@ -113,7 +113,7 @@
 							</div>
 							<div class="form-group">
 								<cts:Label name="Username" labelFor="username" />
-								<cts:TextBox name="username" cssClass="dirty-check"
+								<cts:TextBox name="username" cssClass="dirty-check required"
 									readonly="readonly" />
 							</div>
 						</fieldset>
@@ -185,7 +185,7 @@
 
 	function showMessage(data) {
 		if (data.outcome == 'success') {
-			ShowSuccessMsg('Task created', data.message);
+			ShowSuccessMsg('Task Created', data.message);
 			isDirty = false;
 			LoadMainContent('/taskman/tman/tasks/show/' + data.id);
 		} else {
@@ -197,10 +197,15 @@
 	}
 
 	function validate() {
+		/* var suiteName = $("#suite_name").val().trim();
+		var moduleName = $("#moduleName").val().trim();
+		var privGrpName = $("#priv_grp_name").val().trim(); */
 		var taskCode = $("#task_code").val().trim();
 		var taskName = $("#task_title").val().trim();
 		var estimatedTime = $("#estimated_time").val().trim();
 		var description = $("#description").val().trim();
+		/* var assigneeCode = $("#emp_code").val().trim();
+		var userName = $("#username").val().trim(); */
 		var error = "";
 
 		SyncOptionText();
@@ -245,8 +250,8 @@
 			InitErrorChange();
 			$(".alert").html(error);
 			$(".alert").removeClass("hidden");
-		} else if (taskCode == "" || taskName == "" || estimatedTime == ""
-				|| description == "") {
+		} else if (/* suiteName == "" || moduleName == "" || privGrpName == "" ||  */taskCode == "" || taskName == "" || estimatedTime == ""
+			|| description == ""/*  || assigneeCode == "" || userName == "" */) {
 
 			error += "Only space is not allowed in required fields";
 			ShowErrorMsg('Task was not created', "Please check details.");
