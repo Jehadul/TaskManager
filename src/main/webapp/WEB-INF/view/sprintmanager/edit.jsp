@@ -25,7 +25,7 @@
 					<div class="col-md-6">
 						<div class="form-group">
 							<label for="suite_code" class="control-label">Suite Name</label>
-								<cts:TextBox name="id" value="${map.sprintManager.id}"/>
+								<cts:Hidden name="id" value="${map.sprintManager.id}"/>
 								<select id="suite_code" class="form-control required" name="suite_code">
 									<c:forEach items="${map.suiteCodes}" var="item">
 									<c:choose>
