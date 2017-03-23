@@ -84,7 +84,7 @@
 	var delRow = function(el) {
 		swal({
 			title : "Are you sure?",
-			text : "Are you sure to delete this privilege?",
+			text : "Are you sure to delete this sprint?",
 			type : "warning",
 			showCancelButton : true,
 			confirmButtonColor : "#007AFF",
