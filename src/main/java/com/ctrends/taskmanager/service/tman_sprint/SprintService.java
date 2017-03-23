@@ -365,8 +365,7 @@ public class SprintService implements ISprintService {
 		}
 		data.put("id", id.toString());
 		return data;
-=======
->>>>>>> 1d5b0fc4db057c2c5d63145f4dc676fbdae7ec13
+
 	}
 
 	@Override
