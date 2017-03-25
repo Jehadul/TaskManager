@@ -16,7 +16,11 @@
 	<!-- end: PAGE TITLE -->
 	<!-- start: YOUR CONTENT HERE -->
 	<div class="container-fluid container-fullw bg-white">
+	<a href="http://localhost:8080/?desturl=/taskman/userstory/story/storylist">Story Manager</a>
+		<a href="http://localhost:8080/?desturl=/taskman/tman/sprint/sprintlist">Sprint Manager</a>
+		
 		<div class="row">
+		
 			<fieldset>
 				<legend> Current Task&nbsp;&nbsp; </legend>
 				<div class="table-responsive">
@@ -81,6 +85,7 @@
 			<fieldset>
 				<legend> Task List&nbsp;&nbsp; </legend>
 				<div class="table-responsive">
+				<a href= "http://localhost:8080/?desturl=/taskman/tman/tasks/create">Create Task</a>
 					<table class="table table-striped table-hover"
 						id="task_sort_result">
 						<thead>
@@ -171,7 +176,7 @@
 
 	var delRow = function(el) {
 		var spentTime = $(el).closest("tr").find(".spent_time").val();
-		if (spentTime == "00:00:00") {
+		if (spentTime == "0") {
 			swal({
 				title : "Are you sure?",
 				text : "Are you sure to delete this privilege?",

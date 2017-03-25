@@ -16,11 +16,12 @@
 	</section>
 
 	<div class="container-fluid container-fullw bg-white">
-
+	
 		<fieldset>
+		
 			<legend> User Story List &nbsp;&nbsp; </legend>
 			
-			
+			<a href="http://localhost:8080/?desturl=/taskman/userstory/story/create">Create New User Story</a>
 			
 			<div class="table-responsive">
 
@@ -35,7 +36,7 @@
 							<th>Story Code</th>
 							<th>Story Title</th>
 							<th>Priority</th>
-							<th>Action</th>
+							<th data-orderable="false">Action</th>
 					    </tr>
 					  </thead>
 					  <tbody>
@@ -130,6 +131,7 @@
 	InitHandlers();
 
 	InitDataTable("#user-story");
+	
 	var delRow = function(el) {
 		swal({
 			title : "Are you sure?",
