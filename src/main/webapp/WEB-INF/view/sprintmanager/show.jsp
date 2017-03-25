@@ -141,8 +141,8 @@
 		           			<table class="table table-striped table-hover" id=story_list>
 			           			<thead>
 									<tr>
-										<th>Stories Code</th>
-										<th>Stories Name</th>
+										<th>Story Code</th>
+										<th>Story Name</th>
 									</tr>
 								</thead>
 								<tbody>									
