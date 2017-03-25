@@ -55,17 +55,23 @@
 							<cts:Hidden name="priority" value=""/>
 						</div>
 						<div class="form-group">
+							<cts:Label labelFor="story_state" name="Story Status"/>
+							<cts:Select list="${data.storyStatus}"  name="story_state" value="" cssClass="required"/>
+							<cts:Hidden name="story_status" value=""/>
+						</div>
+						<div class="form-group">
 							<cts:Label name="Story Code" labelFor="user_story_code"/>
 							<cts:TextBox name="user_story_code" cssClass="dirty-check required uppercase" readonly=""/>
 						</div>
-						<div class="form-group">						
-							<cts:Label name="Story Title" labelFor="user_story_title"/>
-							<cts:TextBox name="user_story_title" cssClass="dirty-check required" readonly=""/>
-						</div>
+						
 						
 						
 					</div>
 					<div class="col-md-6">
+						<div class="form-group">						
+							<cts:Label name="Story Title" labelFor="user_story_title"/>
+							<cts:TextBox name="user_story_title" cssClass="dirty-check required" readonly=""/>
+						</div>
 						<div class="form-group">						
 							<cts:Label name="Story Order" labelFor="story_order"/>
 							<cts:TextBox name="story_order" cssClass="dirty-check number required" readonly=""/>
@@ -114,6 +120,7 @@ InitHandlers();
 	$("input[name='suite_name']").val($("#suite_code option:selected").text());
 	$("input[name='module_name']").val($("#module_code option:selected").text());
 	$("input[name='priv_grp_name']").val($("#priv_grp_code option:selected").text());
+	$("input[name='story_status']").val($("#story_state option:selected").text());
 	
 
 	$('#suite_code').on('change', function(){
