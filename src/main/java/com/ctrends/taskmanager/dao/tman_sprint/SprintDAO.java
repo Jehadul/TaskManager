@@ -22,27 +22,26 @@ import com.ctrends.taskmanager.service.user.IUserService;
 
 import com.ctrends.taskmanager.model.userstory.UserStory;
 
-
 @Repository("sprintDAO")
 public class SprintDAO implements ISprintDAO {
 
-	
 	@Autowired
 	private SessionFactory sessionfactory;
-	
+
 	@Autowired
 	IUserDAO userDAO;
-	
+
 	@Autowired
 	IUserService userService;
-	
+
 	@Transactional
 	@Override
 	public List<SprintManager> getAllDoc() {
 		User currentUser = userService.getCurrentUser();
-		Query query = sessionfactory.getCurrentSession().createQuery("From SprintManager where createdByUsername =:userName");
+		Query query = sessionfactory.getCurrentSession()
+				.createQuery("From SprintManager where createdByUsername =:userName");
 		query.setParameter("userName", currentUser.getUsername());
-		List<SprintManager> splist=query.list();
+		List<SprintManager> splist = query.list();
 		return splist;
 	}
 
@@ -52,30 +51,33 @@ public class SprintDAO implements ISprintDAO {
 		Query query = sessionfactory.getCurrentSession().createQuery("From SprintManager WHERE id = :id");
 		query.setParameter("id", id);
 		List<SprintManager> pt = query.list();
-		if(pt.size()>0){
+		if (pt.size() > 0) {
 			return pt.get(0);
 		}
 		return null;
 	}
-	
+
 	@Transactional
 	@Override
 	public SprintManagerDetails getDocByIdSprintCode(String sprintCode) {
-		Query query = sessionfactory.getCurrentSession().createQuery("From SprintManagerDetails WHERE sprintCode = :sprintCode");
+		Query query = sessionfactory.getCurrentSession()
+				.createQuery("From SprintManagerDetails WHERE sprintCode = :sprintCode");
 		query.setParameter("sprintCode", sprintCode);
 		List<SprintManagerDetails> pt = query.list();
-		if(pt.size()>0){
+		if (pt.size() > 0) {
 			return pt.get(0);
 		}
 		return null;
 	}
+
 	@Transactional
 	@Override
 	public List<SprintManagerDetails> getDocByIdStoryCode(String sprintCode) {
-		Query query = sessionfactory.getCurrentSession().createQuery("From SprintManagerDetails WHERE sprintCode = :sprintCode");
+		Query query = sessionfactory.getCurrentSession()
+				.createQuery("From SprintManagerDetails WHERE sprintCode = :sprintCode");
 		query.setParameter("sprintCode", sprintCode);
 		List<SprintManagerDetails> pt = query.list();
-		
+
 		return pt;
 	}
 
@@ -85,13 +87,13 @@ public class SprintDAO implements ISprintDAO {
 		return null;
 	}
 
-	/*@Transactional
-	@Override
-	public UUID insertDoc(SprintManager doc) {
-		UUID id = (UUID) sessionfactory.getCurrentSession().save(doc);
-		sessionfactory.getCurrentSession().flush();
-		return id;
-	}*/
+	/*
+	 * @Transactional
+	 * 
+	 * @Override public UUID insertDoc(SprintManager doc) { UUID id = (UUID)
+	 * sessionfactory.getCurrentSession().save(doc);
+	 * sessionfactory.getCurrentSession().flush(); return id; }
+	 */
 	@Transactional
 	@Override
 	public UUID insertDoc(SprintManager sprint) {
@@ -105,56 +107,65 @@ public class SprintDAO implements ISprintDAO {
 		sessionfactory.getCurrentSession().flush();
 		return id;
 	}
-	
+
 	@Transactional
 	@Override
 	public UUID updateDoc(SprintManager doc) {
+		for (int i = 0; i < doc.getSteps().size(); i++) {
+			SprintManagerDetails sprintDetails = getDocByIdSprintCode(doc.getSteps().get(i).getSprintStoryCode());
+			System.out.println(doc.getSteps().get(i).getSprintCode()+"::::::::::dao:::::::::::");
+			sprintDetails = doc.getSteps().get(i);
+			sessionfactory.getCurrentSession().saveOrUpdate(sprintDetails);
+			sessionfactory.getCurrentSession().flush();
+		}
 		sessionfactory.getCurrentSession().saveOrUpdate(doc);
 		sessionfactory.getCurrentSession().flush();
 		return doc.getId();
 	}
+	
+	
 
 	@Transactional
 	@Override
 	public UUID deleteDoc(UUID id) {
-		SprintManager app =	(SprintManager)sessionfactory.getCurrentSession()
-				.load(SprintManager.class, id);
+		SprintManager app = (SprintManager) sessionfactory.getCurrentSession().load(SprintManager.class, id);
 		sessionfactory.getCurrentSession().delete(app);
 		sessionfactory.getCurrentSession().flush();
 		return id;
 	}
 
-	
 	@Transactional
 	@Override
 	public List<Suite> getAllSuites() {
-		Query query=sessionfactory.getCurrentSession().createQuery("From Suite");
-		List<Suite> suites=query.list();
+		Query query = sessionfactory.getCurrentSession().createQuery("From Suite");
+		List<Suite> suites = query.list();
 		return suites;
 	}
 
 	@Transactional
 	@Override
 	public List<PrivGroup> getAllPrivGrps() {
-		Query query=sessionfactory.getCurrentSession().createQuery("From PrivGroup");
-		List<PrivGroup> privgrpLi=query.list();
+		Query query = sessionfactory.getCurrentSession().createQuery("From PrivGroup");
+		List<PrivGroup> privgrpLi = query.list();
 		return privgrpLi;
 	}
+
 	@Transactional
 	@Override
 	public List<Module> getAllModules() {
-		Query query=sessionfactory.getCurrentSession().createQuery("From Module");
-		List<Module> moduleLi=query.list();
+		Query query = sessionfactory.getCurrentSession().createQuery("From Module");
+		List<Module> moduleLi = query.list();
 		return moduleLi;
 	}
 
 	@Transactional
 	@Override
 	public List<Module> getBySuit(String suitCode) {
-		Query query = sessionfactory.getCurrentSession().createQuery("from Module where suiteCode =:suiteCode order by modSeq");
+		Query query = sessionfactory.getCurrentSession()
+				.createQuery("from Module where suiteCode =:suiteCode order by modSeq");
 		query.setParameter("suiteCode", suitCode);
 		List<Module> modList = query.list();
-		
+
 		return modList;
 	}
 
@@ -169,47 +180,42 @@ public class SprintDAO implements ISprintDAO {
 		return privGroup;
 	}
 
-	/*@Transactional
-	@Override
-	public boolean checkUnique(Map<String, String> param) {
-		User currentUser = userDAO.getCurrentUser();
-		String companyCode = currentUser.getCompanyCode();
-		Query query = sessionfactory.getCurrentSession().createQuery("FROM SprintManager WHERE sprintCode =:sprintCode AND companyCode=:companyCode");
-		query.setParameter("companyCode",companyCode);
-		query.setParameter("sprintCode", param.get("sprintCode"));
-		
-		
-		SprintManager sprint=(SprintManager) query.uniqueResult();
-		
-
-	    if (sprint == null) {
-        	return true;
-        }
-        else{
-        	return false;
-        }
-	}*/
+	/*
+	 * @Transactional
+	 * 
+	 * @Override public boolean checkUnique(Map<String, String> param) { User
+	 * currentUser = userDAO.getCurrentUser(); String companyCode =
+	 * currentUser.getCompanyCode(); Query query =
+	 * sessionfactory.getCurrentSession().
+	 * createQuery("FROM SprintManager WHERE sprintCode =:sprintCode AND companyCode=:companyCode"
+	 * ); query.setParameter("companyCode",companyCode);
+	 * query.setParameter("sprintCode", param.get("sprintCode"));
+	 * 
+	 * 
+	 * SprintManager sprint=(SprintManager) query.uniqueResult();
+	 * 
+	 * 
+	 * if (sprint == null) { return true; } else{ return false; } }
+	 */
 	@Transactional
 	@Override
 	public boolean checkUnique(Map<String, Object> param) {
 		User currentUser = userDAO.getCurrentUser();
 		String companyCode = currentUser.getCompanyCode();
-		Query query = sessionfactory.getCurrentSession().createQuery("FROM SprintManager WHERE sprintCode =:sprintCode AND companyCode=:companyCode");
-		query.setParameter("companyCode",companyCode);
+		Query query = sessionfactory.getCurrentSession()
+				.createQuery("FROM SprintManager WHERE sprintCode =:sprintCode AND companyCode=:companyCode");
+		query.setParameter("companyCode", companyCode);
 		query.setParameter("sprintCode", param.get("sprintCode"));
-		
-		
-		SprintManager sprint=(SprintManager) query.uniqueResult();
-		
 
-	    if (sprint == null) {
-        	return true;
-        }
-        else{
-        	return false;
-        }
+		SprintManager sprint = (SprintManager) query.uniqueResult();
+
+		if (sprint == null) {
+			return true;
+		} else {
+			return false;
+		}
 	}
-	
+
 	@Transactional
 	@Override
 	public UUID updateDetail(SprintManagerDetails sprintDetail) {
@@ -225,7 +231,6 @@ public class SprintDAO implements ISprintDAO {
 				.createQuery("from SprintManagerDetails where sprintCode =:sprintCode ");
 		query.setParameter("sprintCode", sprintCode);
 		return query.list();
-	} 
-
+	}
 
 }

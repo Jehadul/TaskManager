@@ -242,7 +242,6 @@ public class TasksController implements ITasksController {
 		map.put("startTime", strTime);
 		map.put("taskTitle", title);
 		map.put("today", today);
-
 		Map<String, String> data = tasksService.insertTaskLog(map);
 		return null;
 	}

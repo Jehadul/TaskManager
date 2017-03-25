@@ -83,8 +83,7 @@
 						<div class="form-group">
 							<cts:Label name="Sprint Code" labelFor="sprint_code" />
 							<cts:TextBox name="sprint_code"
-								value="${map.sprintManager.sprintCode}"
-								cssClass="dirty-check required" readonly="" />
+								value="${map.sprintManager.sprintCode}"	cssClass="dirty-check required" readonly="true" />
 						</div>
 						<div class="form-group">
 							<cts:Label name="Sprint Name" labelFor="sprint_name" />
@@ -182,15 +181,15 @@
 									</thead>
 									<tbody>
 										<c:forEach var="story" items="${map.sprintDetails}">
-											<tr>				
+											<tr>
 												<td>
 													<input name="story_code[]" type="text"  class="project_code view" value="${story.getSprintStoryCode()}" />
 												</td>
 												<td>
 													<input name="story_name[]" type="text" class="project_name view"  value="${story.getSprintStoryName()}" />
-												</td>				
+
+												</td>			
 											</tr>
-											
 										</c:forEach>
 									</tbody>
 								</table>

@@ -171,7 +171,7 @@
 
 	var delRow = function(el) {
 		var spentTime = $(el).closest("tr").find(".spent_time").val();
-		if (spentTime == "00:00:00") {
+		if (spentTime == "0") {
 			swal({
 				title : "Are you sure?",
 				text : "Are you sure to delete this privilege?",

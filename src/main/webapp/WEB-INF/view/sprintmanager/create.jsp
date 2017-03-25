@@ -183,15 +183,7 @@ $("#btnAddStories").on("click",function(){
 	ShowModal("/taskman/userstory/story/searchstory/?action_type_code=SELECT&actioncallback=loadUserStory");
 });
 
-var loadUserStory = function(data){ 
-	var stroies = JSON.parse(unescape(data));
-	var html = '<tr>' +
-					'<td>' + stroies.userStoryCode + '</td>' +
-					'<td>' + stroies.userStoryTitle + '</td>' +
-				'</tr>';
-	$("#employee_list tbody").append(html);
-	HideModal('search-modal');	
-};
+
 
 function showMessage(data) {
 	if (data.outcome == 'success') {
