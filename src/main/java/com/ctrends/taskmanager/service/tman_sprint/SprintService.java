@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.ctrends.taskmanager.bean.Utility;
 import com.ctrends.taskmanager.dao.tman_sprint.ISprintDAO;
+import com.ctrends.taskmanager.model.tman.Tasks;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManager;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManagerDetails;
 import com.ctrends.taskmanager.model.user.User;
@@ -270,9 +271,7 @@ public class SprintService implements ISprintService {
 
 		// boolean rules = sprintDao.validate(param);;
 		boolean rules = sprintDao.checkUnique(param);
-
 		SprintManager sprint =sprintDao.getDocById(UUID.fromString(requestMap.get("id")[0]));
-
 		sprint.setSuiteName(requestMap.get("suite_name")[0]);
 		sprint.setModuleName(requestMap.get("module_name")[0]);
 		sprint.setPrivilegeName(requestMap.get("priv_grp_name")[0]);
@@ -280,6 +279,7 @@ public class SprintService implements ISprintService {
 		sprint.setSprintName(requestMap.get("sprint_name")[0]);
 		sprint.setSprintGoal(requestMap.get("sprint_goal")[0]);
 		sprint.setSprintNumber(Double.parseDouble(requestMap.get("sprint_number")[0]));
+
 		sprint.setClientCode(currentUser.getClientCode());
 		sprint.setClientName(currentUser.getClientName());
 		sprint.setCompanyCode(currentUser.getCompanyCode());
