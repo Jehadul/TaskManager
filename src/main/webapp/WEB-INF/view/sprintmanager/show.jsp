@@ -94,19 +94,6 @@
                         </tr>
                     </table>
 					<table>
-					
-                        <tr>
-                            <td class="width-150"><cts:Label name="Story" labelFor="sprint_stories"/></td>
-								<td class="width-50">:</td>
-								<td>
-								<c:forEach var="story" items="${map.sprintDetails}">
-								<b>${story.getSprintStoryName()}</b><br/>
-								 </c:forEach>
-								</td>
-                        </tr>
-                       
-                    </table>
-					<table>
                         <tr>
                             <td class="width-150"><cts:Label name="Start Date" labelFor="start_date"/></td>
 								<td class="width-50">:</td>
