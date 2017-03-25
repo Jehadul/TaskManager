@@ -58,6 +58,7 @@ public class UserStoryService implements IUserStoryService {
 	    
 	    userStory.setPriorityCode(Integer.parseInt(requestMap.get("priority_code")[0]));
 	    userStory.setPriority(requestMap.get("priority")[0]);
+	    userStory.setStoryStatus(requestMap.get("story_status")[0]);
 	    userStory.setStoryOrder(requestMap.get("story_order")[0]);
 		
 		userStory.setClientCode(currentUser.getClientCode());
@@ -124,7 +125,9 @@ public class UserStoryService implements IUserStoryService {
 	    }else{
 	    	userStory.setSize(Integer.parseInt(requestMap.get("size")[0]));
 	    }
+	    userStory.setPriorityCode(Integer.parseInt(requestMap.get("priority_code")[0]));
 	    userStory.setPriority(requestMap.get("priority")[0]);
+	    userStory.setStoryStatus(requestMap.get("story_status")[0]);
 	    userStory.setStoryOrder(requestMap.get("story_order")[0]);
 		//userStory.setStoryCode(requestMap.get("story_code")[0]);
 	    
