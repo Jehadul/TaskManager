@@ -75,10 +75,7 @@
 							<c:if test="${not empty msg}">
 								<div class="msg">${msg}</div>
 							</c:if>
-							<div class="msg"></div>
-							<%-- <c:if test="${not empty param.logout}">
-									<div class="msg">Logged out successfully</div>
-								</c:if>	 --%>
+							<div class="msges"></div>
 
 						</h5>
 						<p>
@@ -145,15 +142,16 @@
 			$('button[type="submit"]').on("click", function(e){
 				e.preventDefault();
 				var html = "";
-				if($('#username').val() == ""){						
+				if($('#username').val() == ""){	
+					html = "";
 					html +="Enter your user name! <br/>";
-					$('.msg').html("");
-					$('.msg').append(html);
+					$('.msges').html("");
+					$('.msges').append(html);
 				}
 				if($('#password').val() == ""){					
 					html +="Enter your password!";
-					$('.msg').html("");
-					$('.msg').append(html);
+					$('.msges').html("");
+					$('.msges').append(html);
 				}
 				if($("#password").val() !="" && $("#username").val() !=""){
 					$("form").submit();
