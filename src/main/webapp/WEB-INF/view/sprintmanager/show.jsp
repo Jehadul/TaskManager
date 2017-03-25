@@ -94,11 +94,17 @@
                         </tr>
                     </table>
 					<table>
+					
                         <tr>
                             <td class="width-150"><cts:Label name="Story" labelFor="sprint_stories"/></td>
 								<td class="width-50">:</td>
-								<td><b>${map.sprint.sprintStories}</b></td>
+								<td>
+								<c:forEach var="story" items="${map.sprintDetails}">
+								<b>${story.getSprintStoryName()}</b><br/>
+								 </c:forEach>
+								</td>
                         </tr>
+                       
                     </table>
 					<table>
                         <tr>
@@ -168,6 +174,9 @@
 
 <script>
 	InitHandlers();
+	
+	
+	
 
 	$("#suite_code").focus();
 
