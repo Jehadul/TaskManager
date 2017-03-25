@@ -144,7 +144,7 @@
 					</div>
 					<div class="col-md-6">
 
-						<div class="form-group">
+					<div class="form-group">
 							<cts:Label labelFor="priority_code" name="Priority" />
 							<select id="priority_code" class="form-control required"
 								name="priority_code">
@@ -228,7 +228,7 @@
 </div>
 <script>
 	InitHandlers();
-
+	
 	function showMessage(data) {
 		if (data.outcome == 'success') {
 			isDirty = false;
@@ -243,33 +243,7 @@
 		}
 	}
 
-	/* $('#suite_code').on('change', function(){
-		var newSuiteCode = $("#suite_code").val();
-		LoadMainContent("/taskman/userstory/story/create/?suite_code=" + newSuiteCode);
-	
-	});
-	
-	$('#module_code').on('change', function(){
-		var newSuiteCode = $("#suite_code").val();
-		var newModuleCode = $("#module_code").val();
-		LoadMainContent("/taskman/userstory/story/create/?suite_code=" + newSuiteCode + "&" + "module_code=" + newModuleCode);
-	
-	});
-	
-	$('#priv_grp_code').on('change', function(){
-		var newSuiteCode = $("#suite_code").val();
-		var newModuleCode = $("#module_code").val();
-		var newPrivGroupCode = $("#priv_grp_code").val();
-		LoadMainContent("/taskman/userstory/story/create/?suite_code=" + newSuiteCode + "&" + "module_code=" + newModuleCode + "&" + "priv_grp_code=" + newPrivGroupCode);
-	});
-	
-	 $("#privilege_code").on("change", function(){
-		 $("#user_story_code").val("");
-		 var newPrivilegeCode = $("#privilege_code").val();
-		 var newUserStoryCode = newPrivilegeCode + ".";
-		 $("#user_story_code").val(newUserStoryCode);
-		 
-	 }); */
+	$("input[name='priority']").val($("#priority_code option:selected").text());
 
 	$("#priority_code").on(
 			"change",
@@ -278,10 +252,6 @@
 						$("#priority_code option:selected").text());
 			});
 
-	/* 	 $("#suite_code").attr("disabled", "disabled");
-	 $("#module_code").attr("disabled", "disabled");
-	 $("#priv_grp_code").attr("disabled", "disabled");
-	 $("#privilege_code").attr("disabled", "disabled"); */
 
 	function validate() {
 
