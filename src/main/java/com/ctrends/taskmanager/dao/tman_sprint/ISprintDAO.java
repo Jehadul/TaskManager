@@ -20,4 +20,6 @@ public interface ISprintDAO extends ICommonDAO<SprintManager> {
 	boolean checkUnique(Map<String, Object> param);
 	UUID updateDetail(SprintManagerDetails sprintDetail);
 	List<SprintManagerDetails> findBySprintCode(String sprintCode);
+	public List<SprintManagerDetails> getDocByIdStoryCode(String storyCode);
+	public SprintManagerDetails getDocByIdSprintCode(String sprintCode);
 }
