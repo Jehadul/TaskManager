@@ -162,9 +162,9 @@
 				<button class="btn btn-refresh refresh-linked" type="button">
 					<span class="fa fa-refresh"></span>
 				</button>
-				<button id="del_btn" class="btn btn-del" type="button">
+				<!-- <button id="del_btn" class="btn btn-del" type="button">
 					<span class="fa fa-trash"></span>
-				</button>
+				</button> -->
 				<button class="btn btn-help" type="button">
 					<span class="fa fa-question"></span>
 				</button>

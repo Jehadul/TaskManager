@@ -121,6 +121,7 @@
 												<tr>
 													<th>Code</th>
 													<th>Name</th>
+													<th>Action</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -231,7 +232,13 @@ var loadUserStory = function(data){
 						'</td>'+
 						'<td>'+ 
 							'<input name="story_name[]" type="text" class="project_name view"  value="' + storyName + '" />' +
-						'</td>'+				
+						'</td>'+
+						'<td>'+
+							'<button type="button" onclick="removeStoryRow(this);" class="btn-del btn btn-xs">'+
+								'<span class="fa fa-times"></span>'+
+							'</button>'+
+						'</td>'
+						
 					'</tr>';
 	
 		
@@ -242,6 +249,40 @@ var loadUserStory = function(data){
 	
 	HideModal('search-modal');	
 };
+
+
+var removeStoryRow = function(el){
+	$(el).closest("tr").remove();
+};
+/* 
+
+var delRow = function(el) {
+	swal({
+		title : "Are you sure?",
+		text : "Are you sure to delete this sprint?",
+		type : "warning",
+		showCancelButton : true,
+		confirmButtonColor : "#007AFF",
+		confirmButtonText : "Yes, delete it!",
+		closeOnConfirm : true
+	}, function() {
+
+		$("input[name='id']").val($(el).closest("tr").find(".sprint_id").val());
+		$(el).closest("tr").remove();
+		$(".delete_form").submit();
+		
+		$.ajax({
+			type : 'GET',
+			url : '/taskman/tman/sprint/sprintlist',
+			success : function(response, status, xhr) {
+				LoadMainContent("/taskman/tman/sprint/sprintlist");
+			}
+		});
+		
+	});
+};
+
+ */
 
 var checkProjectDates = function()
 {
@@ -357,5 +398,6 @@ var checkProjectDates = function()
 	return result;
 } 
 
+ 
 
 </script>

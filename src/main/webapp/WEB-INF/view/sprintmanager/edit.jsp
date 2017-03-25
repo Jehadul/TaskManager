@@ -180,16 +180,23 @@
 										</tr>
 									</thead>
 									<tbody>
+										<c:set var="i" value="0" scope="request" />
 										<c:forEach var="story" items="${map.sprintDetails}">
 											<tr>
 												<td>
-													<input name="story_code[]" type="text"  class="project_code view" value="${story.getSprintStoryCode()}" />
+													<input name="story_code[]" type="text" id="code_${i}"  class="project_code view" value="${story.getSprintStoryCode()}" />
 												</td>
 												<td>
 													<input name="story_name[]" type="text" class="project_name view"  value="${story.getSprintStoryName()}" />
 
+												</td>
+												<td>
+													<button type="button" onclick="removeStoryRow(this);" class="btn-del btn btn-xs">
+														<span class="fa fa-times"></span>
+													</button>
 												</td>			
 											</tr>
+											<c:set var="count" value="${i + 1}" scope="request" />
 										</c:forEach>
 									</tbody>
 								</table>
@@ -301,15 +308,67 @@
 						ShowModal("/taskman/userstory/story/searchstory/?action_type_code=SELECT&actioncallback=loadUserStory");
 					});
 
+	 var i = 0;
 	 var loadUserStory = function(data){ 
-			var stroies = JSON.parse(unescape(data));
-			var html = '<tr>' +
-							'<td>' + stroies.userStoryCode + '</td>' +
-							'<td>' + stroies.userStoryTitle + '</td>' +
-						'</tr>';
-			$("#story_list tbody").append(html);
-			HideModal('search-modal');	
-	};
+	 	var story = JSON.parse(unescape(data));
+	 	var storyCode          = story.userStoryCode;   
+	 	var storyName          = story.userStoryTitle;   
+	 	var rows = $("#story_list tbody tr");
+	 	
+	 	for(var i = 0; i< rows.length; i++){
+	 		var code = $(rows[i]).find("#code_"+i).attr("value");
+	  		if(code == storyCode){
+	  			ShowErrorMsg('Sprint Stories already in use');
+	  			$(".alert").html(msg);
+	  			$(".alert").removeClass("hidden");
+	 		}
+	 		
+	 	}
+	 	
+	  
+	 	
+
+	 		var html = '<tr>' +					
+	 						'<td>'+ 
+	 							'<input name="story_code[]" type="text" id="code_'+i+'" class="project_code view" value="' + storyCode + '" />' +
+	 						'</td>'+
+	 						'<td>'+ 
+	 							'<input name="story_name[]" type="text" class="project_name view"  value="' + storyName + '" />' +
+	 						'</td>'+
+	 						'<td>'+
+							'<button type="button" onclick="removeStoryRow(this);" class="btn-del btn btn-xs">'+
+								'<span class="fa fa-times"></span>'+
+							'</button>'+
+						'</td>'
+	 					'</tr>';
+	 	
+	 		
+	 		/*------------------------ project rate edit----------------- */
+	 		
+	 		$("#story_list tbody").append(html);
+	 		i++;
+	 	
+	 	HideModal('search-modal');	
+	 };
+	 
+		var removeStoryRow = function(el){
+			$(el).closest("tr").remove();
+		};
+
+	 var checkProjectDates = function()
+	 {
+	 	var startDate= $('#start_date').val();
+	 	var endDate= $('#end_date').val();
+	 	
+	 	if(startDate != '' && endDate != '')
+	 	{
+	 		if ( new Date(startDate) > new Date(endDate)) {
+	 			ShowErrorMsg('',"Please ensure that the Sprint End Date is greater than or equal to the Start Date");
+	 			return false;
+	 		}
+	 	}
+	 	return true;
+	 };
 
 	function validate() {
 
@@ -371,6 +430,12 @@
 			result = false;
 
 		}
+		
+		if (!checkProjectDates()) {
+			result = false;
+			error += "Please ensure that the Sprint End Date is greater than or equal to the Start Date.<br />";
+		}
+		 
 
 		if (!result) {
 			InitErrorChange();
