@@ -337,13 +337,6 @@ var checkProjectDates = function()
 		error += "Please ensure that the Sprint End Date is greater than or equal to the Start Date.<br />";
 	}
 	 
-	 
-	if (!result) {
-		InitErrorChange();
-		$(".alert").html(error);
-		$(".alert").removeClass("hidden");
-	} 
-	
 	if (!result) {
 		
 		error +="Please check the fields marked with X";
