@@ -23,14 +23,15 @@ public class SprintManagerDetails {
 	@Column(name = "suite_code")
 	private String suiteCode;
 
-	@Column(name = "sprint_code")
-	private String sprintCode;
-
+	
 	@Column(name = "sprint_story_code")
 	private String sprintStoryCode;
 
 	@Column(name = "sprint_story_Name")
 	private String sprintStoryName;
+	
+	@Column(name = "sprint_code")
+	private String sprintCode;
 
 	@Column(name = "branch_code")
 	private String branchCode;
@@ -122,6 +123,9 @@ public class SprintManagerDetails {
 		this.suiteCode = suiteCode;
 	}
 
+
+
+	
 	public String getSprintCode() {
 		return sprintCode;
 	}
@@ -338,6 +342,7 @@ public class SprintManagerDetails {
 	public void setUpdatedByCompanyName(String updatedByCompanyName) {
 		this.updatedByCompanyName = updatedByCompanyName;
 	}
+
 	
 	
 	
