@@ -133,6 +133,31 @@
 			
 
 			</div>
+			<div class="row">				
+				<div class="col-md-12">
+					<fieldset>
+						
+						<div class="table-responsive">
+		           			<table class="table table-striped table-hover" id=story_list>
+			           			<thead>
+									<tr>
+										<th>Stories Code</th>
+										<th>Stories Name</th>
+									</tr>
+								</thead>
+								<tbody>									
+									<c:forEach var="story" items="${map.sprintDetails}">
+										<tr>
+											<td>${story.getSprintStoryCode()}</td>
+											<td>${story.getSprintStoryName()}</td>
+										</tr>
+									</c:forEach>									 
+								</tbody>
+							</table>
+						</div>
+					</fieldset>
+				</div>
+			</div>
 			<br/>
 			<br/>
 			<br/>
