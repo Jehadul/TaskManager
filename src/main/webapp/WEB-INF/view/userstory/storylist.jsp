@@ -35,7 +35,7 @@
 							<th>Story Code</th>
 							<th>Story Title</th>
 							<th>Priority</th>
-							<th>Action</th>
+							<th data-orderable="false">Action</th>
 					    </tr>
 					  </thead>
 					  <tbody>
@@ -130,6 +130,7 @@
 	InitHandlers();
 
 	InitDataTable("#user-story");
+	
 	var delRow = function(el) {
 		swal({
 			title : "Are you sure?",
