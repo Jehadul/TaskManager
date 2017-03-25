@@ -189,6 +189,11 @@
 												<td>
 													<input name="story_name[]" type="text" class="project_name view"  value="${story.getSprintStoryName()}" />
 
+												</td>
+												<td>
+													<button type="button" onclick="removeStoryRow(this);" class="btn-del btn btn-xs">
+														<span class="fa fa-times"></span>
+													</button>
 												</td>			
 											</tr>
 											<c:set var="count" value="${i + 1}" scope="request" />
@@ -329,7 +334,12 @@
 	 						'</td>'+
 	 						'<td>'+ 
 	 							'<input name="story_name[]" type="text" class="project_name view"  value="' + storyName + '" />' +
-	 						'</td>'+				
+	 						'</td>'+
+	 						'<td>'+
+							'<button type="button" onclick="removeStoryRow(this);" class="btn-del btn btn-xs">'+
+								'<span class="fa fa-times"></span>'+
+							'</button>'+
+						'</td>'
 	 					'</tr>';
 	 	
 	 		
@@ -340,6 +350,10 @@
 	 	
 	 	HideModal('search-modal');	
 	 };
+	 
+		var removeStoryRow = function(el){
+			$(el).closest("tr").remove();
+		};
 
 	 var checkProjectDates = function()
 	 {
