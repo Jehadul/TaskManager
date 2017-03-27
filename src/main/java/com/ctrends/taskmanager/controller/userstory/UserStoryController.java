@@ -232,6 +232,7 @@ public class UserStoryController implements IUserStoryController {
 		map.put("moduleCodes", moduleCodes);
 		map.put("privGrpCodes", privGrpCodes);
 		map.put("priorities", priorities);
+		map.put("storyStatus", storyStatus);
 		
 		
 
