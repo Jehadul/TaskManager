@@ -162,6 +162,26 @@
 							</select>
 							<cts:Hidden name="priority" value="" />
 						</div>
+						
+						<div class="form-group">
+							<cts:Label labelFor="story_state" name="Story Status" />
+							<select id="story_state" class="form-control required"
+								name="story_state">
+								<c:forEach items="${map.storyStatus}" var="item">
+									<c:choose>
+										<c:when test="${item.getKey() == map.userStory.storyStatus}">
+											<option selected value="${item.getKey()}">${item.getValue()}</option>
+										</c:when>
+										<c:otherwise>
+											<option value="${item.getKey()}">${item.getValue()}</option>
+										</c:otherwise>
+
+									</c:choose>
+								</c:forEach>
+							</select>
+							<cts:Hidden name="story_status" value=""/>
+						</div>
+						
 						<div class="form-group">
 							<cts:Label name="Story Order" labelFor="story_order" />
 							<cts:TextBox name="story_order"
