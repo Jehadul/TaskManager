@@ -87,8 +87,7 @@
 							<td><b>${map.userStory.userStoryCode}</b></td>
 						</tr>
 					</table>
-				</div>
-				<div class="col-sm-6">
+					
 					<table>
 						<tr>
 							<td class="width-150"><cts:Label name="User Story Title"
@@ -97,13 +96,25 @@
 							<td><b>${map.userStory.userStoryTitle}</b></td>
 						</tr>
 					</table>
-
+					
+				</div>
+				<div class="col-sm-6">
+					
 					<table>
 						<tr>
 							<td class="width-150"><cts:Label name="Priority"
 									labelFor="priority" /></td>
 							<td class="width-50">:</td>
 							<td><b>${map.userStory.priority}</b></td>
+						</tr>
+					</table>
+					
+					<table>
+						<tr>
+							<td class="width-150"><cts:Label name="Story Status"
+									labelFor="story_status" /></td>
+							<td class="width-50">:</td>
+							<td><b>${map.userStory.storyStatus}</b></td>
 						</tr>
 					</table>
 
