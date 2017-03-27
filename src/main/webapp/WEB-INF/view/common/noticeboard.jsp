@@ -16,11 +16,12 @@
 	<!-- end: PAGE TITLE -->
 	<!-- start: YOUR CONTENT HERE -->
 	<div class="container-fluid container-fullw bg-white">
+
 	<center><a style="margin-right:15px" href="http://localhost:8080/?desturl=/taskman/userstory/story/storylist">Story Manager</a>
 		<a href="http://localhost:8080/?desturl=/taskman/tman/sprint/sprintlist">Sprint Manager</a></center>
 		
 		<div class="row">
-		
+
 			<fieldset>
 				<legend> Current Task&nbsp;&nbsp; </legend>
 				<div class="table-responsive">
@@ -57,12 +58,10 @@
 											value="${currentTasklist.getEstimatedTime() }"
 											cssClass="view" /></td>
 									<td><cts:TextBox name="curr_start_time"
-											value="${data.currentSpentTime }" cssClass="view" />
-									</td>
+											value="${data.currentSpentTime }" cssClass="view" /></td>
 									<td style="width: 50px;"><cts:TextBox
 											name="curr_remaining_time"
-											value="${data.currentRemainingTime}"
-											cssClass="view" /></td>
+											value="${data.currentRemainingTime}" cssClass="view" /></td>
 									<td style="width: 102px;">
 										<button type="button" class="btn btn-xs pull-left"
 											id="start-timer"
@@ -85,8 +84,9 @@
 			<fieldset>
 				<legend> Task List&nbsp;&nbsp; </legend>
 				<div class="table-responsive">
+
 				<center><a href= "http://localhost:8080/?desturl=/taskman/tman/tasks/create">Create Task</a></center>
-					<table class="table table-striped table-hover"
+				<table class="table table-striped table-hover"
 						id="task_sort_result">
 						<thead>
 							<tr>
@@ -127,8 +127,8 @@
 
 											<button type="button" onclick="startTimeFromList(this)"
 												id="start" class="btn-timer btn btn-xs time-start">
-												<span class="fa fa-play"></span></button> 
-											<input type="hidden" name="id[]" class="task_id1"
+												<span class="fa fa-play"></span>
+											</button> <input type="hidden" name="id[]" class="task_id1"
 											value="${task.getId()}" /> <input type="hidden"
 											name="task_code[]" class="task_code"
 											value="${task.getTaskCode()}" /> <input type="hidden"
@@ -160,6 +160,174 @@
 		</div>
 	</div>
 	<!-- end: YOUR CONTENT HERE -->
+	<!-- 	start modal -->
+
+	<div class="modal" id="LevelModal" role="dialog"
+		aria-labelledby="suiteModal" aria-hidden="true" style="display: none;">
+		<div class="wrap-content">
+			<div class="modal-dialog modal-lg" style="background-color: #00ff00;">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" id="btnModalclose">
+							<span class="fa fa-close text-red"></span>
+						</button>
+						<h4 class="modal-title">Leave Types</h4>
+					</div>
+					<div class="modal-body">
+						<div class="alert alert-block alert-danger alert-modal hidden">
+						</div>
+						<cts:Hidden name="id" value="" />
+						<div class="row">
+							<cts:AjaxForm action="/taskman/tman/tasks/update" dataHandler="showMessage" >
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			
+			<div class="alert alert-block alert-danger hidden">
+				Please check the fields marked with 
+				<span class="text-red fa fa-close"></span>.
+			</div>
+		
+			<div class="denotes-required">denotes a required field.</div>
+			
+			<div class="main-control">
+			
+			<div class="row">
+					<div class="col-md-6">
+					
+						<fieldset>
+							<legend>
+									Story Details&nbsp;&nbsp;
+								<cts:Button cssClass="find" spanClass="search" id="btnStory"/>			
+							</legend>
+								<div class="form-group">
+									<cts:Label labelFor="suite_name" name="Suite Name"/>
+									<cts:TextBox name="suite_name" cssClass="dirty-check required" readonly="readonly" value="${map.tasks.suiteName}"/>
+									<cts:Hidden name="suite_code" value="${map.tasks.suiteCode}"/>
+									<cts:Hidden name="id" value="${map.tasks.id}"/>
+								</div>
+								 <div class="form-group">
+									<cts:Label labelFor="module_name" name="Module Name"/>
+									<cts:TextBox name="module_name" cssClass="dirty-check required" readonly="readonly" value="${map.tasks.moduleName}"/>
+									<cts:Hidden name="module_code" value="${map.tasks.moduleCode}"/>
+								</div>
+								<div class="form-group">
+									<cts:Label labelFor="priv_grp_name" name="Privilege Group"/>
+									<cts:TextBox name="priv_grp_name" cssClass="dirty-check required" readonly="readonly" value="${map.tasks.privGrpName}"/>
+									<cts:Hidden name="priv_grp_code" value="${map.tasks.privGrpCode}"/>
+								</div>
+								<div class="form-group">
+									<cts:Label labelFor="privilege_name" name="Privilege Name"/>
+									<cts:TextBox name="privilege_name" cssClass="dirty-check" readonly="readonly" value="${map.tasks.privilegeName}"/>
+									<cts:Hidden name="privilege_code" value="${map.tasks.privilegeCode}"/>
+								</div>
+								<div class="form-group">						
+									<cts:Label name="Story Title" labelFor="story_title"/>
+									<cts:TextBox name="story_title" cssClass="dirty-check" readonly="readonly" value="${map.tasks.storyTitle}"/>
+									<cts:Hidden name="story_code" value="${map.tasks.storyCode}"/>
+								</div>
+								
+						</fieldset>
+								<div class="form-group">						
+									<cts:Label name="Task Code" labelFor="task_code"/>
+									<cts:TextBox name="task_code" cssClass="dirty-check uppercase required" readonly="" value="${map.tasks.taskCode}"/>
+								</div>
+						
+						
+						
+					</div>
+					<div class="col-md-6">
+						
+						<div class="form-group">						
+							<cts:Label name="Task Title" labelFor="task_title"/>
+							<cts:TextBox name="task_title" cssClass="dirty-check required" readonly="" value="${map.tasks.taskTitle}"/>
+						</div>
+						
+						<div class="form-group">
+							<cts:Label name="Estimated Time (Hour)" labelFor="estimated_time"/>
+							<cts:TextBox name="estimated_time" cssClass="dirty-check required number" readonly="" value="${map.tasks.estimatedTime}"/>
+						</div>
+						
+							
+						<div class="form-group">
+								<cts:Label name="Description" labelFor="description"/>
+								<cts:TextArea name="description" cssClass="dirty-check required" readonly="" rows="3" cols="" value="${map.tasks.description}"/>
+						</div>
+						<fieldset>
+								<legend>
+									Assignee Details&nbsp;&nbsp;
+								<cts:Button cssClass="find" spanClass="search" id="btnUser"/>			
+								</legend>
+								<div class="form-group">						
+									<cts:Label name="Assignee Code" labelFor="emp_code"/>
+									<cts:TextBox name="emp_code" cssClass="dirty-check required" readonly="readonly" value="${map.tasks.empCode}"/>
+								</div>
+								<div class="form-group">						
+									<cts:Label name="Assignee Name" labelFor="emp_name"/>
+									<cts:TextBox name="emp_name" cssClass="dirty-check" readonly="readonly" value="${map.tasks.empName}"/>
+								</div>
+								<div class="form-group">						
+									<cts:Label name="Username" labelFor="username"/>
+									<cts:TextBox name="username" cssClass="dirty-check required" readonly="readonly" value="${map.tasks.username}"/>
+								</div>
+						</fieldset>
+					</div>
+				</div>
+			
+				<%-- <div class="row">
+					<div class="col-md-8">
+						 <cts:Button cssClass="back" spanClass="arrow-left" dAjax="true" dHref="/toc?type=privgrp&currprivgrp=3&currmodcode=SA" />
+						<button class="btn btn-refresh" type="button">
+							<span class="fa fa-refresh"></span>
+						</button>
+						<button class="btn btn-help" type="button">
+							<span class="fa fa-question"></span>
+						</button>
+					</div>
+					<div class="col-md-4">
+						<button id="submit" class="btn btn-save pull-right" type="submit">
+									<span class="fa fa-save"></span> &nbsp;Save
+						</button>
+					</div>
+				</div> --%>
+				
+				<div class="row margin-top-30 margin-bottom-30 margin-right-5">
+
+					<div class="col-md-auto">
+						<cts:Button cssClass="back" spanClass="arrow-left" dAjax="true"
+							dHref="/toc?type=privgrp&currprivgrp=3&currmodcode=WF" />
+						<button class="btn btn-refresh refresh-linked" type="button">
+							<span class="fa fa-refresh"></span>
+						</button>
+						<button class="btn btn-help" type="button">
+							<span class="fa fa-question"></span>
+						</button>
+					</div>
+
+					<div class="align-right">
+						<button id="edit_btn" class="btn btn-save" type="submit">
+							<span class="fa fa-save"></span> Update
+						</button>
+					</div>
+				</div>
+			</div>
+		</cts:AjaxForm>
+						</div>
+						<div class="row">
+							<div class="col-md-6"></div>
+							<div class="col-md-3"></div>
+							<div class="col-md-3">
+								<cts:Button cssClass="cancel btn-sm width-80" id="btnCancel"
+									name="Cancel" spanClass="times" />
+								<cts:Button cssClass="ok btn-sm width-80" id="btnOk" name="Ok"
+									spanClass="check" />
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
 </div>
 
 
@@ -210,10 +378,12 @@
 		currentRow.addClass("current-row");
 
 		var taskId = currentRow.find(".task_id").val();
+		
+		$("#LevelModal").modal();
 
-		LoadMainContent('/taskman/tman/tasks/edit/' + taskId);
+		//LoadMainContent('/taskman/tman/tasks/edit/' + taskId);
 	});
-	
+
 	function reload() {
 		$.ajax({
 			url : "/reloadNoticeBoard",
@@ -378,4 +548,5 @@
 			}
 		});
 	}
+
 </script>
