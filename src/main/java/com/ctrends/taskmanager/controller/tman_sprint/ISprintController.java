@@ -11,6 +11,8 @@ public interface ISprintController extends ICommonController<SprintManager> {
 	
 	public ModelAndView sprintList();
 	public ModelAndView delete();
+
+	ModelAndView showChart();
 	
 
 }
