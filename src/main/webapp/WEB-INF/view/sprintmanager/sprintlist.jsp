@@ -17,6 +17,10 @@
 
 			<fieldset>
 				<legend> Sprint List&nbsp;&nbsp; </legend>
+				
+				<center><a href="http://localhost:8080/?desturl=/taskman/tman/sprint/create">Create New Spring Manager</a></center>
+				
+				
 				<div class="table-responsive">
 					<table class="table table-striped table-hover"
 						id="sprint_sort_result">
