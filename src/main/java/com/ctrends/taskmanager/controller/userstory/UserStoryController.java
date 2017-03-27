@@ -77,7 +77,7 @@ public class UserStoryController implements IUserStoryController {
 		String moduleCode = request.getParameter("module_code");
 		String privGroupCode = request.getParameter("priv_grp_code");
 		String privCode = request.getParameter("privilege_code");
-		String priority = request.getParameter("priority");
+		String priority = request.getParameter("priority_code");
 
 		List<Suite> suiteLi = taskDao.getAllSuites();
 
@@ -139,12 +139,21 @@ public class UserStoryController implements IUserStoryController {
 		priorities.put("1", "High");
 		priorities.put("2", "Medium");
 		priorities.put("3", "Low");
+		
+		Map<String, String> storyStatus = new LinkedHashMap<String, String>();
+		
+		storyStatus.put("1", "To Do");
+		storyStatus.put("2", "In Progress");
+		storyStatus.put("3", "To Be Reviewed");
+		storyStatus.put("4", "QA");
+		storyStatus.put("5", "Done");
 
 		data.put("suiteCodes", suiteCodes);
 		data.put("moduleCodes", moduleCodes);
 		data.put("privgroups", privgroups);
 		data.put("privileges", privileges);
 		data.put("priorities", priorities);
+		data.put("storyStatus", storyStatus);
 		data.put("suiteCode", suiteCode);
 		data.put("privGroupCode", privGroupCode); 
 		data.put("moduleCode", moduleCode);
@@ -206,6 +215,14 @@ public class UserStoryController implements IUserStoryController {
 		priorities.put("2", "Medium");
 		priorities.put("3", "Low");
 		
+		
+		Map<String, String> storyStatus = new LinkedHashMap<String, String>();
+		
+		storyStatus.put("1", "To Do");
+		storyStatus.put("2", "In Progress");
+		storyStatus.put("3", "To Be Reviewed");
+		storyStatus.put("4", "QA");
+		storyStatus.put("5", "Done");
 
 		UserStory userStory = userStoryService.getById(id);
 

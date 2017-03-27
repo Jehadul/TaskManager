@@ -70,6 +70,9 @@ public class UserStory {
 	@Column(name="story_order")
 	private String storyOrder;
 	
+	@Column(name="story_status")
+	private String storyStatus;
+	
 	@Column(name="doa_type_code")
 	private String doaTypeCode;
 
@@ -355,6 +358,14 @@ public class UserStory {
 
 	public void setStoryOrder(String storyOrder) {
 		this.storyOrder = storyOrder;
+	}
+	
+	public String getStoryStatus() {
+		return storyStatus;
+	}
+
+	public void setStoryStatus(String storyStatus) {
+		this.storyStatus = storyStatus;
 	}
 
 	public String getDoaTypeCode() {

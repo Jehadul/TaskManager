@@ -18,6 +18,12 @@
 			dataHandler="showMessage">
 			<input type="hidden" name="${_csrf.parameterName}"
 				value="${_csrf.token}" />
+			<div class="alert alert-block alert-danger hidden">
+					Please check the fields marked with 
+					<span class="text-red fa fa-close"></span>.
+			</div>
+			
+			<div class="denotes-required">denotes a required field.</div>
 			<div class="main-control">
 				<div class="row">
 					<div class="col-md-6">
@@ -189,6 +195,11 @@
 												<td>
 													<input name="story_name[]" type="text" class="project_name view"  value="${story.getSprintStoryName()}" />
 
+												</td>
+												<td>
+													<button type="button" onclick="removeStoryRow(this);" class="btn-del btn btn-xs">
+														<span class="fa fa-times"></span>
+													</button>
 												</td>			
 											</tr>
 											<c:set var="count" value="${i + 1}" scope="request" />
@@ -329,7 +340,12 @@
 	 						'</td>'+
 	 						'<td>'+ 
 	 							'<input name="story_name[]" type="text" class="project_name view"  value="' + storyName + '" />' +
-	 						'</td>'+				
+	 						'</td>'+
+	 						'<td>'+
+							'<button type="button" onclick="removeStoryRow(this);" class="btn-del btn btn-xs">'+
+								'<span class="fa fa-times"></span>'+
+							'</button>'+
+						'</td>'
 	 					'</tr>';
 	 	
 	 		
@@ -340,6 +356,10 @@
 	 	
 	 	HideModal('search-modal');	
 	 };
+	 
+		var removeStoryRow = function(el){
+			$(el).closest("tr").remove();
+		};
 
 	 var checkProjectDates = function()
 	 {
@@ -357,6 +377,9 @@
 	 };
 
 	function validate() {
+		
+		var storyCode = $("#sprint_code").val().trim();
+		var storyNumber = $("#sprint_number").val().trim();
 
 		SyncOptionText();
 
@@ -424,9 +447,21 @@
 		 
 
 		if (!result) {
+			
+			error +="Please check the fields marked with X";
+			ShowErrorMsg('Sprint was not created', "Please check details.");
 			InitErrorChange();
 			$(".alert").html(error);
 			$(".alert").removeClass("hidden");
+		}
+		else if(storyCode==""||storyNumber==""){
+			
+			error +="Only space is not allowed in required fields";
+			ShowErrorMsg('Sprint was not created', "Please check details.");
+			InitErrorChange();
+			$(".alert").html(error);
+			$(".alert").removeClass("hidden");
+			return false;
 		}
 		return result;
 	}
