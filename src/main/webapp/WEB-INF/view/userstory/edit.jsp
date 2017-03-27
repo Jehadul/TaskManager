@@ -113,38 +113,21 @@
 								<cts:Hidden name="priv_grp_name" value=""/>		
 					   </div> --%>
 
-						<div class="form-group">
+						<%-- <div class="form-group">
 							<cts:Label name="Privilege Code" labelFor="privilege_code" />
 							<cts:TextBox name="privilege_code" cssClass="dirty-check "
 								value="${map.userStory.privilegeCode}" readonly="readonly" />
-						</div>
+						</div> --%>
 						<div class="form-group">
 							<cts:Label labelFor="privilege_name" name="Privilege Name" />
 							<cts:TextBox name="privilege_name"
-								cssClass="dirty-check required"
-								value="${map.userStory.privilegeName}" readonly="" />
+								cssClass="dirty-check"
+								value="${map.userStory.privilegeName}" readonly="readonly" />
+							<cts:Hidden name="privilege_code"
+								value="${map.userStory.privilegeCode}" />
 						</div>
-
+						
 						<div class="form-group">
-							<cts:Label name="Story Code" labelFor="user_story_code" />
-							<cts:TextBox name="user_story_code"
-								value="${map.userStory.userStoryCode}"
-								cssClass="dirty-check required" readonly="" />
-
-						</div>
-						<div class="form-group">
-							<cts:Label name="Story Title" labelFor="user_story_title" />
-							<cts:TextBox name="user_story_title"
-								value="${map.userStory.userStoryTitle}"
-								cssClass="dirty-check required" readonly="" />
-						</div>
-
-
-
-					</div>
-					<div class="col-md-6">
-
-					<div class="form-group">
 							<cts:Label labelFor="priority_code" name="Priority" />
 							<select id="priority_code" class="form-control required"
 								name="priority_code">
@@ -169,7 +152,7 @@
 								name="story_state">
 								<c:forEach items="${map.storyStatus}" var="item">
 									<c:choose>
-										<c:when test="${item.getKey() == map.userStory.storyStatus}">
+										<c:when test="${item.getValue() == map.userStory.storyStatus}">
 											<option selected value="${item.getKey()}">${item.getValue()}</option>
 										</c:when>
 										<c:otherwise>
@@ -180,6 +163,26 @@
 								</c:forEach>
 							</select>
 							<cts:Hidden name="story_status" value=""/>
+						</div>
+						
+
+						<div class="form-group">
+							<cts:Label name="Story Code" labelFor="user_story_code" />
+							<cts:TextBox name="user_story_code"
+								value="${map.userStory.userStoryCode}"
+								cssClass="dirty-check required" readonly="" />
+
+						</div>
+						
+
+					</div>
+					<div class="col-md-6">
+						
+						<div class="form-group">
+							<cts:Label name="Story Title" labelFor="user_story_title" />
+							<cts:TextBox name="user_story_title"
+								value="${map.userStory.userStoryTitle}"
+								cssClass="dirty-check required number" readonly="" />
 						</div>
 						
 						<div class="form-group">
@@ -264,6 +267,11 @@
 	}
 
 	$("input[name='priority']").val($("#priority_code option:selected").text());
+	$("input[name='story_status']").val($("#story_state option:selected").text());
+	
+	$("#story_state").on("change", function(){
+		$("input[name='story_status']").val($("#story_state option:selected").text());
+	});
 
 	$("#priority_code").on(
 			"change",
@@ -294,12 +302,7 @@
 
 		}
 
-		if ($("#privilege_code").val() == "") {
-			error += "Please Enter Privilege Code <br/> ";
-			result = false;
-
-		}
-
+		
 		if ($("#user_story_code").val() == "") {
 			error += "Please Enter User Story Code <br/> ";
 			result = false;
