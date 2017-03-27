@@ -16,8 +16,8 @@
 	<!-- end: PAGE TITLE -->
 	<!-- start: YOUR CONTENT HERE -->
 	<div class="container-fluid container-fullw bg-white">
-	<a href="http://localhost:8080/?desturl=/taskman/userstory/story/storylist">Story Manager</a>
-		<a href="http://localhost:8080/?desturl=/taskman/tman/sprint/sprintlist">Sprint Manager</a>
+	<center><a style="margin-right:15px" href="http://localhost:8080/?desturl=/taskman/userstory/story/storylist">Story Manager</a>
+		<a href="http://localhost:8080/?desturl=/taskman/tman/sprint/sprintlist">Sprint Manager</a></center>
 		
 		<div class="row">
 		
@@ -85,7 +85,7 @@
 			<fieldset>
 				<legend> Task List&nbsp;&nbsp; </legend>
 				<div class="table-responsive">
-				<a href= "http://localhost:8080/?desturl=/taskman/tman/tasks/create">Create Task</a>
+				<center><a href= "http://localhost:8080/?desturl=/taskman/tman/tasks/create">Create Task</a></center>
 					<table class="table table-striped table-hover"
 						id="task_sort_result">
 						<thead>
