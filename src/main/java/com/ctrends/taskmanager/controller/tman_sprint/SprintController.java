@@ -276,5 +276,13 @@ public class SprintController implements ISprintController {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@RequestMapping(value = "/burndownchart", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	@Override
+	public ModelAndView showChart() {
+		// TODO Auto-generated method stub
+		return new ModelAndView("sprintmanager/burndownchart");
+	}
 
 }
