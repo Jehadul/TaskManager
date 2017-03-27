@@ -247,29 +247,11 @@ public class SprintController implements ISprintController {
 		return new ModelAndView("sprintmanager/sprintlist", "data", data);
 	}
 
-
-
-
-
-
-
-
-
-
 	@Override
 	public ModelAndView showSearch(HttpServletRequest request) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
-
-
-
-
-
-
-
 
 	@Override
 	public String search(HttpServletRequest request) {
