@@ -25,6 +25,7 @@ import com.ctrends.taskmanager.model.taskmanage.PrivGroup;
 import com.ctrends.taskmanager.model.taskmanage.Suite;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManager;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManagerDetails;
+import com.ctrends.taskmanager.model.tman_sprint.SprintView;
 import com.ctrends.taskmanager.model.user.User;
 import com.ctrends.taskmanager.service.tman_sprint.ISprintService;
 import com.google.gson.Gson;
@@ -263,11 +264,8 @@ public class SprintController implements ISprintController {
 	@ResponseBody
 	@Override
 	public ModelAndView showChart(@PathVariable(value = "id") UUID id) {
-		List<SprintManagerDetails> sprintDetails = sprintService.getBySprintId(id);
-		for(int i=0; i<sprintDetails.size(); i++){
-			System.out.println(sprintDetails.get(i).getSprintId()+"    "+ sprintDetails.get(i).getSprintCode()+"    "+ sprintDetails.get(i).getSprintStoryCode()+ "    "+sprintDetails.get(i).getSprintStoryName());
-		}
-
+		List<SprintView> sprintDetails = sprintService.getBySprintId(id);
+		
 		GsonBuilder gson = new GsonBuilder();
 		Gson g = gson.create();
 		return new ModelAndView("sprintmanager/burndownchart");
