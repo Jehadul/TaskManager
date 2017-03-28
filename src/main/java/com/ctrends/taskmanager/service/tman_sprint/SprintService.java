@@ -325,36 +325,70 @@ public class SprintService implements ISprintService {
 		System.out.println(storyCode + ":::::::::::::::store code::::::::" + storyName);
 
 		List<SprintManagerDetails> storyDetailsList = new ArrayList<SprintManagerDetails>();
-		for (int i = 0; i < storyCode.length; i++) {
-			SprintManagerDetails stroyDetails = new SprintManagerDetails();
-			stroyDetails.setSprintCode(requestMap.get("sprint_code")[0]);
-			stroyDetails.setSprintId(UUID.fromString(requestMap.get("id")[0]));
-			stroyDetails.setSprintStoryCode(storyCode[i]);
-			stroyDetails.setSprintStoryName(storyName[i]);
-			stroyDetails.setCreatedByCode(currentUser.getCreatedByCode());
-			stroyDetails.setCreatedByName(currentUser.getCreatedByName());
-			stroyDetails.setCreatedByUsername(currentUser.getCreatedByUsername());
-			stroyDetails.setCreatedByCode(currentUser.getEmpCode());
-			stroyDetails.setCreatedByName(currentUser.getEmpName());
-			stroyDetails.setCreatedByUsername(currentUser.getUsername());
-			stroyDetails.setCreatedByEmail(currentUser.getEmail());
-			stroyDetails.setCreatedByCompanyCode(currentUser.getCompanyCode());
-			stroyDetails.setCreatedByCompanyName(currentUser.getCompanyName());
-			stroyDetails.setCreatedAt(new Timestamp(System.currentTimeMillis()));
 
-			// stroyDetails.setClientCode(currentUser.getClientCode());
-			stroyDetails.setClientName(currentUser.getClientName());
-			stroyDetails.setCompanyCode(currentUser.getCompanyCode());
-			// stroyDetails.setCompanyName(currentUser.getCompanyName());
-			stroyDetails.setUpdatedByCode(currentUser.getEmpCode());
-			stroyDetails.setUpdatedByName(currentUser.getEmpName());
-			stroyDetails.setUpdatedByUsername(currentUser.getUsername());
-			stroyDetails.setUpdatedByEmail(currentUser.getEmail());
-			stroyDetails.setUpdatedByCompanyCode(currentUser.getCompanyCode());
-			stroyDetails.setUpdatedByCompanyName(currentUser.getCompanyName());
-			// stroyDetails.setUpdatedAt(new
-			// Timestamp(System.currentTimeMillis()));
-			storyDetailsList.add(i, stroyDetails);
+		for (int i = 0; i < storyCode.length; i++) {			
+			try{
+				SprintManagerDetails stroyDetails =sprintDao.getDocByIdSprintCode(storyCode[i]);
+				stroyDetails.setSprintCode(requestMap.get("sprint_code")[0]);
+				stroyDetails.setSprintId(UUID.fromString(requestMap.get("id")[0]));
+				stroyDetails.setSprintStoryCode(storyCode[i]);
+				stroyDetails.setSprintStoryName(storyName[i]);
+				stroyDetails.setCreatedByCode(currentUser.getCreatedByCode());
+				stroyDetails.setCreatedByName(currentUser.getCreatedByName());
+				stroyDetails.setCreatedByUsername(currentUser.getCreatedByUsername());
+				stroyDetails.setCreatedByCode(currentUser.getEmpCode());
+				stroyDetails.setCreatedByName(currentUser.getEmpName());
+				stroyDetails.setCreatedByUsername(currentUser.getUsername());
+				stroyDetails.setCreatedByEmail(currentUser.getEmail());
+				stroyDetails.setCreatedByCompanyCode(currentUser.getCompanyCode());
+				stroyDetails.setCreatedByCompanyName(currentUser.getCompanyName());
+				stroyDetails.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+
+				// stroyDetails.setClientCode(currentUser.getClientCode());
+				stroyDetails.setClientName(currentUser.getClientName());
+				stroyDetails.setCompanyCode(currentUser.getCompanyCode());
+				// stroyDetails.setCompanyName(currentUser.getCompanyName());
+				stroyDetails.setUpdatedByCode(currentUser.getEmpCode());
+				stroyDetails.setUpdatedByName(currentUser.getEmpName());
+				stroyDetails.setUpdatedByUsername(currentUser.getUsername());
+				stroyDetails.setUpdatedByEmail(currentUser.getEmail());
+				stroyDetails.setUpdatedByCompanyCode(currentUser.getCompanyCode());
+				stroyDetails.setUpdatedByCompanyName(currentUser.getCompanyName());
+				// stroyDetails.setUpdatedAt(new
+				// Timestamp(System.currentTimeMillis()));
+				storyDetailsList.add(i, stroyDetails);
+			}catch(Exception e){
+				SprintManagerDetails stroyDetails =new SprintManagerDetails();				
+				stroyDetails.setSprintCode(requestMap.get("sprint_code")[0]);
+				stroyDetails.setSprintStoryCode(storyCode[i]);
+				stroyDetails.setSprintStoryName(storyName[i]);
+				stroyDetails.setCreatedByCode(currentUser.getCreatedByCode());
+				stroyDetails.setCreatedByName(currentUser.getCreatedByName());
+				stroyDetails.setCreatedByUsername(currentUser.getCreatedByUsername());
+				stroyDetails.setCreatedByCode(currentUser.getEmpCode());
+				stroyDetails.setCreatedByName(currentUser.getEmpName());
+				stroyDetails.setCreatedByUsername(currentUser.getUsername());
+				stroyDetails.setCreatedByEmail(currentUser.getEmail());
+				stroyDetails.setCreatedByCompanyCode(currentUser.getCompanyCode());
+				stroyDetails.setCreatedByCompanyName(currentUser.getCompanyName());
+				stroyDetails.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+
+				// stroyDetails.setClientCode(currentUser.getClientCode());
+				stroyDetails.setClientName(currentUser.getClientName());
+				stroyDetails.setCompanyCode(currentUser.getCompanyCode());
+				// stroyDetails.setCompanyName(currentUser.getCompanyName());
+				stroyDetails.setUpdatedByCode(currentUser.getEmpCode());
+				stroyDetails.setUpdatedByName(currentUser.getEmpName());
+				stroyDetails.setUpdatedByUsername(currentUser.getUsername());
+				stroyDetails.setUpdatedByEmail(currentUser.getEmail());
+				stroyDetails.setUpdatedByCompanyCode(currentUser.getCompanyCode());
+				stroyDetails.setUpdatedByCompanyName(currentUser.getCompanyName());
+				// stroyDetails.setUpdatedAt(new
+				// Timestamp(System.currentTimeMillis()));
+				storyDetailsList.add(i, stroyDetails);
+				
+			}
+			
 		}
 		sprint.setSteps(storyDetailsList);
 		if (true) {

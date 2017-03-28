@@ -59,10 +59,10 @@ public class SprintDAO implements ISprintDAO {
 
 	@Transactional
 	@Override
-	public SprintManagerDetails getDocByIdSprintCode(String sprintCode) {
+	public SprintManagerDetails getDocByIdSprintCode(String sprintStoryCode) {
 		Query query = sessionfactory.getCurrentSession()
-				.createQuery("From SprintManagerDetails WHERE sprintCode = :sprintCode");
-		query.setParameter("sprintCode", sprintCode);
+				.createQuery("From SprintManagerDetails WHERE sprintStoryCode = :sprintStoryCode");
+		query.setParameter("sprintStoryCode", sprintStoryCode);
 		List<SprintManagerDetails> pt = query.list();
 		if (pt.size() > 0) {
 			return pt.get(0);
@@ -115,8 +115,7 @@ public class SprintDAO implements ISprintDAO {
 	@Override
 	public UUID updateDoc(SprintManager doc) {
 		for (int i = 0; i < doc.getSteps().size(); i++) {
-			SprintManagerDetails sprintDetails = getDocByIdSprintCode(doc.getSteps().get(i).getSprintStoryCode());
-			System.out.println(doc.getSteps().get(i).getSprintCode()+"::::::::::dao:::::::::::");
+			SprintManagerDetails sprintDetails = new SprintManagerDetails();
 			sprintDetails = doc.getSteps().get(i);
 			sessionfactory.getCurrentSession().saveOrUpdate(sprintDetails);
 			sessionfactory.getCurrentSession().flush();
