@@ -259,11 +259,17 @@ public class SprintController implements ISprintController {
 		return null;
 	}
 	
-	@RequestMapping(value = "/burndownchart", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/burndownchart/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@Override
-	public ModelAndView showChart() {
-		// TODO Auto-generated method stub
+	public ModelAndView showChart(@PathVariable(value = "id") UUID id) {
+		List<SprintManagerDetails> sprintDetails = sprintService.getBySprintId(id);
+		for(int i=0; i<sprintDetails.size(); i++){
+			System.out.println(sprintDetails.get(i).getSprintId()+"    "+ sprintDetails.get(i).getSprintCode()+"    "+ sprintDetails.get(i).getSprintStoryCode()+ "    "+sprintDetails.get(i).getSprintStoryName());
+		}
+
+		GsonBuilder gson = new GsonBuilder();
+		Gson g = gson.create();
 		return new ModelAndView("sprintmanager/burndownchart");
 	}
 
