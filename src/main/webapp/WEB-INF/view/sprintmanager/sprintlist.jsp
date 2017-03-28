@@ -130,7 +130,7 @@
 
 		var sprintId = currentRow.find(".sprint_id").val();
 
-		LoadMainContent('/taskman/tman/sprint/burndownchart');
+		LoadMainContent('/taskman/tman/sprint/burndownchart/' + sprintId);
 	});
 	
 	
