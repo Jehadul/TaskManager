@@ -5,12 +5,13 @@ import java.util.UUID;
 
 import com.ctrends.taskmanager.model.tman_sprint.SprintManager;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManagerDetails;
+import com.ctrends.taskmanager.model.tman_sprint.SprintView;
 import com.ctrends.taskmanager.service.ICommonService;
 
 public interface ISprintService extends ICommonService<SprintManager> {
 
 	public List<SprintManagerDetails> getByIdSprintCode(String sprintCode);
 
-	List<SprintManagerDetails> getBySprintId(UUID id);
+	List<SprintView> getBySprintId(UUID id);
 
 }
