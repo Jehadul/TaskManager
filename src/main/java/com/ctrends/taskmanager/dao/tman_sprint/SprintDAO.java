@@ -97,14 +97,17 @@ public class SprintDAO implements ISprintDAO {
 	@Transactional
 	@Override
 	public UUID insertDoc(SprintManager sprint) {
+		UUID id = (UUID) sessionfactory.getCurrentSession().save(sprint);
+		sessionfactory.getCurrentSession().flush();
+		
 		for (int i = 0; i < sprint.getSteps().size(); i++) {
 			SprintManagerDetails sprintDetails = new SprintManagerDetails();
-			sprintDetails = sprint.getSteps().get(i);
+			sprintDetails = (SprintManagerDetails) sprint.getSteps().get(i);
+			sprintDetails.setSprintId(id);
 			sessionfactory.getCurrentSession().save(sprintDetails);
 			sessionfactory.getCurrentSession().flush();
 		}
-		UUID id = (UUID) sessionfactory.getCurrentSession().save(sprint);
-		sessionfactory.getCurrentSession().flush();
+		
 		return id;
 	}
 
@@ -231,6 +234,18 @@ public class SprintDAO implements ISprintDAO {
 				.createQuery("from SprintManagerDetails where sprintCode =:sprintCode ");
 		query.setParameter("sprintCode", sprintCode);
 		return query.list();
+	}
+	
+	
+	
+	@Override
+	@Transactional
+	public List<SprintManagerDetails> getDocBySprintId(UUID sprintId) {
+		Query query = sessionfactory.getCurrentSession()
+				.createQuery("from SprintManagerDetails where sprintId =:sprintId ");
+		query.setParameter("sprintId", sprintId);
+		List<SprintManagerDetails> sprintDetails=query.list();
+		return sprintDetails;
 	}
 
 }
