@@ -22,4 +22,5 @@ public interface ISprintDAO extends ICommonDAO<SprintManager> {
 	List<SprintManagerDetails> findBySprintCode(String sprintCode);
 	public List<SprintManagerDetails> getDocByIdStoryCode(String storyCode);
 	public SprintManagerDetails getDocByIdSprintCode(String sprintCode);
+	List<SprintManagerDetails> getDocBySprintId(UUID sprintId);
 }
