@@ -106,6 +106,7 @@ public class SprintService implements ISprintService {
 			SprintManagerDetails stroyDetails = new SprintManagerDetails();
 
 			stroyDetails.setSprintCode(requestMap.get("sprint_code")[0]);
+			//stroyDetails.setSprintId(sprint.getId());
 			stroyDetails.setSprintStoryCode(storyCode[i]);
 			stroyDetails.setSprintStoryName(storyName[i]);
 			stroyDetails.setCreatedByCode(currentUser.getCreatedByCode());
@@ -327,6 +328,7 @@ public class SprintService implements ISprintService {
 		for (int i = 0; i < storyCode.length; i++) {
 			SprintManagerDetails stroyDetails = new SprintManagerDetails();
 			stroyDetails.setSprintCode(requestMap.get("sprint_code")[0]);
+			stroyDetails.setSprintId(UUID.fromString(requestMap.get("id")[0]));
 			stroyDetails.setSprintStoryCode(storyCode[i]);
 			stroyDetails.setSprintStoryName(storyName[i]);
 			stroyDetails.setCreatedByCode(currentUser.getCreatedByCode());
@@ -373,5 +375,10 @@ public class SprintService implements ISprintService {
 		UUID id = sprintDao.deleteDoc(UUID.fromString(requestMap.get("id")[0]));
 		return id;
 	}
-
+	
+	@Override
+	public List<SprintManagerDetails> getBySprintId(UUID id) {
+		// TODO Auto-generated method stub
+		return sprintDao.getDocBySprintId(id);
+	}
 }
