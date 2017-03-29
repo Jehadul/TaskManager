@@ -449,24 +449,22 @@ public class SprintService implements ISprintService {
 		LocalDate end = LocalDate.parse(e);
 		long days = ChronoUnit.DAYS.between(start, end) + 1;
 		long l = 0;
-		List<Object> li = new ArrayList<>();
-		li.add("0");
-		li.add(sprintView.getEstimatedTime());
-		chartRemainingTime.add(li);
+		
+		
 		
 		while (start.isBefore(end) || start.equals(end)) {
 			// sprintView.setStartDate(Date.valueOf(start));
 			// System.out.println(start);
-			li.clear();
+			List<Object> li = new ArrayList<>();
 			for (int i = 0; i < taskId.size(); i++) {
 				List<TaskLog> taskLogLi = sprintDao.gettasklogLiById(taskId.get(i), Date.valueOf(start));
 				for (int j = 0; j < taskLogLi.size(); j++) {
 					l += taskLogLi.get(j).getStopTime().getTime() - taskLogLi.get(j).getStartTime().getTime();
 				}
 			}
-			
-			li.add(sprintView.getEstimatedTime()-(l/(1000*60*60)));
 			li.add(String.valueOf(start));
+			System.out.println(start);
+			li.add(sprintView.getEstimatedTime()-(l/(1000*60*60)));
 			chartRemainingTime.add(li);
 			l=0;
 			
