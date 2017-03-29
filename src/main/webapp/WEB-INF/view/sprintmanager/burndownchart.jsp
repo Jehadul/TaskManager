@@ -29,16 +29,22 @@
      google.charts.load('current', {packages: ['corechart','line']});  
   </script>
 <script>
+var a = "${map}";
+var myjson = JSON.parse(a);
+console.log(JSON.stringify(a));
 function drawChart() {
 	   // Define the chart to be drawn.
 	   
 	   var data = new google.visualization.DataTable();
-	   data.addColumn('number', 'Date');
+	   data.addColumn('number', 'day');
 	   data.addColumn('number', 'Burn Hours');
-	   data.addRows([
-	                 [1, 24],   [2, 18],  [3, 15],  [4, 12],  [5, 10],  [6, 0]
-	               ]);
-	   
+	   for(var i=0; i<myjson.length; i++){
+			for(var j=0; j<myjson[i].length; j++){
+				data.addRow([myjson[i][j],myjson[i][j++]]);
+			}
+		}
+	   	  
+	 
 	   // Set chart options
 	   var options = {'title' : 'Burndown Chart',
 	      hAxis: {
