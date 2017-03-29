@@ -419,54 +419,62 @@ public class SprintService implements ISprintService {
 	}
 
 	@Override
-	public List<SprintView> getBySprintId(UUID id) {
+	public List<Object> getBySprintId(UUID id) {
 		List<SprintView> sprintViews = new ArrayList<SprintView>();
 		SprintView sprintView = new SprintView();
 		SprintManager sprint = sprintDao.getDocById(id);
-		List<String> taskId=new ArrayList<>();
-		//System.out.println(id);
+		List<String> taskId = new ArrayList<>();
+		List<Object> chartRemainingTime = new ArrayList<Object>();
+		// System.out.println(id);
 		List<SprintManagerDetails> sprintManagerDetails = sprintDao.getDocBySprintId(id);
 		for (int i = 0; i < sprintManagerDetails.size(); i++) {
 			List<Tasks> tasks = tasksDao.getTaskByStoryCode(sprintManagerDetails.get(i).getSprintStoryCode());
-			for(int j = 0; j<tasks.size();j++){
+			for (int j = 0; j < tasks.size(); j++) {
 				taskId.add(tasks.get(j).getId().toString());
-				
-				sprintView.setRemainingTime(sprintView.getRemainingTime() + tasks.get(j).getRemainingTime());
+				sprintView.setEstimatedTime(sprintView.getEstimatedTime() + tasks.get(j).getEstimatedTime());
 			}
 		}
 		sprintView.setSprintCode(sprint.getSprintCode());
 		sprintView.setSprintName(sprint.getSprintName());
 		sprintView.setStartDate(sprint.getStartDate());
 		sprintView.setEndDate(sprint.getEndDate());
-		
-		for(int i= 0; i<sprintViews.size(); i++){
-			//System.out.println(sprintViews.get(i).getRemainingTime());
+
+		for (int i = 0; i < sprintViews.size(); i++) {
+			// System.out.println(sprintViews.get(i).getRemainingTime());
 		}
-	
+
 		String s = sprint.getStartDate().toString();
 		String e = sprint.getEndDate().toString();
 		LocalDate start = LocalDate.parse(s);
 		LocalDate end = LocalDate.parse(e);
-		long days = ChronoUnit.DAYS.between(start, end)+1;
-		//System.out.println(days+"gvvvvvvvvvvvvvvvvvvvvvvvvvvvvv");
+		long days = ChronoUnit.DAYS.between(start, end) + 1;
+		long l = 0;
+		List<Object> li = new ArrayList<>();
+		li.add("0");
+		li.add(sprintView.getEstimatedTime());
+		chartRemainingTime.add(li);
+		
 		while (start.isBefore(end) || start.equals(end)) {
-			//sprintView.setStartDate(Date.valueOf(start));
-			//System.out.println(start);
-			
-			for(int i=0; i<taskId.size(); i++){
-				
-				List<TaskLog> taskLogLi=sprintDao.gettasklogLiById(taskId.get(i), Date.valueOf(start));
-				for(int j=0; j<taskLogLi.size(); j++){
-					
+			// sprintView.setStartDate(Date.valueOf(start));
+			// System.out.println(start);
+			li.clear();
+			for (int i = 0; i < taskId.size(); i++) {
+				List<TaskLog> taskLogLi = sprintDao.gettasklogLiById(taskId.get(i), Date.valueOf(start));
+				for (int j = 0; j < taskLogLi.size(); j++) {
+					l += taskLogLi.get(j).getStopTime().getTime() - taskLogLi.get(j).getStartTime().getTime();
 				}
 			}
-			start = start.plusDays(1);
 			
+			li.add(sprintView.getEstimatedTime()-(l/(1000*60*60)));
+			li.add(String.valueOf(start));
+			chartRemainingTime.add(li);
+			l=0;
+			
+			start = start.plusDays(1);
+
 		}
 		sprintViews.add(sprintView);
-		return sprintViews;
+		return chartRemainingTime;
 	}
-	
-	
-	
+
 }
