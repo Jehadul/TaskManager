@@ -459,8 +459,7 @@ public class SprintService implements ISprintService {
 					l += taskLogLi.get(j).getStopTime().getTime() - taskLogLi.get(j).getStartTime().getTime();
 				}
 			}
-			li.add(String.valueOf(start));
-			System.out.println(start);
+			li.add(Date.valueOf(start));
 			double d=sprintView.getEstimatedTime()-((double)l/(1000*60*60));
 			li.add(df.format(d));
 			chartRemainingTime.add(li);

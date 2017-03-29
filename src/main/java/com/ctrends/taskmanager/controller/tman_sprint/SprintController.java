@@ -276,7 +276,7 @@ public class SprintController implements ISprintController {
 		GsonBuilder gson = new GsonBuilder();
 		Gson g = gson.create();
 		System.out.println(g.toJson(sprintViewDetails));
-		return new ModelAndView("sprintmanager/burndownchart", g.toJson(data), data);
+		return new ModelAndView("sprintmanager/burndownchart","map", sprintViewDetails);
 	}
 
 }
