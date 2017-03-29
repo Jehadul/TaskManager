@@ -12,6 +12,6 @@ public interface ISprintService extends ICommonService<SprintManager> {
 
 	public List<SprintManagerDetails> getByIdSprintCode(String sprintCode);
 
-	List<SprintView> getBySprintId(UUID id);
+	List<Object> getBySprintId(UUID id);
 
 }
