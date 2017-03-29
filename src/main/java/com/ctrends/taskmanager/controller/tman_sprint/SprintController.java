@@ -1,5 +1,9 @@
 package com.ctrends.taskmanager.controller.tman_sprint;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -25,6 +29,7 @@ import com.ctrends.taskmanager.model.taskmanage.PrivGroup;
 import com.ctrends.taskmanager.model.taskmanage.Suite;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManager;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManagerDetails;
+import com.ctrends.taskmanager.model.tman_sprint.SprintView;
 import com.ctrends.taskmanager.model.user.User;
 import com.ctrends.taskmanager.service.tman_sprint.ISprintService;
 import com.google.gson.Gson;
@@ -247,29 +252,11 @@ public class SprintController implements ISprintController {
 		return new ModelAndView("sprintmanager/sprintlist", "data", data);
 	}
 
-
-
-
-
-
-
-
-
-
 	@Override
 	public ModelAndView showSearch(HttpServletRequest request) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
-
-
-
-
-
-
-
 
 	@Override
 	public String search(HttpServletRequest request) {
@@ -277,12 +264,19 @@ public class SprintController implements ISprintController {
 		return null;
 	}
 	
-	@RequestMapping(value = "/burndownchart", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/burndownchart/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@Override
-	public ModelAndView showChart() {
-		// TODO Auto-generated method stub
-		return new ModelAndView("sprintmanager/burndownchart");
+	public ModelAndView showChart(@PathVariable(value = "id") UUID id) {
+		List<Object> sprintViewDetails = sprintService.getBySprintId(id);
+		Map<String, Object> data = new HashMap<String, Object>();
+		List<Date> dateLi=new ArrayList<>();		
+		data.put("dateLi", dateLi);
+		data.put("sprintViewDetails", sprintViewDetails);
+		GsonBuilder gson = new GsonBuilder();
+		Gson g = gson.create();
+		System.out.println(g.toJson(sprintViewDetails));
+		return new ModelAndView("sprintmanager/burndownchart","map", sprintViewDetails);
 	}
 
 }

@@ -1,6 +1,8 @@
 package com.ctrends.taskmanager.controller.tman_sprint;
 
 
+import java.util.UUID;
+
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import com.ctrends.taskmanager.controller.ICommonController;
@@ -12,7 +14,7 @@ public interface ISprintController extends ICommonController<SprintManager> {
 	public ModelAndView sprintList();
 	public ModelAndView delete();
 
-	ModelAndView showChart();
+	ModelAndView showChart(UUID id);
 	
 
 }

@@ -1,5 +1,6 @@
 package com.ctrends.taskmanager.dao.tman_sprint;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -14,6 +15,7 @@ import com.ctrends.taskmanager.dao.user.IUserDAO;
 import com.ctrends.taskmanager.model.taskmanage.Module;
 import com.ctrends.taskmanager.model.taskmanage.PrivGroup;
 import com.ctrends.taskmanager.model.taskmanage.Suite;
+import com.ctrends.taskmanager.model.tman.TaskLog;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManager;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManagerDetails;
 import com.ctrends.taskmanager.model.user.User;
@@ -59,10 +61,10 @@ public class SprintDAO implements ISprintDAO {
 
 	@Transactional
 	@Override
-	public SprintManagerDetails getDocByIdSprintCode(String sprintCode) {
+	public SprintManagerDetails getDocByIdSprintCode(String sprintStoryCode) {
 		Query query = sessionfactory.getCurrentSession()
-				.createQuery("From SprintManagerDetails WHERE sprintCode = :sprintCode");
-		query.setParameter("sprintCode", sprintCode);
+				.createQuery("From SprintManagerDetails WHERE sprintStoryCode = :sprintStoryCode");
+		query.setParameter("sprintStoryCode", sprintStoryCode);
 		List<SprintManagerDetails> pt = query.list();
 		if (pt.size() > 0) {
 			return pt.get(0);
@@ -97,14 +99,17 @@ public class SprintDAO implements ISprintDAO {
 	@Transactional
 	@Override
 	public UUID insertDoc(SprintManager sprint) {
+		UUID id = (UUID) sessionfactory.getCurrentSession().save(sprint);
+		sessionfactory.getCurrentSession().flush();
+		
 		for (int i = 0; i < sprint.getSteps().size(); i++) {
 			SprintManagerDetails sprintDetails = new SprintManagerDetails();
-			sprintDetails = sprint.getSteps().get(i);
+			sprintDetails = (SprintManagerDetails) sprint.getSteps().get(i);
+			sprintDetails.setSprintId(id);
 			sessionfactory.getCurrentSession().save(sprintDetails);
 			sessionfactory.getCurrentSession().flush();
 		}
-		UUID id = (UUID) sessionfactory.getCurrentSession().save(sprint);
-		sessionfactory.getCurrentSession().flush();
+		
 		return id;
 	}
 
@@ -112,8 +117,7 @@ public class SprintDAO implements ISprintDAO {
 	@Override
 	public UUID updateDoc(SprintManager doc) {
 		for (int i = 0; i < doc.getSteps().size(); i++) {
-			SprintManagerDetails sprintDetails = getDocByIdSprintCode(doc.getSteps().get(i).getSprintStoryCode());
-			System.out.println(doc.getSteps().get(i).getSprintCode()+"::::::::::dao:::::::::::");
+			SprintManagerDetails sprintDetails = new SprintManagerDetails();
 			sprintDetails = doc.getSteps().get(i);
 			sessionfactory.getCurrentSession().saveOrUpdate(sprintDetails);
 			sessionfactory.getCurrentSession().flush();
@@ -231,6 +235,29 @@ public class SprintDAO implements ISprintDAO {
 				.createQuery("from SprintManagerDetails where sprintCode =:sprintCode ");
 		query.setParameter("sprintCode", sprintCode);
 		return query.list();
+	}
+	
+	
+	
+	@Override
+	@Transactional
+	public List<SprintManagerDetails> getDocBySprintId(UUID sprintId) {
+		Query query = sessionfactory.getCurrentSession()
+				.createQuery("from SprintManagerDetails where sprintId =:sprintId ");
+		query.setParameter("sprintId", sprintId);
+		List<SprintManagerDetails> sprintDetails=query.list();
+		return sprintDetails;
+	}
+	
+	@Transactional
+	@Override
+	public List<TaskLog> gettasklogLiById(String taskId, Date stopDate){
+		Query query = sessionfactory.getCurrentSession()
+				.createQuery("from TaskLog where taskId =:taskId and stopDate =:stopDate");
+		query.setParameter("taskId", taskId);
+		query.setParameter("stopDate", stopDate);
+		List<TaskLog> taskLogli=query.list();
+		return taskLogli;
 	}
 
 }

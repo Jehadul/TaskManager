@@ -2,6 +2,9 @@ package com.ctrends.taskmanager.service.tman_sprint;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.DecimalFormat;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,10 +15,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ctrends.taskmanager.bean.Utility;
+import com.ctrends.taskmanager.dao.tman.ITasksDao;
 import com.ctrends.taskmanager.dao.tman_sprint.ISprintDAO;
+import com.ctrends.taskmanager.model.tman.TaskLog;
 import com.ctrends.taskmanager.model.tman.Tasks;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManager;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManagerDetails;
+import com.ctrends.taskmanager.model.tman_sprint.SprintView;
 import com.ctrends.taskmanager.model.user.User;
 import com.ctrends.taskmanager.service.user.IUserService;
 
@@ -24,6 +30,9 @@ public class SprintService implements ISprintService {
 
 	@Autowired
 	ISprintDAO sprintDao;
+
+	@Autowired
+	ITasksDao tasksDao;
 
 	@Autowired
 	IUserService userService;
@@ -106,6 +115,7 @@ public class SprintService implements ISprintService {
 			SprintManagerDetails stroyDetails = new SprintManagerDetails();
 
 			stroyDetails.setSprintCode(requestMap.get("sprint_code")[0]);
+			// stroyDetails.setSprintId(sprint.getId());
 			stroyDetails.setSprintStoryCode(storyCode[i]);
 			stroyDetails.setSprintStoryName(storyName[i]);
 			stroyDetails.setCreatedByCode(currentUser.getCreatedByCode());
@@ -271,7 +281,7 @@ public class SprintService implements ISprintService {
 
 		// boolean rules = sprintDao.validate(param);;
 		boolean rules = sprintDao.checkUnique(param);
-		SprintManager sprint =sprintDao.getDocById(UUID.fromString(requestMap.get("id")[0]));
+		SprintManager sprint = sprintDao.getDocById(UUID.fromString(requestMap.get("id")[0]));
 		sprint.setSuiteName(requestMap.get("suite_name")[0]);
 		sprint.setModuleName(requestMap.get("module_name")[0]);
 		sprint.setPrivilegeName(requestMap.get("priv_grp_name")[0]);
@@ -324,35 +334,70 @@ public class SprintService implements ISprintService {
 		System.out.println(storyCode + ":::::::::::::::store code::::::::" + storyName);
 
 		List<SprintManagerDetails> storyDetailsList = new ArrayList<SprintManagerDetails>();
-		for (int i = 0; i < storyCode.length; i++) {
-			SprintManagerDetails stroyDetails = new SprintManagerDetails();
-			stroyDetails.setSprintCode(requestMap.get("sprint_code")[0]);
-			stroyDetails.setSprintStoryCode(storyCode[i]);
-			stroyDetails.setSprintStoryName(storyName[i]);
-			stroyDetails.setCreatedByCode(currentUser.getCreatedByCode());
-			stroyDetails.setCreatedByName(currentUser.getCreatedByName());
-			stroyDetails.setCreatedByUsername(currentUser.getCreatedByUsername());
-			stroyDetails.setCreatedByCode(currentUser.getEmpCode());
-			stroyDetails.setCreatedByName(currentUser.getEmpName());
-			stroyDetails.setCreatedByUsername(currentUser.getUsername());
-			stroyDetails.setCreatedByEmail(currentUser.getEmail());
-			stroyDetails.setCreatedByCompanyCode(currentUser.getCompanyCode());
-			stroyDetails.setCreatedByCompanyName(currentUser.getCompanyName());
-			stroyDetails.setCreatedAt(new Timestamp(System.currentTimeMillis()));
 
-			// stroyDetails.setClientCode(currentUser.getClientCode());
-			stroyDetails.setClientName(currentUser.getClientName());
-			stroyDetails.setCompanyCode(currentUser.getCompanyCode());
-			// stroyDetails.setCompanyName(currentUser.getCompanyName());
-			stroyDetails.setUpdatedByCode(currentUser.getEmpCode());
-			stroyDetails.setUpdatedByName(currentUser.getEmpName());
-			stroyDetails.setUpdatedByUsername(currentUser.getUsername());
-			stroyDetails.setUpdatedByEmail(currentUser.getEmail());
-			stroyDetails.setUpdatedByCompanyCode(currentUser.getCompanyCode());
-			stroyDetails.setUpdatedByCompanyName(currentUser.getCompanyName());
-			// stroyDetails.setUpdatedAt(new
-			// Timestamp(System.currentTimeMillis()));
-			storyDetailsList.add(i, stroyDetails);
+		for (int i = 0; i < storyCode.length; i++) {
+			try {
+				SprintManagerDetails stroyDetails = sprintDao.getDocByIdSprintCode(storyCode[i]);
+				stroyDetails.setSprintCode(requestMap.get("sprint_code")[0]);
+				stroyDetails.setSprintId(UUID.fromString(requestMap.get("id")[0]));
+				stroyDetails.setSprintStoryCode(storyCode[i]);
+				stroyDetails.setSprintStoryName(storyName[i]);
+				stroyDetails.setCreatedByCode(currentUser.getCreatedByCode());
+				stroyDetails.setCreatedByName(currentUser.getCreatedByName());
+				stroyDetails.setCreatedByUsername(currentUser.getCreatedByUsername());
+				stroyDetails.setCreatedByCode(currentUser.getEmpCode());
+				stroyDetails.setCreatedByName(currentUser.getEmpName());
+				stroyDetails.setCreatedByUsername(currentUser.getUsername());
+				stroyDetails.setCreatedByEmail(currentUser.getEmail());
+				stroyDetails.setCreatedByCompanyCode(currentUser.getCompanyCode());
+				stroyDetails.setCreatedByCompanyName(currentUser.getCompanyName());
+				stroyDetails.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+
+				// stroyDetails.setClientCode(currentUser.getClientCode());
+				stroyDetails.setClientName(currentUser.getClientName());
+				stroyDetails.setCompanyCode(currentUser.getCompanyCode());
+				// stroyDetails.setCompanyName(currentUser.getCompanyName());
+				stroyDetails.setUpdatedByCode(currentUser.getEmpCode());
+				stroyDetails.setUpdatedByName(currentUser.getEmpName());
+				stroyDetails.setUpdatedByUsername(currentUser.getUsername());
+				stroyDetails.setUpdatedByEmail(currentUser.getEmail());
+				stroyDetails.setUpdatedByCompanyCode(currentUser.getCompanyCode());
+				stroyDetails.setUpdatedByCompanyName(currentUser.getCompanyName());
+				// stroyDetails.setUpdatedAt(new
+				// Timestamp(System.currentTimeMillis()));
+				storyDetailsList.add(i, stroyDetails);
+			} catch (Exception e) {
+				SprintManagerDetails stroyDetails = new SprintManagerDetails();
+				stroyDetails.setSprintCode(requestMap.get("sprint_code")[0]);
+				stroyDetails.setSprintStoryCode(storyCode[i]);
+				stroyDetails.setSprintStoryName(storyName[i]);
+				stroyDetails.setCreatedByCode(currentUser.getCreatedByCode());
+				stroyDetails.setCreatedByName(currentUser.getCreatedByName());
+				stroyDetails.setCreatedByUsername(currentUser.getCreatedByUsername());
+				stroyDetails.setCreatedByCode(currentUser.getEmpCode());
+				stroyDetails.setCreatedByName(currentUser.getEmpName());
+				stroyDetails.setCreatedByUsername(currentUser.getUsername());
+				stroyDetails.setCreatedByEmail(currentUser.getEmail());
+				stroyDetails.setCreatedByCompanyCode(currentUser.getCompanyCode());
+				stroyDetails.setCreatedByCompanyName(currentUser.getCompanyName());
+				stroyDetails.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+
+				// stroyDetails.setClientCode(currentUser.getClientCode());
+				stroyDetails.setClientName(currentUser.getClientName());
+				stroyDetails.setCompanyCode(currentUser.getCompanyCode());
+				// stroyDetails.setCompanyName(currentUser.getCompanyName());
+				stroyDetails.setUpdatedByCode(currentUser.getEmpCode());
+				stroyDetails.setUpdatedByName(currentUser.getEmpName());
+				stroyDetails.setUpdatedByUsername(currentUser.getUsername());
+				stroyDetails.setUpdatedByEmail(currentUser.getEmail());
+				stroyDetails.setUpdatedByCompanyCode(currentUser.getCompanyCode());
+				stroyDetails.setUpdatedByCompanyName(currentUser.getCompanyName());
+				// stroyDetails.setUpdatedAt(new
+				// Timestamp(System.currentTimeMillis()));
+				storyDetailsList.add(i, stroyDetails);
+
+			}
+
 		}
 		sprint.setSteps(storyDetailsList);
 		if (true) {
@@ -372,6 +417,59 @@ public class SprintService implements ISprintService {
 	public UUID delete(Map<String, String[]> requestMap) {
 		UUID id = sprintDao.deleteDoc(UUID.fromString(requestMap.get("id")[0]));
 		return id;
+	}
+
+	@Override
+	public List<Object> getBySprintId(UUID id) {
+		List<SprintView> sprintViews = new ArrayList<SprintView>();
+		SprintView sprintView = new SprintView();
+		SprintManager sprint = sprintDao.getDocById(id);
+		List<String> taskId = new ArrayList<>();
+		List<Object> chartRemainingTime = new ArrayList<Object>();
+		List<SprintManagerDetails> sprintManagerDetails = sprintDao.getDocBySprintId(id);
+		for (int i = 0; i < sprintManagerDetails.size(); i++) {
+			List<Tasks> tasks = tasksDao.getTaskByStoryCode(sprintManagerDetails.get(i).getSprintStoryCode());
+			for (int j = 0; j < tasks.size(); j++) {
+				taskId.add(tasks.get(j).getId().toString());
+				sprintView.setEstimatedTime(sprintView.getEstimatedTime() + tasks.get(j).getEstimatedTime());
+			}
+		}
+		sprintView.setSprintCode(sprint.getSprintCode());
+		sprintView.setSprintName(sprint.getSprintName());
+		sprintView.setStartDate(sprint.getStartDate());
+		sprintView.setEndDate(sprint.getEndDate());
+
+		for (int i = 0; i < sprintViews.size(); i++) {
+			// System.out.println(sprintViews.get(i).getRemainingTime());
+		}
+
+		String s = sprint.getStartDate().toString();
+		String e = sprint.getEndDate().toString();
+		LocalDate start = LocalDate.parse(s);
+		LocalDate end = LocalDate.parse(e);
+		long l = 0;
+		
+		DecimalFormat df = new DecimalFormat("#.00"); 
+		
+		while (start.isBefore(end) || start.equals(end)) {
+			List<Object> li = new ArrayList<>();
+			for (int i = 0; i < taskId.size(); i++) {
+				List<TaskLog> taskLogLi = sprintDao.gettasklogLiById(taskId.get(i), Date.valueOf(start));
+				for (int j = 0; j < taskLogLi.size(); j++) {
+					l += taskLogLi.get(j).getStopTime().getTime() - taskLogLi.get(j).getStartTime().getTime();
+				}
+			}
+			li.add(Date.valueOf(start));
+			double d=sprintView.getEstimatedTime()-((double)l/(1000*60*60));
+			li.add(df.format(d));
+			chartRemainingTime.add(li);
+			
+			start = start.plusDays(1);
+
+		}
+		
+		sprintViews.add(sprintView);
+		return chartRemainingTime;
 	}
 
 }
