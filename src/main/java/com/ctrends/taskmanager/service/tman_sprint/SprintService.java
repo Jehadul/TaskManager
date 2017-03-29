@@ -2,6 +2,7 @@ package com.ctrends.taskmanager.service.tman_sprint;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -450,7 +451,7 @@ public class SprintService implements ISprintService {
 		long days = ChronoUnit.DAYS.between(start, end) + 1;
 		long l = 0;
 		
-		
+		DecimalFormat df = new DecimalFormat("#.00"); 
 		
 		while (start.isBefore(end) || start.equals(end)) {
 			// sprintView.setStartDate(Date.valueOf(start));
@@ -464,13 +465,15 @@ public class SprintService implements ISprintService {
 			}
 			li.add(String.valueOf(start));
 			System.out.println(start);
-			li.add(sprintView.getEstimatedTime()-(l/(1000*60*60)));
+			double d=sprintView.getEstimatedTime()-((double)l/(1000*60*60));
+			li.add(df.format(d));
 			chartRemainingTime.add(li);
-			l=0;
+			//l=0;
 			
 			start = start.plusDays(1);
 
 		}
+		
 		sprintViews.add(sprintView);
 		return chartRemainingTime;
 	}
