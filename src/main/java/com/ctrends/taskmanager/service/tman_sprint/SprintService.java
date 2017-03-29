@@ -426,7 +426,6 @@ public class SprintService implements ISprintService {
 		SprintManager sprint = sprintDao.getDocById(id);
 		List<String> taskId = new ArrayList<>();
 		List<Object> chartRemainingTime = new ArrayList<Object>();
-		// System.out.println(id);
 		List<SprintManagerDetails> sprintManagerDetails = sprintDao.getDocBySprintId(id);
 		for (int i = 0; i < sprintManagerDetails.size(); i++) {
 			List<Tasks> tasks = tasksDao.getTaskByStoryCode(sprintManagerDetails.get(i).getSprintStoryCode());
@@ -448,14 +447,11 @@ public class SprintService implements ISprintService {
 		String e = sprint.getEndDate().toString();
 		LocalDate start = LocalDate.parse(s);
 		LocalDate end = LocalDate.parse(e);
-		long days = ChronoUnit.DAYS.between(start, end) + 1;
 		long l = 0;
 		
 		DecimalFormat df = new DecimalFormat("#.00"); 
 		
 		while (start.isBefore(end) || start.equals(end)) {
-			// sprintView.setStartDate(Date.valueOf(start));
-			// System.out.println(start);
 			List<Object> li = new ArrayList<>();
 			for (int i = 0; i < taskId.size(); i++) {
 				List<TaskLog> taskLogLi = sprintDao.gettasklogLiById(taskId.get(i), Date.valueOf(start));
@@ -468,7 +464,6 @@ public class SprintService implements ISprintService {
 			double d=sprintView.getEstimatedTime()-((double)l/(1000*60*60));
 			li.add(df.format(d));
 			chartRemainingTime.add(li);
-			//l=0;
 			
 			start = start.plusDays(1);
 
