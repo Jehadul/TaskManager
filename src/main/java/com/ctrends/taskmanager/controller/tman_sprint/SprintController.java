@@ -1,5 +1,9 @@
 package com.ctrends.taskmanager.controller.tman_sprint;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -264,11 +268,28 @@ public class SprintController implements ISprintController {
 	@ResponseBody
 	@Override
 	public ModelAndView showChart(@PathVariable(value = "id") UUID id) {
-		List<SprintView> sprintDetails = sprintService.getBySprintId(id);
-		
+		List<SprintView> sprintViewDetails = sprintService.getBySprintId(id);
+		Map<String, Object> data = new HashMap<String, Object>();
+		List<Date> dateLi=new ArrayList<>();
+		for (int i=0; i<sprintViewDetails.size(); i++){
+			String s = sprintViewDetails.get(i).getStartDate().toString();
+			String e = sprintViewDetails.get(i).getEndDate().toString();
+			LocalDate start = LocalDate.parse(s);
+			LocalDate end = LocalDate.parse(e);
+			long days = ChronoUnit.DAYS.between(start, end)+1;
+			//System.out.println(days+"gvvvvvvvvvvvvvvvvvvvvvvvvvvvvv");
+			while (start.isBefore(end) || start.equals(end)) {
+				dateLi.add(Date.valueOf(start));
+				//data.put("d", start);
+				//System.out.println(start);
+				start = start.plusDays(1);
+			}
+		}
+		data.put("dateLi", dateLi);
+		data.put("sprintViewDetails", sprintViewDetails);
 		GsonBuilder gson = new GsonBuilder();
 		Gson g = gson.create();
-		return new ModelAndView("sprintmanager/burndownchart");
+		return new ModelAndView("sprintmanager/burndownchart", g.toJson(data), data);
 	}
 
 }
