@@ -455,6 +455,7 @@ public class SprintService implements ISprintService {
 		while (start.isBefore(end) || start.equals(end)) {
 			// sprintView.setStartDate(Date.valueOf(start));
 			// System.out.println(start);
+			int c=1;
 			List<Object> li = new ArrayList<>();
 			for (int i = 0; i < taskId.size(); i++) {
 				List<TaskLog> taskLogLi = sprintDao.gettasklogLiById(taskId.get(i), Date.valueOf(start));
@@ -462,7 +463,7 @@ public class SprintService implements ISprintService {
 					l += taskLogLi.get(j).getStopTime().getTime() - taskLogLi.get(j).getStartTime().getTime();
 				}
 			}
-			li.add(String.valueOf(start));
+			li.add(c++);
 			System.out.println(start);
 			li.add(sprintView.getEstimatedTime()-(l/(1000*60*60)));
 			chartRemainingTime.add(li);
