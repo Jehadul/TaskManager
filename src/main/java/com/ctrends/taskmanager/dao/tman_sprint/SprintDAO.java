@@ -1,5 +1,6 @@
 package com.ctrends.taskmanager.dao.tman_sprint;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -14,6 +15,7 @@ import com.ctrends.taskmanager.dao.user.IUserDAO;
 import com.ctrends.taskmanager.model.taskmanage.Module;
 import com.ctrends.taskmanager.model.taskmanage.PrivGroup;
 import com.ctrends.taskmanager.model.taskmanage.Suite;
+import com.ctrends.taskmanager.model.tman.TaskLog;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManager;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManagerDetails;
 import com.ctrends.taskmanager.model.user.User;
@@ -245,6 +247,17 @@ public class SprintDAO implements ISprintDAO {
 		query.setParameter("sprintId", sprintId);
 		List<SprintManagerDetails> sprintDetails=query.list();
 		return sprintDetails;
+	}
+	
+	@Transactional
+	@Override
+	public List<TaskLog> gettasklogLiById(String taskId, Date stopDate){
+		Query query = sessionfactory.getCurrentSession()
+				.createQuery("from TaskLog where taskId =:taskId and stopDate =:stopDate");
+		query.setParameter("taskId", taskId);
+		query.setParameter("stopDate", stopDate);
+		List<TaskLog> taskLogli=query.list();
+		return taskLogli;
 	}
 
 }
