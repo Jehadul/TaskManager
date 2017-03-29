@@ -3,12 +3,12 @@ package com.ctrends.taskmanager.service.tman_sprint;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import java.util.concurrent.SynchronousQueue;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import com.ctrends.taskmanager.bean.Utility;
 import com.ctrends.taskmanager.dao.tman.ITasksDao;
 import com.ctrends.taskmanager.dao.tman_sprint.ISprintDAO;
+import com.ctrends.taskmanager.model.tman.TaskLog;
 import com.ctrends.taskmanager.model.tman.Tasks;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManager;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManagerDetails;
@@ -422,11 +423,14 @@ public class SprintService implements ISprintService {
 		List<SprintView> sprintViews = new ArrayList<SprintView>();
 		SprintView sprintView = new SprintView();
 		SprintManager sprint = sprintDao.getDocById(id);
-		System.out.println(id);
+		List<String> taskId=new ArrayList<>();
+		//System.out.println(id);
 		List<SprintManagerDetails> sprintManagerDetails = sprintDao.getDocBySprintId(id);
 		for (int i = 0; i < sprintManagerDetails.size(); i++) {
 			List<Tasks> tasks = tasksDao.getTaskByStoryCode(sprintManagerDetails.get(i).getSprintStoryCode());
 			for(int j = 0; j<tasks.size();j++){
+				taskId.add(tasks.get(j).getId().toString());
+				
 				sprintView.setRemainingTime(sprintView.getRemainingTime() + tasks.get(j).getRemainingTime());
 			}
 		}
@@ -434,31 +438,35 @@ public class SprintService implements ISprintService {
 		sprintView.setSprintName(sprint.getSprintName());
 		sprintView.setStartDate(sprint.getStartDate());
 		sprintView.setEndDate(sprint.getEndDate());
-		sprintViews.add(sprintView);
-		for(int i= 0; i<sprintViews.size(); i++){
-			System.out.println(sprintViews.get(i).getRemainingTime());
-		}
 		
-//		Date fromDate=sprint.getStartDate();
-//		Date toDate=sprint.getEndDate();
-//		
-//		List<LocalDate> lDate = new SprintService().getDatesBetween(fromDate, toDate);
-//		
+		for(int i= 0; i<sprintViews.size(); i++){
+			//System.out.println(sprintViews.get(i).getRemainingTime());
+		}
+	
+		String s = sprint.getStartDate().toString();
+		String e = sprint.getEndDate().toString();
+		LocalDate start = LocalDate.parse(s);
+		LocalDate end = LocalDate.parse(e);
+		long days = ChronoUnit.DAYS.between(start, end)+1;
+		//System.out.println(days+"gvvvvvvvvvvvvvvvvvvvvvvvvvvvvv");
+		while (start.isBefore(end) || start.equals(end)) {
+			//sprintView.setStartDate(Date.valueOf(start));
+			//System.out.println(start);
+			
+			for(int i=0; i<taskId.size(); i++){
+				
+				List<TaskLog> taskLogLi=sprintDao.gettasklogLiById(taskId.get(i), Date.valueOf(start));
+				for(int j=0; j<taskLogLi.size(); j++){
+					
+				}
+			}
+			start = start.plusDays(1);
+			
+		}
+		sprintViews.add(sprintView);
 		return sprintViews;
 	}
 	
-//	public static List<LocalDate> getDatesBetween(Date fromDate, Date toDate) {
-//		String s = fromDate.toString();
-//		String e = toDate.toString();
-//		LocalDate start = LocalDate.parse(s);
-//		LocalDate end = LocalDate.parse(e);
-//		List<LocalDate> totalDates = new ArrayList<>();
-//		while (!start.isAfter(end)) {
-//		    totalDates.add(start);
-//		    start = start.plusDays(1);
-//		    System.out.println(start.plusDays(1));
-//		}
-//		
-//		return totalDates;
-//	}
+	
+	
 }
