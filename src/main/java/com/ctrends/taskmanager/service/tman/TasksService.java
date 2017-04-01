@@ -240,6 +240,9 @@ public class TasksService implements ITasksService {
 			long estimateSqlTime = (remaingSqlTimeHours * 60 * 60 * 1000) + (remaingsqlTimeMin * 60*1000);
 			long remaingTotalTime = estimateSqlTime - spentTotalTime;*/
 			
+			long spentTotalTime = tasks.getSpentTime() + (hh.getTime() - taskLog.getStartTime().getTime());
+            tasks.setSpentTime(spentTotalTime);
+			
 			tasks.setRemainingTime(Double.parseDouble(requestMap.get("remaininghours")));
 			
 			tasksDao.updateTaskLogDoc(taskLog);
