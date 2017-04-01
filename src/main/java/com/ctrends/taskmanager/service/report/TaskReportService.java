@@ -40,11 +40,7 @@ public class TaskReportService implements ITaskReportService{
 		return null;
 	}
 
-	@Override
-	public List<Tasks> find(Map<String, String> params) {
-		return taskReportDao.getDocs(params);
-		//return null;
-	}
+
 
 	@Override
 	public TaskLog getByCode(String code) {
@@ -73,8 +69,8 @@ public class TaskReportService implements ITaskReportService{
 
 
 	@Override
-	public List<TaskLog> findTwo(Map<String, Object> parameterMap) {
-		return taskReportDao.getDocsTwo(parameterMap);
+	public List<TaskLog> findAllTaskLog(Map<String, Object> parameterMap) {
+		return taskReportDao.getAllTaskLog(parameterMap);
 		
 	}
 
@@ -83,6 +79,12 @@ public class TaskReportService implements ITaskReportService{
 	public HashMap<String, Object> getTaskReportElement(Map<String, Object> parameterMap) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+
+	@Override
+	public List<Tasks> findAllTasks(Map<String, Object> parameterMap) {
+		return taskReportDao.getAllTasks(parameterMap);
 	}
 
 }
