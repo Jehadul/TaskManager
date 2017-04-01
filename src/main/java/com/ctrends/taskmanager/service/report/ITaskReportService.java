@@ -10,9 +10,9 @@ import com.ctrends.taskmanager.service.ICommonService;
 
 public interface ITaskReportService extends ICommonService<Tasks>{
 	HashMap<String, Object> getTaskReportElement(Map<String, Object> parameterMap);
-	
-	public List<Tasks> find(Map<String, String> params);
+
 	public TaskLog getByCode(String code);
 
-	List<TaskLog> findTwo(Map<String, Object> parameterDate);
+	public List<TaskLog> findAllTaskLog(Map<String, Object> parameterMap);
+	public List<Tasks> findAllTasks(Map<String, Object> parameterMap);
 }
