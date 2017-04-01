@@ -53,9 +53,9 @@ public class TasksController implements ITasksController {
 		Gson g = gson.create();
 		for(int i= 0; i<tasklist.size(); i++){
 			long spentSqlTime = tasklist.get(i).getSpentTime();
-			long remainingsqlTime = tasklist.get(i).getRemainingTime();
+			double remainingsqlTime = tasklist.get(i).getRemainingTime();
 			sp.add(spentTimeCalculation(spentSqlTime));
-			rem.add(spentTimeCalculation(remainingsqlTime));		
+			rem.add(String.valueOf(remainingsqlTime));		
 		}
 		
 		long spentTimes= 0;
@@ -246,15 +246,17 @@ public class TasksController implements ITasksController {
 		return null;
 	}
 
-	@RequestMapping(value = "/timeLogUpdate/{id}/{stopTime}/{day}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/timeLogUpdate/{id}/{stopTime}/{day}/{remaininghours}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ModelAndView timeLogUpdate(@PathVariable(value = "id") UUID id,
 			@PathVariable(value = "stopTime") String stopTime,
-			@PathVariable(value = "day") String day) {
+			@PathVariable(value = "day") String day,
+			@PathVariable(value = "remaininghours") String remaininghours) {
 		Map<String, String> map = new HashMap<>();
 		map.put("id", id.toString());
 		map.put("stopTime", stopTime);
 		map.put("day", day);
+		map.put("remaininghours", remaininghours);
 		Map<String, String> data = tasksService.updateTimeLog(map);
 		return null;
 	}
