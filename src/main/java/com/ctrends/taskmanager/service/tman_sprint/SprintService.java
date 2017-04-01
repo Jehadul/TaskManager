@@ -3,6 +3,7 @@ package com.ctrends.taskmanager.service.tman_sprint;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -420,12 +421,14 @@ public class SprintService implements ISprintService {
 	}
 
 	@Override
-	public List<Object> getBySprintId(UUID id) {
+	public Map<String, Object> getBySprintId(UUID id) {
 		List<SprintView> sprintViews = new ArrayList<SprintView>();
+		Map<String, Object> data = new HashMap<String, Object>();
 		SprintView sprintView = new SprintView();
 		SprintManager sprint = sprintDao.getDocById(id);
 		List<String> taskId = new ArrayList<>();
-		List<Object> chartRemainingTime = new ArrayList<Object>();
+		List<String> dateLi = new ArrayList<String>();
+		List<Double> doubleLi = new ArrayList<Double>();
 		List<SprintManagerDetails> sprintManagerDetails = sprintDao.getDocBySprintId(id);
 		for (int i = 0; i < sprintManagerDetails.size(); i++) {
 			List<Tasks> tasks = tasksDao.getTaskByStoryCode(sprintManagerDetails.get(i).getSprintStoryCode());
@@ -450,26 +453,30 @@ public class SprintService implements ISprintService {
 		long l = 0;
 		
 		DecimalFormat df = new DecimalFormat("#.00"); 
-		
+		SimpleDateFormat sdf = new SimpleDateFormat("M-dd-yyyy");
 		while (start.isBefore(end) || start.equals(end)) {
-			List<Object> li = new ArrayList<>();
 			for (int i = 0; i < taskId.size(); i++) {
 				List<TaskLog> taskLogLi = sprintDao.gettasklogLiById(taskId.get(i), Date.valueOf(start));
 				for (int j = 0; j < taskLogLi.size(); j++) {
 					l += taskLogLi.get(j).getStopTime().getTime() - taskLogLi.get(j).getStartTime().getTime();
 				}
 			}
-			li.add(Date.valueOf(start));
+			//String  d1=sdf.format(Date.valueOf(start));
+			dateLi.add(sdf.format(Date.valueOf(start)));
+			//li.add(1);
 			double d=sprintView.getEstimatedTime()-((double)l/(1000*60*60));
-			li.add(df.format(d));
-			chartRemainingTime.add(li);
+			doubleLi.add(Double.parseDouble(df.format(d)));
+			System.out.println(df.format(d));
 			
 			start = start.plusDays(1);
 
 		}
 		
 		sprintViews.add(sprintView);
-		return chartRemainingTime;
+		data.put("sprintViews", sprintViews);
+		data.put("dateLi", dateLi);
+		data.put("doubleLi", doubleLi);
+		return data;
 	}
 
 }
