@@ -88,6 +88,38 @@
 			<cts:Hidden name="id" value="" />
 		</form>
 	</div>
+	<!-- Modal -->
+
+	<div id="myModal" class="modal fade" role="dialog">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Edit Remaining Hours</h4>
+				</div>
+				<div id="warningmsg"></div>
+				<div class="modal-body">
+					<div class="form-group">
+					<div class="row">
+						<div class="col-md-3">
+							<cts:Label labelFor="remaining_time" name="Remaining Hours"/>
+						</div>
+						<div class="col-md-9">
+							<cts:TextBox name="remaining_time" cssClass="number" value="0"/>
+						</div>
+					</div>
+				</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" id="remaininghoursok" class="btn btn-default">
+							<span class="fa fa-check">Ok</span>
+					</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
 </div>
 
 <script>
@@ -96,7 +128,7 @@
 	InitDataTable("#task_sort_result");
 
 	var delRow = function(el) {
- 
+
 		swal({
 			title : "Are you sure?",
 			text : "Are you sure to delete this privilege?",
@@ -110,10 +142,10 @@
 					$(el).closest("tr").find(".task_id").val());
 			$(el).closest("tr").remove();
 			$(".delete_form").submit();
-		}); 
+		});
 
 		var spentTime = $(el).closest("tr").find(".spent_time").val();
-		console.log(spentTime+"::::::::::::::::::::spent_time:::::::::::::");
+		console.log(spentTime + "::::::::::::::::::::spent_time:::::::::::::");
 		if (spentTime == "0") {
 			swal({
 				title : "Are you sure?",
@@ -128,7 +160,7 @@
 						$(el).closest("tr").find(".task_id").val());
 				$(el).closest("tr").remove();
 				$(".delete_form").submit();
-				
+
 				$.ajax({
 					type : 'GET',
 					url : '/taskman/tman/tasks/tasklist',
@@ -212,7 +244,7 @@
 								+ '<time>00:00:00</time>'
 								+ '</span>'
 								+ '</button>'
-								+ '<button type="button" onclick="stopTimer(this);" class="btn-del btn btn-xs" id="stop-timer">'
+								+ '<button type="button" onclick="showRemainingHoursModal(this)" class="btn-del btn btn-xs" id="stop-timer">'
 								+ '<span class="fa fa-stop"></span></button> <span id="runningtask" style="color:green">Running</span>';
 
 						timer();
@@ -265,7 +297,30 @@
 		}
 	}
 
-	function stopTimer(el) {
+	function showRemainingHoursModal(el) {
+		$(el).attr("data-toggle","modal");
+		$(el).attr("data-target","#myModal");
+		//data-dismiss="modal"
+		
+		$("#remaininghoursok").click(function(){
+			var rem = $("#remaining_time").val();
+			
+			if(rem =="" || rem < 0){
+				$("#warningmsg").text("");
+				$("#warningmsg").addClass("alert alert-block alert-danger");
+				$("#warningmsg").text("Please give positive number or zero.");
+				
+			
+			}else{
+				
+				stopTimer(el, rem);
+				$("#remaininghoursok").attr("data-dismiss","#modal");
+			}
+		});
+	}
+
+	function stopTimer(el, rem) {
+		
 		var id = $(el).closest('tr').find('td').find('.task_id').val();
 
 		clearTimeout(t);
@@ -290,11 +345,10 @@
 		var curr_sec = today.getSeconds();
 
 		var stopTime = day + " " + curr_hour + ":" + curr_min + ":" + curr_sec;
-
 		$.ajax({
 			type : 'GET',
 			url : '/taskman/tman/tasks/timeLogUpdate/' + id + '/' + stopTime
-					+ '/' + day,
+					+ '/' + day + '/' + rem,
 			success : function(response, status, xhr) {
 				LoadMainContent("/taskman/tman/tasks/tasklist");
 			}
@@ -315,7 +369,7 @@
 				+ '</time>'
 				+ '</span>'
 				+ '</button>'
-				+ '<button type="button" onclick="stopTimer(this);" class="btn-del btn btn-xs" id="stop-timer">'
+				+ '<button type="button" onclick="showRemainingHoursModal(this)" class="btn-del btn btn-xs" id="stop-timer">'
 				+ '<span class="fa fa-stop"></span></button> <span id="runningtask" style="color:green; font-size:8pt">Running</span>';
 
 		$('.task_id').each(function(index, element) {
@@ -332,5 +386,5 @@
 <style>
 button#stop-timer {
 	margin-left: 2px;
-} 
+}
 </style>
