@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -28,7 +27,6 @@ public class TaskReportController{
 	
 	@Autowired
 	IUserService userService;
-
 	
 	@Autowired
 	ITaskReportService taskReportService;
@@ -53,41 +51,35 @@ public class TaskReportController{
 	
   @RequestMapping(value="/generateuserwisereport", method=RequestMethod.GET)
 	public ModelAndView generateUserWiseReport(ModelAndView modelAndView, HttpServletRequest request){
-		
-		//User currentUser = userService.getCurrentUser();
-		String companyCode = request.getParameter("company_code");
+	  
+	  	String companyCode = request.getParameter("company_code");
 		String empCode = request.getParameter("emp_code");
 		String empName = request.getParameter("emp_name");
 		String username = request.getParameter("username");
 		
 		
 		java.util.Date startDate = Utility.stringToDate(request.getParameter("start_date"));
-		//java.sql.Date startDateSql = (Date) Utility.fromUtiltoSql(startDateUtil);
 		
-		//Date startDate = request.getParameter("start_date");
 		System.out.println(companyCode+ "companyCode"+empCode+"empCode"+empName+"empName"+username+"username"+startDate+"startDate");
 		
-		
-/*		if (companyCode == null) {
-			companyCode = currentUser.getCompanyCode();
-		}
-*/
 		Map<String,Object> parameterDate = new HashMap<String,Object>();
-		Map<String,String> parameterMap = new HashMap<String,String>();
+		Map<String,Object> parameterMap = new HashMap<String,Object>();
 		parameterMap.put("companyCode", companyCode);
 		parameterMap.put("empCode", empCode);
 		parameterMap.put("empName", empName);
 		parameterMap.put("username", username);
 		parameterDate.put("startDate", startDate);
 		
-		List<Tasks> tlist = taskReportService.find(parameterMap);
-		List<TaskLog> tLogList = taskReportService.findTwo(parameterDate);
+		List<Tasks> tlist = taskReportService.findAllTasks(parameterMap);
+		List<TaskLog> tLogList = taskReportService.findAllTaskLog(parameterMap);
 		
 		
 		List<TaskLog> newLogList = new ArrayList<>();
 		
 		
-		for(int j=0; j<tlist.size(); j++){
+	if(tlist!=null){
+		
+	for(int j=0; j<tlist.size(); j++){
 			
 			Tasks tempTask = tlist.get(j);
 			
@@ -102,34 +94,19 @@ public class TaskReportController{
 			}
 		
 		}
+	}
 		
 		
 		List<String> timeList = new ArrayList<>();
 		List<String> timeRemain = new ArrayList<>();
 		
-		for(int i = 0; i<tlist.size(); i++){
-			
-			long millis = tlist.get(i).getSpentTime();
-			
-			long millis2 = tlist.get(i).getRemainingTime();
-			
-			long second = (millis / 1000) % 60;
-			long minute = (millis / (1000 * 60)) % 60;
-			long hour = (millis / (1000 * 60 * 60)) % 24;
-			
-			long second2 = (millis2 / 1000) % 60;
-			long minute2 = (millis2 / (1000 * 60)) % 60;
-			long hour2 = (millis2 / (1000 * 60 * 60)) % 24;
-	
-			String time = String.format("%02d:%02d:%02d", hour, minute, second);
-			String time2 = String.format("%02d:%02d:%02d", hour2, minute2, second2);
-			timeList.add(time);
-			timeRemain.add(time2);
-			
-			
+		if(tlist!=null){
+		for(int i = 0; i<tlist.size(); i++){		
+			timeList.add(millisToDigitalTimeFormat(tlist.get(i).getSpentTime()));
+			timeRemain.add(millisToDigitalTimeFormat((long) tlist.get(i).getRemainingTime()));
 		}
 		
-		
+		}
 		if(newLogList.size()==0){
 			tlist=null;
 			timeList=null;
@@ -143,6 +120,8 @@ public class TaskReportController{
 		data.put("timeList", timeList);
 		data.put("timeRemain", timeRemain);
 		data.put("date", request.getParameter("start_date"));
+		data.put("empCode", request.getParameter("emp_code"));
+		data.put("empName", request.getParameter("emp_name"));
 		
 		return new ModelAndView("report/userwisedailyreport", "data", data);
 		
@@ -199,5 +178,12 @@ public class TaskReportController{
  
     }
 */
+  
+  public String millisToDigitalTimeFormat(long millis){
+	  	long second = (millis / 1000) % 60;
+		long minute = (millis / (1000 * 60)) % 60;
+		long hour = (millis / (1000 * 60 * 60)) % 24;
+		return String.format("%02d:%02d:%02d", hour, minute, second);
+  }
 
 }
