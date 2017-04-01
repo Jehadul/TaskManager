@@ -12,7 +12,9 @@ public interface ITaskReportDAO extends ICommonDAO<Tasks> {
 
 	HashMap<String, Object> getTaskReportElement(Map<String, Object> params);
 
-	List<TaskLog> getDocsTwo(Map<String, Object> parameterMap);
+	List<TaskLog> getAllTaskLog(Map<String, Object> parameterMap);
+	List<Tasks> getAllTasks(Map<String, Object> parameterMap);
+	
 	
 
 }
