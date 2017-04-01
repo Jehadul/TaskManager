@@ -268,15 +268,11 @@ public class SprintController implements ISprintController {
 	@ResponseBody
 	@Override
 	public ModelAndView showChart(@PathVariable(value = "id") UUID id) {
-		List<Object> sprintViewDetails = sprintService.getBySprintId(id);
-		Map<String, Object> data = new HashMap<String, Object>();
-		List<Date> dateLi=new ArrayList<>();		
-		data.put("dateLi", dateLi);
-		data.put("sprintViewDetails", sprintViewDetails);
+		Map<String, Object> sprintViewDetails = sprintService.getBySprintId(id);
 		GsonBuilder gson = new GsonBuilder();
 		Gson g = gson.create();
 		System.out.println(g.toJson(sprintViewDetails));
-		return new ModelAndView("sprintmanager/burndownchart","map", sprintViewDetails);
+		return new ModelAndView("sprintmanager/burndownchart","map", g.toJson(sprintViewDetails));
 	}
 
 }

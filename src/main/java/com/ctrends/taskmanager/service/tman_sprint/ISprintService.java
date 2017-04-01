@@ -1,6 +1,7 @@
 package com.ctrends.taskmanager.service.tman_sprint;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import com.ctrends.taskmanager.model.tman_sprint.SprintManager;
@@ -12,6 +13,6 @@ public interface ISprintService extends ICommonService<SprintManager> {
 
 	public List<SprintManagerDetails> getByIdSprintCode(String sprintCode);
 
-	List<Object> getBySprintId(UUID id);
+	Map<String, Object> getBySprintId(UUID id);
 
 }
