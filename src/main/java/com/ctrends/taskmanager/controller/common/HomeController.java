@@ -68,9 +68,9 @@ public class HomeController {
 		List<String> rem = new ArrayList<>();
 		for(int i= 0; i<tasklist.size(); i++){
 			long spentSqlTime = tasklist.get(i).getSpentTime();
-			long remainingsqlTime = tasklist.get(i).getRemainingTime();
+			double remainingsqlTime = tasklist.get(i).getRemainingTime();
 			sp.add(spentTimeCalculation(spentSqlTime));
-			rem.add(spentTimeCalculation(remainingsqlTime));		
+			rem.add(String.valueOf(remainingsqlTime));		
 		}
 		long spentTimes= 0;
 		if(tasklog != null && tasklog.getStartTime() !=null){
@@ -93,7 +93,7 @@ public class HomeController {
 		data.put("rem", rem);
 		try {
 			data.put("currentSpentTime", (currentTasklist.size()>0)? spentTimeCalculation(currentTasklist.get(0).getSpentTime()):"00:00:00" );
-			data.put("currentRemainingTime", (currentTasklist.size()>0)? spentTimeCalculation(currentTasklist.get(0).getRemainingTime()) : "00:00:00");
+			data.put("currentRemainingTime", (currentTasklist.size()>0)? currentTasklist.get(0).getRemainingTime() : 0.0);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
