@@ -275,4 +275,14 @@ public class SprintController implements ISprintController {
 		return new ModelAndView("sprintmanager/burndownchart","map", g.toJson(sprintViewDetails));
 	}
 
+
+	@RequestMapping(value = "/spentchart/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ModelAndView showSpentChart(@PathVariable(value = "id") UUID id){
+		
+		System.out.println(id);
+		
+		
+		return new ModelAndView("sprintmanager/spentchart");
+	}
+
 }
