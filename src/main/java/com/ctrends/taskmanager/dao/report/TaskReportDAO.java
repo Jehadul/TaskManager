@@ -35,9 +35,9 @@ public class TaskReportDAO implements ITaskReportDAO{
 	@Transactional
 	@Override
 	public List<Tasks> getAllDoc() {
-		User currentUser = userService.getCurrentUser();
-		Query query = sessionfactory.getCurrentSession().createQuery("From Tasks where username =:userName");
-		query.setParameter("userName", currentUser.getUsername());
+		
+		Query query = sessionfactory.getCurrentSession().createQuery("From Tasks");
+		
 		List<Tasks> tasksLogReport = query.list();
 		return tasksLogReport;
 	}
@@ -45,23 +45,7 @@ public class TaskReportDAO implements ITaskReportDAO{
 	@Transactional
 	@Override
 	public List<Tasks> getDocs(Map<String, String> request) {
-		//User currentUser = userDAO.getCurrentUser();
-		
-	Query query = sessionfactory.getCurrentSession().createQuery("FROM Tasks WHERE companyCode = :companyCode and empCode=:empCode and empName=:empName and username=:username");
-		
-		query.setParameter("companyCode", request.get("companyCode"));
-		//System.out.println("companyCode"+request.get("companyCode")+"ggggggggggggg");
-		query.setParameter("empCode", request.get("empCode"));
-		query.setParameter("empName", request.get("empName"));
-		query.setParameter("username", request.get("username"));
-		//query.setParameter("startDate", request.get("startDate"));
-		
-		List<Tasks> tlist = query.list();
-		
-		
-		if (query.list().size() > 0) {
-			return tlist;
-		}
+
 
 		return null;
 	}
@@ -98,7 +82,7 @@ public class TaskReportDAO implements ITaskReportDAO{
 	
 
 	@Override
-	public List<TaskLog> getDocsTwo(Map<String, Object> parameterMap) {
+	public List<TaskLog> getAllTaskLog(Map<String, Object> parameterMap) {
 		//User currentUser = userDAO.getCurrentUser();
 		
 	Query query = sessionfactory.getCurrentSession().createQuery("FROM TaskLog");
@@ -107,7 +91,7 @@ public class TaskReportDAO implements ITaskReportDAO{
 		/*query.setParameter("empCode", parameterMap.get("empCode"));
 		query.setParameter("empName", parameterMap.get("empName"));
 		query.setParameter("username", parameterMap.get("username"));*/
-		//query.setParameter("startDate", parameterMap.get("startDate"));
+		//query.setParameter("startDate", parameterMap.get("startDate")).uniqueResult();
 		
 		List<TaskLog> tLoglist = query.list();
 		
@@ -123,6 +107,28 @@ public class TaskReportDAO implements ITaskReportDAO{
 	@Override
 	public HashMap<String, Object> getTaskReportElement(Map<String, Object> params) {
 		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Tasks> getAllTasks(Map<String, Object> request) {
+		//User currentUser = userDAO.getCurrentUser();
+		
+	Query query = sessionfactory.getCurrentSession().createQuery("FROM Tasks WHERE companyCode = :companyCode and empCode=:empCode and empName=:empName and username=:username");
+		
+		query.setParameter("companyCode", request.get("companyCode"));
+		//System.out.println("companyCode"+request.get("companyCode")+"ggggggggggggg");
+		query.setParameter("empCode", request.get("empCode"));
+		query.setParameter("empName", request.get("empName"));
+		query.setParameter("username", request.get("username"));
+		//query.setParameter("startDate", request.get("startDate"));
+		
+		List<Tasks> tlist = query.list();
+		
+		
+		if (query.list().size() > 0) {
+			return tlist;
+		}
 		return null;
 	}
 	

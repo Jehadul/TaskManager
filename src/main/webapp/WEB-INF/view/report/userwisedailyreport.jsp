@@ -27,14 +27,14 @@
 						<cts:Label name="Employee Code" labelFor="ok"/> 
 					</div>
 					<div class="col-md-1">:</div>
-					<div class="col-md-5">${data.tlist[0].empCode}</div>					
+					<div class="col-md-5">${data.empCode}</div>					
 				</div>
 				<div class="row">
 					<div class="col-md-3">
 						<cts:Label name="Employee Name" labelFor="ok"/> 
 					</div>
 					<div class="col-md-1">:</div>
-					<div class="col-md-5">${data.tlist[0].empName}</div>					
+					<div class="col-md-5">${data.empName}</div>					
 				</div>
 				
 			</div>
