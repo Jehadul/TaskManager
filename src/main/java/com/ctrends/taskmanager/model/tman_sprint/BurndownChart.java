@@ -2,7 +2,6 @@ package com.ctrends.taskmanager.model.tman_sprint;
 
 import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -11,41 +10,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
-@Table(name = "tman_sprints")
-public class SprintManager {
-
-	
+@Table(name="burndown_chart")
+public class BurndownChart {
 	@Id
 	@Column(name = "id")
 	@org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private UUID id;
 	
-	
-	@Column(name="suite_name")
-	private String suiteName;
-	
-	
-	@Column(name="suite_code")
-	private String suiteCode;
-	
-	@Column(name="module_code")
-	private String moduleCode;
-	
-	@Column(name="priv_grp_code")
-	private int privGrpCode;
-	
-	@Column(name="priv_grp_name")
-	private String privGrpName;
-
-	@Column(name="module_name")
-	private String moduleName;
-	
-	@Column(name="privilege_name")
-	private String privilegeName;
+	@Column(name="sprint_id")
+	private UUID sprintID;
 	
 	@Column(name="sprint_code")
 	private String sprintCode;
@@ -53,35 +29,32 @@ public class SprintManager {
 	@Column(name="sprint_name")
 	private String sprintName;
 	
-	@Column(name="sprint_description")
-	private String sprintDescription;
+	@Column(name="working_date")
+	private Date workingDate;
 	
-	@Column(name="start_date")
-	private Date startDate;
+	@Column(name = "estimated_time")
+	private double estimatedTime;
 	
-	@Column(name="end_date")
-	private Date endDate;
+	@Column(name = "spent_time")
+	private long spentTime;
 	
-	@Column(name="sprint_goal")
-	private String sprintGoal;
+	@Column(name = "remaining_time")
+	private double remainingTime;	
 	
-	@Column(name="sprint_number")
-	private double sprintNumber;
-	
-	@Column(name="sprint_stories")
-	private String sprintStories;
-	
-	@Column(name="sprint_story_code")
-	private String sprintStoryCode;
-	
-	public String getSprintStoryCode() {
-		return sprintStoryCode;
-	}
+	@Column(name="doa_type_code")
+	private String doaTypeCode;
 
-	public void setSprintStoryCode(String sprintStoryCode) {
-		this.sprintStoryCode = sprintStoryCode;
-	}
+	@Column(name="doa_type_name")
+	private String doaTypeName;
 
+	@Column(name="doa_amount")
+	private double doaAmount;
+
+	@Column(name="doa_currency_code")
+	private String doaCurrencyCode;
+
+	@Column(name="doa_currency_name")
+	private String doaCurrencyName;
 
 	@Column(name="created_by_code")
 	private String createdByCode;
@@ -240,22 +213,6 @@ public class SprintManager {
 	
 	@Column(name="costcenter_name")
 	private String costcenterName;
-	
-	@Transient
-	private List<SprintManagerDetails> steps;
-	
-	@Transient
-	private List<BurndownChart> charts;
-	
-	
-
-	public List<SprintManagerDetails> getSteps() {
-		return steps;
-	}
-
-	public void setSteps(List<SprintManagerDetails> steps) {
-		this.steps = steps;
-	}
 
 	public UUID getId() {
 		return id;
@@ -265,68 +222,12 @@ public class SprintManager {
 		this.id = id;
 	}
 
-	public String getSuiteName() {
-		return suiteName;
+	public UUID getSprintID() {
+		return sprintID;
 	}
 
-	public void setSuiteName(String suiteName) {
-		this.suiteName = suiteName;
-	}
-
-	public String getSuiteCode() {
-		return suiteCode;
-	}
-
-	public void setSuiteCode(String suiteCode) {
-		this.suiteCode = suiteCode;
-	}
-
-	public String getModuleCode() {
-		return moduleCode;
-	}
-
-	public void setModuleCode(String moduleCode) {
-		this.moduleCode = moduleCode;
-	}
-
-	public int getPrivGrpCode() {
-		return privGrpCode;
-	}
-
-	public void setPrivGrpCode(int privGrpCode) {
-		this.privGrpCode = privGrpCode;
-	}
-
-	public String getPrivGrpName() {
-		return privGrpName;
-	}
-
-	public void setPrivGrpName(String privGrpName) {
-		this.privGrpName = privGrpName;
-	}
-
-	public String getModuleName() {
-		return moduleName;
-	}
-
-	public void setModuleName(String moduleName) {
-		this.moduleName = moduleName;
-	}
-
-	public String getPrivilegeName() {
-		return privilegeName;
-	}
-
-	public void setPrivilegeName(String privilegeName) {
-		this.privilegeName = privilegeName;
-	}
-
-	public String getSprintCode() {
-		return sprintCode;
-	}
-
-	public void setSprintCode(String sprintCode) {
-		this.sprintCode = sprintCode;
+	public void setSprintID(UUID sprintID) {
+		this.sprintID = sprintID;
 	}
 
 	public String getSprintName() {
@@ -337,54 +238,77 @@ public class SprintManager {
 		this.sprintName = sprintName;
 	}
 
-	public String getSprintDescription() {
-		return sprintDescription;
+	public Date getWorkingDate() {
+		return workingDate;
 	}
 
-	public void setSprintDescription(String sprintDescription) {
-		this.sprintDescription = sprintDescription;
+	public void setWorkingDate(Date workingDate) {
+		this.workingDate = workingDate;
 	}
 
-	public Date getStartDate() {
-		return startDate;
+	public double getEstimatedTime() {
+		return estimatedTime;
 	}
 
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
+	public void setEstimatedTime(double estimatedTime) {
+		this.estimatedTime = estimatedTime;
 	}
 
-	public Date getEndDate() {
-		return endDate;
+	public long getSpentTime() {
+		return spentTime;
 	}
 
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
+	public void setSpentTime(long spentTime) {
+		this.spentTime = spentTime;
 	}
 
-	public String getSprintGoal() {
-		return sprintGoal;
+	public double getRemainingTime() {
+		return remainingTime;
 	}
 
-	public void setSprintGoal(String sprintGoal) {
-		this.sprintGoal = sprintGoal;
+	public void setRemainingTime(double remainingTime) {
+		this.remainingTime = remainingTime;
 	}
 
-	public double getSprintNumber() {
-		return sprintNumber;
+	public String getDoaTypeCode() {
+		return doaTypeCode;
 	}
 
-	public void setSprintNumber(double sprintNumber) {
-		this.sprintNumber = sprintNumber;
+	public void setDoaTypeCode(String doaTypeCode) {
+		this.doaTypeCode = doaTypeCode;
 	}
 
-	public String getSprintStories() {
-		return sprintStories;
+	public String getDoaTypeName() {
+		return doaTypeName;
 	}
 
-	public void setSprintStories(String sprintStories) {
-		this.sprintStories = sprintStories;
+	public void setDoaTypeName(String doaTypeName) {
+		this.doaTypeName = doaTypeName;
 	}
 
+	public double getDoaAmount() {
+		return doaAmount;
+	}
+
+	public void setDoaAmount(double doaAmount) {
+		this.doaAmount = doaAmount;
+	}
+
+	public String getDoaCurrencyCode() {
+		return doaCurrencyCode;
+	}
+
+	public void setDoaCurrencyCode(String doaCurrencyCode) {
+		this.doaCurrencyCode = doaCurrencyCode;
+	}
+
+	public String getDoaCurrencyName() {
+		return doaCurrencyName;
+	}
+
+	public void setDoaCurrencyName(String doaCurrencyName) {
+		this.doaCurrencyName = doaCurrencyName;
+	}
 
 	public String getCreatedByCode() {
 		return createdByCode;
@@ -802,15 +726,13 @@ public class SprintManager {
 		this.costcenterName = costcenterName;
 	}
 
-	public List<BurndownChart> getCharts() {
-		return charts;
+	public String getSprintCode() {
+		return sprintCode;
 	}
 
-	public void setCharts(List<BurndownChart> charts) {
-		this.charts = charts;
+	public void setSprintCode(String sprintCode) {
+		this.sprintCode = sprintCode;
 	}
-
-	
 	
 	
 }
