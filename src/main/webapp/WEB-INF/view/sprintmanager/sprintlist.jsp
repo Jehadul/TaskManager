@@ -57,6 +57,9 @@
 										<button type="button" class="btn-chart btn btn-xs">
 											<span class="fa fa-line-chart"></span>
 										</button>
+										<button type="button" class="btn-spent-chart btn btn-xs">
+											<span class="fa fa-bar-chart"></span>
+										</button>
 			
 									<input type="hidden" name="id[]" class="sprint_id1" value="${sprint.getId()}" />	
 									<input type="hidden" name="suite_Name[]" class="suite_Name" value="${sprint.getSuiteName()}" />
@@ -133,6 +136,16 @@
 		LoadMainContent('/taskman/tman/sprint/burndownchart/' + sprintId);
 	});
 	
+	
+	$('.btn-spent-chart').on("click", function() {
+		var currentRow = $(this).closest("tr");
+		currentRow.addClass("current-row");
+
+		var sprintId = currentRow.find(".sprint_id").val();
+		
+		console.log(sprintId);
+		LoadMainContent('/taskman/tman/sprint/spentchart/'+sprintId);
+	});
 	
 
 	
