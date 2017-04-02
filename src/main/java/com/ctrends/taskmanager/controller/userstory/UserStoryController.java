@@ -289,7 +289,6 @@ public class UserStoryController implements IUserStoryController {
 	@RequestMapping(value = "/searchstory", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ModelAndView showSearch(@Context HttpServletRequest request) {
 		
-		
 		String actionTypeCode = request.getParameter("action_type_code");
 		Map<String, Object> data = new HashMap<String, Object>();
 		
