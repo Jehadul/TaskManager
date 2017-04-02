@@ -15,6 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -56,7 +57,8 @@ public class UserStoryControllerTest {
 	
 	MockHttpServletRequest request;
 
-	
+	String userStoryCode = "1.1";
+	String actionTypeCode = "select";
 	
 	public UserStoryControllerTest(){
 		request = new MockHttpServletRequest();
@@ -175,12 +177,18 @@ public class UserStoryControllerTest {
 	
 	@Test
 	public void testShowSearch_ReturnsModelAndView(){
-		assertTrue(true);
+		request.setParameter("actionTypeCode", actionTypeCode);
+		ModelAndView ar = userStoryController.showSearch(request);
+		assertTrue(ar.hasView());
+		//assertTrue(true);
 	}
 	
 	@Test
 	public void testsearch_ReturnsString(){
-		assertTrue(true);
+		
+		request.setParameter("userStoryCode", userStoryCode);
+		String data=userStoryController.search(request);
+		assertNotNull(data);
 	}
 	
 	@Test
