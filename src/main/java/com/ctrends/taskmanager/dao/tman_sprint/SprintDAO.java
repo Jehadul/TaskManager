@@ -16,6 +16,7 @@ import com.ctrends.taskmanager.model.taskmanage.Module;
 import com.ctrends.taskmanager.model.taskmanage.PrivGroup;
 import com.ctrends.taskmanager.model.taskmanage.Suite;
 import com.ctrends.taskmanager.model.tman.TaskLog;
+import com.ctrends.taskmanager.model.tman_sprint.BurndownChart;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManager;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManagerDetails;
 import com.ctrends.taskmanager.model.user.User;
@@ -107,6 +108,13 @@ public class SprintDAO implements ISprintDAO {
 			sprintDetails = (SprintManagerDetails) sprint.getSteps().get(i);
 			sprintDetails.setSprintId(id);
 			sessionfactory.getCurrentSession().save(sprintDetails);
+			sessionfactory.getCurrentSession().flush();
+		}
+		for (int i = 0; i < sprint.getCharts().size(); i++) {
+			BurndownChart burndownChart = new BurndownChart();			
+			burndownChart = (BurndownChart) sprint.getCharts().get(i);
+			burndownChart.setSprintID(id);
+			sessionfactory.getCurrentSession().save(burndownChart);
 			sessionfactory.getCurrentSession().flush();
 		}
 		
