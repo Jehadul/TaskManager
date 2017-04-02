@@ -53,6 +53,7 @@ public class UserStoryServiceTest {
 	
 	
 	String userName = "CTS0104";
+	String userStoryCode = "1.1";
 	String[] empCode = {"abc"};
 	String[] privGrpCode={String.valueOf("1")};
 	
@@ -167,7 +168,13 @@ public class UserStoryServiceTest {
 		assertEquals(new UserStory().getClass(), userStory.getClass());
 	}
 	
-	
+	@Test
+	public void testFind_ReturnsList() {
+		Map<String, String> searchingKey = new HashMap<String, String>();
+		searchingKey.put("userStoryCode", userStoryCode);
+		List<UserStory> allUserStoryList=userStoryService.find(searchingKey);
+		assertNotNull(allUserStoryList);
+	}
 
 	
 }
