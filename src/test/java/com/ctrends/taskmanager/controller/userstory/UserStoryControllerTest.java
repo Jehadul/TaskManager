@@ -174,7 +174,7 @@ public class UserStoryControllerTest {
 
 	
 	@Test
-	public void testShoeSearch_ReturnsModelAndView(){
+	public void testShowSearch_ReturnsModelAndView(){
 		assertTrue(true);
 	}
 	
