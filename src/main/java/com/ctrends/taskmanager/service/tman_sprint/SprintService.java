@@ -20,6 +20,7 @@ import com.ctrends.taskmanager.dao.tman.ITasksDao;
 import com.ctrends.taskmanager.dao.tman_sprint.ISprintDAO;
 import com.ctrends.taskmanager.model.tman.TaskLog;
 import com.ctrends.taskmanager.model.tman.Tasks;
+import com.ctrends.taskmanager.model.tman_sprint.BurndownChart;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManager;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManagerDetails;
 import com.ctrends.taskmanager.model.tman_sprint.SprintView;
@@ -81,7 +82,37 @@ public class SprintService implements ISprintService {
 		sprint.setCreatedByCompanyCode(currentUser.getCompanyCode());
 		sprint.setCreatedByCompanyName(currentUser.getCompanyName());
 		sprint.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+		
+		// burndown chart start
+		
+		
+		List<BurndownChart> burndownChartList = new ArrayList<BurndownChart>();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date startDateUtilq = Utility.stringToDate(requestMap.get("start_date")[0]);
+		java.util.Date endDateUtilz = Utility.stringToDate(requestMap.get("end_date")[0]);
+		String s = sdf.format(startDateUtilq);
+		String e = sdf.format(endDateUtilz);		
+		LocalDate start = LocalDate.parse(s);
+		LocalDate end = LocalDate.parse(e);
+		
+		DecimalFormat df = new DecimalFormat("#.00"); 
+		int c = 0;
+		while (start.isBefore(end) || start.equals(end)) {
+			BurndownChart burndownChart = new BurndownChart();
+			//String formatDate = sdf.format(Date.valueOf(start));
+			burndownChart.setSprintCode(requestMap.get("sprint_code")[0]);
+			burndownChart.setSprintName(requestMap.get("sprint_name")[0]);
+			//java.sql.Date endSqlDate = (Date) Utility.toSqlDate(formatDate);
+			burndownChart.setWorkingDate(Date.valueOf(start));
+			
+			burndownChartList.add(c, burndownChart);	
+			System.out.println(start+":::::::::::::::::;");
+			start = start.plusDays(1);
+			c++;
 
+		}
+		sprint.setCharts(burndownChartList);
+		
 		if (requestMap.get("start_date")[0].equals("")) {
 			sprint.setStartDate(new Date(System.currentTimeMillis()));
 		} else {
