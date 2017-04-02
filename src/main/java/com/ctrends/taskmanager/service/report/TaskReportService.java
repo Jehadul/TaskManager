@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ctrends.taskmanager.dao.report.ITaskReportDAO;
 import com.ctrends.taskmanager.model.tman.TaskLog;
+import com.ctrends.taskmanager.model.tman.TaskReportView;
 import com.ctrends.taskmanager.model.tman.Tasks;
 
 @Service("tasklogService")
@@ -61,13 +62,13 @@ public class TaskReportService implements ITaskReportService{
 		return null;
 	}
 	
-/*	public HashMap<String, Object> getTaskReportElement(Map<String, Object> params) {
+	public HashMap<String, Object> getTaskReportElement(Map<String, Object> params) {
 		HashMap<String, Object> searchResult = taskReportDao.getTaskReportElement(params);
 		return searchResult;
 	
-	}*/
+	}
 
-
+/*
 	@Override
 	public List<TaskLog> findAllTaskLog(Map<String, Object> parameterMap) {
 		return taskReportDao.getAllTaskLog(parameterMap);
@@ -80,11 +81,21 @@ public class TaskReportService implements ITaskReportService{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
+*/
+/*
 	@Override
 	public List<Tasks> findAllTasks(Map<String, Object> parameterMap) {
 		return taskReportDao.getAllTasks(parameterMap);
 	}
+*/
+
+	@Override
+	public List<TaskReportView> findUserWiseDailyTasks(Map<String, String> parameterMap) {
+		// TODO Auto-generated method stub
+		return taskReportDao.getUserWiseDailyTasks(parameterMap);
+	}
+
+
+
 
 }
