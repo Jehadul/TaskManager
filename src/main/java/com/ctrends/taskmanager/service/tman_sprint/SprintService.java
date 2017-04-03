@@ -41,7 +41,7 @@ public class SprintService implements ISprintService {
 
 	@Override
 	public Map<String, String> insert(Map<String, String[]> requestMap) {
-
+		
 		Map<String, String> data = new HashMap<String, String>();
 		User currentUser = userService.getCurrentUser();
 		String strid = null;
@@ -508,6 +508,12 @@ public class SprintService implements ISprintService {
 		data.put("dateLi", dateLi);
 		data.put("doubleLi", doubleLi);
 		return data;
+	}
+	@Override
+	public Map<String, Object> getSprintSpentChartData(UUID id){
+		Map<String,Object> map = sprintDao.getSpentChartDoc(id);
+		return map;
+		
 	}
 
 }

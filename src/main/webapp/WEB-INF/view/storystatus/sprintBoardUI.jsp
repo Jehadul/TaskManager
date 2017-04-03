@@ -83,6 +83,7 @@
 	</div>
 </div>
 <script>
+
 	InitHandlers();
 	
 	$("#btnAddStories").on("click",function(){
