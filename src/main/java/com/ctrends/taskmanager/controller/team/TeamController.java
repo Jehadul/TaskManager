@@ -42,10 +42,18 @@ public class TeamController implements ITeamController {
 		return new ModelAndView("team/teamlist", "data", data);
 	}
 
+	@RequestMapping(value = "/show/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
 	@Override
-	public ModelAndView show(UUID id) {
-		// TODO Auto-generated method stub
-		return null;
+	public ModelAndView show(@PathVariable(value = "id") UUID id) {
+		Team team = teamService.getById(id);
+		List<TeamMemberDetails> teamMemberDetailsList = teamService.getTeamMemberDetailsByTeamId(id);
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("team", team);
+		map.put("teamMemberDetailsList", teamMemberDetailsList);
+		return new ModelAndView("team/show", "map", map);
 	}
 
 	@Override
