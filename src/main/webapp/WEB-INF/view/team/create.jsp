@@ -171,4 +171,17 @@
 		
 	}
 	
+	function showMessage(data) {
+		if (data.outcome == 'success') {
+			ShowSuccessMsg('Team Created', data.message);
+			isDirty = false;
+			LoadMainContent('/taskman/team/show/' + data.id);
+		} else {
+			ShowErrorMsg('Team was not created', data.message);
+			var msg = ConcatWithBR(data.error);
+			$(".alert").html(msg);
+			$(".alert").removeClass("hidden");
+		}
+	}
+	
 </script>
