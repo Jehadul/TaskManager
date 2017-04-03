@@ -41,46 +41,44 @@
 							<cts:TextBox name="team_name" cssClass="dirty-check required"
 								readonly="" />
 						</div>
-
+			
+					</div>
+					
+					<div class="col-md-6">
 						<div class="form-group">
 							<cts:Label name="Number Of Team Member" labelFor="nt_member" />
 							<cts:TextBox name="nt_member"
 								cssClass="dirty-check required number" readonly="" />
 						</div>
-						
 						<div class="form-group">
 							<cts:Label name="Description" labelFor="description" />
 							<cts:TextArea name="description" cssClass="dirty-check required"
 								readonly="" rows="3" cols="" />
 						</div>
 					</div>
-					
-					<div class="col-md-6">
-						<fieldset>
-							<legend>
-								Employee Details&nbsp;&nbsp;
-								<cts:Button cssClass="find" spanClass="search" id="btnEmp" />
-							</legend>
-							
-							<div class="form-group">
-								<cts:Label name="Employee Code" labelFor="emp_code" />
-								<cts:TextBox name="emp_code" cssClass="dirty-check required"
-									readonly="readonly" />
-							</div>
-							<div class="form-group">
-								<cts:Label name="Employee Name" labelFor="emp_name" />
-								<cts:TextBox name="emp_name" cssClass="dirty-check"
-									readonly="readonly" />
-							</div>
-							<div class="form-group">
-								<cts:Label name="Username" labelFor="username" />
-								<cts:TextBox name="username" cssClass="dirty-check required"
-									readonly="readonly" />
-							</div>
-						</fieldset>
-						
-					</div>
 				</div>
+				<div class="row">
+						<div class="col-md-12">
+							<fieldset id="fs_multiple_employees" style="display: block;">
+									<legend>Employee Details&nbsp;&nbsp; 
+									<button id="btnAddStories" class="btn btn-find" type="button"><span class="fa fa-plus"></span></button>	
+									</legend>
+			 						<div class="table-responsive">
+					           			<table class="table table-striped table-hover" id=story_list>
+						           			<thead>
+												<tr>
+													<th>Code</th>
+													<th>Name</th>
+													<th>Action</th>
+												</tr>
+											</thead>
+											<tbody>
+											</tbody>
+										</table>
+									</div>
+							</fieldset>	
+						</div>				
+					</div>
 				<div class="row margin-top-30 margin-bottom-30 margin-right-5">
 
 					<div class="col-md-auto">
