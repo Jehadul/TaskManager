@@ -22,7 +22,7 @@
 		<div id="teamlists" class="panel-group accordion">
 				<c:set var="prevBlockId" value="" />
 				<c:set var="nextBlockId" value="" />
-				<c:forEach var="i" begin="0" end="${data.teamLi.teamDetails.size()-1}">
+				<c:forEach var="i" begin="0" end="${data.teamLi.teamCode.size()-1}">
 					<c:if test="${!data.teamLi.teamDetails[i].teamCode.equals(prevBlockId)}">
 						<div class="wf-block panel panel-light-grey" data-id="${data.teamLi.teamDetails[i].teamCode}">
 							<div class="panel-heading">
