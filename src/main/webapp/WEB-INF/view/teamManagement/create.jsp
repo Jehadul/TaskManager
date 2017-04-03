@@ -14,7 +14,7 @@
 	</section>
 
 	<div class="container-fluid container-fullw bg-white">
-		<cts:AjaxForm action="/taskman/team/ui/store"
+		<cts:AjaxForm action="/taskman/team/store"
 			dataHandler="showMessage">
 			<input type="hidden" name="${_csrf.parameterName}"
 				value="${_csrf.token}" />
