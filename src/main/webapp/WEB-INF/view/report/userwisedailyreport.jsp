@@ -41,49 +41,42 @@
 			<div class="col-md-4" style="text-align: right">Date : <%= new java.util.Date() %></div>
 		</div>
 		<div class="row">
-			<div class="col-md-7">
+			<div class="col-md-12">
+				<h5 class="center">Daily Report</h5>
 				<fieldset>
 						<table class="data-grid width-full" id="LevelTable">
 							<thead>
-							<h5 class="center">Daily Report</h5>	
+								
 								<tr>
 									<td>Story Title</td>
 									<td>Task Title</td>
-									<td>Estimated Time</td>	
+									<td>Task Code</td>
+									<td>Start Time</td>	
+									<td>End Time</td>	
 									<td>Spent Time</td>
-									<td>Remaining Time</td>
 								</tr>		
 							</thead>
 							<tbody>
-								<tr>
-									<td>
-										<c:forEach var="sTitle" items="${data.tlist}">
-										   <c:out value=" ${sTitle.storyTitle}"/><p>
-										</c:forEach>
-									</td>
+								<c:forEach var="tvReportList" items="${data.taskViewReportList}">
+									<tr>
+										<td><c:out value=" ${tvReportList.storyTitle}"/></td>
+										<td><c:out value=" ${tvReportList.taskTitle}"/></td>
+										<td><c:out value=" ${tvReportList.taskCode}"/></td>
+										<td>
+											<c:forEach var="tLog" items="${tvReportList.taskLogList}">
+												<p><c:out value=" ${tLog.startTime}"/></p>
+											</c:forEach>
+										</td>
+										<td>
+											<c:forEach var="tLog" items="${tvReportList.taskLogList}">
+												<p><c:out value=" ${tLog.stopTime}"/></p>
+											</c:forEach>
+										</td>
+										<td><c:out value=" ${tvReportList.totalDaySpentTime}"/></td>
+									</tr>
 									
-									<td>									
-										<c:forEach var="ttitle" items="${data.tlist}">
-										   <c:out value="${ttitle.taskTitle}"/><p>
-										</c:forEach>
-									</td>
-									<td>
-										<c:forEach var="etime" items="${data.tlist}">
-										   <c:out value="${etime.estimatedTime}"/><p>
-										</c:forEach>
-									</td>
-									
-									<td>
-										<c:forEach var="etime" items="${data.timeList}">
-										   <c:out value=" ${etime}"/><p>
-										</c:forEach>
-									</td>
-									<td class="remain-time">
-										<c:forEach var="rtime" items="${data.timeRemain}">
-										   <c:out value="${rtime}"/><p>
-										</c:forEach>
-									</td>
-								</tr>
+								</c:forEach>
+								
 							</tbody>
 							<tfoot  class="deductionpackage-tfoot" id="text" >
 								<tr style="height:30px">

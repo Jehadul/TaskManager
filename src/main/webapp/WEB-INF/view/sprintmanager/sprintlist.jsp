@@ -143,7 +143,7 @@
 
 		var sprintId = currentRow.find(".sprint_id").val();
 		
-		console.log(sprintId);
+		//console.log(sprintId);
 		LoadMainContent('/taskman/tman/sprint/spentchart/'+sprintId);
 	});
 	
