@@ -13,6 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ctrends.taskmanager.dao.user.IUserDAO;
 import com.ctrends.taskmanager.model.team.Team;
+import com.ctrends.taskmanager.model.team.TeamMemberDetails;
+import com.ctrends.taskmanager.model.tman_sprint.BurndownChart;
+import com.ctrends.taskmanager.model.tman_sprint.SprintManager;
+import com.ctrends.taskmanager.model.tman_sprint.SprintManagerDetails;
 import com.ctrends.taskmanager.model.user.User;
 import com.ctrends.taskmanager.service.user.IUserService;
 
@@ -51,6 +55,7 @@ public class TeamDAO implements ITeamDAO {
 		return team;
 	}
 
+	@Transactional
 	@Override
 	public List<Team> getDocs(Map<String, String> params) {
 		Query query = sessionFactory.getCurrentSession()
@@ -64,22 +69,53 @@ public class TeamDAO implements ITeamDAO {
 		return teamList;
 	}
 
+	@Transactional
 	@Override
 	public UUID insertDoc(Team doc) {
-		// TODO Auto-generated method stub
-		return null;
+		UUID id = (UUID) sessionFactory.getCurrentSession().save(doc);
+		sessionFactory.getCurrentSession().flush();
+
+		for (int i = 0; i < doc.getTeamDetails().size(); i++) {
+			TeamMemberDetails teamMemberDetails = new TeamMemberDetails();
+			teamMemberDetails = (TeamMemberDetails) doc.getTeamDetails().get(i);
+			teamMemberDetails.setTeamId(id);
+			sessionFactory.getCurrentSession().save(teamMemberDetails);
+			sessionFactory.getCurrentSession().flush();
+		}
+		return id;
 	}
 
+	@Transactional
 	@Override
 	public UUID updateDoc(Team doc) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	@Transactional
 	@Override
 	public UUID deleteDoc(UUID id) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	@Transactional
+	@Override
+	public boolean checkUnique(Map<String, Object> param) {
+		User currentUser = userDAO.getCurrentUser();
+		String companyCode = currentUser.getCompanyCode();
+		Query query = sessionFactory.getCurrentSession()
+				.createQuery("FROM Team WHERE teamCode =:teamCode AND companyCode=:companyCode");
+		query.setParameter("companyCode", companyCode);
+		query.setParameter("teamCode", param.get("teamCode"));
+
+		SprintManager sprint = (SprintManager) query.uniqueResult();
+
+		if (sprint == null) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }
