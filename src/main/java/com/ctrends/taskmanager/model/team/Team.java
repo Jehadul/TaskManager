@@ -19,6 +19,9 @@ package com.ctrends.taskmanager.model.team;
 		@GeneratedValue(strategy=GenerationType.AUTO)
 		private UUID id;
 		
+		@Column(name="team_code")
+		private String teamCode;
+		
 		@Column(name="team_name")
 		private String teamName;
 		
