@@ -17,7 +17,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ctrends.taskmanager.bean.WSResponse;
 import com.ctrends.taskmanager.model.team.Team;
+import com.ctrends.taskmanager.model.team.TeamMemberDetails;
 import com.ctrends.taskmanager.service.team.ITeamService;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 @RestController
 @RequestMapping("/taskman/team")
@@ -33,10 +36,18 @@ public class TeamController implements ITeamController {
 	public ModelAndView index() {
 		Map<String, Object> data = new HashMap<String, Object>();
 		List<Team> teamLi = teamService.getAll();
+		/*List<TeamMemberDetails> teamMemberDetailsList = null;
+		for(int i=0; i<teamLi.size(); i++){
+			teamMemberDetailsList = teamLi.get(i).getTeamDetails();
+			System.out.println(teamMemberDetailsList + "aaaaaaaaaaaaaaa");
+		}
+		*/
+		System.out.println("ggggggggggg" + teamLi.get(0).getId());
+		
+		GsonBuilder gson = new GsonBuilder();
+		System.out.println("ggggggggggg" + teamLi.get(0).getTeamDetails());
+		Gson g = gson.create();
 		data.put("teamLi", teamLi);
-		/*
-		 * GsonBuilder gson = new GsonBuilder(); Gson g = gson.create();
-		 */
 		return new ModelAndView("team/teamlist", "data", data);
 	}
 
