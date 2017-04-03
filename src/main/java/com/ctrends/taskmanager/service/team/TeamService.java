@@ -10,7 +10,14 @@ public class TeamService implements ITeamService {
 
 	@Override
 	public Map<String, String> insert(Map<String, String[]> requestMap) {
-		// TODO Auto-generated method stub
+		
+		Team team = new Team();
+		
+		team.setTeamCode(requestMap.get("team_code")[0]);
+		team.setTeamName(requestMap.get("team_name")[0]);
+		team.setTeamDetails(requestMap.get("description")[0]);
+		team.setTeamSize();
+		
 		return null;
 	}
 
