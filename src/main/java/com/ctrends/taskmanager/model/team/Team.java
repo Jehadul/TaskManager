@@ -27,6 +27,9 @@ import javax.persistence.Transient;
 		@Column(name="team_name")
 		private String teamName;
 		
+		@Column(name="description")
+		private String description;
+		
 		@Column(name="team_size")
 		private int teamSize;
 		
@@ -236,6 +239,14 @@ import javax.persistence.Transient;
 
 		public void setTeamName(String teamName) {
 			this.teamName = teamName;
+		}
+		
+		public String getDescription() {
+			return description;
+		}
+
+		public void setDescription(String description) {
+			this.description = description;
 		}
 
 		public int getTeamSize() {

@@ -7,12 +7,12 @@ import java.util.UUID;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ctrends.taskmanager.dao.user.IUserDAO;
 import com.ctrends.taskmanager.model.team.Team;
-import com.ctrends.taskmanager.model.tman.Tasks;
 import com.ctrends.taskmanager.model.user.User;
 import com.ctrends.taskmanager.service.user.IUserService;
 
@@ -37,17 +37,31 @@ public class TeamDAO implements ITeamDAO {
 		List<Team> teamLi = query.list();
 		return teamLi;
 	}
-
+	
+	@Transactional
 	@Override
 	public Team getDocById(UUID id) {
-		// TODO Auto-generated method stub
-		return null;
+		Query query = sessionFactory.getCurrentSession().createQuery("From Team WHERE id = :id");
+		query.setParameter("id", id);
+		Team team = (Team) query.uniqueResult();
+		if (team == null) {
+			throw new UsernameNotFoundException("User with username '" + id + "' does not exist.");
+		}
+		/* System.out.println(user.getEmpName()); */
+		return team;
 	}
 
 	@Override
 	public List<Team> getDocs(Map<String, String> params) {
-		// TODO Auto-generated method stub
-		return null;
+		Query query = sessionFactory.getCurrentSession()
+				.createQuery("from Team where teamCode like :teamCode and " + "teamName like :teamName");
+
+		query.setParameter("teamCode", "%" + params.get("teamCode") + "%");
+		query.setParameter("teamName", "%" + params.get("teamName") + "%");
+
+		List<Team> teamList = query.list();
+
+		return teamList;
 	}
 
 	@Override

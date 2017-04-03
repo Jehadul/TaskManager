@@ -1,5 +1,7 @@
 package com.ctrends.taskmanager.controller.team;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -9,11 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ctrends.taskmanager.bean.WSResponse;
-import com.ctrends.taskmanager.dao.team.ITeamDAO;
+import com.ctrends.taskmanager.model.team.Team;
 import com.ctrends.taskmanager.service.team.ITeamService;
 
 @RestController
@@ -24,13 +27,17 @@ public class TeamController implements ITeamController {
 	ITeamService teamService;
 	
 	
-	
-	
-	
+	@RequestMapping(value = "/teamlist", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
 	@Override
 	public ModelAndView index() {
-		// TODO Auto-generated method stub
-		return null;
+		Map<String, Object> data = new HashMap<String, Object>();
+		List<Team> teamLi = teamService.getAll();
+		data.put("teamLi", teamLi);
+		/*
+		 * GsonBuilder gson = new GsonBuilder(); Gson g = gson.create();
+		 */
+		return new ModelAndView("team/teamlist", "data", data);
 	}
 
 	@Override
