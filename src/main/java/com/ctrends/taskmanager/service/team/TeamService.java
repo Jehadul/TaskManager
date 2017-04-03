@@ -135,7 +135,7 @@ public class TeamService implements ITeamService {
 	@Override
 	public Team getById(UUID id) {
 		// TODO Auto-generated method stub
-		return null;
+		return teamDAO.getDocById(id);
 	}
 
 	@Override
@@ -148,6 +148,11 @@ public class TeamService implements ITeamService {
 	public UUID delete(Map<String, String[]> requestMap) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<TeamMemberDetails> getTeamMemberDetailsByTeamId(UUID teamId) {
+		return teamDAO.getTeamMemberDetailsByTeamId(teamId);
 	}
 	
 	
