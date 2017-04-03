@@ -1,20 +1,14 @@
-package com.ctrends.taskmanager.controller.task_status;
+package com.ctrends.taskmanager.controller.team;
 
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ctrends.taskmanager.bean.WSResponse;
 
-@RestController
-@RequestMapping("/taskman/sprintboard/ui")
-public class TaskStatusController implements ITaskStatusController {
+public class TeamController implements ITeamController {
 
 	@Override
 	public ModelAndView index() {
@@ -34,11 +28,10 @@ public class TaskStatusController implements ITaskStatusController {
 		return null;
 	}
 
-	
-	@RequestMapping(value = "/create", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Override
 	public ModelAndView create() {
-		return new ModelAndView("storystatus/sprintBoardUI");
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
