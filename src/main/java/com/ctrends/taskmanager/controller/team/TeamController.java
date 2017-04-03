@@ -81,7 +81,7 @@ public class TeamController implements ITeamController {
 	public ModelAndView create(HttpServletRequest request) {
 
 		
-		return new ModelAndView("teamManagement/create");
+		return new ModelAndView("team/create");
 
 	}
 
