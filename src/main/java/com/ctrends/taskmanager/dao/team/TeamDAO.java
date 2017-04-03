@@ -117,5 +117,16 @@ public class TeamDAO implements ITeamDAO {
 			return false;
 		}
 	}
+	
+	
+	@Transactional
+	@Override
+	public List<TeamMemberDetails> getTeamMemberDetailsByTeamId(UUID teamId) {
+		Query query = sessionFactory.getCurrentSession()
+				.createQuery("From TeamMemberDetails WHERE teamId = :teamId");
+		query.setParameter("teamId", teamId);
+		List<TeamMemberDetails> tmDetailsList = query.list();
 
+		return tmDetailsList;
+	}
 }
