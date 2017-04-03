@@ -38,7 +38,7 @@ public class TaskStatusController implements ITaskStatusController {
 	@RequestMapping(value = "/create", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Override
 	public ModelAndView create() {
-		return new ModelAndView("storystatus/sprintBoardUI1");
+		return new ModelAndView("storystatus/sprintBoardUI");
 	}
 
 	@Override
