@@ -244,6 +244,9 @@ public class SprintManager {
 	@Transient
 	private List<SprintManagerDetails> steps;
 	
+	@Transient
+	private List<BurndownChart> charts;
+	
 	
 
 	public List<SprintManagerDetails> getSteps() {
@@ -797,6 +800,14 @@ public class SprintManager {
 
 	public void setCostcenterName(String costcenterName) {
 		this.costcenterName = costcenterName;
+	}
+
+	public List<BurndownChart> getCharts() {
+		return charts;
+	}
+
+	public void setCharts(List<BurndownChart> charts) {
+		this.charts = charts;
 	}
 
 	

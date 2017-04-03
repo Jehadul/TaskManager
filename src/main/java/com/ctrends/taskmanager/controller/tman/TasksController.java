@@ -9,6 +9,7 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.core.Context;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -26,7 +27,9 @@ import com.ctrends.taskmanager.model.taskmanage.PrivGroup;
 import com.ctrends.taskmanager.model.taskmanage.Suite;
 import com.ctrends.taskmanager.model.tman.TaskLog;
 import com.ctrends.taskmanager.model.tman.Tasks;
+import com.ctrends.taskmanager.model.user.User;
 import com.ctrends.taskmanager.service.tman.ITasksService;
+import com.ctrends.taskmanager.service.user.IUserService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -39,6 +42,9 @@ public class TasksController implements ITasksController {
 
 	@Autowired
 	private ITasksService tasksService;
+	
+	@Autowired
+	private IUserService userService;
 
 	@RequestMapping(value = "/tasklist", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
@@ -53,9 +59,9 @@ public class TasksController implements ITasksController {
 		Gson g = gson.create();
 		for(int i= 0; i<tasklist.size(); i++){
 			long spentSqlTime = tasklist.get(i).getSpentTime();
-			long remainingsqlTime = tasklist.get(i).getRemainingTime();
+			double remainingsqlTime = tasklist.get(i).getRemainingTime();
 			sp.add(spentTimeCalculation(spentSqlTime));
-			rem.add(spentTimeCalculation(remainingsqlTime));		
+			rem.add(String.valueOf(remainingsqlTime));		
 		}
 		
 		long spentTimes= 0;
@@ -221,17 +227,6 @@ public class TasksController implements ITasksController {
 
 	}
 
-	@Override
-	public ModelAndView showSearch(HttpServletRequest request) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String search(HttpServletRequest request) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@RequestMapping(value = "/timeLog/{id}/{strTime}/{title}/{day}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
@@ -246,17 +241,33 @@ public class TasksController implements ITasksController {
 		return null;
 	}
 
-	@RequestMapping(value = "/timeLogUpdate/{id}/{stopTime}/{day}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/timeLogUpdate/{id}/{stopTime}/{day}/{remaininghours}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ModelAndView timeLogUpdate(@PathVariable(value = "id") UUID id,
 			@PathVariable(value = "stopTime") String stopTime,
-			@PathVariable(value = "day") String day) {
+			@PathVariable(value = "day") String day,
+			@PathVariable(value = "remaininghours") String remaininghours) {
 		Map<String, String> map = new HashMap<>();
 		map.put("id", id.toString());
 		map.put("stopTime", stopTime);
 		map.put("day", day);
+		map.put("remaininghours", remaininghours);
 		Map<String, String> data = tasksService.updateTimeLog(map);
 		return null;
 	}
+
+	@Override
+	public ModelAndView showSearch(HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String search(HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+
 
 }

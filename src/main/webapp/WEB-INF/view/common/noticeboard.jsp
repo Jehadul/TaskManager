@@ -17,8 +17,11 @@
 	<!-- start: YOUR CONTENT HERE -->
 	<div class="container-fluid container-fullw bg-white">
 
-	<center><a style="margin-right:15px" href="http://localhost:8080/?desturl=/taskman/userstory/story/storylist">Story Manager</a>
-		<a href="http://localhost:8080/?desturl=/taskman/tman/sprint/sprintlist">Sprint Manager</a></center>
+	<center>
+		<a style="margin-right:15px" href="http://localhost:8080/?desturl=/taskman/userstory/story/storylist">Story Manager</a>
+		<a style="margin-right:15px" href="http://localhost:8080/?desturl=/taskman/tman/sprint/sprintlist">Sprint Manager</a>
+		<a href="http://localhost:8080/?desturl=/taskman/report/tasklogreport">User Wise Daily Report</a>
+	</center>
 		
 		<div class="row">
 

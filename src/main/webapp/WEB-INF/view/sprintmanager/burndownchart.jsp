@@ -5,14 +5,14 @@
 	<section id="page-title" class="padding-top-10 padding-bottom-10">
 		<div class="row">
 			<div class="col-sm-8">
-				<h1 class="mainTitle">Create Sprint</h1>
+				<h1 class="mainTitle">Burndown Chart</h1>
 			</div>
 			<ol class="breadcrumb padding-top-20">
 				<li>
 					<span>Sprint</span>
 				</li>
 				<li class="active">
-					<span>Create Sprint</span>
+					<span>Burndown Chart</span>
 				</li>
 			</ol>
 		</div>
@@ -29,31 +29,67 @@
      google.charts.load('current', {packages: ['corechart','line']});  
   </script>
 <script>
+var a = '${map}';
+var myjson = JSON.parse(a);
+var date = [myjson.dateLi];
+var rhours=[myjson.doubleLi];
+var st= null;
+
+console.log(date);
+console.log(rhours);
+var dt=new Date();
+dt.setDate(dt.getDate()+1);
+var n = dt.toLocaleDateString();
+
+var newChar="-";
+var ndate=n.split("/").join(newChar);
+console.log(n);
+console.log(ndate);
 function drawChart() {
 	   // Define the chart to be drawn.
 	   
 	   var data = new google.visualization.DataTable();
-	   data.addColumn('number', 'Date');
+	   data.addColumn('string', 'Day');
 	   data.addColumn('number', 'Burn Hours');
-	   data.addRows([
-	                 [1, 24],   [2, 18],  [3, 15],  [4, 12],  [5, 10],  [6, 0]
-	               ]);
-	   
+	   data.addColumn({type: 'string', role:'style'});
+	   for(var i=0; i<date.length; i++){
+		   console.log(date[i]);
+		   console.log(rhours[i]);
+		   for (var j=i; j<date[i].length; j++){
+			   console.log(date[i][j]);
+			   console.log(rhours[i][j]);
+			   
+			   if(ndate == date[i][j]){
+				   st = 'point { visible: false; }';
+			   }
+				data.addRow([date[i][j], rhours[i][j], st]);
+		   }
+		}
+	   	  
+	 
 	   // Set chart options
 	   var options = {'title' : 'Burndown Chart',
 	      hAxis: {
-	         title: 'Days'
+	         title: 'Dates'
+	         
 	      },
+          bar: {groupWidth: '30%'},
+
 	      vAxis: {
-	         title: 'Hours'
+	         title: 'Burn Hours',
+	         maxValue: rhours[0],
+	         minValue: 0,
+	      	 gridlines: { count: 6 }
 	      },   
 	      'width':800,
 	      'height':400,
-	      pointsVisible: true	  
+	      pointsVisible: true
 	   };
 
 	   // Instantiate and draw the chart.
 	   var chart = new google.visualization.LineChart(document.getElementById('container'));
+	   options.hAxis.format = 'MMM dd, yyyy'
+	   options.vAxis.format = 'decimal'
 	   chart.draw(data, options);
 	}	
 	google.charts.setOnLoadCallback(drawChart);

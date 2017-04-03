@@ -41,8 +41,6 @@ public class TaskLog {
 	@Column(name="start_stop_status")
 	private boolean startStopStatus;
 	
-	
-
 	@Column(name="doa_type_code")
 	private String doaTypeCode;
 

@@ -27,7 +27,7 @@ public class TasksDao implements ITasksDao {
 
 	@Autowired
 	private SessionFactory sessionfactory;
-	
+
 	@Autowired
 	IUserDAO userDAO;
 
@@ -56,7 +56,7 @@ public class TasksDao implements ITasksDao {
 		/* System.out.println(user.getEmpName()); */
 		return tasks;
 	}
-	
+
 	@Transactional
 	@Override
 	public List<Tasks> getDocs(Map<String, String> params) {
@@ -159,7 +159,7 @@ public class TasksDao implements ITasksDao {
 				.createQuery("From TaskLog WHERE taskId = :id and startStopStatus=:startStopStatus");
 		query.setParameter("id", id);
 		query.setParameter("startStopStatus", false);
-		List<TaskLog> taskslogli = query.list();		
+		List<TaskLog> taskslogli = query.list();
 		if (taskslogli.size() > 0) {
 			return taskslogli.get(0);
 		}
@@ -198,7 +198,7 @@ public class TasksDao implements ITasksDao {
 		Query query1 = sessionfactory.getCurrentSession().createQuery("From Tasks where id =:id");
 
 		if (query.list().size() > 0) {
-			query1.setParameter("id",  UUID.fromString(tasksLi.get(0).getTaskId()));
+			query1.setParameter("id", UUID.fromString(tasksLi.get(0).getTaskId()));
 			return query1.list();
 		}
 
@@ -245,20 +245,26 @@ public class TasksDao implements ITasksDao {
 	public boolean checkUnique(Map<String, String> requestMap) {
 		User currentUser = userDAO.getCurrentUser();
 		String companyCode = currentUser.getCompanyCode();
-		Query query = sessionfactory.getCurrentSession().createQuery("FROM Tasks WHERE taskCode =:taskCode AND companyCode=:companyCode");
-		query.setParameter("companyCode",companyCode);
+		Query query = sessionfactory.getCurrentSession()
+				.createQuery("FROM Tasks WHERE taskCode =:taskCode AND companyCode=:companyCode");
+		query.setParameter("companyCode", companyCode);
 		query.setParameter("taskCode", requestMap.get("taskCode"));
-		
-		
-		Tasks tasks=(Tasks) query.uniqueResult();
-		
 
-	    if (tasks == null) {
-        	return true;
-        }
-        else{
-        	return false;
-        }
+		Tasks tasks = (Tasks) query.uniqueResult();
+
+		if (tasks == null) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	@Transactional
+	@Override
+	public List<Tasks> getTaskByStoryCode(String sprintStoryCode) {
+		Query query = sessionfactory.getCurrentSession().createQuery("From Tasks where storyCode =:sprintStoryCode");
+		query.setParameter("sprintStoryCode", sprintStoryCode);
+		List<Tasks> tasklist = query.list();
+		return tasklist;
 	}
 
 }

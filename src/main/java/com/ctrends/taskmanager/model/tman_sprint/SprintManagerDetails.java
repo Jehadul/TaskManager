@@ -32,6 +32,9 @@ public class SprintManagerDetails {
 	
 	@Column(name = "sprint_code")
 	private String sprintCode;
+	
+	@Column(name = "sprint_id")
+	private UUID sprintId;
 
 	@Column(name = "branch_code")
 	private String branchCode;
@@ -132,6 +135,14 @@ public class SprintManagerDetails {
 
 	public void setSprintCode(String sprintCode) {
 		this.sprintCode = sprintCode;
+	}
+	
+	public UUID getSprintId() {
+		return sprintId;
+	}
+
+	public void setSprintId(UUID sprintId) {
+		this.sprintId = sprintId;
 	}
 
 	public String getSprintStoryCode() {
