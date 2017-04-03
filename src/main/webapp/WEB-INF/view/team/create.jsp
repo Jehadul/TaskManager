@@ -48,7 +48,7 @@
 						<div class="form-group">
 							<cts:Label name="Number Of Team Member" labelFor="nt_member" />
 							<cts:TextBox name="nt_member"
-								cssClass="dirty-check required number" readonly="" />
+								cssClass="dirty-check required number" readonly="readonly" />
 						</div>
 						<div class="form-group">
 							<cts:Label name="Description" labelFor="description" />
@@ -64,11 +64,12 @@
 									<button id="btnAddStories" class="btn btn-find" type="button"><span class="fa fa-plus"></span></button>	
 									</legend>
 			 						<div class="table-responsive">
-					           			<table class="table table-striped table-hover" id=story_list>
+					           			<table class="table table-striped table-hover" id=emp_list>
 						           			<thead>
 												<tr>
 													<th>Code</th>
 													<th>Name</th>
+													<th>User Name</th>
 													<th>Action</th>
 												</tr>
 											</thead>
@@ -104,5 +105,70 @@
 </div>
 <script>
 	InitHandlers();
+	
+	$("#btnAddStories").on("click",function(){
+		ShowModal("/ac/user/searchuser/?action_type_code=SELECT&actioncallback=loadUserStory");
+	});
+	var i = 0;
+	var loadUserStory = function(data){ 
+		var emp = JSON.parse(unescape(data));
+		var empCode          = emp.empCode;   
+		var empName          = emp.empName;
+		var empUserName          = emp.username;
+		var rows = $("#emp_list tbody tr");
+		
+		for(var i = 0; i< rows.length; i++){
+			var code = $(rows[i]).find("#code_"+i).attr("value");
+	 		if(code == empCode){
+	 			ShowErrorMsg('Employee already in use');
+	 			$(".alert").html(msg);
+	 			$(".alert").removeClass("hidden");
+			}
+			
+		}
+		
+			var html = '<tr>' +					
+							'<td>'+ 
+								'<input name="emp_code[]" type="text" id="code_'+i+'" class="project_code view" value="' + empCode + '" />' +
+							'</td>'+
+							'<td>'+ 
+								'<input name="emp_name[]" type="text" class="project_name view"  value="' + empName + '" />' +
+							'</td>'+
+							'<td>'+ 
+								'<input name="emp_username[]" type="text" class="project_name view"  value="' + empUserName + '" />' +
+							'</td>'+
+							'<td>'+
+								'<button type="button" onclick="removeEmpRow(this);" class="btn-del btn btn-xs">'+
+									'<span class="fa fa-times"></span>'+
+								'</button>'+
+							'</td>'
+							
+						'</tr>';
+		
+		
+			
+			$("#emp_list tbody").append(html);
+			i++;
+			countEmp();
+		
+		HideModal('search-modal');	
+	};
 
+	var removeEmpRow = function(el){
+		$(el).closest("tr").remove();
+		countEmp();
+	};
+	
+	
+	var countEmp = function(){
+		var rows = $("#emp_list tbody tr").length;
+		if(rows!=0){
+			$("#nt_member").val(rows);
+		}else{
+			$("#nt_member").val("");
+		}
+		
+		
+	}
+	
 </script>
