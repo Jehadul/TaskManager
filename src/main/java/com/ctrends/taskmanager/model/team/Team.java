@@ -1,14 +1,16 @@
 package com.ctrends.taskmanager.model.team;
 
-	import java.sql.Timestamp;
-	import java.util.UUID;
+import java.sql.Timestamp;
+import java.util.List;
+import java.util.UUID;
 
-	import javax.persistence.Column;
-	import javax.persistence.Entity;
-	import javax.persistence.GeneratedValue;
-	import javax.persistence.GenerationType;
-	import javax.persistence.Id;
-	import javax.persistence.Table;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
 	@Entity
 	@Table(name="team_management")
@@ -25,11 +27,8 @@ package com.ctrends.taskmanager.model.team;
 		@Column(name="team_name")
 		private String teamName;
 		
-		@Column(name="emp_code")
-		private String empCode;
-		
-		@Column(name="emp_name")
-		private String empName;
+		@Column(name="description")
+		private String description;
 		
 		@Column(name="team_size")
 		private int teamSize;
@@ -206,6 +205,25 @@ package com.ctrends.taskmanager.model.team;
 		
 		@Column(name="costcenter_name")
 		private String costcenterName;
+		
+		@Transient
+		private List<TeamMemberDetails> teamDetails;
+		
+		public String getTeamCode() {
+			return teamCode;
+		}
+
+		public void setTeamCode(String teamCode) {
+			this.teamCode = teamCode;
+		}
+
+		public List<TeamMemberDetails> getTeamDetails() {
+			return teamDetails;
+		}
+
+		public void setTeamDetails(List<TeamMemberDetails> teamDetails) {
+			this.teamDetails = teamDetails;
+		}
 
 		public UUID getId() {
 			return id;
@@ -222,21 +240,13 @@ package com.ctrends.taskmanager.model.team;
 		public void setTeamName(String teamName) {
 			this.teamName = teamName;
 		}
-
-		public String getEmpCode() {
-			return empCode;
+		
+		public String getDescription() {
+			return description;
 		}
 
-		public void setEmpCode(String empCode) {
-			this.empCode = empCode;
-		}
-
-		public String getEmpName() {
-			return empName;
-		}
-
-		public void setEmpName(String empName) {
-			this.empName = empName;
+		public void setDescription(String description) {
+			this.description = description;
 		}
 
 		public int getTeamSize() {
