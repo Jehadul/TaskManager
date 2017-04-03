@@ -4,108 +4,140 @@
 	<section id="page-title" class="padding-top-10 padding-bottom-10">
 		<div class="row">
 			<div class="col-sm-8">
-				<h1 class="mainTitle">Create Team</h1>
+				<h1 class="mainTitle">Edit Team</h1>
 			</div>
 			<ol class="breadcrumb padding-top-20">
 				<li><span>Team</span></li>
-				<li class="active"><span>Create Team</span></li>
+				<li class="active"><span>Edit Team</span></li>
 			</ol>
 		</div>
 	</section>
 
 	<div class="container-fluid container-fullw bg-white">
-		<cts:AjaxForm action="/taskman/team/store"
+		<cts:AjaxForm action="/taskman/team/update"
 			dataHandler="showMessage">
 			<input type="hidden" name="${_csrf.parameterName}"
 				value="${_csrf.token}" />
-
 			<div class="alert alert-block alert-danger hidden">
-				Please check the fields marked with <span
-					class="text-red fa fa-close"></span>.
+					Please check the fields marked with 
+					<span class="text-red fa fa-close"></span>.
 			</div>
-
+			
 			<div class="denotes-required">denotes a required field.</div>
-
 			<div class="main-control">
 				<div class="row">
 					<div class="col-md-6">
-					
 						<div class="form-group">
 							<cts:Label name="Team Code" labelFor="team_code" />
-							<cts:TextBox name="team_code" cssClass="dirty-check required"
-								readonly="" />
+							<cts:TextBox name="team_code"
+								value="${map.team.teamCode}"	cssClass="dirty-check required" readonly="" />
 						</div>
-						
+
 						<div class="form-group">
 							<cts:Label name="Team Name" labelFor="team_name" />
-							<cts:TextBox name="team_name" cssClass="dirty-check required"
-								readonly="" />
+							<cts:TextBox name="team_name"
+								value="${map.team.teamName}"	cssClass="dirty-check required" readonly="" />
 						</div>
-			
 					</div>
 					
-					<div class="col-md-6">
+					
+					<div class="col-md-6">						
 						<div class="form-group">
 							<cts:Label name="Number Of Team Member" labelFor="nt_member" />
 							<cts:TextBox name="nt_member"
-								cssClass="dirty-check required number" readonly="readonly" />
+								value="${map.team.teamSize}"	cssClass="dirty-check required" readonly="readonly" />
 						</div>
 						<div class="form-group">
 							<cts:Label name="Description" labelFor="description" />
-							<cts:TextArea name="description" cssClass="dirty-check required"
-								readonly="" rows="3" cols="" />
+							<cts:TextBox name="description"
+								value="${map.team.description}"
+								cssClass="dirty-check required" readonly="" />
 						</div>
+
+
+					</div>
+				
+					</div>
+				
+
+				<div class="row">
+					<div class="col-md-12">
+						<fieldset id="fs_multiple_employees" style="display: block;">
+							<legend>
+								Employee Details&nbsp;&nbsp;
+								<button id="btnAddStories" class="btn btn-find" type="button">
+									<span class="fa fa-plus"></span>
+								</button>
+							</legend>
+							<div class="table-responsive">
+								<table class="table table-striped table-hover" id=story_list>
+									<thead>
+										<tr>
+											<th>Code</th>
+											<th>Name</th>
+											<th>User Name</th>
+											<th>Action</th>
+										</tr>
+									</thead>
+									<tbody>
+										<c:set var="i" value="0" scope="request" />
+										<c:forEach var="emp" items="${map.teamDetails}">
+											<tr>
+												<td>
+													<input name="emp_code[]" type="text" id="code_${i}"  class="project_code view" value="${emp.getEmpCode()}" />
+												</td>
+												<td>
+													<input name="emp_name[]" type="text" class="project_name view"  value="${emp.getEmpName()}" />
+
+												</td>
+												<td>
+													<input name="emp_username[]" type="text" class="project_username view"  value="${emp.getUsername()}" />
+
+												</td>
+												<td>
+													<button type="button" onclick="removeEmpRow(this);" class="btn-del btn btn-xs">
+														<span class="fa fa-times"></span>
+													</button>
+												</td>			
+											</tr>
+											<c:set var="count" value="${i + 1}" scope="request" />
+										</c:forEach>
+									</tbody>
+								</table>
+							</div>
+						</fieldset>
 					</div>
 				</div>
-				<div class="row">
-						<div class="col-md-12">
-							<fieldset id="fs_multiple_employees" style="display: block;">
-									<legend>Employee Details&nbsp;&nbsp; 
-									<button id="btnAddStories" class="btn btn-find" type="button"><span class="fa fa-plus"></span></button>	
-									</legend>
-			 						<div class="table-responsive">
-					           			<table class="table table-striped table-hover" id=emp_list>
-						           			<thead>
-												<tr>
-													<th>Code</th>
-													<th>Name</th>
-													<th>User Name</th>
-													<th>Action</th>
-												</tr>
-											</thead>
-											<tbody>
-											</tbody>
-										</table>
-									</div>
-							</fieldset>	
-						</div>				
-					</div>
 				<div class="row margin-top-30 margin-bottom-30 margin-right-5">
-
 					<div class="col-md-auto">
-						<cts:Button cssClass="back" spanClass="arrow-left" dAjax="true"
-							dHref="/toc?type=privgrp&currprivgrp=3&currmodcode=WF" />
+						<button class="btn btn-back" data-ajax="true"
+							data-href="/toc?type=privgrp&currprivgrp=3&currmodcode=PM"
+							title="Back" type="button">
+							<span class="fa fa-arrow-left"></span>
+						</button>
 						<button class="btn btn-refresh refresh-linked" type="button">
 							<span class="fa fa-refresh"></span>
 						</button>
 						<button class="btn btn-help" type="button">
 							<span class="fa fa-question"></span>
 						</button>
+
 					</div>
 
 					<div class="align-right">
-						<button id="edit_btn" class="btn btn-save" type="submit">
-							<span class="fa fa-save"></span> Save
+						<button class="btn btn-save pull-right" type="submit">
+							<span class="fa fa-save"></span> Update
 						</button>
 					</div>
 				</div>
+
 			</div>
 		</cts:AjaxForm>
 	</div>
 </div>
 <script>
 	InitHandlers();
-	
+
 	$("#btnAddStories").on("click",function(){
 		ShowModal("/ac/user/searchuser/?action_type_code=SELECT&actioncallback=loadUserStory");
 	});
@@ -114,7 +146,7 @@
 		var emp = JSON.parse(unescape(data));
 		var empCode          = emp.empCode;   
 		var empName          = emp.empName;
-		var empUserName          = emp.username;
+		var empUserName      = emp.username;
 		var rows = $("#emp_list tbody tr");
 		
 		for(var i = 0; i< rows.length; i++){
@@ -170,18 +202,4 @@
 		
 		
 	}
-	
-	function showMessage(data) {
-		if (data.outcome == 'success') {
-			ShowSuccessMsg('Team Created', data.message);
-			isDirty = false;
-			LoadMainContent('/taskman/team/show/' + data.id);
-		} else {
-			ShowErrorMsg('Team was not created', data.message);
-			var msg = ConcatWithBR(data.error);
-			$(".alert").html(msg);
-			$(".alert").removeClass("hidden");
-		}
-	}
-	
 </script>
