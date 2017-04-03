@@ -23,51 +23,53 @@
 				<c:set var="prevBlockId" value="" />
 				<c:set var="nextBlockId" value="" />
 				<c:forEach var="i" begin="0" end="${data.teamLi.teamDetails.size()-1}">
-					<c:if test="${!data.teamLi.teamDetails[i].sprintCode.equals(prevBlockId)}">
-						<div class="wf-block panel panel-light-grey" data-id="${map.sprint.steps[i].sprintCode}">
+					<c:if test="${!data.teamLi.teamDetails[i].teamCode.equals(prevBlockId)}">
+						<div class="wf-block panel panel-light-grey" data-id="${data.teamLi.teamDetails[i].teamCode}">
 							<div class="panel-heading">
 								<h5 class="panel-title">
 									<a class="accordion-toggle bold" data-toggle="collapse"
 										data-parent="#accordion"
-										href="#wf_block${map.sprint.steps[i].sprintCode}"><i
+										href="#wf_block${data.teamLi.teamDetails[i].teamCode}"><i
 										class="icon-arrow"></i> <span class="wf-block-title">
-											Sprint Code:${map.sprint.steps[i].sprintCode}</span>
+											Team Code:${data.teamLi.teamDetails[i].teamCode} Team Name:${data.teamLi.teamDetails[i].teamName} Team Size:${data.teamLi.teamDetails[i].teamSize} </span>
 									</a>
 								</h5>
 							</div>
-							<div id="wf_block${map.sprint.steps[i].sprintCode}"
+							<div id="wf_block${data.teamLi.teamDetails[i].teamCode}"
 								class="panel-collapse collapse in">
 								<div class="panel-body">
 									<table class="wf-step-list table table-striped table-hover">
 										<thead>
 											<tr>
-												<th>Story Code</th>
-												<th>Story Name</th>
+												<th>Employee Code</th>
+												<th>Employee Name</th>
+												<th>Username</th>
 											</tr>
 										</thead>
 										<tbody>
 											</c:if>
 											<c:choose>
-												<c:when test="${i < map.sprint.steps.size()-1}">
+												<c:when test="${i < data.teamLi.teamDetails.size()-1}">
 													<c:set var="nextBlockId"
-														value="${map.sprint.steps[i+1].sprintCode}" />
+														value="${data.teamLi.teamDetails[i+1].teamCode}" />
 												</c:when>
 												<c:otherwise>
 													<c:set var="nextBlockId" value="" />
 												</c:otherwise>
 											</c:choose>
 											<tr>
-												<td>${map.sprint.steps[i].sprintStoryCode}</td>
-												<td>${map.sprint.steps[i].sprintStoryName}</td>
+												<td>${data.teamLi.teamDetails[i].empCode}</td>
+												<td>${data.teamLi.teamDetails[i].empName}</td>
+												<td>${data.teamLi.teamDetails[i].username}</td>
 											</tr>
 										</tbody>
-										<c:if test="${!map.sprint.steps[i].sprintCode.equals(nextBlockId)}">
+										<c:if test="${!data.teamLi.teamDetails[i].teamCode.equals(nextBlockId)}">
 									</table>
 								</div>
 							</div>
 						</div>
 					</c:if>
-					<c:set var="prevBlockId" value="${map.sprint.steps[i].sprintCode}" />
+					<c:set var="prevBlockId" value="${data.teamLi.teamDetails[i].teamCode}" />
 				</c:forEach>
 			</div>	
 			
