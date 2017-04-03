@@ -129,50 +129,20 @@ public class UserStoryService implements IUserStoryService {
 	    userStory.setPriority(requestMap.get("priority")[0]);
 	    userStory.setStoryStatus(requestMap.get("story_status")[0]);
 	    userStory.setStoryOrder(requestMap.get("story_order")[0]);
-		//userStory.setStoryCode(requestMap.get("story_code")[0]);
-	    
-		//userStory.setTaskTitle(requestMap.get("task_title")[0]);
-		//userStory.setEstimatedTime(Double.parseDouble(requestMap.get("estimated_time")[0]));
-		//userStory.setAsignee(requestMap.get("assignee")[0]);	
-		
-		
-		userStory.setClientCode(currentUser.getClientCode());
+	
+	    userStory.setClientCode(currentUser.getClientCode());
 		userStory.setClientName(currentUser.getClientName());
 		userStory.setCompanyCode(currentUser.getCompanyCode());
 		userStory.setCompanyName(currentUser.getCompanyName());
-		userStory.setUpdatedByCode(currentUser.getEmpCode());            
-		userStory.setUpdatedByName(currentUser.getEmpName());
-		userStory.setUpdatedByUsername(currentUser.getUsername());
-		userStory.setUpdatedByEmail(currentUser.getEmail());
-		userStory.setUpdatedByCompanyCode(currentUser.getCompanyCode());
-		userStory.setUpdatedByCompanyName(currentUser.getCompanyName());
-		userStory.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
-		
-		userStory.setUpdatedByCode(currentUser.getUpdatedByCode());
-		userStory.setUpdatedByName(currentUser.getUpdatedByName());
-		userStory.setUpdatedByCompanyCode(currentUser.getCompanyCode());
-		userStory.setUpdatedByCompanyName(currentUser.getCompanyName());
-		userStory.setUpdatedByEmail(currentUser.getEmail());
-		userStory.setUpdatedByUsername(currentUser.getUsername());
-		
-		userStory.setClientCode(currentUser.getClientCode());
-		userStory.setClientName(currentUser.getClientName());
-		userStory.setCompanyCode(currentUser.getCompanyCode());
-		userStory.setCompanyName(currentUser.getCompanyName());
-		userStory.setUpdatedByCode(currentUser.getEmpCode());            
-		userStory.setUpdatedByName(currentUser.getEmpName());
-		userStory.setUpdatedByUsername(currentUser.getUsername());
-		userStory.setUpdatedByEmail(currentUser.getEmail());
-		userStory.setUpdatedByCompanyCode(currentUser.getCompanyCode());
-		userStory.setUpdatedByCompanyName(currentUser.getCompanyName());
-		userStory.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
-		
-		userStory.setUpdatedByCode(currentUser.getUpdatedByCode());
-		userStory.setUpdatedByName(currentUser.getUpdatedByName());
-		userStory.setUpdatedByCompanyCode(currentUser.getCompanyCode());
-		userStory.setUpdatedByCompanyName(currentUser.getCompanyName());
-		userStory.setUpdatedByEmail(currentUser.getEmail());
-		userStory.setUpdatedByUsername(currentUser.getUsername());
+		userStory.setCreatedByCode(currentUser.getCreatedByCode());
+		userStory.setCreatedByName(currentUser.getCreatedByName());
+		userStory.setCreatedByCode(currentUser.getEmpCode());
+		userStory.setCreatedByName(currentUser.getEmpName());
+		userStory.setCreatedByUsername(currentUser.getUsername());
+		userStory.setCreatedByEmail(currentUser.getEmail());
+		userStory.setCreatedByCompanyCode(currentUser.getCompanyCode());
+		userStory.setCreatedByCompanyName(currentUser.getCompanyName());
+		userStory.setCreatedAt(new Timestamp(System.currentTimeMillis()));
 		
 		UUID id = userStoryDAO.updateDoc(userStory);
 		data.put("id", id.toString());

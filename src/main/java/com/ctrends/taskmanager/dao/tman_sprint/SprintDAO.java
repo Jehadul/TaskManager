@@ -1,12 +1,14 @@
 package com.ctrends.taskmanager.dao.tman_sprint;
 
 import java.sql.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,14 +18,12 @@ import com.ctrends.taskmanager.model.taskmanage.Module;
 import com.ctrends.taskmanager.model.taskmanage.PrivGroup;
 import com.ctrends.taskmanager.model.taskmanage.Suite;
 import com.ctrends.taskmanager.model.tman.TaskLog;
+import com.ctrends.taskmanager.model.tman.Tasks;
 import com.ctrends.taskmanager.model.tman_sprint.BurndownChart;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManager;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManagerDetails;
 import com.ctrends.taskmanager.model.user.User;
-
 import com.ctrends.taskmanager.service.user.IUserService;
-
-import com.ctrends.taskmanager.model.userstory.UserStory;
 
 @Repository("sprintDAO")
 public class SprintDAO implements ISprintDAO {
@@ -102,7 +102,7 @@ public class SprintDAO implements ISprintDAO {
 	public UUID insertDoc(SprintManager sprint) {
 		UUID id = (UUID) sessionfactory.getCurrentSession().save(sprint);
 		sessionfactory.getCurrentSession().flush();
-		
+
 		for (int i = 0; i < sprint.getSteps().size(); i++) {
 			SprintManagerDetails sprintDetails = new SprintManagerDetails();
 			sprintDetails = (SprintManagerDetails) sprint.getSteps().get(i);
@@ -111,13 +111,13 @@ public class SprintDAO implements ISprintDAO {
 			sessionfactory.getCurrentSession().flush();
 		}
 		for (int i = 0; i < sprint.getCharts().size(); i++) {
-			BurndownChart burndownChart = new BurndownChart();			
+			BurndownChart burndownChart = new BurndownChart();
 			burndownChart = (BurndownChart) sprint.getCharts().get(i);
 			burndownChart.setSprintID(id);
 			sessionfactory.getCurrentSession().save(burndownChart);
 			sessionfactory.getCurrentSession().flush();
 		}
-		
+
 		return id;
 	}
 
@@ -134,8 +134,6 @@ public class SprintDAO implements ISprintDAO {
 		sessionfactory.getCurrentSession().flush();
 		return doc.getId();
 	}
-	
-	
 
 	@Transactional
 	@Override
@@ -244,28 +242,59 @@ public class SprintDAO implements ISprintDAO {
 		query.setParameter("sprintCode", sprintCode);
 		return query.list();
 	}
-	
-	
-	
+
 	@Override
 	@Transactional
 	public List<SprintManagerDetails> getDocBySprintId(UUID sprintId) {
 		Query query = sessionfactory.getCurrentSession()
 				.createQuery("from SprintManagerDetails where sprintId =:sprintId ");
 		query.setParameter("sprintId", sprintId);
-		List<SprintManagerDetails> sprintDetails=query.list();
+		List<SprintManagerDetails> sprintDetails = query.list();
 		return sprintDetails;
 	}
-	
+
 	@Transactional
 	@Override
-	public List<TaskLog> gettasklogLiById(String taskId, Date stopDate){
+	public List<TaskLog> gettasklogLiById(String taskId, Date stopDate) {
 		Query query = sessionfactory.getCurrentSession()
 				.createQuery("from TaskLog where taskId =:taskId and stopDate =:stopDate");
 		query.setParameter("taskId", taskId);
 		query.setParameter("stopDate", stopDate);
-		List<TaskLog> taskLogli=query.list();
+		List<TaskLog> taskLogli = query.list();
 		return taskLogli;
+	}
+
+	@Transactional
+	@Override
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> getSpentChartDoc(UUID id) {
+		Map<String, Object> map =new HashMap<>();
+		String sqlSprint = "select sprintGoal,sprintCode,sprintName,startDate,endDate from SprintManager";
+		Query querySprint = sessionfactory.getCurrentSession().createQuery(sqlSprint);
+		List<SprintManager> listSprint =(List<SprintManager>) querySprint.list();
+		map.put("sprint", listSprint);
+		
+		String sql = "select cast(sum(stop_time-start_time) as string) from TaskLog where taskId IN (select cast(id as string) from Tasks  where storyCode = ANY(select userStoryCode from UserStory where userStoryCode=ANY(select sprintStoryCode from SprintManagerDetails where sprintId=ANY(select id from SprintManager where id='"+id+"')))) Group By taskId";
+		Query query = sessionfactory.getCurrentSession().createQuery(sql);
+		List<String> list =(List<String>) query.list();
+		
+		
+		String sqlq = "select taskId from TaskLog where taskId IN (select cast(id as string) from Tasks  where storyCode = ANY(select userStoryCode from UserStory where userStoryCode=ANY(select sprintStoryCode from SprintManagerDetails where sprintId=ANY(select id from SprintManager where id='"+id+"'))))";
+		Query queryq = sessionfactory.getCurrentSession().createQuery(sqlq);
+		List<String> listq =(List<String>) queryq.list();
+		
+		UUID[] idd = new UUID[listq.size()+1];
+		for (int i=0; i<listq.size(); i++) {			
+			idd[i] = UUID.fromString(listq.get(i));
+		}
+	
+		List<Tasks> taskslist = sessionfactory.getCurrentSession().createCriteria(Tasks.class)
+				.add(Restrictions.in("id", idd)).list();
+		map.put("spenttime", list);
+		map.put("task", taskslist);
+				
+		return map;
+
 	}
 
 }
