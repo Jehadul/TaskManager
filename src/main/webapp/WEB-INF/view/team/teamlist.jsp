@@ -44,8 +44,14 @@
 												</div>
 													 
 												</div> --%>
+												
+												<button type="button" onclick="delRow(this);" class="pull-right btn-del btn btn-xs">
+													<span class="fa fa-trash"></span>
+													<input type="hidden" name="team_id" value="${data.teamLi[i].id}" />
+												</button>
 											</span>
 										</a>
+
 									</h5>
 								</div>
 								<div id="wf_block${data.teamLi[i].teamCode}"
@@ -81,7 +87,9 @@
 											</tbody>
 											<c:if test="${!data.teamLi[i].teamCode.equals(nextBlockId)}">
 										</table>
+										
 									</div>
+
 								</div>
 							</div>
 						</c:if>
@@ -91,3 +99,38 @@
 		</fieldset>
 	</div>
 </div>	
+
+<script>
+	InitHandlers();
+
+
+	
+	var delRow = function(el) {
+		swal({
+			title : "Are you sure?",
+			text : "Are you sure to delete this team?",
+			type : "warning",
+			showCancelButton : true,
+			confirmButtonColor : "#007AFF",
+			confirmButtonText : "Yes, delete it!",
+			closeOnConfirm : true
+		}, function() {
+			
+			var teamId = $(el).find("input").val();
+			data  = "teamId="+teamId;
+			$.ajax({
+				type : 'GET',
+				url : '/taskman/team/delete',
+				data: data,
+				success : function(response, status, xhr) {
+					LoadMainContent("/taskman/team/teamlist");
+				}
+			});
+		});
+	};
+
+
+</script>
+
+
+
