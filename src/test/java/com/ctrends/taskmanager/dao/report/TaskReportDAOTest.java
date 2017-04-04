@@ -40,7 +40,7 @@ public class TaskReportDAOTest {
 		taskLog.setStopDate(reportDate);
 		
 		
-		//Map<String, Object> dsum = taskreportdao.getAllDocByToDate(taskLog);
+		Map<String, Object> dsum = taskreportdao.getAllDocByToDate(taskLog);
 		assertTrue(true);
 	}
 	
