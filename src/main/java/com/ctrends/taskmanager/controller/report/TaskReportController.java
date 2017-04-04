@@ -160,8 +160,8 @@ public class TaskReportController {
 	}
 
 	
-	@RequestMapping(value = "/generateDailySummaryPdfReport/{startdate}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ModelAndView generateDailySummaryPdfReport(@PathVariable(value = "startdate") String startdate) {
+	@RequestMapping(value = "/generateDailySummaryReport/{startdate}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ModelAndView generateDailySummaryReport(@PathVariable(value = "startdate") String startdate) {
 
 		Map<String, String> parameterMap = new HashMap<String, String>();
 		parameterMap.put("startDate", startdate);
