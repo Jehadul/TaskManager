@@ -18,11 +18,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ctrends.taskmanager.bean.Utility;
 import com.ctrends.taskmanager.dao.user.IUserDAO;
+import com.ctrends.taskmanager.model.dailysummary.DailySummary;
 import com.ctrends.taskmanager.model.tman.TaskLog;
 import com.ctrends.taskmanager.model.tman.TaskReportView;
 import com.ctrends.taskmanager.model.tman.Tasks;
 import com.ctrends.taskmanager.model.user.User;
 import com.ctrends.taskmanager.service.user.IUserService;
+import java.util.Iterator;
 
 @Repository("taskReportDAO")
 public class TaskReportDAO implements ITaskReportDAO {
@@ -221,5 +223,64 @@ public class TaskReportDAO implements ITaskReportDAO {
 		
 		
 	}
+	
+	@Transactional
+	public Map<String, Object> getAllDocByToDate(TaskLog tasklog) {
+		Map<String, Object> map = new HashMap<>();
+
+		String sql = "select cast(sum(stop_time-start_time) as string) from TaskLog where stopDate=:date GROUP BY taskId";
+		Query query = sessionfactory.getCurrentSession().createQuery(sql);
+		query.setParameter("date", tasklog.getStopDate());
+		List list = query.list();
+
+		String sqlt = "select taskId,createdByName from TaskLog where stopDate=:date GROUP BY taskId,createdByName";
+		Query queryt = sessionfactory.getCurrentSession().createQuery(sqlt);
+		queryt.setParameter("date", tasklog.getStopDate());
+		List<Object>listt = queryt.list();
+
+		UUID[] id = new UUID[listt.size() + 1];
+		String[] name= new String [listt.size()+1];
+		
+		
+		int c = 0;
+		
+		for(Iterator it=(Iterator) queryt.iterate();((java.util.Iterator) it).hasNext();)
+		  {
+		   Object[] row = (Object[]) ((java.util.Iterator) it).next();
+		   System.out.print("Course Name: " + row[0]);
+		   System.out.println(" | Number of Students: " + row[1]);
+		   id[c]=UUID.fromString(row[0].toString());
+		   name[c++]=row[1].toString();
+		   
+		  }
+		
+		Criteria cr = sessionfactory.getCurrentSession().createCriteria(Tasks.class);
+		cr.add(Restrictions.in("id", id));
+		List<Tasks> t = (List<Tasks>) cr.list();
+		
+		System.out.println(t+"dao exam");	
+		
+		List<DailySummary> dsum = new ArrayList<>();
+		int c1 = 0;
+		for (Tasks tt : t) {
+			DailySummary dd = new DailySummary();
+			dd.setId(tt.getId());
+			dd.setTaskCode(tt.getTaskCode());
+			dd.setSpentTimeTemp(list.get(c1).toString());
+			dd.setSuiteName(tt.getSuiteName());
+			dd.setModuleName(tt.getModuleName());
+			dd.setPrivGrpName(tt.getPrivGrpName());
+			dd.setPrivilegeName(tt.getPrivilegeName());
+			dd.setEmpCode(tt.getEmpCode());
+			dd.setEmpName(tt.getEmpName());
+			dd.setTaskTitle(tt.getTaskTitle());
+			dd.setStartDate(tasklog.getStopDate());	
+			dd.setUsername(name[c1]);
+			dsum.add(c1++, dd);			
+		}
+		map.put("dsummery", dsum);
+		return map;
+	}
+
 
 }

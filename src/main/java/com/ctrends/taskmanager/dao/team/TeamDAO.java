@@ -39,19 +39,28 @@ public class TeamDAO implements ITeamDAO {
 		Query query = sessionFactory.getCurrentSession().createQuery("From Team where createdByUsername =:userName");
 		query.setParameter("userName", currentUser.getUsername());
 		List<Team> teamLi = query.list();
+		System.out.println(teamLi.get(0).getId());
+		for(int i=0; i<teamLi.size(); i++){
+			Query teamMemberDetailsQuery=sessionFactory.getCurrentSession().createQuery("From TeamMemberDetails where teamId =:teamId");
+			teamMemberDetailsQuery.setParameter("teamId", teamLi.get(i).getId());
+			List<TeamMemberDetails> teamMemberDetails = teamMemberDetailsQuery.list();
+			teamLi.get(i).setTeamDetails(teamMemberDetails);
+		}
 		return teamLi;
 	}
 	
 	@Transactional
 	@Override
 	public Team getDocById(UUID id) {
-		Query query = sessionFactory.getCurrentSession().createQuery("From Team WHERE id = :id");
-		query.setParameter("id", id);
-		Team team = (Team) query.uniqueResult();
-		if (team == null) {
-			throw new UsernameNotFoundException("User with username '" + id + "' does not exist.");
-		}
-		/* System.out.println(user.getEmpName()); */
+		Query teamQuery = sessionFactory.getCurrentSession().createQuery("From Team WHERE id = :id");
+		teamQuery.setParameter("id", id);
+		
+		Team team=(Team)teamQuery.list().get(0);
+		
+		Query teamMemberDetailsQuery=sessionFactory.getCurrentSession().createQuery("From TeamMemberDetails where teamId =:teamId");
+		teamMemberDetailsQuery.setParameter("teamId", team.getId());
+		List<TeamMemberDetails> teamMemberDetails = teamMemberDetailsQuery.list();
+		team.setTeamDetails(teamMemberDetails);
 		return team;
 	}
 
@@ -104,18 +113,29 @@ public class TeamDAO implements ITeamDAO {
 	public boolean checkUnique(Map<String, Object> param) {
 		User currentUser = userDAO.getCurrentUser();
 		String companyCode = currentUser.getCompanyCode();
+		System.out.println(param.get("teamCode") + "team code");
 		Query query = sessionFactory.getCurrentSession()
 				.createQuery("FROM Team WHERE teamCode =:teamCode AND companyCode=:companyCode");
 		query.setParameter("companyCode", companyCode);
 		query.setParameter("teamCode", param.get("teamCode"));
 
-		SprintManager sprint = (SprintManager) query.uniqueResult();
-
-		if (sprint == null) {
+		Team team = (Team) query.uniqueResult();
+		if (team == null) {
 			return true;
 		} else {
 			return false;
 		}
+	}
+	
+	@Transactional
+	@Override
+	public List<TeamMemberDetails> getDocByIdTeamCode(String teamCode) {
+		Query query = sessionFactory.getCurrentSession()
+				.createQuery("From TeamMemberDetails WHERE teamCode = :teamCode");
+		query.setParameter("teamCode", teamCode);
+		List<TeamMemberDetails> teamMemberDetailsList = query.list();
+
+		return teamMemberDetailsList;
 	}
 	
 	

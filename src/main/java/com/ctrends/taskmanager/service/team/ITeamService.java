@@ -9,6 +9,8 @@ import com.ctrends.taskmanager.model.team.TeamMemberDetails;
 import com.ctrends.taskmanager.service.ICommonService;
 
 public interface ITeamService extends ICommonService<Team> {
+
+	List<TeamMemberDetails> getByTeamCode(String teamCode);
 	public List<TeamMemberDetails> getTeamMemberDetailsByTeamId(UUID teamId);
 
 }

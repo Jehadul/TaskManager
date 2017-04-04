@@ -13,4 +13,6 @@ public interface ITeamDAO extends ICommonDAO<Team> {
 	boolean checkUnique(Map<String, Object> param);
 	public List<TeamMemberDetails> getTeamMemberDetailsByTeamId(UUID teamId);
 
+	List<TeamMemberDetails> getDocByIdTeamCode(String teamCode);
+
 }

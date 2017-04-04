@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.ctrends.taskmanager.dao.team.ITeamDAO;
 import com.ctrends.taskmanager.model.team.Team;
 import com.ctrends.taskmanager.model.team.TeamMemberDetails;
+import com.ctrends.taskmanager.model.tman_sprint.SprintManagerDetails;
 import com.ctrends.taskmanager.model.user.User;
 import com.ctrends.taskmanager.service.user.IUserService;
 
@@ -39,7 +40,7 @@ public class TeamService implements ITeamService {
 
 		Map<String, Object> param = new HashMap<String, Object>();
 		System.out.println(requestMap.get("team_code")[0]);
-		param.put("teamCode", requestMap.get("team_code")[0].toUpperCase());
+		param.put("teamCode", requestMap.get("team_code")[0]);
 		boolean rules = teamDAO.checkUnique(param);
 
 		Team team = new Team();
@@ -77,7 +78,7 @@ public class TeamService implements ITeamService {
 
 		System.out.println(empCode + ":::::::::::::::store code::::::::" + empName);
 
-		List<TeamMemberDetails> teamMemberDetailsList = new ArrayList<TeamMemberDetails>();
+			List<TeamMemberDetails> teamMemberDetailsList = new ArrayList<TeamMemberDetails>();
 		for (int i = 0; i < empCode.length; i++) {
 			TeamMemberDetails teamMemberDetails= new TeamMemberDetails();
 
@@ -99,21 +100,18 @@ public class TeamService implements ITeamService {
 			teamMemberDetails.setCreatedByCompanyName(currentUser.getCompanyName());
 			teamMemberDetails.setCreatedAt(new Timestamp(System.currentTimeMillis()));
 
-			// stroyDetails.setClientCode(currentUser.getClientCode());
 			teamMemberDetails.setClientName(currentUser.getClientName());
 			teamMemberDetails.setCompanyCode(currentUser.getCompanyCode());
-			// stroyDetails.setCompanyName(currentUser.getCompanyName());
 			teamMemberDetails.setUpdatedByCode(currentUser.getEmpCode());
 			teamMemberDetails.setUpdatedByName(currentUser.getEmpName());
 			teamMemberDetails.setUpdatedByUsername(currentUser.getUsername());
 			teamMemberDetails.setUpdatedByEmail(currentUser.getEmail());
 			teamMemberDetails.setUpdatedByCompanyCode(currentUser.getCompanyCode());
 			teamMemberDetails.setUpdatedByCompanyName(currentUser.getCompanyName());
-			// stroyDetails.setUpdatedAt(new
-			// Timestamp(System.currentTimeMillis()));
 			teamMemberDetailsList.add(i, teamMemberDetails);
 		}
 		team.setTeamDetails(teamMemberDetailsList);
+		System.out.println(rules);
 		if (rules) {
 			id = teamDAO.insertDoc(team);
 			strid = id.toString();
@@ -155,6 +153,11 @@ public class TeamService implements ITeamService {
 		return teamDAO.getTeamMemberDetailsByTeamId(teamId);
 	}
 	
+	@Override
+	public List<TeamMemberDetails> getByTeamCode(String teamCode) {
+		// TODO Auto-generated method stub
+		return teamDAO.getDocByIdTeamCode(teamCode);
+	}
 	
 
 }

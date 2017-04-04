@@ -20,6 +20,8 @@ import com.ctrends.taskmanager.bean.WSResponse;
 import com.ctrends.taskmanager.model.team.Team;
 import com.ctrends.taskmanager.model.team.TeamMemberDetails;
 import com.ctrends.taskmanager.service.team.ITeamService;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 @RestController
 @RequestMapping("/taskman/team")
@@ -35,10 +37,14 @@ public class TeamController implements ITeamController {
 	public ModelAndView index() {
 		Map<String, Object> data = new HashMap<String, Object>();
 		List<Team> teamLi = teamService.getAll();
+		List<TeamMemberDetails> teamMemberDetails = null;
+		for (int i=0; i<teamLi.size(); i++){
+			teamMemberDetails=teamLi.get(i).getTeamDetails();
+		}
+		GsonBuilder gson = new GsonBuilder();
+		Gson g = gson.create();
 		data.put("teamLi", teamLi);
-		/*
-		 * GsonBuilder gson = new GsonBuilder(); Gson g = gson.create();
-		 */
+		data.put("teamMemberDetails", teamMemberDetails);
 		return new ModelAndView("team/teamlist", "data", data);
 	}
 

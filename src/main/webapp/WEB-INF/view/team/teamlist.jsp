@@ -18,120 +18,76 @@
 	<div class="container-fluid container-fullw bg-white">
 		<fieldset>
 			<legend> Team List&nbsp;&nbsp; </legend>
-		
-		<div id="teamlists" class="panel-group accordion">
-				<c:set var="prevBlockId" value="" />
-				<c:set var="nextBlockId" value="" />
-				<c:forEach var="i" begin="0" end="${data.teamLi.teamDetails.size()-1}">
-					<c:if test="${!data.teamLi.teamDetails[i].teamCode.equals(prevBlockId)}">
-						<div class="wf-block panel panel-light-grey" data-id="${data.teamLi.teamDetails[i].teamCode}">
-							<div class="panel-heading">
-								<h5 class="panel-title">
-									<a class="accordion-toggle bold" data-toggle="collapse"
-										data-parent="#accordion"
-										href="#wf_block${data.teamLi.teamDetails[i].teamCode}"><i
-										class="icon-arrow"></i> <span class="wf-block-title">
-											Team Code:${data.teamLi.teamDetails[i].teamCode} Team Name:${data.teamLi.teamDetails[i].teamName} Team Size:${data.teamLi.teamDetails[i].teamSize} </span>
-									</a>
-								</h5>
-							</div>
-							<div id="wf_block${data.teamLi.teamDetails[i].teamCode}"
-								class="panel-collapse collapse in">
-								<div class="panel-body">
-									<table class="wf-step-list table table-striped table-hover">
-										<thead>
-											<tr>
-												<th>Employee Code</th>
-												<th>Employee Name</th>
-												<th>Username</th>
-											</tr>
-										</thead>
-										<tbody>
-											</c:if>
-											<c:choose>
-												<c:when test="${i < data.teamLi.teamDetails.size()-1}">
-													<c:set var="nextBlockId"
-														value="${data.teamLi.teamDetails[i+1].teamCode}" />
-												</c:when>
-												<c:otherwise>
-													<c:set var="nextBlockId" value="" />
-												</c:otherwise>
-											</c:choose>
-											<tr>
-												<td>${data.teamLi.teamDetails[i].empCode}</td>
-												<td>${data.teamLi.teamDetails[i].empName}</td>
-												<td>${data.teamLi.teamDetails[i].username}</td>
-											</tr>
-										</tbody>
-										<c:if test="${!data.teamLi.teamDetails[i].teamCode.equals(nextBlockId)}">
-									</table>
+			<c:forEach var="i" begin="0" end="${data.teamLi.size()-1}">
+				<div id="teamlists" class="panel-group accordion">
+					<c:set var="prevBlockId" value="" />
+					<c:set var="nextBlockId" value="" />
+						<c:if test="${!data.teamLi[i].teamCode.equals(prevBlockId)}">
+							<div class="wf-block panel panel-light-grey" data-id="${data.teamLi[i].teamCode}">
+								<div class="panel-heading">
+									<h5 class="panel-title">
+									 	<a class="accordion-toggle bold" data-toggle="collapse"
+											data-parent="#accordion"
+											href="#wf_block${data.teamLi[i].teamCode}"><i
+											class="icon-arrow"> </i>
+											<span class="wf-block-title">
+											<cts:Label name="Team Code  :" labelFor="team_code"/>&nbsp;&nbsp;${data.teamLi[i].teamCode}&nbsp;&nbsp;&nbsp;&nbsp; <cts:Label name="Team Name  :" labelFor="team_name"/>&nbsp;&nbsp;${data.teamLi[i].teamName}&nbsp;&nbsp;&nbsp;&nbsp; <cts:Label name="Number of Members  :" labelFor="nt_member"/>&nbsp;&nbsp;${data.teamLi[i].teamSize}
+												<%-- <div class="row">
+												<div class="col-md-4">
+													<cts:Label name="Team Code  :" labelFor="team_code"/>&nbsp;&nbsp;${data.teamLi[i].teamCode}
+												</div>
+												<div class="col-md-4">
+													<cts:Label name="Team Name  :" labelFor="team_name"/>&nbsp;&nbsp;${data.teamLi[i].teamName}
+												</div>
+												<div class="col-md-4">
+													<cts:Label name="Number of Members  :" labelFor="nt_member"/>&nbsp;&nbsp;${data.teamLi[i].teamSize}
+												</div>
+													 
+												</div> --%>
+											</span>
+										</a>
+									</h5>
+								</div>
+								<div id="wf_block${data.teamLi[i].teamCode}"
+									class="panel-collapse collapse in">
+									<div class="panel-body">
+										<table class="wf-step-list table table-striped table-hover">
+											<thead>
+												<tr>
+													<th>Employee Code</th>
+													<th>Employee Name</th>
+													<th>Username</th>
+												</tr>
+											</thead>
+											<tbody>
+												</c:if>
+												<c:choose>
+													<c:when test="${i < data.teamLi.size()-1}">
+														<c:set var="nextBlockId"
+															value="${data.teamLi[i+1].teamCode}" />
+													</c:when>
+													<c:otherwise>
+														<c:set var="nextBlockId" value="" />
+													</c:otherwise>
+												</c:choose>
+												<%-- <c:forEach var="teamDetails" items ="${data.teamLi[i].teamDetails}" > --%>
+												<c:forEach var="j" begin="0" end="${data.teamLi[i].teamDetails.size()-1}">
+												<tr>
+													<td>${data.teamLi[i].teamDetails[j].empCode}</td>
+													<td>${data.teamLi[i].teamDetails[j].empName}</td>
+													<td>${data.teamLi[i].teamDetails[j].username}</td>
+												</tr>
+												</c:forEach>
+											</tbody>
+											<c:if test="${!data.teamLi[i].teamCode.equals(nextBlockId)}">
+										</table>
+									</div>
 								</div>
 							</div>
-						</div>
-					</c:if>
-					<c:set var="prevBlockId" value="${data.teamLi.teamDetails[i].teamCode}" />
-				</c:forEach>
-			</div>	
-			
+						</c:if>
+						<c:set var="prevBlockId" value="${data.teamLi[i].teamCode}" />
+				</div>	
+			</c:forEach>
 		</fieldset>
-	
-	
-	
-		<%-- <div id="WorkflowBlocks" class="panel-group accordion">
-				<c:set var="prevBlockId" value="" />
-				<c:set var="nextBlockId" value="" />
-				<c:forEach var="i" begin="0" end="${data.wf.steps.size()-1}">
-					<c:if test="${!data.wf.steps[i].wfBlockId.equals(prevBlockId)}">
-						<div class="wf-block panel panel-light-grey" data-id="${data.wf.steps[i].wfBlockId}">
-							<div class="panel-heading">
-								<h5 class="panel-title">
-									<a class="accordion-toggle bold" data-toggle="collapse"
-										data-parent="#accordion"
-										href="#wf_block${data.wf.steps[i].wfBlockId}"><i
-										class="icon-arrow"></i> <span class="wf-block-title">
-											DOA Type:${data.wf.steps[i].doaTypeCode}, Limit: 999999999999</span>
-									</a>
-								</h5>
-							</div>
-							<div id="wf_block${data.wf.steps[i].wfBlockId}"
-								class="panel-collapse collapse in">
-								<div class="panel-body">
-									<table class="wf-step-list table table-striped table-hover">
-										<thead>
-											<tr>
-												<th>Step Code</th>
-												<th>Step Name</th>
-												<th>Doer</th>
-												<th>Alt Doer</th>
-											</tr>
-										</thead>
-										<tbody>
-											</c:if>
-											<c:choose>
-												<c:when test="${i < data.wf.steps.size()-1}">
-													<c:set var="nextBlockId"
-														value="${data.wf.steps[i+1].wfBlockId}" />
-												</c:when>
-												<c:otherwise>
-													<c:set var="nextBlockId" value="" />
-												</c:otherwise>
-											</c:choose>
-											<tr>
-												<td>${data.wf.steps[i].stepCode}</td>
-												<td>${data.wf.steps[i].stepName}</td>
-												<td>${data.wf.steps[i].doerName}</td>
-												<td>${data.wf.steps[i].altDoerName}</td>
-											</tr>
-										</tbody>
-										<c:if
-											test="${!data.wf.steps[i].wfBlockId.equals(nextBlockId)}">
-									</table>
-								</div>
-							</div>
-						</div>
-					</c:if>
-					<c:set var="prevBlockId" value="${data.wf.steps[i].wfBlockId}" />
-				</c:forEach>
-		</div> --%>
 	</div>
 </div>	
