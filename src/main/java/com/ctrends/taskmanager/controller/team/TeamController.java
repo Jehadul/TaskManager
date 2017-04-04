@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ctrends.taskmanager.bean.WSResponse;
 import com.ctrends.taskmanager.model.team.Team;
 import com.ctrends.taskmanager.model.team.TeamMemberDetails;
+import com.ctrends.taskmanager.model.tman_sprint.SprintManager;
 import com.ctrends.taskmanager.service.team.ITeamService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -112,10 +113,15 @@ public class TeamController implements ITeamController {
 
 	}
 
+	
+	@RequestMapping(value = "/delete", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Override
 	public WSResponse destroy(HttpServletRequest request) {
-		// TODO Auto-generated method stub
-		return null;
+		Map<String, String[]> teamRequest = request.getParameterMap();
+		
+		UUID id = teamService.delete(teamRequest);
+		
+		return new WSResponse("success", "Team deleted successfully", id, null, "doc",null);
 	}
 
 	@Override
@@ -138,5 +144,7 @@ public class TeamController implements ITeamController {
 		return new ModelAndView("team/create");
 
 	}
+	
+
 
 }

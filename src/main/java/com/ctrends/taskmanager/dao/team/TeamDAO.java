@@ -111,8 +111,24 @@ public class TeamDAO implements ITeamDAO {
 	@Transactional
 	@Override
 	public UUID deleteDoc(UUID id) {
-		// TODO Auto-generated method stub
-		return null;
+		Team team = (Team) sessionFactory.getCurrentSession().load(Team.class, id);
+		sessionFactory.getCurrentSession().delete(team);
+		
+		sessionFactory.getCurrentSession().flush();
+		/*
+		String hql = "delete from TeamMemberDetails where teamId= :teamId";
+        Query query = sessionFactory.getCurrentSession().createQuery(hql);
+        query.setString("teamId", id.toString());
+        query.executeUpdate();
+        
+        sessionFactory.getCurrentSession().flush();
+		return id;
+		
+		TeamMemberDetails team=(TeamMemberDetails)sessionFactory.getCurrentSession().load(TeamMemberDetails.class, id);
+		sessionFactory.getCurrentSession().delete(team);
+		sessionFactory.getCurrentSession().flush();
+		*/
+		return id;
 	}
 	
 	@Transactional
