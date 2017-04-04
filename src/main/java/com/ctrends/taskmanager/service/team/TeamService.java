@@ -78,7 +78,7 @@ public class TeamService implements ITeamService {
 
 		System.out.println(empCode + ":::::::::::::::store code::::::::" + empName);
 
-		List<TeamMemberDetails> teamMemberDetailsList = new ArrayList<TeamMemberDetails>();
+			List<TeamMemberDetails> teamMemberDetailsList = new ArrayList<TeamMemberDetails>();
 		for (int i = 0; i < empCode.length; i++) {
 			TeamMemberDetails teamMemberDetails= new TeamMemberDetails();
 
