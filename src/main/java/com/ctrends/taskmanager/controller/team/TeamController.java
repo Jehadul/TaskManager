@@ -37,18 +37,14 @@ public class TeamController implements ITeamController {
 	public ModelAndView index() {
 		Map<String, Object> data = new HashMap<String, Object>();
 		List<Team> teamLi = teamService.getAll();
-		/*List<TeamMemberDetails> teamMemberDetailsList = null;
-		for(int i=0; i<teamLi.size(); i++){
-			teamMemberDetailsList = teamLi.get(i).getTeamDetails();
-			System.out.println(teamMemberDetailsList + "aaaaaaaaaaaaaaa");
+		List<TeamMemberDetails> teamMemberDetails = null;
+		for (int i=0; i<teamLi.size(); i++){
+			teamMemberDetails=teamLi.get(i).getTeamDetails();
 		}
-		*/
-		System.out.println("ggggggggggg" + teamLi.get(0).getId());
-		
 		GsonBuilder gson = new GsonBuilder();
-		System.out.println("ggggggggggg" + teamLi.get(0).getTeamDetails());
 		Gson g = gson.create();
 		data.put("teamLi", teamLi);
+		data.put("teamMemberDetails", teamMemberDetails);
 		return new ModelAndView("team/teamlist", "data", data);
 	}
 
