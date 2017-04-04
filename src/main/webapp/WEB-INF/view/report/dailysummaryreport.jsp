@@ -106,7 +106,7 @@
 	function generatereport(){
 		var startdate = $("#start_date").val();
 		console.log(startdate);
-		LoadMainContent("taskman/report/generateDailySummaryPdfReport/"+startdate);
+		LoadMainContent("taskman/report/generateDailySummaryReport/"+startdate);
 	}
 	
 </script> 
