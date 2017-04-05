@@ -147,6 +147,12 @@ public class SprintDAO implements ISprintDAO {
 	public UUID deleteDoc(UUID id) {
 		SprintManager app = (SprintManager) sessionfactory.getCurrentSession().load(SprintManager.class, id);
 		sessionfactory.getCurrentSession().delete(app);
+		
+		String hql = "delete from SprintManagerDetails where sprintId= :sprintId";
+        Query query = sessionfactory.getCurrentSession().createQuery(hql);
+        query.setParameter("sprintId", id);
+        query.executeUpdate();
+
 		sessionfactory.getCurrentSession().flush();
 		return id;
 	}
