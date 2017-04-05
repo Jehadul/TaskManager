@@ -20,4 +20,6 @@ public interface ITaskReportService extends ICommonService<Tasks>{
 	 */
 	
 	public List<TaskReportView> findUserWiseDailyTasks(Map<String, String> parameterMap);
+
+	Map<String, Object> getDailySummaryReportElement(Map<String, String> parameterMap);
 }
