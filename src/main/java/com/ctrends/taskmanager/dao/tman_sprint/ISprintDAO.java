@@ -28,4 +28,5 @@ public interface ISprintDAO extends ICommonDAO<SprintManager> {
 	List<TaskLog> gettasklogLiById(String taskId, Date stopDate);
 	Map<String, Object> getSpentChartDoc(UUID id);
 	Map<String, Object> getDocByBurnDownChart(UUID id);
+	public List<SprintManager> getAllSprint(); 
 }

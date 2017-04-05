@@ -376,4 +376,15 @@ public class SprintDAO implements ISprintDAO {
 
 	}
 
+	@Transactional
+	@Override
+	public List<SprintManager> getAllSprint() {
+		
+		Query query = sessionfactory.getCurrentSession()
+				.createQuery("From SprintManager");
+		
+		List<SprintManager> splist = query.list();
+		return splist;
+	}
+
 }

@@ -527,4 +527,10 @@ public class SprintService implements ISprintService {
 	}
 	
 
+	@Override
+	public List<SprintManager> getAllSprint() {
+		List<SprintManager> splist = sprintDao.getAllSprint();
+		return splist;
+	}
+
 }

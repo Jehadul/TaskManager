@@ -23,4 +23,6 @@ public interface ITaskReportDAO extends ICommonDAO<Tasks> {
 
 	public List<TaskLog> getTaskLogByTaskIdAndDate(UUID taskId, String start_date);
 
+	Map<String, Object> getAllDocByToDate(TaskLog tasklog);
+
 }
