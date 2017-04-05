@@ -194,6 +194,7 @@ public class TaskReportDAO implements ITaskReportDAO {
 		return null;
 	}
 	
+	@Transactional
 	public List<TaskLog> getTaskLogByTaskIdAndDate(UUID taskId, String start_date){
 		
 		
@@ -247,8 +248,8 @@ public class TaskReportDAO implements ITaskReportDAO {
 		for(Iterator it=(Iterator) queryt.iterate();((java.util.Iterator) it).hasNext();)
 		  {
 		   Object[] row = (Object[]) ((java.util.Iterator) it).next();
-		   System.out.print("Course Name: " + row[0]);
-		   System.out.println(" | Number of Students: " + row[1]);
+		   System.out.print("spent time" + row[0]);
+		   System.out.println(" | user: " + row[1]);
 		   id[c]=UUID.fromString(row[0].toString());
 		   name[c++]=row[1].toString();
 		   

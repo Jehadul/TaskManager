@@ -14,5 +14,6 @@ public interface ITeamDAO extends ICommonDAO<Team> {
 	public List<TeamMemberDetails> getTeamMemberDetailsByTeamId(UUID teamId);
 
 	List<TeamMemberDetails> getDocByIdTeamCode(String teamCode);
+	TeamMemberDetails getTeamMemberDetailsByTeamId(String empCode);
 
 }

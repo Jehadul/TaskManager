@@ -97,15 +97,38 @@ public class TeamDAO implements ITeamDAO {
 	@Transactional
 	@Override
 	public UUID updateDoc(Team doc) {
-		// TODO Auto-generated method stub
-		return null;
+		for (int i = 0; i < doc.getTeamDetails().size(); i++) {
+			TeamMemberDetails teamDetails = new TeamMemberDetails();
+			teamDetails = doc.getTeamDetails().get(i);
+			sessionFactory.getCurrentSession().saveOrUpdate(teamDetails);
+			sessionFactory.getCurrentSession().flush();
+		}
+		sessionFactory.getCurrentSession().saveOrUpdate(doc);
+		sessionFactory.getCurrentSession().flush();
+		return doc.getId();
 	}
 
 	@Transactional
 	@Override
 	public UUID deleteDoc(UUID id) {
-		// TODO Auto-generated method stub
-		return null;
+		Team team = (Team) sessionFactory.getCurrentSession().load(Team.class, id);
+		sessionFactory.getCurrentSession().delete(team);
+		
+		sessionFactory.getCurrentSession().flush();
+		/*
+		String hql = "delete from TeamMemberDetails where teamId= :teamId";
+        Query query = sessionFactory.getCurrentSession().createQuery(hql);
+        query.setString("teamId", id.toString());
+        query.executeUpdate();
+        
+        sessionFactory.getCurrentSession().flush();
+		return id;
+		
+		TeamMemberDetails team=(TeamMemberDetails)sessionFactory.getCurrentSession().load(TeamMemberDetails.class, id);
+		sessionFactory.getCurrentSession().delete(team);
+		sessionFactory.getCurrentSession().flush();
+		*/
+		return id;
 	}
 	
 	@Transactional
@@ -148,5 +171,18 @@ public class TeamDAO implements ITeamDAO {
 		List<TeamMemberDetails> tmDetailsList = query.list();
 
 		return tmDetailsList;
+	}
+	
+	@Transactional
+	@Override
+	public TeamMemberDetails getTeamMemberDetailsByTeamId(String empCode) {
+		Query query = sessionFactory.getCurrentSession()
+				.createQuery("From TeamMemberDetails WHERE empCode = :empCode");
+		query.setParameter("empCode", empCode);
+		List<TeamMemberDetails> teamDetails = query.list();
+		if (teamDetails.size() > 0) {
+			return teamDetails.get(0);
+		}
+		return null;
 	}
 }

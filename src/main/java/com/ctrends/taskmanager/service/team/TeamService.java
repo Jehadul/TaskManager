@@ -138,14 +138,139 @@ public class TeamService implements ITeamService {
 
 	@Override
 	public Map<String, String> update(Map<String, String[]> requestMap) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Map<String, String> data = new HashMap<String, String>();
+		User currentUser = userService.getCurrentUser();
+		String strid = null;
+		UUID id;
+
+		/*************************
+		 * Master data sent from view
+		 *******************************/
+
+		Map<String, Object> param = new HashMap<String, Object>();
+
+		param.put("teamCode", requestMap.get("team_code")[0].toUpperCase());
+		
+		System.out.println(requestMap.get("team_code")[0]+"ggggggggggggggggggggggg");
+
+		//boolean rules = teamDAO.checkUnique(param);
+		Team team = teamDAO.getDocById(UUID.fromString(requestMap.get("id")[0]));
+		team.setTeamCode(requestMap.get("team_code")[0]);
+		team.setTeamName(requestMap.get("team_name")[0]);
+		team.setTeamSize(Integer.parseInt(requestMap.get("nt_member")[0]));
+		team.setDescription(requestMap.get("description")[0]);
+		
+		System.out.println(requestMap.get("team_code")[0]+requestMap.get("team_name")[0]+requestMap.get("nt_member")[0]);
+		
+		team.setClientCode(currentUser.getClientCode());
+		team.setClientName(currentUser.getClientName());
+		team.setCompanyCode(currentUser.getCompanyCode());
+		team.setCompanyName(currentUser.getCompanyName());
+		team.setCreatedByCode(currentUser.getCreatedByCode());
+		team.setCreatedByName(currentUser.getCreatedByName());
+		team.setCreatedByCode(currentUser.getEmpCode());
+		team.setCreatedByName(currentUser.getEmpName());
+		team.setCreatedByUsername(currentUser.getUsername());
+		team.setCreatedByEmail(currentUser.getEmail());
+		team.setCreatedByCompanyCode(currentUser.getCompanyCode());
+		team.setCreatedByCompanyName(currentUser.getCompanyName());
+		team.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+
+
+		/**********************
+		 * Detail item data sent from view
+		 *********************************/
+
+		String[] empCode = (String[]) requestMap.get("emp_code[]");
+
+		String[] empName = (String[]) requestMap.get("emp_name[]");
+		
+		String[] username = (String[]) requestMap.get("emp_username[]");
+
+
+		List<TeamMemberDetails> teamMemberDetailsList = new ArrayList<TeamMemberDetails>();
+
+		for (int i = 0; i < empCode.length; i++) {
+			try {
+				TeamMemberDetails teamDetails = teamDAO.getTeamMemberDetailsByTeamId(empCode[i]);
+				teamDetails.setTeamCode(requestMap.get("team_code")[0]);
+				teamDetails.setTeamId(UUID.fromString(requestMap.get("id")[0]));
+				teamDetails.setEmpCode(empCode[i]);
+				teamDetails.setEmpCode(empName[i]);
+				teamDetails.setEmpCode(username[i]);
+				teamDetails.setCreatedByCode(currentUser.getCreatedByCode());
+				teamDetails.setCreatedByName(currentUser.getCreatedByName());
+				teamDetails.setCreatedByUsername(currentUser.getCreatedByUsername());
+				teamDetails.setCreatedByCode(currentUser.getEmpCode());
+				teamDetails.setCreatedByName(currentUser.getEmpName());
+				teamDetails.setCreatedByUsername(currentUser.getUsername());
+				teamDetails.setCreatedByEmail(currentUser.getEmail());
+				teamDetails.setCreatedByCompanyCode(currentUser.getCompanyCode());
+				teamDetails.setCreatedByCompanyName(currentUser.getCompanyName());
+				teamDetails.setCreatedAt(new Timestamp(System.currentTimeMillis()));				
+				teamDetails.setClientName(currentUser.getClientName());
+				teamDetails.setCompanyCode(currentUser.getCompanyCode());				
+				teamDetails.setUpdatedByCode(currentUser.getEmpCode());
+				teamDetails.setUpdatedByName(currentUser.getEmpName());
+				teamDetails.setUpdatedByUsername(currentUser.getUsername());
+				teamDetails.setUpdatedByEmail(currentUser.getEmail());
+				teamDetails.setUpdatedByCompanyCode(currentUser.getCompanyCode());
+				teamDetails.setUpdatedByCompanyName(currentUser.getCompanyName());
+				
+				teamMemberDetailsList.add(i, teamDetails);
+			} catch (Exception e) {
+				TeamMemberDetails teamDetails=new TeamMemberDetails();
+				teamDetails.setTeamCode(requestMap.get("team_code")[0]);
+				teamDetails.setEmpCode(empCode[i]);
+				teamDetails.setEmpCode(empName[i]);
+				teamDetails.setEmpCode(username[i]);
+				teamDetails.setCreatedByCode(currentUser.getCreatedByCode());
+				teamDetails.setCreatedByName(currentUser.getCreatedByName());
+				teamDetails.setCreatedByUsername(currentUser.getCreatedByUsername());
+				teamDetails.setCreatedByCode(currentUser.getEmpCode());
+				teamDetails.setCreatedByName(currentUser.getEmpName());
+				teamDetails.setCreatedByUsername(currentUser.getUsername());
+				teamDetails.setCreatedByEmail(currentUser.getEmail());
+				teamDetails.setCreatedByCompanyCode(currentUser.getCompanyCode());
+				teamDetails.setCreatedByCompanyName(currentUser.getCompanyName());
+				teamDetails.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+;
+				teamDetails.setClientName(currentUser.getClientName());
+				teamDetails.setCompanyCode(currentUser.getCompanyCode());
+				teamDetails.setUpdatedByCode(currentUser.getEmpCode());
+				teamDetails.setUpdatedByName(currentUser.getEmpName());
+				teamDetails.setUpdatedByUsername(currentUser.getUsername());
+				teamDetails.setUpdatedByEmail(currentUser.getEmail());
+				teamDetails.setUpdatedByCompanyCode(currentUser.getCompanyCode());
+				teamDetails.setUpdatedByCompanyName(currentUser.getCompanyName());
+				
+				teamMemberDetailsList.add(i, teamDetails);
+
+			}
+
+
+		}
+		team.setTeamDetails(teamMemberDetailsList);
+		if (true) {
+			id = teamDAO.updateDoc(team);
+			strid = id.toString();
+			data.put("id", strid);
+		} else {
+			data.put("id", null);
+
+		}
+
+		return data;
+
 	}
+
+	
 
 	@Override
 	public UUID delete(Map<String, String[]> requestMap) {
-		// TODO Auto-generated method stub
-		return null;
+		UUID id = teamDAO.deleteDoc(UUID.fromString(requestMap.get("teamId")[0]));
+		return id;
 	}
 
 	@Override
