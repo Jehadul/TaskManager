@@ -18,9 +18,10 @@
 	<div class="container-fluid container-fullw bg-white">
 
 	<center>
-		<a style="margin-right:15px" href="http://localhost:8080/?desturl=/taskman/userstory/story/storylist">Story Manager</a>
-		<a style="margin-right:15px" href="http://localhost:8080/?desturl=/taskman/tman/sprint/sprintlist">Sprint Manager</a>
-		<a href="http://localhost:8080/?desturl=/taskman/report/tasklogreport">User Wise Daily Report</a>
+		<a style="margin-right:15px" target="_blank" href="http://localhost:8080/?desturl=/taskman/userstory/story/storylist">Story Manager</a>
+		<a style="margin-right:15px" target="_blank" href="http://localhost:8080/?desturl=/taskman/tman/sprint/sprintlist">Sprint Manager</a>
+		<a style="margin-right:15px" target="_blank" href="http://localhost:8080/?desturl=/taskman/report/tasklogreport">User Wise Daily Report</a>
+		<a target="_blank" href="http://localhost:8080/?desturl=/taskman/team/create">Create Team</a>
 	</center>
 		
 		<div class="row">
@@ -88,7 +89,7 @@
 				<legend> Task List&nbsp;&nbsp; </legend>
 				<div class="table-responsive">
 
-				<center><a href= "http://localhost:8080/?desturl=/taskman/tman/tasks/create">Create Task</a></center>
+				<center><a target="_blank" href= "http://localhost:8080/?desturl=/taskman/tman/tasks/create">Create Task</a></center>
 				<table class="table table-striped table-hover"
 						id="task_sort_result">
 						<thead>
