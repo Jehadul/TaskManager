@@ -210,15 +210,17 @@
 				
 				var count = ($("#QA tr ").length) - 1;
 				function editQa(){
-					alert("hhhhhhhhhhhhhhhhhhhhhhhh");
+					
 					count = count+1;
 					var qaval = $(this).closest("tr");
 					var code  = qaval.find(".sprint-story-code").val(); 
+					alert(code);
 					var name  = qaval.find(".sprint-story-name").val(); 
 					
 					
 						html = "" +
-						'<tr>' +			
+						'<tr>' +
+							'<td>'  +
 							'<input name="sprint-story-code[]" type="text" class="sprint-story-code width-50" readonly value="'+ code  + '"/></td>' +
 							'<td class="width-300"><input name="sprint-story-name[]" type="text" class="sprint-story-name" readonly value="'+ name  + '" /></td>' +
 							'<td>' +
