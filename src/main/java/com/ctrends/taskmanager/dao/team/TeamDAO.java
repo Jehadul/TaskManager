@@ -96,16 +96,17 @@ public class TeamDAO implements ITeamDAO {
 
 	@Transactional
 	@Override
-	public UUID updateDoc(Team doc) {
-		for (int i = 0; i < doc.getTeamDetails().size(); i++) {
-			TeamMemberDetails teamDetails = new TeamMemberDetails();
-			teamDetails = doc.getTeamDetails().get(i);
-			sessionFactory.getCurrentSession().saveOrUpdate(teamDetails);
+	public UUID updateDoc(Team doc) {	
+			for (int i = 0; i < doc.getTeamDetails().size(); i++) {
+				TeamMemberDetails teamDetails = new TeamMemberDetails();
+				teamDetails = doc.getTeamDetails().get(i);
+				sessionFactory.getCurrentSession().saveOrUpdate(teamDetails);
+				sessionFactory.getCurrentSession().flush();
+			}
+			sessionFactory.getCurrentSession().saveOrUpdate(doc);
 			sessionFactory.getCurrentSession().flush();
-		}
-		sessionFactory.getCurrentSession().saveOrUpdate(doc);
-		sessionFactory.getCurrentSession().flush();
-		return doc.getId();
+			return doc.getId();
+
 	}
 
 	@Transactional

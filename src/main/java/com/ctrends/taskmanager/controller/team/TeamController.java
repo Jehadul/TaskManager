@@ -97,10 +97,12 @@ public class TeamController implements ITeamController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		Team team=teamService.getById(id);
-
+		List<TeamMemberDetails> teamMemberDetailsList = teamService.getTeamMemberDetailsByTeamId(id);
+		
 		
 		map.put("mode", "doc");
 		map.put("team", team);
+		map.put("teamMemberDetailsList", teamMemberDetailsList);
 		return new ModelAndView("team/edit", "map", map);
 	}
 

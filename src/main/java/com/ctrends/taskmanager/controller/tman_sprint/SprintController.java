@@ -253,7 +253,6 @@ public class SprintController implements ISprintController {
 		return null;
 	}
 
-	@RequestMapping(value = "/burndownchart/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@Override
 	public ModelAndView showChart(@PathVariable(value = "id") UUID id) {
@@ -263,7 +262,7 @@ public class SprintController implements ISprintController {
 		System.out.println(g.toJson(sprintViewDetails));
 		return new ModelAndView("sprintmanager/burndownchart", "map", g.toJson(sprintViewDetails));
 	}
-
+	//old burndown chart
 	@RequestMapping(value = "/spentchart/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ModelAndView showSpentChart(@PathVariable(value = "id") UUID id) {
 		Map<String, Object> map = sprintService.getSprintSpentChartData(id);
@@ -294,5 +293,16 @@ public class SprintController implements ISprintController {
 		return Double.parseDouble(df.format(hours));
 		
 	}
+	@RequestMapping(value = "/burndownchart/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ModelAndView showSpentChartData(@PathVariable(value = "id") UUID id) {
+		Map<String, Object> map = sprintService.getDocByBurnDownChartData(id);
+		GsonBuilder gson = new GsonBuilder();
+		Gson g = gson.create();
+		System.out.println(g.toJson(map));
+		return new ModelAndView("sprintmanager/burndownchart", "map", g.toJson(map));
+	}
+
+	
 
 }
