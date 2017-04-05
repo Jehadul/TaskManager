@@ -14,7 +14,7 @@
    </section>
    <!-- start: USER PROFILE -->
    <div class="container-fluid  bg-white">
-      <cts:AjaxForm action="/taskman/sprintboard/ui/store" dataHandler="showMessage">
+      <cts:AjaxForm action="/taskman/sprintboard/ui/manageSprintselection" dataHandler="showMessage">
          <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
          <div>
             <div class="alert alert-block alert-danger hidden">
@@ -38,9 +38,9 @@
                         <td>
                            <div class="width-300">
                               <fieldset>
-<!--                                  <legend>Stories&nbsp;&nbsp;  -->
+                                  <legend>Stories&nbsp;&nbsp;
 <!--                                     <button type="button" class="btn btn-find"><span class="fa fa-plus"></span></button>   -->
-<!--                                  </legend> -->
+                                 </legend> 
                                  <div class="table-responsive">
                                     <table class="data-grid" id="sprintmanagerdetail">
                                        <thead>
@@ -127,11 +127,11 @@
                         <td>
                            <div class="width-300">
                               <fieldset>
-<!--                                  <legend>QA&nbsp;&nbsp;  -->
+                               <legend>QA&nbsp;&nbsp;  
 <!--                                     <button type="button" class="btn btn-find"><span class="fa fa-plus"></span></button>   -->
-<!--                                  </legend> -->
+                                 </legend> 
                                  <div class="table-responsive">
-                                    <table class="data-grid" id="SaleComponent4">
+                                    <table class="data-grid" id="QA">
                                        <thead>
                                           <tr>
                                              <th class="code-item">Item Code</th>
@@ -205,6 +205,48 @@
 				
 				addRowStory(objType);
 				addRowTasks(objType2);
+				
+				
+				
+				var count = ($("#QA tr ").length) - 1;
+				function editQa(){
+					alert("hhhhhhhhhhhhhhhhhhhhhhhh");
+					count = count+1;
+					var qaval = $(this).closest("tr");
+					var code  = qaval.find(".sprint-story-code").val(); 
+					var name  = qaval.find(".sprint-story-name").val(); 
+					
+					
+						html = "" +
+						'<tr>' +			
+							'<input name="sprint-story-code[]" type="text" class="sprint-story-code width-50" readonly value="'+ code  + '"/></td>' +
+							'<td class="width-300"><input name="sprint-story-name[]" type="text" class="sprint-story-name" readonly value="'+ name  + '" /></td>' +
+							'<td>' +
+								'<button type="button" class="btn btn-xs"><span class="fa fa-arrow-left trash"></span></button> ' + 
+								
+							'</td>'+
+						'</tr>';
+					
+					InitHandlers();
+					$("#QA tbody").append(html);
+					$(this).closest("tr").hide();	
+					$(".trash").on('click',function(){
+						var code = $(this).closest("tr").find(".sprint-story-code").val();
+						$("#sprintmanagerdetail .sprint-story-code").each(function(i,item){
+						    if($(this).val()==code){
+						        $(this).closest("tr").show();
+						        }
+						    });			
+				
+						$(this).closest("tr").remove();
+					});			
+				}
+				
+				
+				$("#sprintmanagerdetail").find("button.fa-arrow-right").on('click',editQa);
+				
+				
+				
 			}
 		});
 		
@@ -230,7 +272,7 @@
 				'<td>' +
 					'<button type="button" class="btn btn-xs fa fa-arrow-right"><span style="width:20px;"></span></button>&nbsp;' +
 				'</td>'+
-					'<input type="hidden" class="sprint-Code" readonly value="'+ sprintCode  + '" /></td>' +
+					'<input type="hidden" class="sprint-code" readonly value="'+ sprintCode  + '" /></td>' +
 					'<input type="hidden" class="sprint-id" readonly value="'+ sprintId  + '" /></td>' +
 			'</tr>';
 
@@ -267,9 +309,10 @@
 	$("#taskAll tbody").html(html);
 	} 
 
- 
+
    
-   
+  	
+  	
 </script>
 <style>
 	.table-scroll{
