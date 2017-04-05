@@ -41,6 +41,9 @@ public class TaskLog {
 	@Column(name="start_stop_status")
 	private boolean startStopStatus;
 	
+	@Column(name="remaining_time")
+	private double remainingTime;
+	
 	@Column(name="doa_type_code")
 	private String doaTypeCode;
 
@@ -736,6 +739,14 @@ public class TaskLog {
 
 	public void setStopDate(Date stopDate) {
 		this.stopDate = stopDate;
+	}
+
+	public double getRemainingTime() {
+		return remainingTime;
+	}
+
+	public void setRemainingTime(double remainingTime) {
+		this.remainingTime = remainingTime;
 	}
 	
 	
