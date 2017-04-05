@@ -12,5 +12,6 @@ public interface ITeamService extends ICommonService<Team> {
 
 	List<TeamMemberDetails> getByTeamCode(String teamCode);
 	public List<TeamMemberDetails> getTeamMemberDetailsByTeamId(UUID teamId);
+	List<Team> find(Map<String, String> searchingKey);
 
 }
