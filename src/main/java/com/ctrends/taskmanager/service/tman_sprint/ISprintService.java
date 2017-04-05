@@ -16,5 +16,7 @@ public interface ISprintService extends ICommonService<SprintManager> {
 	Map<String, Object> getBySprintId(UUID id);
 
 	Map<String, Object> getSprintSpentChartData(UUID id);
+	
+	public List<SprintManager> getAllSprint(); 
 
 }
