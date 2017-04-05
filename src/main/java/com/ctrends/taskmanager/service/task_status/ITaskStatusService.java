@@ -15,4 +15,6 @@ public interface ITaskStatusService extends ICommonService<TaskDetails> {
 
 	List<Tasks> getTaskByStoryCode(Map<String, String> allStoryCode);
 
+	Map<String, String> manageselection(Map<String, String[]> map);
+
 }
