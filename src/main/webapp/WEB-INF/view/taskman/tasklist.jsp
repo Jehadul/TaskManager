@@ -105,7 +105,7 @@
 							<cts:Label labelFor="remaining_time" name="Remaining Hours"/>
 						</div>
 						<div class="col-md-9">
-							<cts:TextBox name="remaining_time" cssClass="number" value="0"/>
+							<cts:TextBox name="remaining_time" cssClass="number" value=""/>
 						</div>
 					</div>
 				</div>
