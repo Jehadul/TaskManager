@@ -21,7 +21,7 @@
 		<a style="margin-right:15px" target="_blank" href="http://localhost:8080/?desturl=/taskman/userstory/story/storylist">Story Manager</a>
 		<a style="margin-right:15px" target="_blank" href="http://localhost:8080/?desturl=/taskman/tman/sprint/sprintlist">Sprint Manager</a>
 		<a style="margin-right:15px" target="_blank" href="http://localhost:8080/?desturl=/taskman/report/tasklogreport">User Wise Daily Report</a>
-		<a target="_blank" href="http://localhost:8080/?desturl=/taskman/team/create">Create Team</a>
+		<a target="_blank" href="http://localhost:8080/?desturl=/taskman/team/teamlist">Team List</a>
 	</center>
 		
 		<div class="row">
