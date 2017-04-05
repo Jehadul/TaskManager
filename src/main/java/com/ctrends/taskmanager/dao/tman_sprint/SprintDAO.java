@@ -1,11 +1,17 @@
 package com.ctrends.taskmanager.dao.tman_sprint;
 
 import java.sql.Date;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -13,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ctrends.taskmanager.bean.Utility;
 import com.ctrends.taskmanager.dao.user.IUserDAO;
 import com.ctrends.taskmanager.model.taskmanage.Module;
 import com.ctrends.taskmanager.model.taskmanage.PrivGroup;
@@ -251,6 +258,78 @@ public class SprintDAO implements ISprintDAO {
 		query.setParameter("sprintId", sprintId);
 		List<SprintManagerDetails> sprintDetails = query.list();
 		return sprintDetails;
+	}
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional
+	public Map<String,Object> getDocByBurnDownChart(UUID id) {
+		//System.out.println(":::::::::::dao:::::::::::::::"+id);
+		Map<String,Object> map  = new HashMap<String,Object>();
+		Criteria car = sessionfactory.getCurrentSession().createCriteria(SprintManager.class);
+		car.add(Restrictions.eq("id", id));
+		List<SprintManager> sprint = car.list();
+		
+		List<Date> sprintAllDays =sprintAllDays(sprint.get(0).getStartDate(),sprint.get(0).getEndDate());
+		
+		String sqltask = "select id, remainingTime from Tasks  where storyCode = ANY(select userStoryCode from UserStory where userStoryCode=ANY(select sprintStoryCode from SprintManagerDetails where sprintId=ANY(select id from SprintManager where id='"+id+"')))";
+		Query crtask = sessionfactory.getCurrentSession().createQuery(sqltask);
+		
+		List<Object> allDayremaingTime = new ArrayList<>();
+		
+		
+		for(int i=0; i<sprintAllDays.size(); i++){
+			double remDaily = 0;
+			List<Object> dayremaingTime = new ArrayList<>();
+			for(Iterator it=(Iterator) crtask.iterate();((java.util.Iterator) it).hasNext();)
+	          {
+	           Object[] row = (Object[]) ((java.util.Iterator) it).next();
+	           //System.out.print("spent time" + row[0]);
+	          //System.out.println(" | user: " + row[1]);
+	           String sql = "From TaskLog where id=:id and stopDate=:stopDate ORDER BY stopDate DESC";
+	   			Query cr = sessionfactory.getCurrentSession().createQuery(sql);
+	   			cr.setParameter("id", row[0]);
+	   			cr.setParameter("stopDate", sprintAllDays.get(i));
+	   			List<TaskLog> log = cr.list();
+	   			if(log.size()>0){
+	   				remDaily +=log.get(0).getRemainingTime();
+	   			}else{
+	   				remDaily += Double.parseDouble(row[1].toString());
+	   			}
+	   			
+	          }
+			dayremaingTime.add(sprintAllDays.get(i).toString());
+			dayremaingTime.add(remDaily);
+			allDayremaingTime.add(i, dayremaingTime);
+			
+		}
+		for(int i=0; i<allDayremaingTime.size(); i++){
+			System.out.println(allDayremaingTime.get(i));
+		}
+		map.put("sprint", sprint);
+		map.put("allDayremaingTime", allDayremaingTime);
+		return map;
+	}
+	
+	//find between all date to date
+	public List<Date> sprintAllDays(Date startDate, Date endDate){
+		List<Date> sqlDate = new ArrayList<Date>();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date startDateUtilq = Utility.fromUtiltoSql(startDate);
+		java.util.Date endDateUtilz = Utility.fromUtiltoSql(endDate);
+		String s = sdf.format(startDateUtilq);
+		String e = sdf.format(endDateUtilz);		
+		LocalDate start = LocalDate.parse(s);
+		LocalDate end = LocalDate.parse(e);
+		
+		DecimalFormat df = new DecimalFormat("#.00"); 
+		int c = 0;
+		while (start.isBefore(end) || start.equals(end)) {
+			
+			start = start.plusDays(1);
+			sqlDate.add(Date.valueOf(start));
+		}
+		return sqlDate;
+		
 	}
 
 	@Transactional
