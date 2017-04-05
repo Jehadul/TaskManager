@@ -511,9 +511,20 @@ public class SprintService implements ISprintService {
 	}
 	@Override
 	public Map<String, Object> getSprintSpentChartData(UUID id){
+		
 		Map<String,Object> map = sprintDao.getSpentChartDoc(id);
+		
 		return map;
 		
 	}
+	
+	@Override
+	public Map<String, Object> getDocByBurnDownChartData(UUID id){
+		//System.out.println(":::::::::::service:::::::::::::::"+id);
+		Map<String,Object> map = sprintDao.getDocByBurnDownChart(id);
+		return map;
+		
+	}
+	
 
 }
