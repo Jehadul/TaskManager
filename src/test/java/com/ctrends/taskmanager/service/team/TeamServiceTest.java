@@ -83,4 +83,14 @@ public class TeamServiceTest {
 		List<TeamMemberDetails> teamMemberDetails =teamService.getByTeamCode(teamCode);
 		assertNotNull(teamMemberDetails);
 	}
+	
+	@Test
+	@WithMockUser("CTS0104")
+	public void testFind_ReturnTeamList() {
+		Map<String, String> requestMap=new HashMap<String, String>();
+		requestMap.put("team_code", teamCode);
+		requestMap.put("team_name", teamCode);
+		List<Team>  teamLi = teamService.find(requestMap);
+		assertNotNull(teamLi);
+	}
 }
