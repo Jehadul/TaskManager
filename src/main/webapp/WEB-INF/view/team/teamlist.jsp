@@ -16,6 +16,11 @@
 	</section>
 
 	<div class="container-fluid container-fullw bg-white">
+	
+	<center>
+		<a style="margin-right:15px" target="_blank" href="http://localhost:8080/?desturl=/taskman/team/create">Create Team</a>
+	</center>
+	
 		<fieldset>
 			<legend> Team List&nbsp;&nbsp; </legend>
 			<c:forEach var="i" begin="0" end="${data.teamLi.size()-1}">

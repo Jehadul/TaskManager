@@ -15,6 +15,7 @@ import com.ctrends.taskmanager.model.team.Team;
 import com.ctrends.taskmanager.model.team.TeamMemberDetails;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManagerDetails;
 import com.ctrends.taskmanager.model.user.User;
+import com.ctrends.taskmanager.model.userstory.UserStory;
 import com.ctrends.taskmanager.service.user.IUserService;
 
 @Service("teamService")
@@ -280,8 +281,12 @@ public class TeamService implements ITeamService {
 	
 	@Override
 	public List<TeamMemberDetails> getByTeamCode(String teamCode) {
-		// TODO Auto-generated method stub
 		return teamDAO.getDocByIdTeamCode(teamCode);
+	}
+	
+	@Override
+	public List<Team> find(Map<String, String> searchingKey) {
+		return teamDAO.getDocs(searchingKey);
 	}
 	
 
