@@ -35,4 +35,14 @@ public class TaskReportControllerTest {
 	public void testGenerateUserWiseReport__ReturnModelAndView() {
 		assertTrue(true);
 	}
+	
+	@Test
+	public void testdailySummary__ReturnModelAndView(){
+		assertTrue(true);
+	}
+	
+	@Test
+	public void testgenerateDailySummaryReport__ReturnModelAndView(){
+		assertTrue(true);
+	}
 }

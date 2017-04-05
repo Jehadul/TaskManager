@@ -269,8 +269,8 @@ public class TeamService implements ITeamService {
 
 	@Override
 	public UUID delete(Map<String, String[]> requestMap) {
-		// TODO Auto-generated method stub
-		return null;
+		UUID id = teamDAO.deleteDoc(UUID.fromString(requestMap.get("teamId")[0]));
+		return id;
 	}
 
 	@Override
