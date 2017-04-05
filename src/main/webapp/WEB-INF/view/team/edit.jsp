@@ -29,6 +29,7 @@
 					<div class="col-md-6">
 						<div class="form-group">
 							<cts:Label name="Team Code" labelFor="team_code" />
+							<cts:Hidden name="id" value="${map.team.id}" />
 							<cts:TextBox name="team_code"
 								value="${map.team.teamCode}"	cssClass="dirty-check required" readonly="" />
 						</div>
@@ -70,7 +71,7 @@
 								</button>
 							</legend>
 							<div class="table-responsive">
-								<table class="table table-striped table-hover" id=story_list>
+								<table class="table table-striped table-hover" id=emp_list>
 									<thead>
 										<tr>
 											<th>Code</th>
@@ -81,7 +82,7 @@
 									</thead>
 									<tbody>
 										<c:set var="i" value="0" scope="request" />
-										<c:forEach var="emp" items="${map.teamDetails}">
+										<c:forEach var="emp" items="${map.teamMemberDetailsList}">
 											<tr>
 												<td>
 													<input name="emp_code[]" type="text" id="code_${i}"  class="project_code view" value="${emp.getEmpCode()}" />
@@ -202,4 +203,19 @@
 		
 		
 	}
+	
+	function showMessage(data) {
+		if (data.outcome == 'success') {
+			isDirty = false;
+			ShowSuccessMsg('Team Updated', data.message);
+
+			LoadMainContent('/taskman/team/show/' + data.id);
+		} else {
+			ShowErrorMsg('Team was not Updated', data.message);
+			var msg = ConcatWithBR(data.error);
+			$(".alert").html(msg);
+			$(".alert").removeClass("hidden");
+		}
+	}
+	
 </script>
