@@ -297,8 +297,8 @@ public class SprintDAO implements ISprintDAO {
 			List<Object> dailyburnhours = new ArrayList<>();
 			try {
 				if (dateCheck(sprintAllDays.get(i))) {
+					System.out.println(sprintAllDays.get(i)+"::::::::::::in day:::::::::::::");
 					double remDaily = 0;
-
 					for (Iterator it = (Iterator) crtask.iterate(); ((java.util.Iterator) it).hasNext();) {
 						Object[] row = (Object[]) ((java.util.Iterator) it).next();
 						String sql = "From TaskLog where id=:id and stopDate=:stopDate ORDER BY stopDate DESC";
@@ -322,6 +322,7 @@ public class SprintDAO implements ISprintDAO {
 					 * //dayremaingTime.add(0); System.out.println(i);
 					 * burnHours.add(i, dailyburnhours);
 					 */
+					break;
 				}
 			} catch (ParseException e) {
 				e.getMessage();
@@ -349,9 +350,9 @@ public class SprintDAO implements ISprintDAO {
 		DecimalFormat df = new DecimalFormat("#.00");
 		int c = 0;
 		while (start.isBefore(end) || start.equals(end)) {
-
-			start = start.plusDays(1);
 			sqlDate.add(Date.valueOf(start));
+			start = start.plusDays(1);
+			
 		}
 		return sqlDate;
 
@@ -365,16 +366,17 @@ public class SprintDAO implements ISprintDAO {
 		Calendar calendarestimat = Calendar.getInstance();
 
 		calendar.setTime(sdf.parse(timeStamp));
-		calendar.add(Calendar.DATE, 1); // number of days to add
+		//calendar.add(Calendar.DATE, 1); // number of days to add
 
 		timeStamp = sdf.format(calendar.getTime()); // dt is now the new date
 		String sqlDate = sdf.format(date);
 		calendarestimat.setTime(sdf.parse(sqlDate));
 
-		if (calendar.before(calendarestimat)) {
+		if (calendarestimat.after(calendar)) {
 			System.out.println(timeStamp + " == " + sqlDate);
 			return false;
 		}
+		System.out.println(timeStamp + " == " + sqlDate+":::::::::lea::::::::::::::::::");
 		return true;
 
 	}
