@@ -93,7 +93,7 @@ $(function () {
 	      color: 'rgba(255,0,0,0.25)',
 	      lineWidth: 2,
 	     // data: [110, 100]
-	    	data: burnValues
+	    data: burnValues
 	    }, {
 	      name: 'Actual Burn',
 	      color: 'rgba(0,120,200,0.75)',
