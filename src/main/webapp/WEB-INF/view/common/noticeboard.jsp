@@ -20,6 +20,7 @@
 	<center>
 		<a style="margin-right:15px" href="http://localhost:8080/?desturl=/taskman/userstory/story/storylist">Story Manager</a>
 		<a style="margin-right:15px" href="http://localhost:8080/?desturl=/taskman/tman/sprint/sprintlist">Sprint Manager</a>
+		<a style="margin-right:15px" href="http://localhost:8080/?desturl=/taskman/tman/tasks/tasklist">Task Manager</a>
 		<a style="margin-right:15px" href="http://localhost:8080/?desturl=/taskman/report/tasklogreport">User Wise Daily Report</a>
 		<a href="http://localhost:8080/?desturl=/taskman/team/teamlist">Team List</a>
 	</center>

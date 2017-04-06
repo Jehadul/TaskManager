@@ -15,7 +15,7 @@
 	</section>
 
 	<div class="container-fluid container-fullw bg-white">
-
+		<div class="row"><div id="spentCharttext" class="center-block"></div></div>
 		<div id="burndown"></div>
 	</div>
 </div>
@@ -92,8 +92,8 @@ $(function () {
 	      name: 'Ideal Burn',
 	      color: 'rgba(255,0,0,0.25)',
 	      lineWidth: 2,
-	      data: [110, 100]
-	    	//data: burnValues
+	     // data: [110, 100]
+	    	data: burnValues
 	    }, {
 	      name: 'Actual Burn',
 	      color: 'rgba(0,120,200,0.75)',
@@ -105,7 +105,30 @@ $(function () {
 	    }]
 	  });
 	});
-	//console.log(days);
+	var sp = jsonMap.sprint;
+	console.log(sp);
+	var html = '<table class="table table-bordered info">'
+					+'<thead>'
+						+'<tr>'
+							+' <th>Sprint code</th>'
+							+' <th>Sprint Title</th>'
+							+' <th>Sprint Goal</th>'
+							+' <th>Sprint start date</th>'
+							+' <th>Sprint end date</th>'
+						+'</tr>'
+					+'</thead>'
+					+'<tbody>'
+						+'<tr>'
+							+' <td>'+sp[0].sprintCode+'</td>'
+							+' <td>'+sp[0].sprintName+'</td>'
+							+' <td>'+sp[0].sprintGoal+'</td>'
+							+' <td>'+sp[0].startDate+'</td>'
+							+' <td>'+sp[0].endDate+'</td>'
+						+'</tr>'
+					+'</tbody>'
+					+' </table>';
+			$("#spentCharttext").append(html);
+			$(".highcharts-credits").remove();
 </script>
 <style>
 #burndown {
