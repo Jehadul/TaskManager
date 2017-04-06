@@ -1,10 +1,7 @@
 package com.ctrends.taskmanager.controller.tman_sprint;
 
-import java.sql.Date;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -13,7 +10,6 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.core.Context;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -32,8 +28,6 @@ import com.ctrends.taskmanager.model.taskmanage.Suite;
 import com.ctrends.taskmanager.model.tman.Tasks;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManager;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManagerDetails;
-import com.ctrends.taskmanager.model.tman_sprint.SprintView;
-import com.ctrends.taskmanager.model.user.User;
 import com.ctrends.taskmanager.service.tman_sprint.ISprintService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
