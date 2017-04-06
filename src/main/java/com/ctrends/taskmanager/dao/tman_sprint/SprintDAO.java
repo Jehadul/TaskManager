@@ -131,14 +131,21 @@ public class SprintDAO implements ISprintDAO {
 	@Transactional
 	@Override
 	public UUID updateDoc(SprintManager doc) {
+		System.out.println(doc.getId()+":::::::::::dao::::::::::::::::::::");
+		String sql = "delete SprintManagerDetails where sprintId = '"+doc.getId()+"'";
+		Query q = sessionfactory.getCurrentSession().createQuery(sql);
+		q.executeUpdate();
+		
+		
 		for (int i = 0; i < doc.getSteps().size(); i++) {
 			SprintManagerDetails sprintDetails = new SprintManagerDetails();
 			sprintDetails = doc.getSteps().get(i);
-			sessionfactory.getCurrentSession().saveOrUpdate(sprintDetails);
+			sessionfactory.getCurrentSession().save(sprintDetails);
 			sessionfactory.getCurrentSession().flush();
 		}
 		sessionfactory.getCurrentSession().saveOrUpdate(doc);
 		sessionfactory.getCurrentSession().flush();
+		System.out.println(doc.getId()+":::::::::::dao2::::::::::::::::::::");
 		return doc.getId();
 	}
 
