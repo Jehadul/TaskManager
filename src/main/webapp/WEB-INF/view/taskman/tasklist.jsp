@@ -13,7 +13,10 @@
 			</ol>
 		</div>
 	</section>
-
+	<center>
+		<a href="http://localhost:8080/?desturl=/taskman/tman/tasks/create">Create New Task</a>
+	    <a style="margin-right:15px" href="http://localhost:8080">Dashboard</a>
+	</center>
 	<div class="container-fluid container-fullw bg-white">
 		<fieldset>
 			<legend> Task List&nbsp;&nbsp; </legend>

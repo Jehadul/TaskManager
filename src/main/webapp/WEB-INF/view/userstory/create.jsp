@@ -16,7 +16,9 @@
 			</ol>
 		</div>
 	</section>
-
+	<center>
+		<a href="http://localhost:8080/?desturl=/taskman/userstory/story/storylist">Back</a>
+	</center>
 	<div class="container-fluid container-fullw bg-white">
 		<cts:AjaxForm action="/taskman/userstory/story/store" dataHandler="showMessage" >
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />

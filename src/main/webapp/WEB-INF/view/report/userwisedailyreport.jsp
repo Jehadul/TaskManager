@@ -17,6 +17,9 @@
 			<div class="col-sm-2"></div>
 		</div>
 	</section>
+	<center>
+		<a href="http://localhost:8080">Back</a>
+	</center>
 	<div class="container-fluid container-fullw bg-white">	
 		<div class="row">
 			<div class="col-md-8">

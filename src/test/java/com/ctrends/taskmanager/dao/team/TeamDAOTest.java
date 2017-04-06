@@ -117,5 +117,31 @@ public class TeamDAOTest {
 		assertFalse(tr);
 	}
 	
+	@Test
+	public void testDelete_ReturnUUID(){
+		UUID uid=UUID.fromString("fa24e9f7-e6c6-48c8-9594-ea0f4fd6de8d");
+		UUID id=teamDAO.deleteDoc(uid);
+		assertEquals(id.getClass(), uid.getClass());
+	}
 	
+	@Test
+	public void testDeleteDocTeamDetailsById_ReturnUUID(){
+		UUID uid=UUID.fromString("9191999b-632e-43c0-a939-50bb7097713d");
+		UUID id=teamDAO.deleteDocTeamDetailsById(uid);
+		assertEquals(id.getClass(), uid.getClass());
+	}
+	
+	@Test
+	public void testGetTeamMemberDetailsByEmpCodeAndTeamId_ReturnList(){
+				
+		UUID id=UUID.fromString("9d9c2c22-5960-45c6-85a7-708f7e759f46");
+		String st="0001";
+		TeamMemberDetails teamMemberDetails=teamDAO.getTeamMemberDetailsByEmpCodeAndTeamId(st,id);
+		assertNotNull(teamMemberDetails);
+	}
+	
+	@Test
+	public void testUpdateDoc_ReturnUUID(){
+		
+	}
 }
