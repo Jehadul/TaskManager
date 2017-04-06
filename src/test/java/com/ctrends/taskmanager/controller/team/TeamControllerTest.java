@@ -105,6 +105,18 @@ public class TeamControllerTest {
 		assertTrue(mav.hasView());
 	}
 	
+	@Test
+	public void testShowSearch_ReturnsModelAndView() {
+		ModelAndView mav = teamController.showSearch(request);
+		assertTrue(mav.hasView());
+	}
+
+	@Test
+	public void testSearch_ReturnsModelAndView() {
+		String mav = teamController.search(request);
+		assertTrue(st.getClass() == mav.getClass());
+	}
+	
 
 
 }

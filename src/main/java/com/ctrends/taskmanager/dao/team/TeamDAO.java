@@ -39,7 +39,7 @@ public class TeamDAO implements ITeamDAO {
 		Query query = sessionFactory.getCurrentSession().createQuery("From Team where createdByUsername =:userName");
 		query.setParameter("userName", currentUser.getUsername());
 		List<Team> teamLi = query.list();
-		System.out.println(teamLi.get(0).getId());
+		//System.out.println(teamLi.get(0).getId());
 		for(int i=0; i<teamLi.size(); i++){
 			Query teamMemberDetailsQuery=sessionFactory.getCurrentSession().createQuery("From TeamMemberDetails where teamId =:teamId");
 			teamMemberDetailsQuery.setParameter("teamId", teamLi.get(i).getId());
@@ -115,20 +115,12 @@ public class TeamDAO implements ITeamDAO {
 		Team team = (Team) sessionFactory.getCurrentSession().load(Team.class, id);
 		sessionFactory.getCurrentSession().delete(team);
 		
-		sessionFactory.getCurrentSession().flush();
-		/*
 		String hql = "delete from TeamMemberDetails where teamId= :teamId";
         Query query = sessionFactory.getCurrentSession().createQuery(hql);
-        query.setString("teamId", id.toString());
+        query.setParameter("teamId", id);
         query.executeUpdate();
         
         sessionFactory.getCurrentSession().flush();
-		return id;
-		
-		TeamMemberDetails team=(TeamMemberDetails)sessionFactory.getCurrentSession().load(TeamMemberDetails.class, id);
-		sessionFactory.getCurrentSession().delete(team);
-		sessionFactory.getCurrentSession().flush();
-		*/
 		return id;
 	}
 	

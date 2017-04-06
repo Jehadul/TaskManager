@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.core.Context;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -20,6 +21,7 @@ import com.ctrends.taskmanager.bean.WSResponse;
 import com.ctrends.taskmanager.model.team.Team;
 import com.ctrends.taskmanager.model.team.TeamMemberDetails;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManager;
+import com.ctrends.taskmanager.model.userstory.UserStory;
 import com.ctrends.taskmanager.service.team.ITeamService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -126,23 +128,45 @@ public class TeamController implements ITeamController {
 		return new WSResponse("success", "Team deleted successfully", id, null, "doc",null);
 	}
 
+	@RequestMapping(value = "/searchteam", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Override
-	public ModelAndView showSearch(HttpServletRequest request) {
-		// TODO Auto-generated method stub
-		return null;
+	public ModelAndView showSearch(@Context HttpServletRequest request) {
+		String actionTypeCode = request.getParameter("action_type_code");
+		Map<String, Object> data = new HashMap<String, Object>();
+		
+		System.out.println("actionTypeCode::"+actionTypeCode);
+		data.put("action_type_code", actionTypeCode);
+		return new ModelAndView("team/searchteam", "data", data);
 	}
 
+	@RequestMapping(value = "/teamsearch", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Override
-	public String search(HttpServletRequest request) {
-		// TODO Auto-generated method stub
-		return null;
+	public String search(@Context HttpServletRequest request) {
+		Map<String, String> searchingKey = new HashMap<String, String>();
+
+		if(request.getParameter("team_code")==null){
+			searchingKey.put("teamCode", "");
+		}else{
+			searchingKey.put("teamCode", request.getParameter("team_code"));
+		}
+		
+		if(request.getParameter("team_name")==null){
+			searchingKey.put("teamName", "");
+		}else{
+			searchingKey.put("teamName", request.getParameter("team_name"));
+		}
+		List<Team> data = teamService.find(searchingKey);
+		
+		GsonBuilder gBuilder = new GsonBuilder();
+		Gson gson = gBuilder.create();
+		
+		System.out.println(":::"+gson.toJson(data));
+		return gson.toJson(data);
 	}
 	
 	@RequestMapping(value = "/create", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Override
 	public ModelAndView create(HttpServletRequest request) {
-
-		
 		return new ModelAndView("team/create");
 
 	}

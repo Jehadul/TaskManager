@@ -54,6 +54,7 @@ public class SprintDAO implements ISprintDAO {
 				.createQuery("From SprintManager where createdByUsername =:userName");
 		query.setParameter("userName", currentUser.getUsername());
 		List<SprintManager> splist = query.list();
+		
 		return splist;
 	}
 
@@ -133,18 +134,20 @@ public class SprintDAO implements ISprintDAO {
 	@Transactional
 	@Override
 	public UUID updateDoc(SprintManager doc) {
-		SprintManagerDetails sprintDetailsForDelete = new SprintManagerDetails();
-		sprintDetailsForDelete.setSprintId(doc.getId());
-		sessionfactory.getCurrentSession().delete(sprintDetailsForDelete);
 
+		System.out.println(doc.getId()+":::::::::::dao::::::::::::::::::::");
+		String sql = "delete SprintManagerDetails where sprintId = '"+doc.getId()+"'";
+		Query q = sessionfactory.getCurrentSession().createQuery(sql);
+		q.executeUpdate();
 		for (int i = 0; i < doc.getSteps().size(); i++) {
 			SprintManagerDetails sprintDetails = new SprintManagerDetails();
 			sprintDetails = doc.getSteps().get(i);
-			sessionfactory.getCurrentSession().saveOrUpdate(sprintDetails);
+			sessionfactory.getCurrentSession().save(sprintDetails);
 			sessionfactory.getCurrentSession().flush();
 		}
 		sessionfactory.getCurrentSession().saveOrUpdate(doc);
 		sessionfactory.getCurrentSession().flush();
+		System.out.println(doc.getId()+":::::::::::dao2::::::::::::::::::::");
 		return doc.getId();
 	}
 
@@ -153,6 +156,12 @@ public class SprintDAO implements ISprintDAO {
 	public UUID deleteDoc(UUID id) {
 		SprintManager app = (SprintManager) sessionfactory.getCurrentSession().load(SprintManager.class, id);
 		sessionfactory.getCurrentSession().delete(app);
+		
+		String hql = "delete from SprintManagerDetails where sprintId= :sprintId";
+        Query query = sessionfactory.getCurrentSession().createQuery(hql);
+        query.setParameter("sprintId", id);
+        query.executeUpdate();
+
 		sessionfactory.getCurrentSession().flush();
 		return id;
 	}

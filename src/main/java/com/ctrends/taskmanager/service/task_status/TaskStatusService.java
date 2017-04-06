@@ -69,4 +69,10 @@ public class TaskStatusService implements ITaskStatusService {
 		 
 	}
 
+	@Override
+	public Map<String, String> manageselection(Map<String, String[]> map) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

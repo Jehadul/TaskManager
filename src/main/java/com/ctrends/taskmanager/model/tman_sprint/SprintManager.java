@@ -24,34 +24,17 @@ public class SprintManager {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private UUID id;
 	
-	
-	@Column(name="suite_name")
-	private String suiteName;
-	
-	
-	@Column(name="suite_code")
-	private String suiteCode;
-	
-	@Column(name="module_code")
-	private String moduleCode;
-	
-	@Column(name="priv_grp_code")
-	private int privGrpCode;
-	
-	@Column(name="priv_grp_name")
-	private String privGrpName;
-
-	@Column(name="module_name")
-	private String moduleName;
-	
-	@Column(name="privilege_name")
-	private String privilegeName;
-	
 	@Column(name="sprint_code")
 	private String sprintCode;
 	
 	@Column(name="sprint_name")
 	private String sprintName;
+	
+	@Column(name="team_code")
+	private String teamCode;
+	
+	@Column(name="team_name")
+	private String teamName;
 	
 	@Column(name="sprint_description")
 	private String sprintDescription;
@@ -68,21 +51,6 @@ public class SprintManager {
 	@Column(name="sprint_number")
 	private double sprintNumber;
 	
-	@Column(name="sprint_stories")
-	private String sprintStories;
-	
-	@Column(name="sprint_story_code")
-	private String sprintStoryCode;
-	
-	public String getSprintStoryCode() {
-		return sprintStoryCode;
-	}
-
-	public void setSprintStoryCode(String sprintStoryCode) {
-		this.sprintStoryCode = sprintStoryCode;
-	}
-
-
 	@Column(name="created_by_code")
 	private String createdByCode;
 	
@@ -104,7 +72,6 @@ public class SprintManager {
 	@Column(name="created_at")
 	private Timestamp createdAt;
 	
-
 	@Column(name="updated_by_code")
 	private String updatedByCode;
 	
@@ -247,8 +214,6 @@ public class SprintManager {
 	@Transient
 	private List<BurndownChart> charts;
 	
-	
-
 	public List<SprintManagerDetails> getSteps() {
 		return steps;
 	}
@@ -265,62 +230,6 @@ public class SprintManager {
 		this.id = id;
 	}
 
-	public String getSuiteName() {
-		return suiteName;
-	}
-
-	public void setSuiteName(String suiteName) {
-		this.suiteName = suiteName;
-	}
-
-	public String getSuiteCode() {
-		return suiteCode;
-	}
-
-	public void setSuiteCode(String suiteCode) {
-		this.suiteCode = suiteCode;
-	}
-
-	public String getModuleCode() {
-		return moduleCode;
-	}
-
-	public void setModuleCode(String moduleCode) {
-		this.moduleCode = moduleCode;
-	}
-
-	public int getPrivGrpCode() {
-		return privGrpCode;
-	}
-
-	public void setPrivGrpCode(int privGrpCode) {
-		this.privGrpCode = privGrpCode;
-	}
-
-	public String getPrivGrpName() {
-		return privGrpName;
-	}
-
-	public void setPrivGrpName(String privGrpName) {
-		this.privGrpName = privGrpName;
-	}
-
-	public String getModuleName() {
-		return moduleName;
-	}
-
-	public void setModuleName(String moduleName) {
-		this.moduleName = moduleName;
-	}
-
-	public String getPrivilegeName() {
-		return privilegeName;
-	}
-
-	public void setPrivilegeName(String privilegeName) {
-		this.privilegeName = privilegeName;
-	}
-
 	public String getSprintCode() {
 		return sprintCode;
 	}
@@ -335,6 +244,22 @@ public class SprintManager {
 
 	public void setSprintName(String sprintName) {
 		this.sprintName = sprintName;
+	}
+	
+	public String getTeamCode() {
+		return teamCode;
+	}
+
+	public void setTeamCode(String teamCode) {
+		this.teamCode = teamCode;
+	}
+
+	public String getTeamName() {
+		return teamName;
+	}
+
+	public void setTeamName(String teamName) {
+		this.teamName = teamName;
 	}
 
 	public String getSprintDescription() {
@@ -376,15 +301,6 @@ public class SprintManager {
 	public void setSprintNumber(double sprintNumber) {
 		this.sprintNumber = sprintNumber;
 	}
-
-	public String getSprintStories() {
-		return sprintStories;
-	}
-
-	public void setSprintStories(String sprintStories) {
-		this.sprintStories = sprintStories;
-	}
-
 
 	public String getCreatedByCode() {
 		return createdByCode;

@@ -23,6 +23,26 @@ public class SprintManagerDetails {
 	@Column(name = "suite_code")
 	private String suiteCode;
 
+	@Column(name="suite_name")
+	private String suiteName;
+	
+	@Column(name="module_code")
+	private String moduleCode;
+	
+	@Column(name="module_name")
+	private String moduleName;
+	
+	@Column(name="priv_grp_code")
+	private int privGrpCode;
+	
+	@Column(name="priv_grp_name")
+	private String privGrpName;
+	
+	@Column(name="privilege_code")
+	private String privilegeCode;
+	
+	@Column(name="privilege_name")
+	private String privilegeName;
 	
 	@Column(name = "sprint_story_code")
 	private String sprintStoryCode;
@@ -35,7 +55,7 @@ public class SprintManagerDetails {
 	
 	@Column(name = "sprint_id")
 	private UUID sprintId;
-
+	
 	@Column(name = "branch_code")
 	private String branchCode;
 
@@ -81,8 +101,6 @@ public class SprintManagerDetails {
 	@Column(name = "created_at")
 	private Timestamp createdAt;
 
-	
-
 	@Column(name = "profitcenter_code")
 	private String profitcenterCode;
 
@@ -126,9 +144,6 @@ public class SprintManagerDetails {
 		this.suiteCode = suiteCode;
 	}
 
-
-
-	
 	public String getSprintCode() {
 		return sprintCode;
 	}
@@ -352,6 +367,62 @@ public class SprintManagerDetails {
 
 	public void setUpdatedByCompanyName(String updatedByCompanyName) {
 		this.updatedByCompanyName = updatedByCompanyName;
+	}
+
+	public String getSuiteName() {
+		return suiteName;
+	}
+
+	public void setSuiteName(String suiteName) {
+		this.suiteName = suiteName;
+	}
+
+	public String getModuleCode() {
+		return moduleCode;
+	}
+
+	public void setModuleCode(String moduleCode) {
+		this.moduleCode = moduleCode;
+	}
+
+	public String getModuleName() {
+		return moduleName;
+	}
+
+	public void setModuleName(String moduleName) {
+		this.moduleName = moduleName;
+	}
+
+	public int getPrivGrpCode() {
+		return privGrpCode;
+	}
+
+	public void setPrivGrpCode(int privGrpCode) {
+		this.privGrpCode = privGrpCode;
+	}
+
+	public String getPrivGrpName() {
+		return privGrpName;
+	}
+
+	public void setPrivGrpName(String privGrpName) {
+		this.privGrpName = privGrpName;
+	}
+
+	public String getPrivilegeCode() {
+		return privilegeCode;
+	}
+
+	public void setPrivilegeCode(String privilegeCode) {
+		this.privilegeCode = privilegeCode;
+	}
+
+	public String getPrivilegeName() {
+		return privilegeName;
+	}
+
+	public void setPrivilegeName(String privilegeName) {
+		this.privilegeName = privilegeName;
 	}
 
 	

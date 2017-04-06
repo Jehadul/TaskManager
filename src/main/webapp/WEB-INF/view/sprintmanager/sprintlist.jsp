@@ -27,12 +27,12 @@
 						<thead>
 							<tr>
 								<th style="display:none"></th>
-								<th>Suite Name</th>
-								<th>Module Name</th>
-								<th>Privilege Name</th>
+								<th>Sprint Code</th>
 								<th>Sprint Name</th>
-								<th>Sprint Number</th>
-								<th>Story Title</th>
+								<th>Team Name</th>
+								<th>Sprint Start</th>
+								<th>Sprint End</th>
+								<th>Sprint Goal</th>
 								<th data-orderable="false">Action</th>
 							</tr>
 						</thead>
@@ -40,12 +40,12 @@
 							<c:forEach var="sprint" items="${data.sprintlist}">
 								<tr>
 									<td style="display:none"><input type="hidden" name="id1" class="sprint_id" value="${sprint.getId()}" /></td>
-									<td><c:out value="${sprint.getSuiteName()}" /></td>
-									<td><c:out value="${sprint.getModuleName()}" /></td>
-									<td><c:out value="${sprint.getPrivilegeName()}" /></td>
+									<td><c:out value="${sprint.getSprintCode()}" /></td>
 									<td><c:out value="${sprint.getSprintName()}" /></td>
-									<td><c:out value="${sprint.getSprintNumber()}" /></td>
-									<td><c:out value="${sprint.getSprintStories()}" /></td>
+									<td><c:out value="${sprint.getTeamName()}" /></td>
+									<td><c:out value="${sprint.getStartDate()}" /></td>
+									<td><c:out value="${sprint.getEndDate()}" /></td>
+									<td><c:out value="${sprint.getSprintGoal()}" /></td>
 									<td>
 										<button type="button" onclick="editRow(this);" class="btn-edit btn btn-xs">
 											<span class="fa fa-edit"></span>
@@ -62,11 +62,12 @@
 										</button>
 			
 									<input type="hidden" name="id[]" class="sprint_id1" value="${sprint.getId()}" />	
-									<input type="hidden" name="suite_Name[]" class="suite_Name" value="${sprint.getSuiteName()}" />
-									<input type="hidden" name="module_Name[]" class="module_Name" value="${sprint.getModuleName()}" />
-									<input type="hidden" name="privilege_Name[]" class="privilege_Name" value="${sprint.getPrivilegeName()}" />
-									<input type="hidden" name="sprint_Name[]" class="sprint_Name" value="${sprint.getSprintName()}" />
-									<input type="hidden" name="sprint_Number[]" class="sprint_Number" value="${sprint.getSprintNumber()}" />
+									<input type="hidden" name="suite_Name[]" class="suite_Name" value="${sprint.getSprintCode()}" />
+									<input type="hidden" name="module_Name[]" class="module_Name" value="${sprint.getSprintName()}" />
+									<input type="hidden" name="privilege_Name[]" class="privilege_Name" value="${sprint.getTeamName()}" />
+									<input type="hidden" name="sprint_Name[]" class="sprint_Name" value="${sprint.getStartDate()}" />
+									<input type="hidden" name="sprint_Number[]" class="sprint_Number" value="${sprint.getEndDate()}" />
+									<input type="hidden" name="sprint_Number[]" class="sprint_Number" value="${sprint.getSprintGoal()}" />
 									</td>
 								</tr>
 							</c:forEach>
