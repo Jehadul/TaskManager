@@ -1,19 +1,14 @@
 package com.ctrends.taskmanager.controller.tman_sprint;
 
-import java.sql.Date;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.core.Context;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -32,8 +27,6 @@ import com.ctrends.taskmanager.model.taskmanage.Suite;
 import com.ctrends.taskmanager.model.tman.Tasks;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManager;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManagerDetails;
-import com.ctrends.taskmanager.model.tman_sprint.SprintView;
-import com.ctrends.taskmanager.model.user.User;
 import com.ctrends.taskmanager.service.tman_sprint.ISprintService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -91,9 +84,15 @@ public class SprintController implements ISprintController {
 		Map<String, String[]> sprint = request.getParameterMap();
 
 		Map<String, String> data = sprintService.insert(sprint);
-
-		return new WSResponse("success", "Saved successfully", UUID.fromString(data.get("id")), null, data.get("mode"),
-				data);
+		
+		if(data.get("id") == null){
+			return new WSResponse("error", "Sprint Code Must be Unique",null , null, null, null);
+		}
+		else{
+			UUID id = UUID.fromString(data.get("id"));
+			return new WSResponse("success", "Saved Successfully", id, null, data.get("mode"), data);
+			
+		}
 	}
 
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -102,36 +101,11 @@ public class SprintController implements ISprintController {
 	public ModelAndView edit(@PathVariable(value = "id") UUID id) {
 		Map<String, Object> map = new HashMap<String, Object>();
 
-		List<Suite> suiteLi = sprintDao.getAllSuites();
-
-		Map<String, String> suiteCodes = new HashMap<String, String>();
-		for (int i = 0; i < suiteLi.size(); i++) {
-			suiteCodes.put(suiteLi.get(i).getSuiteCode(), suiteLi.get(i).getSuiteShortName());
-		}
-
-		List<Module> moduleLi = sprintDao.getAllModules();
-
-		Map<String, String> moduleCodes = new HashMap<String, String>();
-		for (int i = 0; i < moduleLi.size(); i++) {
-			moduleCodes.put(moduleLi.get(i).getModCode(), moduleLi.get(i).getModShortName());
-		}
-
-		List<PrivGroup> privGrpLi = sprintDao.getAllPrivGrps();
-
-		Map<Integer, String> privGrpCodes = new HashMap<Integer, String>();
-		for (int i = 0; i < privGrpLi.size(); i++) {
-			privGrpCodes.put(privGrpLi.get(i).getPrivGrpCode(), privGrpLi.get(i).getPrivGrpName());
-		}
-
 		SprintManager sprintManager = sprintService.getById(id);
 
 		List<SprintManagerDetails> sprintDetails = sprintService.getByIdSprintCode(sprintManager.getSprintCode());
 
-		map.put("mode", "doc");
 		map.put("sprintManager", sprintManager);
-		map.put("suiteCodes", suiteCodes);
-		map.put("moduleCodes", moduleCodes);
-		map.put("privGrpCodes", privGrpCodes);
 		map.put("sprintDetails", sprintDetails);
 
 		GsonBuilder gson = new GsonBuilder();
@@ -164,9 +138,9 @@ public class SprintController implements ISprintController {
 	@Override
 	public WSResponse update(HttpServletRequest request) {
 		Map<String, String[]> sprintManager = request.getParameterMap();
+		System.out.println(sprintManager.get("id")[0]+"::::::::::::::::::::::::");
 		Map<String, String> data = sprintService.update(sprintManager);
-		System.out.println(request.getParameter("sprint_code"));
-
+		
 		return new WSResponse("success", "Updated Successfully", UUID.fromString(data.get("id")), null,
 				data.get("mode"), data);
 
@@ -175,55 +149,8 @@ public class SprintController implements ISprintController {
 	@RequestMapping(value = "/create", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Override
 	public ModelAndView create(HttpServletRequest request) {
-		Map<String, Object> data = new HashMap<String, Object>();
-		String suiteCode = request.getParameter("suite_code");
-		String moduleCode = request.getParameter("module_code");
-		String privGroupCode = request.getParameter("priv_grp_code");
-
-		List<Suite> suites = sprintDao.getAllSuites();
-
-		Map<String, String> suiteCodes = new LinkedHashMap<String, String>();
-
-		if (suiteCode == null || suiteCode.isEmpty()) {
-			suiteCodes.put("-1", "--SELECT--");
-		}
-
-		for (int i = 0; i < suites.size(); i++) {
-			suiteCodes.put(suites.get(i).getSuiteCode(), suites.get(i).getSuiteShortName());
-		}
-
-		List<Module> modules = sprintDao.getBySuit(suiteCode);
-
-		Map<String, String> moduleCodes = new LinkedHashMap<String, String>();
-
-		if (moduleCode == null || moduleCode.isEmpty()) {
-			moduleCodes.put("-1", "--SELECT--");
-		}
-
-		for (int i = 0; i < modules.size(); i++) {
-			moduleCodes.put(modules.get(i).getModCode(), modules.get(i).getModShortName());
-		}
-
-		List<PrivGroup> privGrpLi = sprintDao.getPrivGroup(suiteCode, moduleCode);
-
-		Map<String, String> privgroups = new LinkedHashMap<String, String>();
-
-		if (privGroupCode == null || privGroupCode.isEmpty()) {
-			privgroups.put("-1", "--SELECT--");
-		}
-
-		for (int i = 0; i < privGrpLi.size(); i++) {
-			privgroups.put(String.valueOf(privGrpLi.get(i).getPrivGrpCode()), privGrpLi.get(i).getPrivGrpName());
-		}
-
-		data.put("suiteCodes", suiteCodes);
-		data.put("moduleCodes", moduleCodes);
-		data.put("privgroups", privgroups);
-		data.put("suiteCode", suiteCode);
-		data.put("privGroupCode", privGroupCode);
-		data.put("moduleCode", moduleCode);
-
-		return new ModelAndView("sprintmanager/create", "data", data);
+		
+		return new ModelAndView("sprintmanager/create");
 	}
 
 	@RequestMapping(value = "/sprintlist", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
