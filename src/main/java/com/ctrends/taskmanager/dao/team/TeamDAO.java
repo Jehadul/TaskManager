@@ -39,7 +39,6 @@ public class TeamDAO implements ITeamDAO {
 		Query query = sessionFactory.getCurrentSession().createQuery("From Team where createdByUsername =:userName");
 		query.setParameter("userName", currentUser.getUsername());
 		List<Team> teamLi = query.list();
-		System.out.println(teamLi.get(0).getId());
 		for(int i=0; i<teamLi.size(); i++){
 			Query teamMemberDetailsQuery=sessionFactory.getCurrentSession().createQuery("From TeamMemberDetails where teamId =:teamId");
 			teamMemberDetailsQuery.setParameter("teamId", teamLi.get(i).getId());
@@ -97,10 +96,13 @@ public class TeamDAO implements ITeamDAO {
 	@Transactional
 	@Override
 	public UUID updateDoc(Team doc) {	
+			
+			deleteDocTeamDetailsById(doc.getId());
+		
+			TeamMemberDetails teamDetails = null;
 			for (int i = 0; i < doc.getTeamDetails().size(); i++) {
-				TeamMemberDetails teamDetails = new TeamMemberDetails();
 				teamDetails = doc.getTeamDetails().get(i);
-				sessionFactory.getCurrentSession().saveOrUpdate(teamDetails);
+				sessionFactory.getCurrentSession().save(teamDetails);
 				sessionFactory.getCurrentSession().flush();
 			}
 			sessionFactory.getCurrentSession().saveOrUpdate(doc);
@@ -178,4 +180,38 @@ public class TeamDAO implements ITeamDAO {
 		}
 		return null;
 	}
+	
+	
+	@Transactional
+	@Override
+	public UUID deleteDocTeamDetailsById(UUID id) {		
+		String hql = "delete from TeamMemberDetails where teamId= :teamId";
+        Query query = sessionFactory.getCurrentSession().createQuery(hql);
+        query.setParameter("teamId", id);
+        query.executeUpdate();
+        
+        sessionFactory.getCurrentSession().flush();
+		return id;
+	}
+	
+	
+	@Transactional
+	@Override
+	public TeamMemberDetails getTeamMemberDetailsByEmpCodeAndTeamId(String empCode, UUID teamId){
+		Query query = (Query) sessionFactory.getCurrentSession()
+				.createQuery("From TeamMemberDetails WHERE teamId =:teamId AND empCode =:empCode");
+		query.setParameter("teamId", teamId);
+		query.setString("empCode", empCode);
+		TeamMemberDetails tmDetails = (TeamMemberDetails) query.uniqueResult();
+		
+		
+		return tmDetails;
+	}
+	
+	
+	
+	
+	
+	
+	
 }
