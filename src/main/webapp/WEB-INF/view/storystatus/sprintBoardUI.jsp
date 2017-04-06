@@ -12,6 +12,9 @@
          </ol>
       </div>
    </section>
+   <center>
+	    <a style="margin-right:15px" href="http://localhost:8080">Dashboard</a>
+	</center>
    <!-- start: USER PROFILE -->
    <div class="container-fluid  bg-white">
       <cts:AjaxForm action="/taskman/sprintboard/ui/manageSprintselection" dataHandler="showMessage">
