@@ -12,7 +12,9 @@
 			</ol>
 		</div>
 	</section>
-
+	<center>
+		<a href="http://localhost:8080/?desturl=/taskman/team/teamlist">Back</a>
+	</center>
 	<div class="container-fluid container-fullw bg-white">
 		<cts:AjaxForm action="/taskman/team/store"
 			dataHandler="showMessage">
