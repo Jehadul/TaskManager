@@ -145,7 +145,7 @@
 	var i = 0;
 	var loadUserStory = function(data){ 
 		var emp = JSON.parse(unescape(data));
-		var empCode          = emp.empCode;   
+		var empCode          = emp.empCode; 
 		var empName          = emp.empName;
 		var empUserName      = emp.username;
 		var rows = $("#emp_list tbody tr");
@@ -162,6 +162,7 @@
 		
 			var html = '<tr>' +					
 							'<td>'+ 
+								
 								'<input name="emp_code[]" type="text" id="code_'+i+'" class="project_code view" value="' + empCode + '" />' +
 							'</td>'+
 							'<td>'+ 
@@ -199,8 +200,7 @@
 			$("#nt_member").val(rows);
 		}else{
 			$("#nt_member").val("");
-		}
-		
+		}		
 		
 	}
 	
