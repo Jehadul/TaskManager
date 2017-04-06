@@ -39,27 +39,9 @@
 				<div class="col-md-6">
 					<table>
                         <tr>
-                            <td class="width-150"><cts:Label name="Suite Name" labelFor="suite_name"/></td>
+                            <td class="width-150"><cts:Label name="Srint Code" labelFor="sprint_code"/></td>
 								<td class="width-50">:</td>
-
-								<td><b>${map.sprint.suiteName}</b>
-								</td>
-
-
-                        </tr>
-                    </table>
-					<table>
-                        <tr>
-                            <td class="width-150"><cts:Label name="Module Name" labelFor="module_name"/></td>
-								<td class="width-50">:</td>
-								<td><b>${map.sprint.moduleName}</b></td>
-                        </tr>
-                    </table>
-					<table>
-                        <tr>
-                            <td class="width-150"><cts:Label name="Privilege Name" labelFor="privilege_name"/></td>
-								<td class="width-50">:</td>
-								<td><b>${map.sprint.privilegeName}</b></td>
+								<td><b>${map.sprint.sprintCode}</b></td>
                         </tr>
                     </table>
 					<table>
@@ -69,11 +51,19 @@
 								<td><b>${map.sprint.sprintName}</b></td>
                         </tr>
                     </table>
+					
+                    <table>
+                        <tr>
+                            <td class="width-150"><cts:Label name="Team Code" labelFor="team_code"/></td>
+								<td class="width-50">:</td>
+								<td><b>${map.sprint.teamCode}</b></td>
+                        </tr>
+                    </table>
 					<table>
                         <tr>
-                            <td class="width-150"><cts:Label name="Srint Code" labelFor="sprint_code"/></td>
+                            <td class="width-150"><cts:Label name="Team Name" labelFor="team_name"/></td>
 								<td class="width-50">:</td>
-								<td><b>${map.sprint.sprintCode}</b></td>
+								<td><b>${map.sprint.teamName}</b></td>
                         </tr>
                     </table>
 				</div>
@@ -130,6 +120,14 @@
 									<tr>
 										<th>Story Code</th>
 										<th>Story Name</th>
+										<th>Suite Code</th>
+										<th>Suite Name</th>
+										<th>Module Code</th>
+										<th>Module Name</th>
+										<th>PrivGrp Code</th>
+										<th>PrivGrp Name</th>
+										<th>Privilege Code</th>
+										<th>Privilege Name</th>
 									</tr>
 								</thead>
 								<tbody>									
@@ -137,6 +135,14 @@
 										<tr>
 											<td>${story.getSprintStoryCode()}</td>
 											<td>${story.getSprintStoryName()}</td>
+											<td>${story.getSuiteCode()}</td>
+											<td>${story.getSuiteName()}</td>
+											<td>${story.getModuleCode()}</td>
+											<td>${story.getModuleName()}</td>
+											<td>${story.getPrivGrpCode()}</td>
+											<td>${story.getPrivGrpName()}</td>
+											<td>${story.getPrivilegeCode()}</td>
+											<td>${story.getPrivilegeName()}</td>
 										</tr>
 									</c:forEach>									 
 								</tbody>

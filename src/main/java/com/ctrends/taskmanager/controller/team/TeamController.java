@@ -136,7 +136,7 @@ public class TeamController implements ITeamController {
 		
 		System.out.println("actionTypeCode::"+actionTypeCode);
 		data.put("action_type_code", actionTypeCode);
-		return new ModelAndView("team/searchstory", "data", data);
+		return new ModelAndView("team/searchteam", "data", data);
 	}
 
 	@RequestMapping(value = "/teamsearch", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)

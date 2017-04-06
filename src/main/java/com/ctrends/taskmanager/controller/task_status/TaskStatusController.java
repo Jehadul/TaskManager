@@ -144,5 +144,14 @@ public class TaskStatusController implements ITaskStatusController {
 		return new ModelAndView("storystatus/sprintBoardUI", "data", data);
 		
 	}
+	
+	@RequestMapping(value="/manageSelection", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)  
+	@Override
+	public WSResponse manageselection(HttpServletRequest request) {
+		Map<String,String[]> map = request.getParameterMap();
+		Map<String,String> data = taskStatusService.manageselection(map);
+		return new WSResponse("success", "Saved successfully", null, null, null, data);
+	}
+	
 
 }

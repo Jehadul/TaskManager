@@ -30,62 +30,48 @@
 			<div class="main-control">
 				<div class="row">
 					<div class="col-md-6">
-						
-						<div class="form-group">
-							<cts:Label labelFor="suite_code" name="Suite Name"/>
-							<cts:Select list="${data.suiteCodes}"  name="suite_code" value="${data.suiteCode }" cssClass="required"/>
-							<cts:Hidden name="suite_name" value=""/>
-						</div>
-						 <div class="form-group">
-							<cts:Label labelFor="module_code" name="Module Name"/>
-							<cts:Select list="${data.moduleCodes}"  name="module_code" value="${data.moduleCode}" cssClass="required"/>
-							<cts:Hidden name="module_name" value=""/>
-						</div>
-						<div class="form-group">
-							<cts:Label labelFor="priv_grp_code" name="Privilege Group"/>
-							<cts:Select list="${data.privgroups}"  name="priv_grp_code" value="${data.privGroupCode }" cssClass="required"/>
-							<cts:Hidden name="priv_grp_name" value=""/>
-						</div>
-						
 						<div class="form-group">
 							<cts:Label name="Sprint Code" labelFor="sprint_code"/>
 							<cts:TextBox name="sprint_code" cssClass="dirty-check required" readonly=""/>
 						</div>
-						
-						
-						
 						<div class="form-group">
 							<cts:Label name="Sprint Name" labelFor="sprint_name"/>
 							<cts:TextBox name="sprint_name" cssClass="dirty-check required" readonly=""/>
-						</div>
-						
-						
-
-					</div>
-					
-					<div class="col-md-6">
-						<div class="form-group">
-							<cts:Label name="Sprint Goal" labelFor="sprint_goal"/>
-							<cts:TextBox name="sprint_goal" cssClass="dirty-check" readonly=""/>
 						</div>
 						<div class="form-group">
 							<cts:Label name="Sprint Number" labelFor="sprint_number"/>
 							<cts:TextBox name="sprint_number" cssClass="dirty-check required number" readonly=""/>
 						</div>
-						
-						<%-- <fieldset>
+						<div class="form-group">
+							<cts:Label name="Sprint Goal" labelFor="sprint_goal"/>
+							<cts:TextBox name="sprint_goal" cssClass="dirty-check" readonly=""/>
+						</div>
+					</div>
+					
+					<div class="col-md-6">
+						<fieldset>
 							<legend>
-								Pick Story&nbsp;&nbsp;
-							<cts:Button cssClass="find" spanClass="search" id="btnStorySearch"/>			
+								Select Team&nbsp;&nbsp;
+							<cts:Button cssClass="find" spanClass="search" id="btnTeamSearch"/>			
 							</legend>
-						
-							<div class="form-group">
-								<cts:Label name="Sprint Stories" labelFor="sprint_stories"/>
-								<cts:TextBox name="sprint_stories" cssClass="dirty-check required" readonly="readonly"/>
-								<cts:Hidden name="sprint_story_code"/>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<cts:Label name="Team Code" labelFor="team_code" />
+										<cts:TextBox name="team_code" cssClass="dirty-check required"
+											readonly="readonly" />
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<cts:Label name="Team Name" labelFor="team_name" />
+										<cts:TextBox name="team_name" cssClass="dirty-check required"
+											readonly="readonly" />
+									</div>
+								</div>
 							</div>
-						</fieldset>	 --%>
-							
+						</fieldset>
+					
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">		
@@ -105,8 +91,6 @@
 							</div>
 						</div>	
 
-						
-
 					</div>
 					</div>
 					<div class="row">
@@ -119,8 +103,12 @@
 					           			<table class="table table-striped table-hover" id=story_list>
 						           			<thead>
 												<tr>
-													<th>Code</th>
-													<th>Name</th>
+													<th>Story Code</th>
+													<th>Story Name</th>
+													<th>Suite Name</th>
+													<th>Module Name</th>
+													<th>PrivGrp Name</th>
+													<th>Privilege Name</th>
 													<th>Action</th>
 												</tr>
 											</thead>
@@ -155,31 +143,6 @@
 </div>
 <script>
 InitHandlers();
-
-$("input[name='suite_name']").val($("#suite_code option:selected").text());
-$("input[name='module_name']").val($("#module_code option:selected").text());
-$("input[name='priv_grp_name']").val($("#priv_grp_code option:selected").text());
-
-$('#suite_code').on('change', function(){
-	var newSuiteCode = $("#suite_code").val();
-	LoadMainContent("/taskman/tman/sprint/create/?suite_code=" + newSuiteCode);
-
-});
-
-$('#module_code').on('change', function(){
-	var newSuiteCode = $("#suite_code").val();
-	var newModuleCode = $("#module_code").val();
-	LoadMainContent("/taskman/tman/sprint/create/?suite_code=" + newSuiteCode + "&" + "module_code=" + newModuleCode);
-
-});
-
-$('#priv_grp_code').on('change', function(){
-	var newSuiteCode = $("#suite_code").val();
-	var newModuleCode = $("#module_code").val();
-	var newPrivGroupCode = $("#priv_grp_code").val();
-	LoadMainContent("/taskman/tman/sprint/create/?suite_code=" + newSuiteCode + "&" + "module_code=" + newModuleCode + "&" + "priv_grp_code=" + newPrivGroupCode);
-}); 
-
 $("#btnAddStories").on("click",function(){
 	ShowModal("/taskman/userstory/story/searchstory/?action_type_code=SELECT&actioncallback=loadUserStory");
 });
@@ -202,15 +165,19 @@ function showMessage(data) {
 
 // search and select story for stories field
 
-$("#btnStorySearch").on("click",function(){
-	ShowModal("/taskman/userstory/story/searchstory/?action_type_code=SELECT&actioncallback=loadUserStory");
-});
-
 var i = 0;
 var loadUserStory = function(data){ 
 	var story = JSON.parse(unescape(data));
 	var storyCode          = story.userStoryCode;   
 	var storyName          = story.userStoryTitle;   
+	var suiteCode          = story.suiteCode; 
+	var suiteName		   = story.suiteName;
+	var moduleCode          = story.moduleCode; 
+	var moduleName		   = story.moduleName;
+	var privGrpCode          = story.privGrpCode; 
+	var privGrpName		   = story.privGrpName;
+	var privilegeCode          = story.privilegeCode; 
+	var privilegeName		   = story.privilegeName;
 	var rows = $("#story_list tbody tr");
 	
 	for(var i = 0; i< rows.length; i++){
@@ -233,6 +200,22 @@ var loadUserStory = function(data){
 						'<td>'+ 
 							'<input name="story_name[]" type="text" class="project_name view"  value="' + storyName + '" />' +
 						'</td>'+
+						'<td>'+ 
+						'<input name="suite_name[]" type="text" class="project_name view"  value="' + suiteName + '" />' +
+						'<input name="suite_code[]" type="hidden" class="project_name view"  value="' + suiteCode + '" />' +
+						'</td>'+
+						'<td>'+ 
+						'<input name="module_name[]" type="text" class="project_name view"  value="' + moduleName + '" />' +
+						'<input name="module_code[]" type="hidden" class="project_name view"  value="' + moduleCode + '" />' +
+						'</td>'+
+						'<td>'+ 
+						'<input name="priv_grp_name[]" type="text" class="project_name view"  value="' + privGrpName + '" />' +
+						'<input name="priv_grp_code[]" type="hidden" class="project_name view"  value="' + privGrpCode + '" />' +
+						'</td>'+
+						'<td>'+ 
+						'<input name="privilege_name[]" type="text" class="project_name view"  value="' + privilegeName + '" />' +
+						'<input name="privilege_code[]" type="hidden" class="project_name view"  value="' + privilegeCode + '" />' +
+						'</td>'+
 						'<td>'+
 							'<button type="button" onclick="removeStoryRow(this);" class="btn-del btn btn-xs">'+
 								'<span class="fa fa-times"></span>'+
@@ -254,35 +237,18 @@ var loadUserStory = function(data){
 var removeStoryRow = function(el){
 	$(el).closest("tr").remove();
 };
-/* 
 
-var delRow = function(el) {
-	swal({
-		title : "Are you sure?",
-		text : "Are you sure to delete this sprint?",
-		type : "warning",
-		showCancelButton : true,
-		confirmButtonColor : "#007AFF",
-		confirmButtonText : "Yes, delete it!",
-		closeOnConfirm : true
-	}, function() {
+ 
+$("#btnTeamSearch").on("click", function() {
+	ShowModal("/taskman/team/searchteam/?action_type_code=SELECT&actioncallback=loadTeam");
+});
 
-		$("input[name='id']").val($(el).closest("tr").find(".sprint_id").val());
-		$(el).closest("tr").remove();
-		$(".delete_form").submit();
-		
-		$.ajax({
-			type : 'GET',
-			url : '/taskman/tman/sprint/sprintlist',
-			success : function(response, status, xhr) {
-				LoadMainContent("/taskman/tman/sprint/sprintlist");
-			}
-		});
-		
-	});
-};
-
- */
+function loadTeam(team) {
+	var teamList = JSON.parse(unescape(team));
+		$("#team_code").val(teamList.teamCode);
+		$("#team_name").val(teamList.teamName);
+	HideModal('search-modal');
+}
 
 var checkProjectDates = function()
 {
@@ -309,25 +275,6 @@ var checkProjectDates = function()
 	var error = "";
 	var result = CheckRequired();
 	
-	
-	if ( $("#suite_code").val() =="-1") {
-		error +="Please select Suite Name <br/>";
-		result = false;
-		
-	}  
-	 
-	 if ( $("#module_code").val() =="-1") {
-			error +="Please select Module Name <br/>";
-			result = false;
-			
-		}  
-	 
-	 if ( $("#priv_grp_code").val() =="-1") {
-			error +="Please select Privilege Group Name <br/>";
-			result = false;
-			
-		} 
-	
 	if ($("#sprint_code").val() =="") {
 		error +="Please Enter Sprint Code<br/> ";
 		result = false;
@@ -345,12 +292,6 @@ var checkProjectDates = function()
 		result = false;
 		
 	} 
-	
-	if ($("#sprint_stories").val() =="" ) {
-		error +="Please Enter Sprint Stories <br/> ";
-		result = false;
-		
-	}  
 	
 	 if ($("#start_date").val() =="" ) {
 		error +="Please Select Start Date <br/> ";
