@@ -16,7 +16,9 @@
 			</ol>
 		</div>
 	</section>
-
+	<center>
+		<a href="http://localhost:8080/?desturl=/taskman/tman/sprint/sprintlist">Back</a>
+	</center>
 	<div class="container-fluid container-fullw bg-white">
 		<cts:AjaxForm action="/taskman/tman/sprint/store" dataHandler="showMessage" >
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
