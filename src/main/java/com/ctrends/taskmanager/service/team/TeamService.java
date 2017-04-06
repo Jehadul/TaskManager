@@ -153,17 +153,13 @@ public class TeamService implements ITeamService {
 
 		param.put("teamCode", requestMap.get("team_code")[0].toUpperCase());
 		
-		System.out.println(requestMap.get("team_code")[0]+"ggggggggggggggggggggggg");
-
-		//boolean rules = teamDAO.checkUnique(param);
 		Team team = teamDAO.getDocById(UUID.fromString(requestMap.get("id")[0]));
 		team.setTeamCode(requestMap.get("team_code")[0]);
 		team.setTeamName(requestMap.get("team_name")[0]);
 		team.setTeamSize(Integer.parseInt(requestMap.get("nt_member")[0]));
 		team.setDescription(requestMap.get("description")[0]);
 		
-		System.out.println(requestMap.get("team_code")[0]+requestMap.get("team_name")[0]+requestMap.get("nt_member")[0]);
-		
+
 		team.setClientCode(currentUser.getClientCode());
 		team.setClientName(currentUser.getClientName());
 		team.setCompanyCode(currentUser.getCompanyCode());
@@ -182,24 +178,32 @@ public class TeamService implements ITeamService {
 		/**********************
 		 * Detail item data sent from view
 		 *********************************/
-
+		
 		String[] empCode = (String[]) requestMap.get("emp_code[]");
 
 		String[] empName = (String[]) requestMap.get("emp_name[]");
 		
 		String[] username = (String[]) requestMap.get("emp_username[]");
-
-
+		
 		List<TeamMemberDetails> teamMemberDetailsList = new ArrayList<TeamMemberDetails>();
 
+		TeamMemberDetails teamDetails = null;
+		
 		for (int i = 0; i < empCode.length; i++) {
 			try {
-				TeamMemberDetails teamDetails = teamDAO.getTeamMemberDetailsByTeamId(empCode[i]);
-				teamDetails.setTeamCode(requestMap.get("team_code")[0]);
-				teamDetails.setTeamId(UUID.fromString(requestMap.get("id")[0]));
+				//teamDetails = teamDAO.getTeamMemberDetailsByTeamId(empCode[i]);
+				teamDetails = teamDAO.getTeamMemberDetailsByEmpCodeAndTeamId(empCode[i], team.getId());
+				
+				if(teamDetails == null){
+					teamDetails = new TeamMemberDetails();
+				}
+				
 				teamDetails.setEmpCode(empCode[i]);
-				teamDetails.setEmpCode(empName[i]);
-				teamDetails.setEmpCode(username[i]);
+				teamDetails.setTeamCode(requestMap.get("team_code")[0]);
+				teamDetails.setTeamId(team.getId());
+				teamDetails.setEmpCode(empCode[i]);
+				teamDetails.setEmpName(empName[i]);
+				teamDetails.setUsername(username[i]);
 				teamDetails.setCreatedByCode(currentUser.getCreatedByCode());
 				teamDetails.setCreatedByName(currentUser.getCreatedByName());
 				teamDetails.setCreatedByUsername(currentUser.getCreatedByUsername());
@@ -221,47 +225,19 @@ public class TeamService implements ITeamService {
 				
 				teamMemberDetailsList.add(i, teamDetails);
 			} catch (Exception e) {
-				TeamMemberDetails teamDetails=new TeamMemberDetails();
-				teamDetails.setTeamCode(requestMap.get("team_code")[0]);
-				teamDetails.setEmpCode(empCode[i]);
-				teamDetails.setEmpCode(empName[i]);
-				teamDetails.setEmpCode(username[i]);
-				teamDetails.setCreatedByCode(currentUser.getCreatedByCode());
-				teamDetails.setCreatedByName(currentUser.getCreatedByName());
-				teamDetails.setCreatedByUsername(currentUser.getCreatedByUsername());
-				teamDetails.setCreatedByCode(currentUser.getEmpCode());
-				teamDetails.setCreatedByName(currentUser.getEmpName());
-				teamDetails.setCreatedByUsername(currentUser.getUsername());
-				teamDetails.setCreatedByEmail(currentUser.getEmail());
-				teamDetails.setCreatedByCompanyCode(currentUser.getCompanyCode());
-				teamDetails.setCreatedByCompanyName(currentUser.getCompanyName());
-				teamDetails.setCreatedAt(new Timestamp(System.currentTimeMillis()));
-;
-				teamDetails.setClientName(currentUser.getClientName());
-				teamDetails.setCompanyCode(currentUser.getCompanyCode());
-				teamDetails.setUpdatedByCode(currentUser.getEmpCode());
-				teamDetails.setUpdatedByName(currentUser.getEmpName());
-				teamDetails.setUpdatedByUsername(currentUser.getUsername());
-				teamDetails.setUpdatedByEmail(currentUser.getEmail());
-				teamDetails.setUpdatedByCompanyCode(currentUser.getCompanyCode());
-				teamDetails.setUpdatedByCompanyName(currentUser.getCompanyName());
-				
-				teamMemberDetailsList.add(i, teamDetails);
-
+				System.err.println("Exception Throw 123456789987654" + e);
 			}
 
 
 		}
 		team.setTeamDetails(teamMemberDetailsList);
-		if (true) {
-			id = teamDAO.updateDoc(team);
-			strid = id.toString();
-			data.put("id", strid);
-		} else {
-			data.put("id", null);
+		id = teamDAO.updateDoc(team);
+		
+		if(id!=null){
+			data.put("id", id.toString());
 
 		}
-
+		
 		return data;
 
 	}
@@ -276,6 +252,7 @@ public class TeamService implements ITeamService {
 
 	@Override
 	public List<TeamMemberDetails> getTeamMemberDetailsByTeamId(UUID teamId) {
+		System.out.println(":::::::::::::---"+teamId.toString());
 		return teamDAO.getTeamMemberDetailsByTeamId(teamId);
 	}
 	
