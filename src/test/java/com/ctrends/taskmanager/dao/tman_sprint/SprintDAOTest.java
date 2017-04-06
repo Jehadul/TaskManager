@@ -43,14 +43,10 @@ public class SprintDAOTest {
 	@Test
     public void testInsertDoc_ReturnUUID(){
         SprintManager sprint=new SprintManager();
-        sprint.setSuiteName("Human Resources");    
-        sprint.setModuleName("Employee Database");
-        sprint.setPrivilegeName("Data Entry and Processing");
         sprint.setSprintCode("TESTCODE");
         sprint.setSprintName("TestSprintName");
         sprint.setSprintGoal("TestSprintGoal");
         sprint.setSprintNumber(1850);
-        sprint.setSprintStories("TestSprintStories");
         
         
         UUID inId = sprintDao.insertDoc(sprint);
