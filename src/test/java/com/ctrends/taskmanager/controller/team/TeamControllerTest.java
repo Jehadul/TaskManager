@@ -117,6 +117,47 @@ public class TeamControllerTest {
 		assertTrue(st.getClass() == mav.getClass());
 	}
 	
-
+	@Test 
+	public void testEdit_ReturnModelAndView(){
+		UUID id=UUID.fromString("b2ac5e7c-41c7-4793-8bd0-a377b0a54297");
+		ModelAndView mv=teamController.edit(id);
+		assertTrue(mv.hasView());
+	}
+	
+	@Test
+	public void testDelete_ReturnWSResponse(){
+		
+		String[] teamId = {"b2ac5e7c-41c7-4793-8bd0-a377b0a54297"};
+		request.addParameter("teamId", teamId);
+		
+		WSResponse mv=teamController.destroy(request);
+		assertTrue(mv.getClass() == WSResponse.class);
+	}
+	
+	@Test
+	@WithMockUser("CTS0104")
+	public void testUpdate_ReturnWSResponse(){
+		
+		String [] teamId={"1d0bb166-4722-4e64-9aa0-0649e58f6a64"};
+		String [] teamCode={"123"};
+		String [] teamName={"1234"};
+		String [] description={"123456"};
+		String [] empCode={"123456"};
+		String [] empName={"123456"};
+		String [] username={"123456"};
+	
+		request.setParameter("id", teamId);
+		request.setParameter("team_code", teamCode);
+		request.setParameter("team_name", teamName);
+		request.setParameter("nt_member", String.valueOf(1));
+		request.setParameter("description", description);
+		request.setParameter("emp_code[]", empCode);
+		request.setParameter("emp_name[]", empName);
+		request.setParameter("emp_username[]", username);
+		
+		WSResponse wr=teamController.update(request);
+		assertTrue(wr.getClass()==WSResponse.class);
+		
+	}
 
 }
