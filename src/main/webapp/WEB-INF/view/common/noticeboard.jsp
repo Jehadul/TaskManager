@@ -23,7 +23,7 @@
 		<a style="margin-right:15px" href="http://localhost:8080/?desturl=/taskman/tman/tasks/tasklist">Task Manager</a>
 		<a style="margin-right:15px" href="http://localhost:8080/?desturl=/taskman/report/tasklogreport">User Wise Daily Report</a>
 		<a style="margin-right:15px" href="http://localhost:8080/?desturl=/taskman/report/dailySummary">Daily Summary Report</a>
-		
+		<a style="margin-right:15px" href="http://localhost:8080/?desturl=/taskman/sprintboard/ui/create">Sprint Board</a>
 		<a href="http://localhost:8080/?desturl=/taskman/team/teamlist">Team List</a>
 	</center>
 		
