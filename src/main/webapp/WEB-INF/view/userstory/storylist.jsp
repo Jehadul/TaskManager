@@ -21,8 +21,14 @@
 		
 			<legend> User Story List &nbsp;&nbsp; </legend>
 			
-			<center><a href="http://localhost:8080/?desturl=/taskman/userstory/story/create">Create New User Story</a></center>
+			<center>
+				<a href="http://localhost:8080/?desturl=/taskman/userstory/story/create">Create New User Story</a>
+				 | <a style="margin-right:15px" href="http://localhost:8080">Dashboard</a>
+			</center>
 			
+			
+							
+				
 			<div class="table-responsive">
 
 					<table class="table" id="user-story">
