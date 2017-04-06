@@ -83,11 +83,11 @@
                         <td>
                            <div class="width-300">
                               <fieldset>
-<!--                                  <legend>Progress&nbsp;&nbsp;  -->
+                                <legend>Progress&nbsp;&nbsp; 
 <!--                                     <button type="button" class="btn btn-find"><span class="fa fa-plus"></span></button>   -->
-<!--                                  </legend> -->
+                                 </legend> 
                                  <div class="table-responsive">
-                                    <table class="data-grid" id="SaleComponent2">
+                                    <table class="data-grid" id="ProgressComponent">
                                        <thead>
                                           <tr>
                                              <th class="code-item">Item Code</th>
@@ -105,11 +105,11 @@
                         <td>
                            <div class="width-300">
                               <fieldset>
-<!--                                  <legend>Review&nbsp;&nbsp;  -->
+                                 <legend>Review&nbsp;&nbsp; 
 <!--                                     <button type="button" class="btn btn-find"><span class="fa fa-plus"></span></button>   -->
-<!--                                  </legend> -->
+                                </legend> 
                                  <div class="table-responsive">
-                                    <table class="data-grid" id="SaleComponent3">
+                                    <table class="data-grid" id="ReviewComponent">
                                        <thead>
                                           <tr>
                                              <th class="code-item">Item Code</th>
@@ -131,11 +131,11 @@
 <!--                                     <button type="button" class="btn btn-find"><span class="fa fa-plus"></span></button>   -->
                                  </legend> 
                                  <div class="table-responsive">
-                                    <table class="data-grid" id="QA">
+                                    <table class="data-grid" id="QAComponent">
                                        <thead>
                                           <tr>
-                                             <th class="code-item">Item Code</th>
-                                             <th>Item Name</th>
+                                             <th class="code-item">Story Code</th>
+                                             <th>Story Name</th>
                                              <th>Action</th>
                                           </tr>
                                        </thead>
@@ -149,15 +149,15 @@
                         <td>
                            <div class="width-300">
                               <fieldset>
-<!--                                  <legend>Done&nbsp;&nbsp;  -->
-<!--                                     <button type="button" class="btn btn-find"><span class="fa fa-plus"></span></button>   -->
-<!--                                  </legend> -->
+                                 <legend>Done&nbsp;&nbsp; 
+<!--                                     <button type="button" class="btn btn-find"><span class="fa fa-plus"></span></button> -->  
+                                </legend> 
                                  <div class="table-responsive">
-                                    <table class="data-grid" id="SaleComponent5">
+                                    <table class="data-grid" id="DoneComponent">
                                        <thead>
                                           <tr>
-                                             <th class="code-item">Item Code</th>
-                                             <th>Item Name</th>
+                                             <th class="code-item">Story Code</th>
+                                             <th>Story Name</th>
                                              <th>Action</th>
                                           </tr>
                                        </thead>
@@ -188,35 +188,34 @@
 </div>
 <script>
    InitHandlers();
+
+   var code;
+   var name;
    
- 
    
    $("input[name='sprint_name']").val($("#sprint_code option:selected").text());
    
     $("#sprint_code").on('change',function(){
 		var newSprintCode = $("#sprint_code").val();	
-		/*LoadMainContent('/taskman/sprintboard/ui/loaddedsprintmanagerdetail?sprint_code=' + newSprintCode); */
 		$.ajax({
 			url: "/taskman/sprintboard/ui/loaddedsprintmanagerdetail?sprint_code="+ newSprintCode,
 			success:function(data){
 				var objType = eval(data.sprintManagerDetail);
 				var objType2 = eval(data.task);
-				//console.log(objType2);
 				
 				addRowStory(objType);
 				addRowTasks(objType2);
 				
 				
 				
-				var count = ($("#QA tr ").length) - 1;
+				//FOR QA BOARD AGAINST OF RIGHT ARROW
+				var count = ($("#QAComponent tr ").length) - 1;
 				function editQa(){
 					
 					count = count+1;
 					var qaval = $(this).closest("tr");
 					var code  = qaval.find(".sprint-story-code").val(); 
-					alert(code);
 					var name  = qaval.find(".sprint-story-name").val(); 
-					
 					
 						html = "" +
 						'<tr>' +
@@ -225,16 +224,105 @@
 							'<td class="width-300"><input name="sprint-story-name[]" type="text" class="sprint-story-name" readonly value="'+ name  + '" /></td>' +
 							'<td>' +
 								'<button type="button" class="btn btn-xs"><span class="fa fa-arrow-left trash"></span></button> ' + 
-								
+								'<button type="button" class="btn btn-xs"><span class=" fa fa-arrow-right done"></span></button>&nbsp;' +
 							'</td>'+
 						'</tr>';
 					
 					InitHandlers();
-					$("#QA tbody").append(html);
-					$(this).closest("tr").hide();	
+					$("#QAComponent tbody").append(html);
+					$(this).closest("tr").hide();
+
 					$(".trash").on('click',function(){
 						var code = $(this).closest("tr").find(".sprint-story-code").val();
+						var name = $(this).closest("tr").find(".sprint-story-name").val();
 						$("#sprintmanagerdetail .sprint-story-code").each(function(i,item){
+						    if($(this).val()==code){
+						        $(this).closest("tr").show();
+						        }
+						    });			
+				
+						$(this).closest("tr").remove();
+					});
+					
+					$(".done").on('click',function(){
+						var code = $(this).closest("tr").find(".sprint-story-code").val();
+						$("#QAComponent .sprint-story-code").each(function(i,item){							
+						    if($(this).val()==code){
+						      
+						        editDone(code,name);						//call editRiview() method
+						        $("#DoneComponent").find("tr").show();
+						        }
+						    });			
+				
+						$(this).closest("tr").remove();						//remove from progress table
+					});
+				}
+				$("#sprintmanagerdetail").find("button.fa-arrow-right").on('click',editQa);
+				
+				
+				
+				
+				var count1 = ($("#DoneComponent tr ").length) - 1;
+				
+				function editDone(code, name){
+					var code  = code;
+					var name  = name; 
+					
+						html = "" +
+						'<tr>' +			
+							'<td><input name="task-code[]" type="text" class="sprint-story-code width-50" readonly value="'+ code  + '"/></td>' +
+							'<td class="width-300"><input name="sprint-story-name[]" type="text" class="sprint-story-name" readonly value="'+ name  + '" /></td>' +
+						'</tr>';
+					
+					InitHandlers();
+					$("#DoneComponent tbody").append(html);
+					$(this).closest("tr").hide();	
+					
+					$(".trash").on('click',function(){
+						var code = $(this).closest("tr").find(".sprint-story-code").val();
+						$("#DoneComponent .sprint-story-code").each(function(i,item){
+							
+						    if($(this).val()==code){
+						        $(this).closest("tr").show();
+						        }
+						    });			
+				
+						$(this).closest("tr").remove();						//remove from progress table
+					});	
+				}
+				
+				
+				
+				
+				
+				
+				/* //FOR DONE BOARD TABLE AGAINST OF RIGHT ARROW
+				var count = ($("#done tr").length) - 1;
+				function editDone(){
+					
+					count = count+1;
+					var qaval = $(this).closest("tr");
+					var code  = qaval.find(".sprint-story-code1").val(); 
+					var name  = qaval.find(".sprint-story-name1").val();
+
+						html = "" +
+						'<tr>' +
+							'<td>'  +
+							'<input name="sprint-story-code[]" type="text" class="sprint-story-code2 width-50" readonly value="'+ code  + '"/></td>' +
+							'<td class="width-300"><input name="sprint-story-name[]" type="text" class="sprint-story-name2" readonly value="'+ name  + '" /></td>' +
+							'<td>' +
+								'<button type="button" class="btn btn-xs"><span class="fa fa-arrow-left trash"></span></button> ' + 
+								//'<button type="button" onclick="xyyyyy(this)" class="btn btn-xs fa fa-arrow-right"><span style="width:20px;"></span></button>&nbsp;' +
+								'<button type="button" class="btn btn-xs fa fa-arrow-right"><span style="width:20px;"></span></button>&nbsp;' +
+							'</td>'+
+						'</tr>';
+						
+					InitHandlers();
+					$("#done tbody").append(html);
+					$(this).closest("tr").hide();	
+					$(".trash").on('click',function(){
+						var code = $(this).closest("tr").find(".sprint-story-code2").val();
+						$("#QA .sprint-story-code").each(function(i,item){
 						    if($(this).val()==code){
 						        $(this).closest("tr").show();
 						        }
@@ -243,20 +331,121 @@
 						$(this).closest("tr").remove();
 					});			
 				}
+				$("#QA").find("button.fa-arrow-right").on('click',editDone);
+				 */
 				
 				
-				$("#sprintmanagerdetail").find("button.fa-arrow-right").on('click',editQa);
 				
 				
 				
+
+				//FOR PROGRESS BOARD AGAINST OF RIGHT ARROW
+				var count1 = ($("#ProgressComponent tr ").length) - 1;
+				
+				function editPrg(){
+					
+					count1 = count1+1;
+					var qaval = $(this).closest("tr");
+					var code  = qaval.find(".task-code").val(); 
+					var name  = qaval.find(".task-name").val(); 
+					
+						html = "" +
+						'<tr>' +			
+							'<td><input name="task-code[]" type="text" class="task-code width-50" readonly value="'+ code  + '"/></td>' +
+							'<td class="width-300"><input name="task-name[]" type="text" class="task-name" readonly value="'+ name  + '" /></td>' +
+							'<td>' +
+								'<button type="button" class="btn btn-xs"><span class="fa fa-arrow-left trash"></span></button> ' + 
+								'<button type="button" class="btn btn-xs"><span class=" fa fa-arrow-right reviews"></span></button>&nbsp;' +
+							'</td>'+
+						'</tr>';
+					
+					InitHandlers();
+					$("#ProgressComponent tbody").append(html);
+					$(this).closest("tr").hide();
+					
+					$(".trash").on('click',function(){
+						var code = $(this).closest("tr").find(".task-code").val();
+						var name = $(this).closest("tr").find(".task-name").val();
+						$("#taskAll .task-code").each(function(i,item){
+						    if($(this).val()==code){
+						        $(this).closest("tr").show();
+						        }
+						    });			
+				
+						$(this).closest("tr").remove();						//remove from task table
+					});	
+					
+					$(".reviews").on('click',function(){
+						var code = $(this).closest("tr").find(".task-code").val();
+						$("#ProgressComponent .task-code").each(function(i,item){							
+						    if($(this).val()==code){
+						      
+						        editRiview(code,name);						//call editRiview() method
+						        $("#ReviewComponent").find("tr").show();
+						        }
+						    });			
+				
+						$(this).closest("tr").hide();						//remove from progress table
+					});
+				}
+				$("#taskAll").find("button.fa-arrow-right").on('click',editPrg);
+				
+				
+				
+				
+				
+				
+				
+				//FOR REVIEW BOARD AGAINST OF RIGHT ARROW
+				var count1 = ($("#ReviewComponent tr ").length) - 1;
+				
+				function editRiview(code, name){
+					var code  = code;
+					var name  = name; 
+					
+						html = "" +
+						'<tr>' +			
+							'<td><input name="task-code[]" type="text" class="task-code width-50" readonly value="'+ code  + '"/></td>' +
+							'<td class="width-300"><input name="task-name[]" type="text" class="task-name" readonly value="'+ name  + '" /></td>' +
+							'<td>' +
+								'<button type="button" class="btn btn-xs"><span class="fa fa-arrow-left trash"></span></button> ' + 
+							'</td>'+
+						'</tr>';
+					
+					InitHandlers();
+					$("#ReviewComponent tbody").append(html);
+					$(this).closest("tr").hide();	
+					
+					$(".trash").on('click',function(){
+						var code = $(this).closest("tr").find(".task-code").val();
+						$("#ProgressComponent .task-code").each(function(i,item){
+							
+						    if($(this).val()==code){
+						        $(this).closest("tr").show();
+						        }
+						    });			
+				
+						$(this).closest("tr").remove();						//remove from progress table
+					});	
+				}
+				
+				
+				
+
+                
+
+					
 			}
 		});
 		
     });
    
    
+    
+    
+    
  
-  
+  //FOR STORY BOARD TABLE
   function addRowStory(objType){
 	  
   		var html = ""; 
@@ -266,7 +455,6 @@
 			var sprintCode = objType[i].sprintCode;
 			var sprintId = objType[i].sprintId; 		
 			
-			
 			html += "" +
 			'<tr>' +
 				'<td><input type="text" class="sprint-story-code width-50" readonly value="'+ code  + '"/></td>' +
@@ -274,21 +462,24 @@
 				'<td>' +
 					'<button type="button" class="btn btn-xs fa fa-arrow-right"><span style="width:20px;"></span></button>&nbsp;' +
 				'</td>'+
-					'<input type="hidden" class="sprint-code" readonly value="'+ sprintCode  + '" /></td>' +
+					'<input type="hidden" class="sprint-Code" readonly value="'+ sprintCode  + '" /></td>' +
 					'<input type="hidden" class="sprint-id" readonly value="'+ sprintId  + '" /></td>' +
 			'</tr>';
 
 		} 
-		
-	InitHandlers();
-	$("#sprintmanagerdetail tbody").html(html);
+		InitHandlers();
+		$("#sprintmanagerdetail tbody").html(html);
 	
-	if(objType.length>2){
-		$(".table-responsive").addClass("table-scroll");
-	}
+		if(objType.length>2){
+			$(".table-responsive").addClass("table-scroll");
+		}
 	} 
   
   
+  
+  
+  
+  //FOR TASK BOARD TABLE
   function addRowTasks(objType2){
 	  var html = ""; 
 	  for (var i = 0; i < objType2.length; i++) {
@@ -304,15 +495,14 @@
 					'</td>'+
 				'</tr>';
 			}
-			}
-		
+		}
 		
 	InitHandlers();
 	$("#taskAll tbody").html(html);
 	} 
+  
+  
 
-
-   
   	
   	
 </script>
