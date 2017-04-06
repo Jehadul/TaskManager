@@ -75,8 +75,7 @@
 			     };
 
 		// Instantiate and draw the chart.
-		var chart = new google.visualization.BarChart(document
-				.getElementById('spentChart'));
+		var chart = new google.visualization.BarChart(document.getElementById('spentChart'));
 		chart.draw(data, options);
 	}
 	google.charts.setOnLoadCallback(drawChart);
