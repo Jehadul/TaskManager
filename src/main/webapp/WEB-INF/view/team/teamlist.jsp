@@ -18,7 +18,7 @@
 	<div class="container-fluid container-fullw bg-white">
 	
 	<center>
-		<a style="margin-right:15px" target="_blank" href="http://localhost:8080/?desturl=/taskman/team/create">Create Team</a>
+		<a style="margin-right:15px" href="http://localhost:8080/?desturl=/taskman/team/create">Create Team</a>
 	</center>
 	
 		<fieldset>
