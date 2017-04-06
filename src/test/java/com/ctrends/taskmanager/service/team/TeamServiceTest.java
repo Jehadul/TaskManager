@@ -93,4 +93,47 @@ public class TeamServiceTest {
 		List<Team>  teamLi = teamService.find(requestMap);
 		assertNotNull(teamLi);
 	}
+	
+	@Test
+	public void testDelete_ReturnUUID(){
+		
+		Map<String, String[]> requestMap=new HashMap<String, String[]>();
+		UUID id=UUID.fromString("1d0bb166-4722-4e64-9aa0-0649e58f6a64");
+		String[] idArray={String.valueOf(id)};
+		requestMap.put("teamId", idArray);
+		
+		UUID uid= teamService.delete(requestMap);
+		assertEquals(id.getClass(), uid.getClass());
+	}
+	
+	@Test
+	@WithMockUser("CTS0104")
+	public void testUpdate_ReturnMap(){
+		Map<String, String[]> requestMap=new HashMap<String, String[]>();
+		UUID id=UUID.fromString("fa24e9f7-e6c6-48c8-9594-ea0f4fd6de8d");
+		String[] idArray={String.valueOf(id)};
+		requestMap.put("teamId", idArray);
+		
+		String [] teamId={"1d0bb166-4722-4e64-9aa0-0649e58f6a64"};
+		String [] teamCode={"123"};
+		String [] teamName={"1234"};
+		String [] description={"123456"};
+		String [] empCode={"123456"};
+		String [] empName={"123456"};
+		String [] username={"123456"};
+		String [] ntMember={"123456"};
+	
+		requestMap.put("id", teamId);
+		requestMap.put("team_code", teamCode);
+		requestMap.put("team_name", teamName);
+		requestMap.put("nt_member", ntMember);
+		requestMap.put("description", description);
+		requestMap.put("emp_code[]", empCode);
+		requestMap.put("emp_name[]", empName);
+		requestMap.put("emp_username[]", username);
+		
+		Map<String, String> map= teamService.update(requestMap);
+		Map<String, String> map2=new HashMap<>();
+		assertEquals(map2.getClass(), map.getClass());
+	}
 }
