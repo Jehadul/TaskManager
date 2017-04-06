@@ -15,6 +15,10 @@
 			</ol>
 		</div>
 	</section>
+	<center>
+		<a style="margin-right:15px" href="http://localhost:8080">Dashboard</a>
+	</center>
+	<br/>
 	<div class="container-fluid container-fullw bg-white">
 		<%-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> --%>
 			<div id="step-1">
@@ -25,6 +29,7 @@
 							<legend>
 							Company Name
 							</legend>
+
 	
 									<div class="form-group">	
 										<cts:Select list="${data.companyCodes}" name="company_code" value="${data.companyCode}" cssClass="required"/>
