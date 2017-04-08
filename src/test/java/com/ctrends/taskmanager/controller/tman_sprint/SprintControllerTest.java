@@ -33,7 +33,7 @@ public class SprintControllerTest {
     @Autowired
     ISprintDAO sprintDao;
     
-    UUID id=UUID.fromString("5635a524-0e95-4bb7-8967-02fa2ec0f5ab");
+    UUID id=UUID.fromString("130e4b33-84ee-4d24-baf8-b7b4c6029b07");
     
     MockHttpServletRequest request;
     
@@ -66,14 +66,10 @@ public class SprintControllerTest {
 	@WithMockUser("CTS0001")
 	public void testUpdate_ReturnWsResponse(){ 
 		request.setParameter("id", String.valueOf(id));
-		request.setParameter("suite_code", "ertert");
-		request.setParameter("suite_name", "trtryry");
-		request.setParameter("module_code", "ED");
-		request.setParameter("module_name", "Employee Database");
-		request.setParameter("priv_grp_code", String.valueOf(1));
-		request.setParameter("priv_grp_name", "trtryry");
 		request.setParameter("sprint_code", "xvbhxf");
 		request.setParameter("sprint_name", "xvbhxf");
+		request.setParameter("team_code", "xvbhxf");
+		request.setParameter("team_name", "xvbhxf");
 		request.setParameter("sprint_goal", "xvbhxf");
 		request.setParameter("sprint_number", String.valueOf(1));
 		request.setParameter("sprint_stories", "xvbhxf");
