@@ -235,7 +235,7 @@
 				$(".alert").html(error);
 				$(".alert").removeClass("hidden");
 				result = false;
-	    		}
+	    	}
 		}
 
 		 if (!result) {
