@@ -30,4 +30,5 @@ public interface ITasksDao extends ICommonDAO<Tasks> {
 	List<Privilege> getBy(String suitCode, String modCode, int prvGrpCode);
 	TaskLog getRunningTaskByCurrentUser1();
 	List<Tasks> getTaskByStoryCode(String sprintStoryCode);
+	double sprintRemaingHours(UUID id);
 }

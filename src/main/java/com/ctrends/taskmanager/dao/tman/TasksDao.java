@@ -1,5 +1,6 @@
 package com.ctrends.taskmanager.dao.tman;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -265,6 +266,22 @@ public class TasksDao implements ITasksDao {
 		query.setParameter("sprintStoryCode", sprintStoryCode);
 		List<Tasks> tasklist = query.list();
 		return tasklist;
+	}
+	
+	@Transactional
+	@Override
+	public double sprintRemaingHours(UUID id) {
+		String sqltask = "select sum(remainingTime) from Tasks  where storyCode = ANY(select userStoryCode from UserStory where userStoryCode=ANY(select sprintStoryCode from SprintManagerDetails where sprintId=ANY(select id from SprintManager where id='3c4617ee-d3c7-4c94-bc84-f2333a6cc057')))";
+		Query task = sessionfactory.getCurrentSession().createQuery(sqltask);
+		List list = task.list();
+		double remDaily = 0;
+		for(Object lt:list){
+			//System.out.println("Total reamining hours "+ lt);
+			remDaily =Double.parseDouble(lt.toString());
+		}
+		
+		return remDaily;
+
 	}
 
 }

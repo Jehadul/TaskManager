@@ -1,9 +1,9 @@
 package com.ctrends.taskmanager.dao.tman_sprint;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.junit.Test;
@@ -27,7 +27,7 @@ public class SprintDAOTest {
 	ISprintDAO sprintDao;
 	
 	//@Mock
-	private UUID id=UUID.fromString("fa47205e-2c3c-4499-a133-5a7e1b8cd05c"); 
+	private UUID id=UUID.fromString("3c4617ee-d3c7-4c94-bc84-f2333a6cc057"); 
 		
 	String suiteCode=null;
 	String moduleCode=null;
@@ -86,5 +86,21 @@ public class SprintDAOTest {
 		UUID inId = sprintDao.deleteDoc(id); 
 		assertEquals(id.getClass(), inId.getClass());
 	}
+	
+	@Test
+	public void testGetDocByBurnDownChart_ReturnMap(){
+		Map<String, Object> map = sprintDao.getDocByBurnDownChart(id); 
+		assertTrue(!map.isEmpty());
+		
+	}
+	
+	@Test
+	public void testGetSpentChartDoc_ReturnMap(){
+		Map<String, Object> map = sprintDao.getSpentChartDoc(id); 
+		assertTrue(!map.isEmpty());
+		
+	}
+	
+	
 
 }
