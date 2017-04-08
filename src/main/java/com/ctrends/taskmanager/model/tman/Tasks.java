@@ -25,6 +25,9 @@ public class Tasks {
 	@Column(name = "task_title")
 	private String taskTitle;
 	
+	@Column(name = "task_status")
+	private String taskStatus;
+	
 	@Column(name="story_code")
 	private String storyCode;
 	
@@ -279,6 +282,14 @@ public class Tasks {
 
 	public void setTaskTitle(String taskTitle) {
 		this.taskTitle = taskTitle;
+	}
+
+	public String getTaskStatus() {
+		return taskStatus;
+	}
+
+	public void setTaskStatus(String taskStatus) {
+		this.taskStatus = taskStatus;
 	}
 
 	public String getStoryCode() {
