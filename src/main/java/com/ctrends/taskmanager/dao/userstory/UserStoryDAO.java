@@ -33,7 +33,7 @@ public class UserStoryDAO implements IUserStoryDAO {
 	@Override
 	public List<UserStory> getAllDoc() {
 		User currentUser = userService.getCurrentUser();
-		Query query = sessionFactory.getCurrentSession().createQuery("From UserStory where createdByUsername =:userName");
+		Query query = sessionFactory.getCurrentSession().createQuery("From UserStory where createdByUsername =:userName order by priorityCode");
 		query.setParameter("userName", currentUser.getUsername());
 		List<UserStory> userStoryLi=query.list();
 		return userStoryLi;
