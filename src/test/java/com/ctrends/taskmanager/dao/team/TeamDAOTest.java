@@ -99,7 +99,7 @@ public class TeamDAOTest {
 		for(int i=0; i<team.getTeamDetails().size(); i++){
 			TeamDetails teamMemberDetails = new TeamDetails();
 			teamMemberDetails=(TeamDetails) team.getTeamDetails().get(0);
-			teamMemberDetails.setTeamId(teamId);
+			teamMemberDetails.setMasterId(teamId);
 			teamMemberDetailsList.add(teamMemberDetails);
 		}
 		team.setTeamDetails(teamMemberDetailsList);
