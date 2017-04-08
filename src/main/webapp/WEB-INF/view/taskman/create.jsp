@@ -71,6 +71,11 @@
 
 						</fieldset>
 						<div class="form-group">
+							<cts:Label labelFor="task_state" name="Task Status"/>
+							<cts:Select list="${data.taskStatus}"  name="task_state" value="" cssClass="required"/>
+							<cts:Hidden name="task_status" value=""/>
+						</div>
+						<div class="form-group">
 							<cts:Label name="Task Code" labelFor="task_code" />
 							<cts:TextBox name="task_code"
 								cssClass="dirty-check uppercase required" readonly="" />
@@ -80,7 +85,7 @@
 
 					</div>
 					<div class="col-md-6">
-
+						
 						<div class="form-group">
 							<cts:Label name="Task Title" labelFor="task_title" />
 							<cts:TextBox name="task_title" cssClass="dirty-check required"
@@ -148,6 +153,8 @@
 </div>
 <script>
 	InitHandlers();
+	
+	$("input[name='task_status']").val($("#task_state option:selected").text());
 
 	$("#btnUser")
 			.on(
