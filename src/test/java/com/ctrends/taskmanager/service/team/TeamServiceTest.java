@@ -22,7 +22,7 @@ import com.ctrends.taskmanager.bean.WSResponse;
 import com.ctrends.taskmanager.controller.team.TeamController;
 import com.ctrends.taskmanager.dao.team.ITeamDAO;
 import com.ctrends.taskmanager.model.team.Team;
-import com.ctrends.taskmanager.model.team.TeamMemberDetails;
+import com.ctrends.taskmanager.model.team.TeamDetails;
 
 @RunWith(SpringJUnit4ClassRunner.class) 
 @ContextConfiguration(locations = { "/spring-database.xml", "/spring-dispatcher-servlet.xml", "/spring-security.xml" })
@@ -51,7 +51,7 @@ public class TeamServiceTest {
 	@Test
 	public void testGetTeamMemberDetailsByTeamId_ReturnList(){
 		UUID teamId=UUID.fromString("d813830a-d80d-4963-8b14-b86903aceb8c");
-		List<TeamMemberDetails> list = teamService.getTeamMemberDetailsByTeamId(teamId);
+		List<TeamDetails> list = teamService.getTeamMemberDetailsByTeamId(teamId);
 		assertFalse(list.isEmpty());
 	}
 	
@@ -80,7 +80,7 @@ public class TeamServiceTest {
 	
 	@Test
 	public void testGetByTeamCode_ReturnsTeamMemberDetailsList() {
-		List<TeamMemberDetails> teamMemberDetails =teamService.getByTeamCode(teamCode);
+		List<TeamDetails> teamMemberDetails =teamService.getByTeamCode(teamCode);
 		assertNotNull(teamMemberDetails);
 	}
 	

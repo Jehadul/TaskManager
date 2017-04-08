@@ -11,8 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="team_members")
-public class TeamMemberDetails {
+@Table(name="team_details")
+public class TeamDetails {
 	@Id
 	@Column(name = "id")
 	@org.hibernate.annotations.Type(type="org.hibernate.type.PostgresUUIDType")
@@ -37,8 +37,8 @@ public class TeamMemberDetails {
 	@Column(name="team_size")
 	private int teamSize;
 	
-	@Column(name="team_id")
-	private UUID teamId;
+	@Column(name="master_id")
+	private UUID masterId;
 	
 	@Column(name="doa_type_code")
 	private String doaTypeCode;
@@ -269,12 +269,12 @@ public class TeamMemberDetails {
 		this.teamSize = teamSize;
 	}
 
-	public UUID getTeamId() {
-		return teamId;
+	public UUID getMasterId() {
+		return masterId;
 	}
 
-	public void setTeamId(UUID teamId) {
-		this.teamId = teamId;
+	public void setMasterId(UUID masterId) {
+		this.masterId = masterId;
 	}
 
 	public String getDoaTypeCode() {

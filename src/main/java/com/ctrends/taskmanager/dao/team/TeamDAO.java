@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ctrends.taskmanager.dao.user.IUserDAO;
 import com.ctrends.taskmanager.model.team.Team;
-import com.ctrends.taskmanager.model.team.TeamMemberDetails;
+import com.ctrends.taskmanager.model.team.TeamDetails;
 import com.ctrends.taskmanager.model.tman_sprint.BurndownChart;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManager;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManagerDetails;
@@ -40,9 +40,9 @@ public class TeamDAO implements ITeamDAO {
 		query.setParameter("userName", currentUser.getUsername());
 		List<Team> teamLi = query.list();
 		for(int i=0; i<teamLi.size(); i++){
-			Query teamMemberDetailsQuery=sessionFactory.getCurrentSession().createQuery("From TeamMemberDetails where teamId =:teamId");
-			teamMemberDetailsQuery.setParameter("teamId", teamLi.get(i).getId());
-			List<TeamMemberDetails> teamMemberDetails = teamMemberDetailsQuery.list();
+			Query teamMemberDetailsQuery=sessionFactory.getCurrentSession().createQuery("From TeamDetails where masterId =:masterId");
+			teamMemberDetailsQuery.setParameter("masterId", teamLi.get(i).getId());
+			List<TeamDetails> teamMemberDetails = teamMemberDetailsQuery.list();
 			teamLi.get(i).setTeamDetails(teamMemberDetails);
 		}
 		return teamLi;
@@ -56,9 +56,9 @@ public class TeamDAO implements ITeamDAO {
 		
 		Team team=(Team)teamQuery.list().get(0);
 		
-		Query teamMemberDetailsQuery=sessionFactory.getCurrentSession().createQuery("From TeamMemberDetails where teamId =:teamId");
-		teamMemberDetailsQuery.setParameter("teamId", team.getId());
-		List<TeamMemberDetails> teamMemberDetails = teamMemberDetailsQuery.list();
+		Query teamMemberDetailsQuery=sessionFactory.getCurrentSession().createQuery("From TeamDetails where masterId =:masterId");
+		teamMemberDetailsQuery.setParameter("masterId", team.getId());
+		List<TeamDetails> teamMemberDetails = teamMemberDetailsQuery.list();
 		team.setTeamDetails(teamMemberDetails);
 		return team;
 	}
@@ -84,9 +84,9 @@ public class TeamDAO implements ITeamDAO {
 		sessionFactory.getCurrentSession().flush();
 
 		for (int i = 0; i < doc.getTeamDetails().size(); i++) {
-			TeamMemberDetails teamMemberDetails = new TeamMemberDetails();
-			teamMemberDetails = (TeamMemberDetails) doc.getTeamDetails().get(i);
-			teamMemberDetails.setTeamId(id);
+			TeamDetails teamMemberDetails = new TeamDetails();
+			teamMemberDetails = (TeamDetails) doc.getTeamDetails().get(i);
+			teamMemberDetails.setMasterId(id);
 			sessionFactory.getCurrentSession().save(teamMemberDetails);
 			sessionFactory.getCurrentSession().flush();
 		}
@@ -99,7 +99,7 @@ public class TeamDAO implements ITeamDAO {
 			
 			deleteDocTeamDetailsById(doc.getId());
 		
-			TeamMemberDetails teamDetails = null;
+			TeamDetails teamDetails = null;
 			for (int i = 0; i < doc.getTeamDetails().size(); i++) {
 				teamDetails = doc.getTeamDetails().get(i);
 				sessionFactory.getCurrentSession().save(teamDetails);
@@ -117,9 +117,9 @@ public class TeamDAO implements ITeamDAO {
 		Team team = (Team) sessionFactory.getCurrentSession().load(Team.class, id);
 		sessionFactory.getCurrentSession().delete(team);
 		
-		String hql = "delete from TeamMemberDetails where teamId= :teamId";
+		String hql = "delete from TeamDetails where masterId= :masterId";
         Query query = sessionFactory.getCurrentSession().createQuery(hql);
-        query.setParameter("teamId", id);
+        query.setParameter("masterId", id);
         query.executeUpdate();
         
         sessionFactory.getCurrentSession().flush();
@@ -147,11 +147,11 @@ public class TeamDAO implements ITeamDAO {
 	
 	@Transactional
 	@Override
-	public List<TeamMemberDetails> getDocByIdTeamCode(String teamCode) {
+	public List<TeamDetails> getDocByIdTeamCode(String teamCode) {
 		Query query = sessionFactory.getCurrentSession()
-				.createQuery("From TeamMemberDetails WHERE teamCode = :teamCode");
+				.createQuery("From TeamDetails WHERE teamCode = :teamCode");
 		query.setParameter("teamCode", teamCode);
-		List<TeamMemberDetails> teamMemberDetailsList = query.list();
+		List<TeamDetails> teamMemberDetailsList = query.list();
 
 		return teamMemberDetailsList;
 	}
@@ -159,22 +159,22 @@ public class TeamDAO implements ITeamDAO {
 	
 	@Transactional
 	@Override
-	public List<TeamMemberDetails> getTeamMemberDetailsByTeamId(UUID teamId) {
+	public List<TeamDetails> getTeamMemberDetailsByTeamId(UUID masterId) {
 		Query query = sessionFactory.getCurrentSession()
-				.createQuery("From TeamMemberDetails WHERE teamId = :teamId");
-		query.setParameter("teamId", teamId);
-		List<TeamMemberDetails> tmDetailsList = query.list();
+				.createQuery("From TeamDetails WHERE masterId = :masterId");
+		query.setParameter("masterId", masterId);
+		List<TeamDetails> tmDetailsList = query.list();
 
 		return tmDetailsList;
 	}
 	
 	@Transactional
 	@Override
-	public TeamMemberDetails getTeamMemberDetailsByTeamId(String empCode) {
+	public TeamDetails getTeamMemberDetailsByTeamId(String empCode) {
 		Query query = sessionFactory.getCurrentSession()
-				.createQuery("From TeamMemberDetails WHERE empCode = :empCode");
+				.createQuery("From TeamDetails WHERE empCode = :empCode");
 		query.setParameter("empCode", empCode);
-		List<TeamMemberDetails> teamDetails = query.list();
+		List<TeamDetails> teamDetails = query.list();
 		if (teamDetails.size() > 0) {
 			return teamDetails.get(0);
 		}
@@ -185,9 +185,9 @@ public class TeamDAO implements ITeamDAO {
 	@Transactional
 	@Override
 	public UUID deleteDocTeamDetailsById(UUID id) {		
-		String hql = "delete from TeamMemberDetails where teamId= :teamId";
+		String hql = "delete from TeamDetails where masterId= :masterId";
         Query query = sessionFactory.getCurrentSession().createQuery(hql);
-        query.setParameter("teamId", id);
+        query.setParameter("masterId", id);
         query.executeUpdate();
         
         sessionFactory.getCurrentSession().flush();
@@ -197,16 +197,29 @@ public class TeamDAO implements ITeamDAO {
 	
 	@Transactional
 	@Override
-	public TeamMemberDetails getTeamMemberDetailsByEmpCodeAndTeamId(String empCode, UUID teamId){
+	public TeamDetails getTeamMemberDetailsByEmpCodeAndTeamId(String empCode, UUID masterId){
 		Query query = (Query) sessionFactory.getCurrentSession()
-				.createQuery("From TeamMemberDetails WHERE teamId =:teamId AND empCode =:empCode");
-		query.setParameter("teamId", teamId);
+				.createQuery("From TeamDetails WHERE masterId =:masterId AND empCode =:empCode");
+		query.setParameter("masterId", masterId);
 		query.setString("empCode", empCode);
-		TeamMemberDetails tmDetails = (TeamMemberDetails) query.uniqueResult();
+		TeamDetails tmDetails = (TeamDetails) query.uniqueResult();
 		
 		
 		return tmDetails;
 	}	
 	
+	/*@Transactional
+	@Override
+	public List<Sprint> getAllSprintByTeamId(String empCode, UUID teamId){
+		Query query = (Query) sessionFactory.getCurrentSession()
+				.createQuery("From TeamMemberDetails WHERE teamId =:teamId AND empCode =:empCode");
+		query.setParameter("teamId", teamId);
+		query.setString("empCode", empCode);
+		TeamDetails tmDetails = (TeamDetails) query.uniqueResult();
+		
+		
+		return tmDetails;
+	}	
+	*/
 	
 }
