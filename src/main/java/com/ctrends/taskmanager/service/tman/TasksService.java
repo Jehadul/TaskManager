@@ -60,6 +60,7 @@ public class TasksService implements ITasksService {
 
 		tasks.setTaskCode(requestMap.get("task_code")[0]);
 		tasks.setTaskTitle(requestMap.get("task_title")[0]);
+		tasks.setTaskStatus(requestMap.get("task_status")[0]);
 		tasks.setEstimatedTime(Double.parseDouble(requestMap.get("estimated_time")[0]));
 		tasks.setRemainingTime(Double.parseDouble(requestMap.get("estimated_time")[0]));
 
@@ -180,6 +181,7 @@ public class TasksService implements ITasksService {
 
 		tasks.setTaskCode(requestMap.get("task_code")[0]);
 		tasks.setTaskTitle(requestMap.get("task_title")[0]);
+		tasks.setTaskStatus(requestMap.get("task_status")[0]);
 		tasks.setEstimatedTime(Double.parseDouble(requestMap.get("estimated_time")[0]));
 		tasks.setRemainingTime(Double.parseDouble(requestMap.get("estimated_time")[0]));
 
