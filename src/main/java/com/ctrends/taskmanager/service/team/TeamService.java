@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.ctrends.taskmanager.dao.team.ITeamDAO;
 import com.ctrends.taskmanager.model.team.Team;
-import com.ctrends.taskmanager.model.team.TeamMemberDetails;
+import com.ctrends.taskmanager.model.team.TeamDetails;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManagerDetails;
 import com.ctrends.taskmanager.model.user.User;
 import com.ctrends.taskmanager.model.userstory.UserStory;
@@ -79,13 +79,13 @@ public class TeamService implements ITeamService {
 
 		System.out.println(empCode + ":::::::::::::::store code::::::::" + empName);
 
-			List<TeamMemberDetails> teamMemberDetailsList = new ArrayList<TeamMemberDetails>();
+			List<TeamDetails> teamMemberDetailsList = new ArrayList<TeamDetails>();
 		for (int i = 0; i < empCode.length; i++) {
-			TeamMemberDetails teamMemberDetails= new TeamMemberDetails();
+			TeamDetails teamMemberDetails= new TeamDetails();
 
 			teamMemberDetails.setTeamCode(requestMap.get("team_code")[0]);
 			teamMemberDetails.setTeamName(requestMap.get("team_name")[0]);
-			teamMemberDetails.setTeamId(team.getId());
+			teamMemberDetails.setMasterId(team.getId());
 			teamMemberDetails.setTeamSize(Integer.parseInt(requestMap.get("nt_member")[0]));
 			teamMemberDetails.setEmpCode(empCode[i]);
 			teamMemberDetails.setEmpName(empName[i]);
@@ -185,9 +185,9 @@ public class TeamService implements ITeamService {
 		
 		String[] username = (String[]) requestMap.get("emp_username[]");
 		
-		List<TeamMemberDetails> teamMemberDetailsList = new ArrayList<TeamMemberDetails>();
+		List<TeamDetails> teamMemberDetailsList = new ArrayList<TeamDetails>();
 
-		TeamMemberDetails teamDetails = null;
+		TeamDetails teamDetails = null;
 		
 		for (int i = 0; i < empCode.length; i++) {
 			try {
@@ -195,12 +195,12 @@ public class TeamService implements ITeamService {
 				teamDetails = teamDAO.getTeamMemberDetailsByEmpCodeAndTeamId(empCode[i], team.getId());
 				
 				if(teamDetails == null){
-					teamDetails = new TeamMemberDetails();
+					teamDetails = new TeamDetails();
 				}
 				
 				teamDetails.setEmpCode(empCode[i]);
 				teamDetails.setTeamCode(requestMap.get("team_code")[0]);
-				teamDetails.setTeamId(team.getId());
+				teamDetails.setMasterId(team.getId());
 				teamDetails.setEmpCode(empCode[i]);
 				teamDetails.setEmpName(empName[i]);
 				teamDetails.setUsername(username[i]);
@@ -249,13 +249,13 @@ public class TeamService implements ITeamService {
 	}
 
 	@Override
-	public List<TeamMemberDetails> getTeamMemberDetailsByTeamId(UUID teamId) {
+	public List<TeamDetails> getTeamMemberDetailsByTeamId(UUID teamId) {
 		System.out.println(":::::::::::::---"+teamId.toString());
 		return teamDAO.getTeamMemberDetailsByTeamId(teamId);
 	}
 	
 	@Override
-	public List<TeamMemberDetails> getByTeamCode(String teamCode) {
+	public List<TeamDetails> getByTeamCode(String teamCode) {
 		return teamDAO.getDocByIdTeamCode(teamCode);
 	}
 	
