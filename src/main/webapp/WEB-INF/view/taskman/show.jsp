@@ -68,7 +68,14 @@
 							<td><b>${map.tasks.storyCode}</b></td>
 						</tr>
 					</table>
-
+					<table>
+						<tr>
+							<td class="width-150"><cts:Label name="Task Status"
+									labelFor="task_status" /></td>
+							<td class="width-50">:</td>
+							<td><b>${map.tasks.taskStatus}</b></td>
+						</tr>
+					</table>
 
 					<%-- <div class="form-group">
 						<cts:Label name="Branch Name" labelFor="branch_code"/>
@@ -95,6 +102,7 @@
 							<td><b>${map.tasks.taskTitle}</b></td>
 						</tr>
 					</table>
+					
 					<table>
 						<tr>
 							<td class="width-150"><cts:Label name="Estimated Time"
