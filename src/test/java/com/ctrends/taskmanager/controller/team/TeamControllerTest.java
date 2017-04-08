@@ -25,7 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ctrends.taskmanager.bean.WSResponse;
 import com.ctrends.taskmanager.dao.team.ITeamDAO;
-import com.ctrends.taskmanager.model.team.TeamMemberDetails;
+import com.ctrends.taskmanager.model.team.TeamDetails;
 import com.ctrends.taskmanager.service.tman.ITasksService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -51,7 +51,7 @@ public class TeamControllerTest {
 	String st = "sssssssss";
 	String[] stA={st, st, st};
 	
-	List<TeamMemberDetails> teamMemberDetails;
+	List<TeamDetails> teamMemberDetails;
 
 	public TeamControllerTest() {
 		request = new MockHttpServletRequest();
@@ -85,7 +85,7 @@ public class TeamControllerTest {
 	@Test
 	@WithMockUser("CTS0104")
 	public void testStore_ReturnWsResponse() {
-		TeamMemberDetails teamMembers =new TeamMemberDetails();
+		TeamDetails teamMembers =new TeamDetails();
 		request.addParameter("team_code", st);
 		request.addParameter("team_name", st);
 		request.addParameter("nt_member", String.valueOf(1));
