@@ -186,4 +186,78 @@
 		}
 	}
 	
+	
+	function validate(){
+		 
+	 	var teamCode = $("#team_code").val().trim();
+		var teamName = $("#team_name").val().trim();
+		
+		SyncOptionText();
+		
+		var error = "";
+		var result = CheckRequired();
+		
+		
+
+		if ($("#team_code").val() =="" ) {
+			error +="Please Enter Team Code <br/> ";
+			result = false;
+			
+		} 
+		
+
+		if ($("#team_name").val() =="" ) {
+			error +="Please Enter Team Name <br/> ";
+			result = false;
+			
+		} 
+		
+		if ($("#nt_member").val() =="" ) {
+			error +="Please add team members <br/> ";
+			result = false;
+			
+		} 
+		
+
+		if ($("#description").val() =="" ) {
+			error +="Please Enter description <br/> ";
+			
+			
+		} 
+		
+		if(teamCode !==""){
+	    	
+	    	var spaceCheck = teamCode.indexOf(' ') >= 0;
+	    	if(spaceCheck){
+				error +="Space is not allowed in team code";
+				ShowErrorMsg('Team was not created', "Please check details.");
+				InitErrorChange();
+				$(".alert").html(error);
+				$(".alert").removeClass("hidden");
+				result = false;
+	    		}
+		}
+
+		 if (!result) {
+				
+				error +="Please check the fields marked with X";
+				ShowErrorMsg('User Story was not created', "Please check details.");
+				InitErrorChange();
+				$(".alert").html(error);
+				$(".alert").removeClass("hidden");
+		 }
+		 else if(teamCode == ""|| teamName == ""){
+				
+				error +="Only space is not allowed in required fields";
+				ShowErrorMsg('User Story was not created', "Please check details.");
+				InitErrorChange();
+				$(".alert").html(error);
+				$(".alert").removeClass("hidden");
+				return false;
+		 }
+			
+			
+		return result;
+	}
+	
 </script>
