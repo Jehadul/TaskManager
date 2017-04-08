@@ -124,35 +124,18 @@ public class TasksController implements ITasksController {
 	public ModelAndView edit(@PathVariable(value = "id") UUID id) {
 
 		Map<String, Object> map = new HashMap<String, Object>();
-
-		List<Suite> suiteLi = taskDao.getAllSuites();
-
-		Map<String, String> suiteCodes = new HashMap<String, String>();
-		for (int i = 0; i < suiteLi.size(); i++) {
-			suiteCodes.put(suiteLi.get(i).getSuiteCode(), suiteLi.get(i).getSuiteShortName());
-		}
-
-		List<Module> moduleLi = taskDao.getAllModules();
-
-		Map<String, String> moduleCodes = new HashMap<String, String>();
-		for (int i = 0; i < moduleLi.size(); i++) {
-			moduleCodes.put(moduleLi.get(i).getModCode(), moduleLi.get(i).getModShortName());
-		}
-
-		List<PrivGroup> privGrpLi = taskDao.getAllPrivGrps();
-
-		Map<Integer, String> privGrpCodes = new HashMap<Integer, String>();
-		for (int i = 0; i < privGrpLi.size(); i++) {
-			privGrpCodes.put(privGrpLi.get(i).getPrivGrpCode(), privGrpLi.get(i).getPrivGrpName());
-		}
-
+		Map<String, String> taskStatus = new LinkedHashMap<String, String>();
+		
+		taskStatus.put("1", "To Do");
+		taskStatus.put("2", "In Progress");
+		taskStatus.put("3", "To Be Review");
+		taskStatus.put("4", "Reviewed");
+		
+		
 		Tasks tasks = tasksService.getById(id);
-
+		map.put("taskStatus", taskStatus);
 		map.put("mode", "doc");
 		map.put("tasks", tasks);
-		map.put("suiteCodes", suiteCodes);
-		map.put("moduleCodes", moduleCodes);
-		map.put("privGrpCodes", privGrpCodes);
 
 		GsonBuilder gson = new GsonBuilder();
 		Gson g = gson.create();
@@ -223,6 +206,14 @@ public class TasksController implements ITasksController {
 	public ModelAndView create(HttpServletRequest request) {
 
 		Map<String, Object> data = new HashMap<String, Object>();
+		
+		Map<String, String> taskStatus = new LinkedHashMap<String, String>();
+		
+		taskStatus.put("1", "To Do");
+		taskStatus.put("2", "In Progress");
+		taskStatus.put("3", "To Be Review");
+		taskStatus.put("4", "Reviewed");
+		data.put("taskStatus", taskStatus);
 		return new ModelAndView("taskman/create", "data", data);
 
 	}
