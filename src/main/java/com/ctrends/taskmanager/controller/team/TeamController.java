@@ -19,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ctrends.taskmanager.bean.WSResponse;
 import com.ctrends.taskmanager.model.team.Team;
-import com.ctrends.taskmanager.model.team.TeamMemberDetails;
+import com.ctrends.taskmanager.model.team.TeamDetails;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManager;
 import com.ctrends.taskmanager.model.userstory.UserStory;
 import com.ctrends.taskmanager.service.team.ITeamService;
@@ -40,7 +40,7 @@ public class TeamController implements ITeamController {
 	public ModelAndView index() {
 		Map<String, Object> data = new HashMap<String, Object>();
 		List<Team> teamLi = teamService.getAll();
-		List<TeamMemberDetails> teamMemberDetails = null;
+		List<TeamDetails> teamMemberDetails = null;
 		for (int i=0; i<teamLi.size(); i++){
 			teamMemberDetails=teamLi.get(i).getTeamDetails();
 		}
@@ -56,7 +56,7 @@ public class TeamController implements ITeamController {
 	@Override
 	public ModelAndView show(@PathVariable(value = "id") UUID id) {
 		Team team = teamService.getById(id);
-		List<TeamMemberDetails> teamMemberDetailsList = teamService.getTeamMemberDetailsByTeamId(id);
+		List<TeamDetails> teamMemberDetailsList = teamService.getTeamMemberDetailsByTeamId(id);
 		
 		Map<String, Object> map = new HashMap<>();
 		
@@ -97,7 +97,7 @@ public class TeamController implements ITeamController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		Team team=teamService.getById(id);
-		List<TeamMemberDetails> teamMemberDetailsList = teamService.getTeamMemberDetailsByTeamId(id);
+		List<TeamDetails> teamMemberDetailsList = teamService.getTeamMemberDetailsByTeamId(id);
 		
 		
 		map.put("mode", "doc");
