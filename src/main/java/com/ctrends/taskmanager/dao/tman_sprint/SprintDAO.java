@@ -54,7 +54,7 @@ public class SprintDAO implements ISprintDAO {
 				.createQuery("From SprintManager where createdByUsername =:userName");
 		query.setParameter("userName", currentUser.getUsername());
 		List<SprintManager> splist = query.list();
-		
+
 		return splist;
 	}
 
@@ -135,8 +135,8 @@ public class SprintDAO implements ISprintDAO {
 	@Override
 	public UUID updateDoc(SprintManager doc) {
 
-		System.out.println(doc.getId()+":::::::::::dao::::::::::::::::::::");
-		String sql = "delete SprintManagerDetails where sprintId = '"+doc.getId()+"'";
+		System.out.println(doc.getId() + ":::::::::::dao::::::::::::::::::::");
+		String sql = "delete SprintManagerDetails where sprintId = '" + doc.getId() + "'";
 		Query q = sessionfactory.getCurrentSession().createQuery(sql);
 		q.executeUpdate();
 		for (int i = 0; i < doc.getSteps().size(); i++) {
@@ -147,7 +147,7 @@ public class SprintDAO implements ISprintDAO {
 		}
 		sessionfactory.getCurrentSession().saveOrUpdate(doc);
 		sessionfactory.getCurrentSession().flush();
-		System.out.println(doc.getId()+":::::::::::dao2::::::::::::::::::::");
+		System.out.println(doc.getId() + ":::::::::::dao2::::::::::::::::::::");
 		return doc.getId();
 	}
 
@@ -156,11 +156,11 @@ public class SprintDAO implements ISprintDAO {
 	public UUID deleteDoc(UUID id) {
 		SprintManager app = (SprintManager) sessionfactory.getCurrentSession().load(SprintManager.class, id);
 		sessionfactory.getCurrentSession().delete(app);
-		
+
 		String hql = "delete from SprintManagerDetails where sprintId= :sprintId";
-        Query query = sessionfactory.getCurrentSession().createQuery(hql);
-        query.setParameter("sprintId", id);
-        query.executeUpdate();
+		Query query = sessionfactory.getCurrentSession().createQuery(hql);
+		query.setParameter("sprintId", id);
+		query.executeUpdate();
 
 		sessionfactory.getCurrentSession().flush();
 		return id;
@@ -292,36 +292,29 @@ public class SprintDAO implements ISprintDAO {
 		Query crtask = sessionfactory.getCurrentSession().createQuery(sqltask);
 
 		List<Object> burnHours = new ArrayList<>();
-
+		int c = 0;
 		for (int i = 0; i < sprintAllDays.size(); i++) {
 			List<Object> dailyburnhours = new ArrayList<>();
 			try {
 				if (dateCheck(sprintAllDays.get(i))) {
-					System.out.println(sprintAllDays.get(i)+"::::::::::::in day:::::::::::::");
-					double remDaily = 0;
-					for (Iterator it = (Iterator) crtask.iterate(); ((java.util.Iterator) it).hasNext();) {
-						Object[] row = (Object[]) ((java.util.Iterator) it).next();
-						String sql = "From TaskLog where id=:id and stopDate=:stopDate ORDER BY stopDate DESC";
-						Query cr = sessionfactory.getCurrentSession().createQuery(sql);
-						cr.setParameter("id", row[0]);
-						cr.setParameter("stopDate", sprintAllDays.get(i));
-						List<TaskLog> log = cr.list();
-						if (log.size() > 0) {
-							remDaily += log.get(0).getRemainingTime();
-						} else {
-							remDaily += Double.parseDouble(row[1].toString());
+					String sql = "select remainingTime from TaskLog where stopDate=:stopDate and taskId IN (select cast(id as string) from Tasks  where storyCode = ANY(select userStoryCode from UserStory where userStoryCode=ANY(select sprintStoryCode from SprintManagerDetails where sprintId=ANY(select id from SprintManager where id='"
+							+ id + "')))) ORDER BY stopTime DESC";
+					Query query = sessionfactory.getCurrentSession().createQuery(sql);
+					query.setParameter("stopDate", sprintAllDays.get(i));
+					List tasklog = query.list();
+					int ca = 0;
+					for (Object task : tasklog) {
+						if (task != null) {
+							if (ca++ == 0) {
+								dailyburnhours.add(sprintAllDays.get(i));
+								dailyburnhours.add(task);								
+								burnHours.add(c++, dailyburnhours);
+							}
 						}
-
 					}
-					dailyburnhours.add(remDaily);
-					burnHours.add(i, dailyburnhours);
 
 				} else {
-					/*
-					 * dailyburnhours.add(sprintAllDays.get(i).toString());
-					 * //dayremaingTime.add(0); System.out.println(i);
-					 * burnHours.add(i, dailyburnhours);
-					 */
+
 					break;
 				}
 			} catch (ParseException e) {
@@ -352,7 +345,7 @@ public class SprintDAO implements ISprintDAO {
 		while (start.isBefore(end) || start.equals(end)) {
 			sqlDate.add(Date.valueOf(start));
 			start = start.plusDays(1);
-			
+
 		}
 		return sqlDate;
 
@@ -366,17 +359,18 @@ public class SprintDAO implements ISprintDAO {
 		Calendar calendarestimat = Calendar.getInstance();
 
 		calendar.setTime(sdf.parse(timeStamp));
-		//calendar.add(Calendar.DATE, 1); // number of days to add
+		// calendar.add(Calendar.DATE, 1); // number of days to add
 
 		timeStamp = sdf.format(calendar.getTime()); // dt is now the new date
 		String sqlDate = sdf.format(date);
 		calendarestimat.setTime(sdf.parse(sqlDate));
 
 		if (calendarestimat.after(calendar)) {
-			System.out.println(timeStamp + " == " + sqlDate);
+			// System.out.println(timeStamp + " == " + sqlDate);
 			return false;
 		}
-		System.out.println(timeStamp + " == " + sqlDate+":::::::::lea::::::::::::::::::");
+		// System.out.println(timeStamp + " == " + sqlDate +
+		// ":::::::::lea::::::::::::::::::");
 		return true;
 
 	}
@@ -397,32 +391,69 @@ public class SprintDAO implements ISprintDAO {
 	@SuppressWarnings("unchecked")
 	public Map<String, Object> getSpentChartDoc(UUID id) {
 		Map<String, Object> map = new HashMap<>();
-		String sqlSprint = "select sprintGoal,sprintCode,sprintName,startDate,endDate from SprintManager";
-		Query querySprint = sessionfactory.getCurrentSession().createQuery(sqlSprint);
-		List<SprintManager> listSprint = (List<SprintManager>) querySprint.list();
-		map.put("sprint", listSprint);
+		Criteria car = sessionfactory.getCurrentSession().createCriteria(SprintManager.class);
+		car.add(Restrictions.eq("id", id));
+		List<SprintManager> sprint = car.list();
 
-		String sql = "select cast(sum(stop_time-start_time) as string) from TaskLog where taskId IN (select cast(id as string) from Tasks  where storyCode = ANY(select userStoryCode from UserStory where userStoryCode=ANY(select sprintStoryCode from SprintManagerDetails where sprintId=ANY(select id from SprintManager where id='"
-				+ id + "')))) Group By taskId";
-		Query query = sessionfactory.getCurrentSession().createQuery(sql);
-		List<String> list = (List<String>) query.list();
+		List<Date> sprintAllDays = sprintAllDays(sprint.get(0).getStartDate(), sprint.get(0).getEndDate());
 
-		String sqlq = "select taskId from TaskLog where taskId IN (select cast(id as string) from Tasks  where storyCode = ANY(select userStoryCode from UserStory where userStoryCode=ANY(select sprintStoryCode from SprintManagerDetails where sprintId=ANY(select id from SprintManager where id='"
-				+ id + "'))))";
-		Query queryq = sessionfactory.getCurrentSession().createQuery(sqlq);
-		List<String> listq = (List<String>) queryq.list();
+		List<Object> allSpentTime = new ArrayList<>();
+		int c = 0;
+		for (int i = 0; i < sprintAllDays.size(); i++) {
+			List<Object> daysAndTime = new ArrayList<>();
+			String sql = "select cast(sum(stop_time-start_time) as string) from TaskLog where stopDate=:stopDate and taskId IN (select cast(id as string) from Tasks  where storyCode = ANY(select userStoryCode from UserStory where userStoryCode=ANY(select sprintStoryCode from SprintManagerDetails where sprintId=ANY(select id from SprintManager where id='"
+					+ id + "'))))";
+			Query query = sessionfactory.getCurrentSession().createQuery(sql);
+			query.setParameter("stopDate", sprintAllDays.get(i));
+			List li = query.list();
+			/*
+			 * if (li.size() > 0) {
+			 * daysAndTime.add(sprintAllDays.get(i).toString());
+			 * daysAndTime.add(li.get(0)); allSpentTime.add(c++, li);
+			 * System.out.println(c); }
+			 */
 
-		UUID[] idd = new UUID[listq.size() + 1];
-		for (int i = 0; i < listq.size(); i++) {
-			idd[i] = UUID.fromString(listq.get(i));
+			for (Object l : li) {
+				if (l != null) {
+					daysAndTime.add(sprintAllDays.get(i).toString());
+					daysAndTime.add(convertTimetoHours(li.get(0).toString()));
+					allSpentTime.add(c++, daysAndTime);
+					
+				}
+			}
 		}
 
-		List<Tasks> taskslist = sessionfactory.getCurrentSession().createCriteria(Tasks.class)
-				.add(Restrictions.in("id", idd)).list();
-		map.put("spenttime", list);
-		map.put("task", taskslist);
+		/*
+		 * String sqlq =
+		 * "select taskId from TaskLog where taskId IN (select cast(id as string) from Tasks  where storyCode = ANY(select userStoryCode from UserStory where userStoryCode=ANY(select sprintStoryCode from SprintManagerDetails where sprintId=ANY(select id from SprintManager where id='"
+		 * + id + "'))))"; Query queryq =
+		 * sessionfactory.getCurrentSession().createQuery(sqlq); List<String>
+		 * listq = (List<String>) queryq.list();
+		 * 
+		 * UUID[] idd = new UUID[listq.size() + 1]; for (int i = 0; i <
+		 * listq.size(); i++) { idd[i] = UUID.fromString(listq.get(i)); }
+		 * 
+		 * List<Tasks> taskslist =
+		 * sessionfactory.getCurrentSession().createCriteria(Tasks.class)
+		 * .add(Restrictions.in("id", idd)).list();
+		 */
+
+		map.put("spenttime", allSpentTime);
+		map.put("sprint", sprint);
+		map.put("days", sprintAllDays);
 
 		return map;
+
+	}
+
+	public double convertTimetoHours(String time) {
+		long hh = (Integer.parseInt(time.split(":")[0]) > 0) ? (Long.parseLong(time.split(":")[0])) * 3600000 : 0;
+		long mm = (Integer.parseInt(time.split(":")[1]) > 0) ? (Long.parseLong(time.split(":")[1])) * 60000 : 0;
+		long ss = (Integer.parseInt(time.split(":")[2]) > 0) ? (Long.parseLong(time.split(":")[2])) * 1000 : 0;
+
+		DecimalFormat df = new DecimalFormat("##.##");
+		double hours = ((hh + mm + ss) > 0) ? (hh + mm + ss) / 3600000.0 : 0;
+		return Double.parseDouble(df.format(hours));
 
 	}
 
