@@ -6,16 +6,16 @@ import java.util.UUID;
 
 import com.ctrends.taskmanager.dao.ICommonDAO;
 import com.ctrends.taskmanager.model.team.Team;
-import com.ctrends.taskmanager.model.team.TeamMemberDetails;
+import com.ctrends.taskmanager.model.team.TeamDetails;
 
 public interface ITeamDAO extends ICommonDAO<Team> {
 
 	boolean checkUnique(Map<String, Object> param);
-	public List<TeamMemberDetails> getTeamMemberDetailsByTeamId(UUID teamId);
+	public List<TeamDetails> getTeamMemberDetailsByTeamId(UUID teamId);
 
-	List<TeamMemberDetails> getDocByIdTeamCode(String teamCode);
-	TeamMemberDetails getTeamMemberDetailsByTeamId(String empCode);
+	List<TeamDetails> getDocByIdTeamCode(String teamCode);
+	TeamDetails getTeamMemberDetailsByTeamId(String empCode);
 	UUID deleteDocTeamDetailsById(UUID id);
-	TeamMemberDetails getTeamMemberDetailsByEmpCodeAndTeamId(String empCode, UUID teamId);
+	TeamDetails getTeamMemberDetailsByEmpCodeAndTeamId(String empCode, UUID teamId);
 
 }
