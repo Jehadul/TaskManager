@@ -66,16 +66,31 @@
 								</div>
 								
 						</fieldset>
-								<div class="form-group">						
-									<cts:Label name="Task Code" labelFor="task_code"/>
-									<cts:TextBox name="task_code" cssClass="dirty-check uppercase required" readonly="" value="${map.tasks.taskCode}"/>
-								</div>
 						
-						
-						
+						<div class="form-group">
+							<cts:Label labelFor="task_state" name="Task Status" />
+							<select id="task_state" class="form-control required"
+								name="task_state">
+								<c:forEach items="${map.taskStatus}" var="item">
+									<c:choose>
+										<c:when test="${item.getValue() == map.tasks.taskStatus}">
+											<option selected value="${item.getKey()}">${item.getValue()}</option>
+										</c:when>
+										<c:otherwise>
+											<option value="${item.getKey()}">${item.getValue()}</option>
+										</c:otherwise>
+
+									</c:choose>
+								</c:forEach>
+							</select>
+							<cts:Hidden name="task_status" value=""/>
+						</div>
 					</div>
 					<div class="col-md-6">
-						
+						<div class="form-group">						
+							<cts:Label name="Task Code" labelFor="task_code"/>
+							<cts:TextBox name="task_code" cssClass="dirty-check uppercase required" readonly="" value="${map.tasks.taskCode}"/>
+						</div>
 						<div class="form-group">						
 							<cts:Label name="Task Title" labelFor="task_title"/>
 							<cts:TextBox name="task_title" cssClass="dirty-check required" readonly="" value="${map.tasks.taskTitle}"/>
@@ -155,6 +170,12 @@
 <script>
 
    InitHandlers();
+   
+	$("input[name='task_status']").val($("#task_state option:selected").text());
+	
+	$("#story_state").on("change", function(){
+		$("input[name='task_status']").val($("#task_state option:selected").text());
+	});
    
    function showMessage(data) {
 		if (data.outcome == 'success') {
