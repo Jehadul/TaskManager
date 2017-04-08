@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.ctrends.taskmanager.dao.tman.ITasksDao;
+import com.ctrends.taskmanager.dao.tman_sprint.ISprintDAO;
 import com.ctrends.taskmanager.model.tman.TaskLog;
 import com.ctrends.taskmanager.model.tman.Tasks;
 import com.ctrends.taskmanager.model.user.User;
@@ -29,6 +30,9 @@ public class TasksService implements ITasksService {
 
 	@Autowired
 	IUserService userService;
+	
+	@Autowired
+	ISprintDAO sprintDao;
 
 	@Override
 	public Map<String, String> insert(Map<String, String[]> requestMap) {
@@ -207,7 +211,7 @@ public class TasksService implements ITasksService {
 		Map<String, String> data = new HashMap<String, String>();
 		TaskLog taskLog = tasksDao.getDocByIdTimeLog(requestMap.get("id"));
 		Tasks tasks = tasksDao.getDocById(UUID.fromString(requestMap.get("id")));
-
+		double sqlTaskRemainingHours = tasks.getRemainingTime();
 		SimpleDateFormat dsf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 		Date s;
 		try {
@@ -233,20 +237,28 @@ public class TasksService implements ITasksService {
 			}
 
 			
-			/*long spentTotalTime = tasks.getSpentTime() + (hh.getTime() - taskLog.getStartTime().getTime());
-			tasks.setSpentTime(spentTotalTime);
-
-			long remaingSqlTimeHours = Long.parseLong(String.valueOf(tasks.getEstimatedTime()).split("\\.")[0]);
-			long remaingsqlTimeMin = Long.parseLong(String.valueOf(tasks.getEstimatedTime()).split("\\.")[1]);
-
-			long estimateSqlTime = (remaingSqlTimeHours * 60 * 60 * 1000) + (remaingsqlTimeMin * 60*1000);
-			long remaingTotalTime = estimateSqlTime - spentTotalTime;*/
 			
 			long spentTotalTime = tasks.getSpentTime() + (hh.getTime() - taskLog.getStartTime().getTime());
             tasks.setSpentTime(spentTotalTime);
 			
 			tasks.setRemainingTime(Double.parseDouble(requestMap.get("remaininghours")));
-			taskLog.setRemainingTime(Double.parseDouble(requestMap.get("remaininghours")));
+			
+			System.out.println("sqlTaskRemainingHours "+sqlTaskRemainingHours);
+			double stopTaskRemainingHours = Double.parseDouble(requestMap.get("remaininghours"));
+			double stopTaskRemainingHoursplus = 0;
+			System.out.println("stopTaskRemainingHours "+stopTaskRemainingHours);
+			if(sqlTaskRemainingHours>stopTaskRemainingHours){
+				stopTaskRemainingHours =sqlTaskRemainingHours-stopTaskRemainingHours;
+				System.out.println("stopTaskRemainingHour big "+stopTaskRemainingHours);
+			}else if(sqlTaskRemainingHours<stopTaskRemainingHours){
+				stopTaskRemainingHoursplus =stopTaskRemainingHours-sqlTaskRemainingHours;
+				System.out.println("stopTaskRemainingHours small "+stopTaskRemainingHours);
+			}else{
+				
+			}
+			double totalRemaininghours = tasksDao.sprintRemaingHours(UUID.fromString(requestMap.get("id")));
+			System.out.println(totalRemaininghours);
+			taskLog.setRemainingTime((stopTaskRemainingHoursplus==0)?totalRemaininghours-stopTaskRemainingHours:totalRemaininghours+stopTaskRemainingHoursplus);
 			
 			tasksDao.updateTaskLogDoc(taskLog);
 			tasksDao.updateSpantTimeDoc(tasks);
