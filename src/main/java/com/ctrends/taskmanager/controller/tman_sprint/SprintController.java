@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -21,10 +22,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ctrends.taskmanager.bean.WSResponse;
 import com.ctrends.taskmanager.dao.tman_sprint.ISprintDAO;
-import com.ctrends.taskmanager.model.taskmanage.Module;
-import com.ctrends.taskmanager.model.taskmanage.PrivGroup;
-import com.ctrends.taskmanager.model.taskmanage.Suite;
-import com.ctrends.taskmanager.model.tman.Tasks;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManager;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManagerDetails;
 import com.ctrends.taskmanager.service.tman_sprint.ISprintService;
@@ -84,14 +81,13 @@ public class SprintController implements ISprintController {
 		Map<String, String[]> sprint = request.getParameterMap();
 
 		Map<String, String> data = sprintService.insert(sprint);
-		
-		if(data.get("id") == null){
-			return new WSResponse("error", "Sprint Code Must be Unique",null , null, null, null);
-		}
-		else{
+
+		if (data.get("id") == null) {
+			return new WSResponse("error", "Sprint Code Must be Unique", null, null, null, null);
+		} else {
 			UUID id = UUID.fromString(data.get("id"));
 			return new WSResponse("success", "Saved Successfully", id, null, data.get("mode"), data);
-			
+
 		}
 	}
 
@@ -138,9 +134,9 @@ public class SprintController implements ISprintController {
 	@Override
 	public WSResponse update(HttpServletRequest request) {
 		Map<String, String[]> sprintManager = request.getParameterMap();
-		System.out.println(sprintManager.get("id")[0]+"::::::::::::::::::::::::");
+		System.out.println(sprintManager.get("id")[0] + "::::::::::::::::::::::::");
 		Map<String, String> data = sprintService.update(sprintManager);
-		
+
 		return new WSResponse("success", "Updated Successfully", UUID.fromString(data.get("id")), null,
 				data.get("mode"), data);
 
@@ -149,7 +145,7 @@ public class SprintController implements ISprintController {
 	@RequestMapping(value = "/create", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Override
 	public ModelAndView create(HttpServletRequest request) {
-		
+
 		return new ModelAndView("sprintmanager/create");
 	}
 
@@ -164,7 +160,7 @@ public class SprintController implements ISprintController {
 		Gson g = gson.create();
 
 		data.put("sprintlist", sprintlist);
-		
+
 		System.out.println(g.toJson(sprintlist));
 
 		return new ModelAndView("sprintmanager/sprintlist", "data", data);
@@ -191,47 +187,25 @@ public class SprintController implements ISprintController {
 		System.out.println(g.toJson(sprintViewDetails));
 		return new ModelAndView("sprintmanager/burndownchart", "map", g.toJson(sprintViewDetails));
 	}
-	//old burndown chart
+
+	// old burndown chart
 	@RequestMapping(value = "/spentchart/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ModelAndView showSpentChart(@PathVariable(value = "id") UUID id) {
 		Map<String, Object> map = sprintService.getSprintSpentChartData(id);
-		List<Tasks> taskslist = (List<Tasks>)map.get("task");
-		List<String> sp = (List<String>)map.get("spenttime");
-		List<Object> chart = new ArrayList<>();
-		SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
-		for(int i=0; i<taskslist.size(); i++){
-			List<Object> querychart = new ArrayList<>();
-			querychart.add(taskslist.get(i).getTaskTitle());
-			querychart.add(convertTimetoHours(sp.get(i)));
-			querychart.add(String.valueOf(convertTimetoHours(sp.get(i))));
-			chart.add(i, querychart);
-		}
 		GsonBuilder gson = new GsonBuilder();
 		Gson g = gson.create();
-		map.put("chart", chart);
 		System.out.println(g.toJson(map));
 		return new ModelAndView("sprintmanager/spentchart", "map", g.toJson(map));
 	}
-	public double convertTimetoHours(String time){
-		long hh =(Integer.parseInt(time.split(":")[0])>0)? (Long.parseLong(time.split(":")[0]))*3600000:0;
-		long mm =(Integer.parseInt(time.split(":")[1])>0)? (Long.parseLong(time.split(":")[1]))*60000:0;
-		long ss =(Integer.parseInt(time.split(":")[2])>0)? (Long.parseLong(time.split(":")[2]))*1000:0;
-		
-		DecimalFormat df = new DecimalFormat("##.##");
-		double hours = ((hh+mm+ss)>0)?(hh+mm+ss)/3600000.0:0;		
-		return Double.parseDouble(df.format(hours));
-		
-	}
+	
 	@RequestMapping(value = "/burndownchart/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ModelAndView showSpentChartData(@PathVariable(value = "id") UUID id) {
+	public ModelAndView showBurnDownChartData(@PathVariable(value = "id") UUID id) {
 		Map<String, Object> map = sprintService.getDocByBurnDownChartData(id);
 		GsonBuilder gson = new GsonBuilder();
 		Gson g = gson.create();
 		System.out.println(g.toJson(map));
 		return new ModelAndView("sprintmanager/burndownchart", "map", g.toJson(map));
 	}
-
-	
 
 }
