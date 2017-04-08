@@ -45,7 +45,13 @@ for(var i = 0; i<burnData.length; i++){
 console.log(burnValues);
 
 $(function () {
+	
 	  $('#burndown').highcharts({
+		  chart: {
+			     backgroundColor: '#080808',
+			     polar: true,
+			     type: 'line'
+		},
 	    title: {
 	      text: 'Burndown Chart',
 	      x: -20 //center
@@ -89,20 +95,20 @@ $(function () {
 	      borderWidth: 0
 	    },
 	    series: [{
-	      name: 'Ideal Burn',
-	      color: 'rgba(255,0,0,0.25)',
+	      name: 'Actual Burn',
+	      color: 'white',
 	      lineWidth: 2,
 	     // data: [110, 100]
 	    data: burnValues
-	    }, {
-	      name: 'Actual Burn',
-	      color: 'rgba(0,120,200,0.75)',
+	    }, /* {
+	      //name: 'Actual Burn',
+	      //color: 'rgba(0,120,200,0.75)',
 	      marker: {
 	        radius: 6
 	      },
 	      //data: [100, 110, 125, 95, 64, 76, 62, 44, 35, 29, 18, 2]
 	      //data: burnValues
-	    }]
+	    } */]
 	  });
 	});
 	var sp = jsonMap.sprint;
@@ -132,9 +138,9 @@ $(function () {
 </script>
 <style>
 #burndown {
-	width: 600px;
-	min-width: 310px;
-	height: 250px;
+	width: 800px;
+	min-width: 600px;
+	height: 450px;
 	margin: 0 auto;
 }
 </style>
