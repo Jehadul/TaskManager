@@ -20,7 +20,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.ctrends.taskmanager.model.team.Team;
-import com.ctrends.taskmanager.model.team.TeamMemberDetails;
+import com.ctrends.taskmanager.model.team.TeamDetails;
 
 
 @RunWith(SpringJUnit4ClassRunner.class) 
@@ -43,7 +43,7 @@ public class TeamDAOTest {
 	private List<Team> mockTeamList;
 	
 	@Mock
-	private List<TeamMemberDetails> teamMemberDetailsList;
+	private List<TeamDetails> teamMemberDetailsList;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -69,7 +69,7 @@ public class TeamDAOTest {
 	@Test
 	public void testGetTeamMemberDetailsByTeamId_ReturnList(){
 		UUID teamId=UUID.fromString("d813830a-d80d-4963-8b14-b86903aceb8c");
-		List<TeamMemberDetails> list = teamDAO.getTeamMemberDetailsByTeamId(teamId);
+		List<TeamDetails> list = teamDAO.getTeamMemberDetailsByTeamId(teamId);
 		assertFalse(list.isEmpty());
 	}
 	
@@ -95,10 +95,10 @@ public class TeamDAOTest {
 		Team team = new Team();
 //		TeamMemberDetails teamMemberDetails = new TeamMemberDetails();
 //		teamMemberDetailsList.add(teamMemberDetails);
-		teamMemberDetailsList=new ArrayList<TeamMemberDetails>();
+		teamMemberDetailsList=new ArrayList<TeamDetails>();
 		for(int i=0; i<team.getTeamDetails().size(); i++){
-			TeamMemberDetails teamMemberDetails = new TeamMemberDetails();
-			teamMemberDetails=(TeamMemberDetails) team.getTeamDetails().get(0);
+			TeamDetails teamMemberDetails = new TeamDetails();
+			teamMemberDetails=(TeamDetails) team.getTeamDetails().get(0);
 			teamMemberDetails.setTeamId(teamId);
 			teamMemberDetailsList.add(teamMemberDetails);
 		}
@@ -136,7 +136,7 @@ public class TeamDAOTest {
 				
 		UUID id=UUID.fromString("9d9c2c22-5960-45c6-85a7-708f7e759f46");
 		String st="0001";
-		TeamMemberDetails teamMemberDetails=teamDAO.getTeamMemberDetailsByEmpCodeAndTeamId(st,id);
+		TeamDetails teamMemberDetails=teamDAO.getTeamMemberDetailsByEmpCodeAndTeamId(st,id);
 		assertNotNull(teamMemberDetails);
 	}
 	
