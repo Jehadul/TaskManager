@@ -13,7 +13,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 	@Entity
-	@Table(name="team_management")
+	@Table(name="team")
 	public class Team {
 		@Id
 		@Column(name = "id")
@@ -207,7 +207,7 @@ import javax.persistence.Transient;
 		private String costcenterName;
 		
 		@Transient
-		private List<TeamMemberDetails> teamDetails;
+		private List<TeamDetails> teamDetails;
 		
 		public String getTeamCode() {
 			return teamCode;
@@ -217,11 +217,11 @@ import javax.persistence.Transient;
 			this.teamCode = teamCode;
 		}
 
-		public List<TeamMemberDetails> getTeamDetails() {
+		public List<TeamDetails> getTeamDetails() {
 			return teamDetails;
 		}
 
-		public void setTeamDetails(List<TeamMemberDetails> teamDetails) {
+		public void setTeamDetails(List<TeamDetails> teamDetails) {
 			this.teamDetails = teamDetails;
 		}
 
