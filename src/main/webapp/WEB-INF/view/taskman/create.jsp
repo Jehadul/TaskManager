@@ -175,10 +175,10 @@
 			.on(
 					"click",
 					function() {
-						ShowModal("/taskman/userstory/story/searchstory/?action_type_code=SELECT&actioncallback=loadStory");
+						ShowModal("/taskman/tman/sprint/searchsprint/?action_type_code=SELECT&actioncallback=loadSprintStory");
 					});
 
-	function loadStory(story) {
+	function loadSprintStory(story) {
 		var storyList = JSON.parse(unescape(story));
 		$("#suite_code").val(storyList.suiteCode);
 		$("#suite_name").val(storyList.suiteName);
@@ -188,8 +188,8 @@
 		$("#priv_grp_name").val(storyList.privGrpName);
 		$("#privilege_code").val(storyList.privilegeCode);
 		$("#privilege_name").val(storyList.privilegeName);
-		$("#story_code").val(storyList.userStoryCode);
-		$("#story_title").val(storyList.userStoryTitle);
+		$("#story_code").val(storyList.sprintStoryCode);
+		$("#story_title").val(storyList.sprintStoryName);
 		HideModal('search-modal');
 	}
 
