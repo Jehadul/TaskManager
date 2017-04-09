@@ -431,5 +431,19 @@ public class SprintService implements ISprintService {
 		List<SprintManager> splist = sprintDao.getAllSprint();
 		return splist;
 	}
+	
+	@Override
+	public List<SprintManagerDetails> getAllSprintDetailsDoc() {
+		List<SprintManagerDetails> splist = sprintDao.getAllSprintDetailsDoc();
+		return splist;
+	}
+	
+	
+	@Override
+	public List<SprintManagerDetails> find(Map<String, String> searchingKey) {
+		List<SprintManagerDetails> splist = sprintDao.find(searchingKey);
+		return splist;
+	}
+
 
 }

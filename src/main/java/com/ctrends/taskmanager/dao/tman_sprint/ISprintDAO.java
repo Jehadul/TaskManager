@@ -12,6 +12,7 @@ import com.ctrends.taskmanager.model.taskmanage.Suite;
 import com.ctrends.taskmanager.model.tman.TaskLog;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManager;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManagerDetails;
+import com.ctrends.taskmanager.model.userstory.UserStory;
 
 public interface ISprintDAO extends ICommonDAO<SprintManager> {
 	List<Suite> getAllSuites();
@@ -29,4 +30,6 @@ public interface ISprintDAO extends ICommonDAO<SprintManager> {
 	Map<String, Object> getSpentChartDoc(UUID id);
 	Map<String, Object> getDocByBurnDownChart(UUID id);
 	public List<SprintManager> getAllSprint();
+	List<SprintManagerDetails> getAllSprintDetailsDoc();
+	List<SprintManagerDetails> find(Map<String, String> params);
 }
