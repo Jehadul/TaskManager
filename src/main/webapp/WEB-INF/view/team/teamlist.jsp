@@ -83,14 +83,15 @@
 															<c:set var="nextBlockId" value="" />
 														</c:otherwise>
 													</c:choose>
-													<%-- <c:forEach var="teamDetails" items ="${data.teamLi[i].teamDetails}" > --%>
-													<c:forEach var="j" begin="0" end="${data.teamLi[i].teamDetails.size()-1}">
-													<tr>
-														<td>${data.teamLi[i].teamDetails[j].empCode}</td>
-														<td>${data.teamLi[i].teamDetails[j].empName}</td>
-														<td>${data.teamLi[i].teamDetails[j].username}</td>
-													</tr>
-													</c:forEach>
+													<c:if test="${data.teamLi.size() > 0}">
+														<c:forEach var="j" begin="0" end="${data.teamLi[i].teamDetails.size()-1}">
+															<tr>
+																<td>${data.teamLi[i].teamDetails[j].empCode}</td>
+																<td>${data.teamLi[i].teamDetails[j].empName}</td>
+																<td>${data.teamLi[i].teamDetails[j].username}</td>
+															</tr>
+														</c:forEach>
+													</c:if>
 												</tbody>
 												<c:if test="${!data.teamLi[i].teamCode.equals(nextBlockId)}">
 											</table>
