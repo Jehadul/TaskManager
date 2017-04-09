@@ -83,7 +83,7 @@
 															<c:set var="nextBlockId" value="" />
 														</c:otherwise>
 													</c:choose>
-													<c:if test="${data.teamLi.size() > 0}">
+													<c:if test="${data.teamLi[i].teamDetails.size() > 0}">
 														<c:forEach var="j" begin="0" end="${data.teamLi[i].teamDetails.size()-1}">
 															<tr>
 																<td>${data.teamLi[i].teamDetails[j].empCode}</td>
