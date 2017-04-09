@@ -32,6 +32,7 @@ import com.ctrends.taskmanager.model.tman_sprint.BurndownChart;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManager;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManagerDetails;
 import com.ctrends.taskmanager.model.user.User;
+import com.ctrends.taskmanager.model.userstory.UserStory;
 import com.ctrends.taskmanager.service.user.IUserService;
 
 @Repository("sprintDAO")
@@ -466,5 +467,33 @@ public class SprintDAO implements ISprintDAO {
 		List<SprintManager> splist = query.list();
 		return splist;
 	}
+	
+	@Transactional
+	@Override
+	public List<SprintManagerDetails> getAllSprintDetailsDoc() {
+		Query query = sessionfactory.getCurrentSession()
+				.createQuery("From SprintManagerDetails");
+		List<SprintManagerDetails> splist = query.list();
+
+		return splist;
+	}
+	
+	
+	@Transactional
+	@Override
+	public List<SprintManagerDetails> find(Map<String, String> params) {
+		Query query = sessionfactory.getCurrentSession()
+				.createQuery("from SprintManagerDetails where sprintCode like :sprintCode and "+"sprintStoryCode like :sprintStoryCode and "+"sprintStoryName like :sprintStoryName");
+		
+		query.setParameter("sprintCode", "%" + params.get("sprintCode") + "%");
+		query.setParameter("sprintStoryCode", "%" + params.get("sprintStoryCode") + "%");
+		query.setParameter("sprintStoryName", "%" + params.get("sprintStoryName") + "%");
+		
+		List<SprintManagerDetails> sprintStoryLi = query.list();
+				
+		return sprintStoryLi;
+	}
+	
+	
 
 }
