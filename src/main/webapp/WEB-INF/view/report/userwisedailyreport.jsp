@@ -51,12 +51,12 @@
 							<thead>
 								
 								<tr>
-									<td>Story Title</td>
-									<td>Task Title</td>
-									<td>Task Code</td>
-									<td>Start Time</td>	
-									<td>End Time</td>	
-									<td>Spent Time</td>
+									<td id="id">Story Title</td>
+									<td id="id">Task Title</td>
+									<td id="id">Task Code</td>
+									<td id="id">Start Time</td>	
+									<td id="id">End Time</td>	
+									<td id="id">Spent Time</td>
 								</tr>		
 							</thead>
 							<tbody>
@@ -136,5 +136,6 @@ console.log(miltoTime(1200000));
 	th {color:#3B3B3B}
 	thead th {text-align: center;}
 	/* td {text-align: center;} */
+	#id{text-align: center;}
 }
 </style>
