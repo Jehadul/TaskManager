@@ -6,11 +6,13 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.ctrends.taskmanager.dao.tman_sprint.ISprintDAO;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManager;
 
 public class SprintBoardService implements ISprintBoardService {
 
-	
+	@Autowired
+	ISprintDAO sprintDAO;
 	
 	
 	@Override
@@ -21,14 +23,13 @@ public class SprintBoardService implements ISprintBoardService {
 
 	@Override
 	public List<SprintManager> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return sprintDAO.getAllDoc();
 	}
 
 	@Override
 	public SprintManager getById(UUID id) {
 		// TODO Auto-generated method stub
-		return null;
+		return sprintDAO.getDocById(id);
 	}
 
 	@Override
