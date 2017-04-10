@@ -29,16 +29,24 @@ public class StoryViewController implements IStoryViewController {
 
 	@RequestMapping(value = "/storyview", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Override
-	public ModelAndView create(){
+	public ModelAndView create(HttpServletRequest request){
 		
 		Map<String, Object> data = new HashMap<String, Object>();
 		List<SprintManager> sprintboardlist = sprintservice.getAll();
+		Map<String, String> sprintCodes = new HashMap<String, String>();
 		
-		System.out.println(sprintboardlist.get(0).getSprintGoal()+" hello");
+		String sprintCode = request.getParameter("sprint_code");
+		
+		
+		for (int i = 0; i < sprintboardlist.size(); i++) {
+			sprintCodes.put(sprintboardlist.get(i).getSprintCode(), sprintboardlist.get(i).getSprintName());
+		}
+		
 		GsonBuilder gson = new GsonBuilder();
 		Gson g = gson.create();
 
-		data.put("sprintboardlist", sprintboardlist);
+		data.put("sprintCodes", sprintCodes);
+		data.put("sprintCode", sprintCode);
 		
 		return new ModelAndView("storyview/storyview", "data", data);
 		
@@ -96,6 +104,12 @@ public class StoryViewController implements IStoryViewController {
 
 	@Override
 	public String search(HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ModelAndView create() {
 		// TODO Auto-generated method stub
 		return null;
 	}
