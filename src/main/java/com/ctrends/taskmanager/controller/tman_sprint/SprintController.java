@@ -170,9 +170,6 @@ public class SprintController implements ISprintController {
 		Map<String, Object> data = new HashMap<String, Object>();
 		Map<String, String> sprintCodes = new HashMap<String, String>();
 		List<SprintManagerDetails> sprintManagerDetails = sprintService.getAllSprintDetailsDoc();
-		if(sprintCode == null || sprintCode.isEmpty()){
-			sprintCodes.put("", "--SELECT--");
-		}
 		
 		for(int i =0; i<sprintManagerDetails.size(); i++){
 			sprintCodes.put(String.valueOf(sprintManagerDetails.get(i).getSprintCode()), sprintManagerDetails.get(i).getSprintName());
