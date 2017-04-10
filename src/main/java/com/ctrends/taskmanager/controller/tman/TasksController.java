@@ -9,7 +9,6 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.core.Context;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -22,12 +21,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ctrends.taskmanager.bean.WSResponse;
 import com.ctrends.taskmanager.dao.tman.ITasksDao;
-import com.ctrends.taskmanager.model.taskmanage.Module;
-import com.ctrends.taskmanager.model.taskmanage.PrivGroup;
-import com.ctrends.taskmanager.model.taskmanage.Suite;
 import com.ctrends.taskmanager.model.tman.TaskLog;
 import com.ctrends.taskmanager.model.tman.Tasks;
-import com.ctrends.taskmanager.model.user.User;
 import com.ctrends.taskmanager.service.tman.ITasksService;
 import com.ctrends.taskmanager.service.user.IUserService;
 import com.google.gson.Gson;
@@ -219,30 +214,34 @@ public class TasksController implements ITasksController {
 	}
 
 
-	@RequestMapping(value = "/timeLog/{id}/{strTime}/{title}/{day}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/timeLog/{id}/{strTime}/{title}/{day}/{sprintId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ModelAndView timeLog(@PathVariable(value = "id") UUID id, @PathVariable(value = "strTime") String strTime,
-			@PathVariable(value = "title") String title, @PathVariable(value = "day") String today) {
+			@PathVariable(value = "title") String title, @PathVariable(value = "day") String today,
+			@PathVariable(value = "sprintId") String sprintId) {
 		Map<String, String> map = new HashMap<>();
 		map.put("id", id.toString());
 		map.put("startTime", strTime);
 		map.put("taskTitle", title);
 		map.put("today", today);
+		map.put("sprintId", sprintId);
 		Map<String, String> data = tasksService.insertTaskLog(map);
 		return null;
 	}
 
-	@RequestMapping(value = "/timeLogUpdate/{id}/{stopTime}/{day}/{remaininghours}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/timeLogUpdate/{id}/{stopTime}/{day}/{remaininghours}/{sprintId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ModelAndView timeLogUpdate(@PathVariable(value = "id") UUID id,
 			@PathVariable(value = "stopTime") String stopTime,
 			@PathVariable(value = "day") String day,
-			@PathVariable(value = "remaininghours") String remaininghours) {
+			@PathVariable(value = "remaininghours") String remaininghours,
+			@PathVariable(value = "sprintId") String sprintId) {
 		Map<String, String> map = new HashMap<>();
 		map.put("id", id.toString());
 		map.put("stopTime", stopTime);
 		map.put("day", day);
 		map.put("remaininghours", remaininghours);
+		map.put("sprintId", sprintId);
 		Map<String, String> data = tasksService.updateTimeLog(map);
 		return null;
 	}

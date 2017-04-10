@@ -130,6 +130,19 @@ public class SprintManagerDetails {
 
 	@Column(name = "updated_by_company_name")
 	private String updatedByCompanyName;
+	
+	@Column(name = "story_status")
+	private String storyStatus;
+	
+	
+
+	public String getStoryStatus() {
+		return storyStatus;
+	}
+
+	public void setStoryStatus(String storyStatus) {
+		this.storyStatus = storyStatus;
+	}
 
 	public UUID getId() {
 		return id;

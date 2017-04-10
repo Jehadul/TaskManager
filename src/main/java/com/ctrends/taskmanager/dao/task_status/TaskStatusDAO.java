@@ -76,7 +76,9 @@ public class TaskStatusDAO implements ITaskStatusDAO {
 		List<Object> toDoAllTask = new ArrayList<>();
 		List<Object> toInProgressAllTask = new ArrayList<>();
 		List<Object> toReviewAllTask = new ArrayList<>();
-		
+		List<Object> toStory = new ArrayList<>();
+		List<Object> toQA = new ArrayList<>();
+		List<Object> toDone = new ArrayList<>();
 		
 		List<SprintManagerDetails> sprintManagerDetail = query.list();		//1
 		String[] storyCode = new String[sprintManagerDetail.size()+1];		//3
@@ -103,6 +105,27 @@ public class TaskStatusDAO implements ITaskStatusDAO {
 		toReviewAllTask.add(toBeReviewTaskList);
 		
 		
+		
+		
+		Criteria storySql = sessionfactory.getCurrentSession().createCriteria(SprintManagerDetails.class);
+		storySql.add(Restrictions.in("sprintStoryCode", storyCode));
+		storySql.add(Restrictions.eq("storyStatus", "Story"));
+		List<SprintManagerDetails> storyList = storySql.list();
+		toStory.add(storyList);
+		
+		Criteria qaStory = sessionfactory.getCurrentSession().createCriteria(SprintManagerDetails.class);
+		qaStory.add(Restrictions.in("sprintStoryCode", storyCode));
+		qaStory.add(Restrictions.eq("storyStatus", "QA"));
+		List<SprintManagerDetails> qaList = qaStory.list();
+		toQA.add(qaList);
+		
+		Criteria doneSql = sessionfactory.getCurrentSession().createCriteria(SprintManagerDetails.class);
+		doneSql.add(Restrictions.in("sprintStoryCode", storyCode));
+		doneSql.add(Restrictions.eq("storyStatus", "Done"));
+		List<SprintManagerDetails> doneList = doneSql.list();
+		toDone.add(doneList);
+		
+		
 		for(Tasks t:toBeReviewTaskList){
 			System.out.println(t.getId().toString());
 		}
@@ -113,6 +136,9 @@ public class TaskStatusDAO implements ITaskStatusDAO {
 		allTaskList.put("toDoAllTask", toDoAllTask);
 		allTaskList.put("toInProgressAllTask", toInProgressAllTask);
 		allTaskList.put("toReviewAllTask", toReviewAllTask);
+		allTaskList.put("toStory", toStory);
+		allTaskList.put("toQA", toQA);
+		allTaskList.put("toDone", toDone);
 
 		return allTaskList;
 	}
@@ -145,5 +171,14 @@ public class TaskStatusDAO implements ITaskStatusDAO {
 		sessionfactory.getCurrentSession().flush();
 		return doc.getId();
 	}
+	@Transactional
+	@Override
+	public UUID updateStoryStatus(SprintManagerDetails story) {
+		sessionfactory.getCurrentSession().saveOrUpdate(story);
+		sessionfactory.getCurrentSession().flush();
+		return story.getId();
+	}
+
+
 
 }
