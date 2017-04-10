@@ -210,7 +210,6 @@ public class SprintController implements ISprintController {
 
 		System.out.println("story_code::"+request.getParameter("story_code"));
 		List<SprintManagerDetails> data = sprintService.find(searchingKey);
-		//jeson convert
 		GsonBuilder gBuilder = new GsonBuilder();
 		Gson gson = gBuilder.create();
 		
