@@ -20,4 +20,6 @@ public interface ITaskStatusService extends ICommonService<TaskDetails> {
 
 	UUID updateStatus(UUID id, String status);
 
+	UUID updateStoryStatus(UUID id, String status);
+
 }
