@@ -6,7 +6,7 @@
 	<bean id="pgDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="org.postgresql.Driver" />
 		<!-- <property name="url" value="jdbc:postgresql://192.168.100.201/CTS_ERP_2017_DEV" /> -->
-		<property name="url" value="jdbc:postgresql://localhost/CTS_TaskManager_2017_DEV" />
+		<property name="url" value="jdbc:postgresql://localhost/taskman_final" />
 		<property name="username" value="CTrends_conn" />
 		<property name="password" value="123456" />
 	</bean>

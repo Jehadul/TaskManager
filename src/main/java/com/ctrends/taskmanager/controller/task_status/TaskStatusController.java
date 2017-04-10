@@ -27,7 +27,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 @RestController
-@RequestMapping("/taskman/sprintboard/ui")
+@RequestMapping("/taskman/sprintboard")
 public class TaskStatusController implements ITaskStatusController {
 	
 	
@@ -111,12 +111,12 @@ public class TaskStatusController implements ITaskStatusController {
 		GsonBuilder gson = new GsonBuilder();
 		Gson g = gson.create();
 		data.put("sprintManagerDetails", g.toJson(sprintManagerDetails));
-		System.out.println(g.toJson(sprintManagerDetails)+"Okkkkkkkkkkkkkkkkkkkkkkkkk");
+		System.out.println(g.toJson(sprintManagerDetails));
 		return g.toJson(sprintManagerDetails);
 	
 	}
 	
-	@RequestMapping(value="/tstatus/{id}/{status}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE) 
+	@RequestMapping(value="/taskstatus/update/{id}/{status}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE) 
 	@Override
 	public String taskStatus(@PathVariable( value="id") UUID id,@PathVariable( value="status") String status) {
 		
@@ -134,8 +134,27 @@ public class TaskStatusController implements ITaskStatusController {
 		
 	
 	}
+	
+	@RequestMapping(value="/storystatus/update/{id}/{status}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE) 
+	@Override
+	public String storyStatus(@PathVariable( value="id") UUID id,@PathVariable( value="status") String status) {
+		
+		System.out.println(id);
+		
+		UUID returnId = taskStatusService.updateStoryStatus(id,status);
+		GsonBuilder gson = new GsonBuilder();
+		Gson g = gson.create();
+		
+		if(returnId !=null){
+			return g.toJson("success");
+		}else{
+			return g.toJson("null");
+		}
+		
+	
+	}
 
-	@RequestMapping(value = "/create", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/taskstatus", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Override
 	public ModelAndView create(HttpServletRequest request) {
 		String sprintCode = request.getParameter("sprint_code");
@@ -161,7 +180,7 @@ public class TaskStatusController implements ITaskStatusController {
 		
 		data.put("sprintCodes", sprintCodes);
 		data.put("sprintCode", sprintCode);
-		return new ModelAndView("storystatus/sprintBoardUI", "data", data);
+		return new ModelAndView("taskstatus/taskstatus", "data", data);
 		
 	}
 	
@@ -171,6 +190,37 @@ public class TaskStatusController implements ITaskStatusController {
 		Map<String,String[]> map = request.getParameterMap();
 		Map<String,String> data = taskStatusService.manageselection(map);
 		return new WSResponse("success", "Saved successfully", null, null, null, data);
+	}
+	
+	
+	@RequestMapping(value = "/teamview", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Override
+	public ModelAndView sprintTeamView(HttpServletRequest request) {
+		String sprintCode = request.getParameter("sprint_code");
+		
+		//String storyTitle = request.getParameter("story_title");
+		
+		Map<String, Object> data = new HashMap<String, Object>();
+		
+		List<SprintManager> SprintList = sprintService.getAllSprint();
+		
+		Map<String, String> sprintCodes = new HashMap<String, String>();
+		
+		for (int i = 0; i < SprintList.size(); i++) {
+			sprintCodes.put(SprintList.get(i).getSprintCode(), SprintList.get(i).getSprintName());
+		}
+		
+
+		/*if (sprintCode == null || sprintCode.isEmpty()) {
+			sprintCodes.put("-1", "--SELECT--");
+		}*/
+		
+		/*List<SprintManager> userStory = taskStatusService.getSprintByStoryTitle(storyTytle);*/
+		
+		data.put("sprintCodes", sprintCodes);
+		data.put("sprintCode", sprintCode);
+		return new ModelAndView("taskstatus/teamview", "data", data);
+		
 	}
 	
 

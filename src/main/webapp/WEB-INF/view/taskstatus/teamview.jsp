@@ -4,11 +4,11 @@
 	<section id="page-title" class="padding-top-10 padding-bottom-10">
 		<div class="row">
 			<div class="col-sm-8">
-				<h1 class="mainTitle">Task Status</h1>
+				<h1 class="mainTitle">Sprint Board Team View</h1>
 			</div>
 			<ol class="breadcrumb padding-top-20">
 				<li><span>Taskman</span></li>
-				<li class="active"><span>Task Status</span></li>
+				<li class="active"><span>Sprint Board Team View</span></li>
 			</ol>
 		</div>
 	</section>
@@ -17,10 +17,6 @@
 	</center>
 	<!-- start: USER PROFILE -->
 	<div class="container-fluid  bg-white">
-		<cts:AjaxForm action="/taskman/sprintboard/ui/manageSprintselection"
-			dataHandler="showMessage">
-			<input type="hidden" name="${_csrf.parameterName}"
-				value="${_csrf.token}" />
 			<div>
 				<div class="alert alert-block alert-danger hidden">
 					Please check the fields marked with <span
@@ -50,11 +46,11 @@
 												<!--                                     <button type="button" class="btn btn-find"><span class="fa fa-plus"></span></button>   -->
 											</legend>
 											<div class="table-responsive">
-												<table class="data-grid" id="sprintmanagerdetail">
+												<table class="data-grid" id="story">
 													<thead>
 														<tr>
-															<th class="code-item">Story Code</th>
-															<th>Story Name</th>
+															<th class="code-item" style="width:150px !important;">Story Code</th>
+															<th class="story_name">Story Name</th>
 															<th>Action</th>
 														</tr>
 													</thead>
@@ -77,7 +73,7 @@
 												<table class="data-grid" id="taskAll">
 													<thead>
 														<tr>
-															<th class="code-item">Task Code</th>
+															<th class="sortIdcheck">Task Code</th>
 															<th>Task Name</th>
 															<th>Action</th>
 														</tr>
@@ -100,7 +96,7 @@
 												<table class="data-grid" id="inProgressTask">
 													<thead>
 														<tr>
-															<th class="code-item">Item Code</th>
+															<th id="inprogress" class="code-item">Item Code</th>
 															<th>Item Name</th>
 															<th>Action</th>
 														</tr>
@@ -143,7 +139,7 @@
 												<!--                                     <button type="button" class="btn btn-find"><span class="fa fa-plus"></span></button>   -->
 											</legend>
 											<div class="table-responsive">
-												<table class="data-grid" id="QAComponent">
+												<table class="data-grid" id="QAStory">
 													<thead>
 														<tr>
 															<th class="code-item">Story Code</th>
@@ -166,12 +162,12 @@
 												<!--                                     <button type="button" class="btn btn-find"><span class="fa fa-plus"></span></button> -->
 											</legend>
 											<div class="table-responsive">
-												<table class="data-grid" id="DoneComponent">
+												<table class="data-grid" id="done">
 													<thead>
 														<tr>
 															<th class="code-item">Story Code</th>
 															<th>Story Name</th>
-															<th>Action</th>
+															
 														</tr>
 													</thead>
 													<tbody>
@@ -194,13 +190,10 @@
 					<cts:Button cssClass="refresh" spanClass="refresh" />
 					<cts:Button cssClass="help" spanClass="question" />
 				</div>
-				<div class="col-md-4">
-					<cts:Submit cssClass="save pull-right" name="Save" spanClass="save" />
-				</div>
 			</div>
-		</cts:AjaxForm>
 	</div>
 </div>
+<script src="/assets/js/jquery.sortElements.js"></script>
 <script>
 	InitHandlers();
 
@@ -210,26 +203,29 @@
 	$("input[name='sprint_name']")
 			.val($("#sprint_code option:selected").text());
 
-	$("#sprint_code")
-			.on(
-					'change',
-					function() {
+	$("#sprint_code").on('change',function() {
 						var newSprintCode = $("#sprint_code").val();
-						$
-								.ajax({
-									url : "/taskman/sprintboard/ui/loaddedsprintmanagerdetail?sprint_code="
-											+ newSprintCode,
-									success : function(data) {
-										console.log(data);
-										var objType = eval(data.sprintManagerDetail);
+						$.ajax({
+							url : "/taskman/sprintboard/loaddedsprintmanagerdetail?sprint_code="
+								+ newSprintCode,
+							success : function(data) {
+										//console.log(data);
+										var objType = eval(data.toStory);
 										var objType2 = eval(data.toDoAllTask);
 										var inProgressTask = eval(data.toInProgressAllTask);
 										var toReviewAllTask = eval(data.toReviewAllTask);
-
+										var toStory = eval(data.toStory);
+										var toQA = eval(data.toQA);
+										
+										var toDone = eval(data.toDone);
+										console.log(toDone);
 										addRowStory(objType);
 										addRowTasks(objType2);
 										addInProgress(inProgressTask);
 										addReviewAllTask(toReviewAllTask);
+										addQA(toQA);
+										addDone(toDone);
+										
 
 									}
 								});
@@ -241,25 +237,28 @@
 
 		var html = "";
 		for (var i = 0; i < objType.length; i++) {
-			var code = objType[i].sprintStoryCode;
-			var name = objType[i].sprintStoryName;
-			var sprintCode = objType[i].sprintCode;
-			var sprintId = objType[i].sprintId;
+			for(var j=0; j<objType[i].length; j++){
+			var id = objType[i][j].id;
+			var code = objType[i][j].sprintStoryCode;
+			var name = objType[i][j].sprintStoryName;
+			var sprintCode = objType[i][j].sprintCode;
+			var sprintId = objType[i][j].sprintId;
 
 			html += ""
-					+ '<tr>'
-					+ '<td><input type="text" class="sprint-story-code width-50" readonly value="'+ code  + '"/></td>'
-					+ '<td class="width-300"><input type="text" class="sprint-story-name" readonly value="'+ name  + '" /></td>'
-					+ '<td>'
-					+ '<button type="button" class="btn btn-xs fa fa-arrow-right"><span style="width:20px;"></span></button>&nbsp;'
-					+ '</td>'
-					+ '<input type="hidden" class="sprint-Code" readonly value="'+ sprintCode  + '" /></td>'
-					+ '<input type="hidden" class="sprint-id" readonly value="'+ sprintId  + '" /></td>'
-					+ '</tr>';
-
+                + '<tr>'
+                + '<input type="hidden" class="id" width-50"  value="'+ id  + '"/>'
+                + '<td><input type="text" class="sprint-story-code width-50" readonly value="'+ code  + '"/></td>'
+                + '<td class="width-300"><input type="text" class="sprint-story-name" value="'+ name  + '" /></td>'
+                + '<td>'
+                + '<button type="button" onclick="storyToQA(this);" class="btn btn-xs fa fa-arrow-right"><span style="width:20px;"></span></button>&nbsp;'
+                + '</td>'
+                + '<input type="hidden" class="sprint-Code" value="'+ sprintCode  + '" /></td>'
+                + '<input type="hidden" class="sprint-id" value="'+ sprintId  + '" /></td>'
+                + '</tr>';
+			}
 		}
 		InitHandlers();
-		$("#sprintmanagerdetail tbody").html(html);
+		$("#story tbody").html(html);
 
 		if (objType.length > 2) {
 			$(".table-responsive").addClass("table-scroll");
@@ -274,7 +273,7 @@
 				var id = objType2[i][j].id;
 				var code = objType2[i][j].taskCode;
 				var name = objType2[i][j].taskTitle;
-				console.log(id);
+				//console.log(id);
 				html += ""
 						+ '<tr>'
 						+ '<input type="hidden" class="id" width-50"  value="'+ id  + '"/>'
@@ -306,7 +305,8 @@
 						+ '<td>'
 						+ '<button type="button" onclick="inProgressToReview(this);" class="btn btn-xs fa fa-arrow-right"><span style="width:20px;"></span></button>&nbsp;'
 						+ '<button type="button" onclick="inProgressToDoTask(this);" class="btn btn-xs"><span class="fa fa-arrow-left trash">'
-						+ '</td>' + '</tr>';
+						+ '</td>' 
+						+ '</tr>';
 			}
 		}
 
@@ -329,12 +329,163 @@
 						+ '<td class="width-300"><input type="text" class="task-name"  value="'+ name  + '" /></td>'
 						+ '<td>'
 						+ '<button type="button" onclick="fromBeReviewToInProgress(this);" class="btn btn-xs"><span class="fa fa-arrow-left trash">'
-						+ '</td>' + '</tr>';
+						+ '</td>' 
+						+ '</tr>';
 			}
 		}
 
 		InitHandlers();
 		$("#inReviewTask tbody").html(html);
+	}
+	
+	
+	
+	
+	//For QA Board Table
+	function addQA(toQA) {
+		var html = "";
+		for (var i = 0; i < toQA.length; i++) {
+			for (var j = 0; j < toQA[i].length; j++) {
+				var id = toQA[i][j].id;
+				var code = toQA[i][j].sprintStoryCode;
+				var name = toQA[i][j].sprintStoryName;
+				html += ""
+						+ '<tr>'
+						+ '<input type="hidden" class="id" width-50"  value="'+ id  + '"/>'
+						+ '<td><input type="text" class="sprint-story-code width-50" readonly value="'+ code  + '"/></td>'
+		                + '<td class="width-300"><input type="text" class="sprint-story-name" value="'+ name  + '" /></td>'
+		                + '<td>'
+						+ '<button type="button" onclick="qaToDone(this);" class="btn btn-xs fa fa-arrow-right"><span style="width:20px;"></span></button>&nbsp;'
+						+ '<button type="button" onclick="fromQAToStory(this);" class="btn btn-xs"><span class="fa fa-arrow-left trash">'
+						+ '</td>' 
+		                + '</tr>';
+			}
+		}
+
+		InitHandlers();
+		$("#QAStory tbody").append(html);
+	}
+	
+	
+	
+	
+	function addDone(toDone) {
+		var html = "";
+		for (var i = 0; i < toDone.length; i++) {
+			for (var j = 0; j < toDone[i].length; j++) {
+				var id = toDone[i][j].id;
+				var code = toDone[i][j].sprintStoryCode;
+				var name = toDone[i][j].sprintStoryName;
+				html += ""
+						+ '<tr>'
+						+ '<input type="hidden" class="id" width-50"  value="'+ id  + '"/>'
+						+ '<td><input type="text" class="sprint-story-code width-50" readonly value="'+ code  + '"/></td>'
+		                + '<td class="width-300"><input type="text" class="sprint-story-name" value="'+ name  + '" /></td>'
+		                 
+		                + '</tr>';
+			}
+		}
+
+		InitHandlers();
+		$("#done tbody").append(html);
+	}
+	
+	
+	//From Story To QA
+	function storyToQA(el) {
+		var count1 = ($("#QAStory tr ").length) - 1;
+		count1 = count1 + 1;
+		var qaval = $(el).closest("tr");
+		var id = qaval.find(".id").val();
+		var code = qaval.find(".sprint-story-code").val();
+		var name = qaval.find(".sprint-story-name").val();
+				$.ajax({
+					type : 'GET',
+					url : '/taskman/sprintboard/storystatus/update/' + id
+					+ '/QA',
+					success : function(data, status, xhr) {
+						//console.log(status);
+						if (status == "success") {
+							html = ""
+									+ '<tr>'
+									+ '<input type="hidden" class="id" width-50"  value="'+ id  + '"/>'
+									+ '<td><input name="sprint-story-code" type="text" class="sprint-story-code width-50" value="'+ code  + '"/></td>'
+									+ '<td class="width-300"><input name="sprint-story-name" type="text" class="sprint-story-name" value="'+ name  + '" /></td>'
+									+ '<td>'
+									+ '<button type="button" onclick="reviewToDone(this);" class="btn btn-xs fa fa-arrow-right"><span style="width:20px;"></span></button>&nbsp;'
+									+ '<button type="button" onclick="fromQAToStory(this);" class="btn btn-xs"><span class="fa fa-arrow-left trash">'
+									+ '</td>' + '</tr>';
+							InitHandlers();
+							$("#QAStory tbody").append(html);
+
+							$(el).closest("tr").remove();
+						}
+					}
+				});
+
+	}
+	
+	//From QA To Story
+	function fromQAToStory(el) {
+		var count1 = ($("#story tr ").length) - 1;
+		count1 = count1 + 1;
+		var qaval = $(el).closest("tr");
+		var id = qaval.find(".id").val();
+		var code = qaval.find(".sprint-story-code").val();
+		var name = qaval.find(".sprint-story-name").val();
+				$.ajax({
+					type : 'GET',
+					url : '/taskman/sprintboard/storystatus/update/' + id
+					+ '/Story',
+					success : function(data, status, xhr) {
+						//console.log(status);
+						if (status == "success") {
+							html = ""
+									+ '<tr>'
+									+ '<input type="hidden" class="id" width-50"  value="'+ id  + '"/>'
+									+ '<td><input name="sprint-story-code" type="text" class="sprint-story-code width-50" value="'+ code  + '"/></td>'
+									+ '<td class="width-300"><input name="sprint-story-name" type="text" class="sprint-story-name" value="'+ name  + '" /></td>'
+									+ '<td>'
+									+ '<button type="button" onclick="storyToQA(this);" class="btn btn-xs fa fa-arrow-right"><span style="width:20px;"></span></button>&nbsp;'
+									+ '</td>' + '</tr>';
+							InitHandlers();
+							$("#story tbody").append(html);
+
+							$(el).closest("tr").remove();
+						}
+					}
+				});
+	}
+	
+	//From QA To Done
+	function qaToDone(el) {
+		var count1 = ($("#done tr ").length) - 1;
+		count1 = count1 + 1;
+		var qaval = $(el).closest("tr");
+		var id = qaval.find(".id").val();
+		var code = qaval.find(".sprint-story-code").val();
+		var name = qaval.find(".sprint-story-name").val();
+				$.ajax({
+					type : 'GET',
+					url : '/taskman/sprintboard/storystatus/update/' + id
+					+ '/Done',
+					success : function(data, status, xhr) {
+						//console.log(status);
+						if (status == "success") {
+							html = ""
+									+ '<tr>'
+									+ '<input type="hidden" class="id" width-50"  value="'+ id  + '"/>'
+									+ '<td><input name="sprint-story-code" type="text" class="sprint-story-code width-50" value="'+ code  + '"/></td>'
+									+ '<td class="width-300"><input name="sprint-story-name" type="text" class="sprint-story-name" value="'+ name  + '" /></td>'
+									+ '</tr>';
+							InitHandlers();
+							$("#done tbody").append(html);
+
+							$(el).closest("tr").remove();
+						}
+					}
+				});
+
 	}
 
 	//FOR PROGRESS BOARD AGAINST OF RIGHT ARROW
@@ -348,10 +499,10 @@
 		var name = qaval.find(".task-name").val();
 				$.ajax({
 					type : 'GET',
-					url : '/taskman/sprintboard/ui/tstatus/' + id
-							+ '/In Progress',
+					url : '/taskman/sprintboard/taskstatus/update/' + id
+					+ '/In Progress',
 					success : function(data, status, xhr) {
-						console.log(status);
+						//console.log(status);
 						if (status == "success") {
 							html = ""
 									+ '<tr>'
@@ -381,9 +532,9 @@
 		var name = qaval.find(".task-name").val();
 				$.ajax({
 					type : 'GET',
-					url : '/taskman/sprintboard/ui/tstatus/' + id+ '/To Be Review',
+					url : '/taskman/sprintboard/taskstatus/update/' + id+ '/To Be Review',
 					success : function(data, status, xhr) {
-						console.log(status);
+						//console.log(status);
 						if (status == "success") {
 							html = ""
 									+ '<tr>'
@@ -411,10 +562,10 @@
 		var name = qaval.find(".task-name").val();
 				$.ajax({
 					type : 'GET',
-					url : '/taskman/sprintboard/ui/tstatus/' + id
-							+ '/In Progress',
+					url : '/taskman/sprintboard/taskstatus/update/' + id
+					+ '/In Progress',
 					success : function(data, status, xhr) {
-						console.log(status);
+						//console.log(status);
 						if (status == "success") {
 							html = ""
 									+ '<tr>'
@@ -444,10 +595,10 @@
 		var name = qaval.find(".task-name").val();
 				$.ajax({
 					type : 'GET',
-					url : '/taskman/sprintboard/ui/tstatus/' + id
-							+ '/To Do',
+					url : '/taskman/sprintboard/taskstatus/update/' + id
+					+ '/To Do',
 					success : function(data, status, xhr) {
-						console.log(status);
+						//console.log(status);
 						if (status == "success") {
 							html = ""
 									+ '<tr>'
@@ -467,7 +618,42 @@
 	}
 	
 	
-	//$("#taskAll").find("button.fa-arrow-right").on('click',toDoToInProgress);
+	 var table = $('#inProgressTask');
+	    
+	    $("#inprogress")
+	        .wrapInner('<span title="sort this column"/>')
+	        .each(function(){
+	            
+	            var th = $(this),
+	                thIndex = th.index(),
+	                inverse = false;
+	            
+	            th.click(function(){
+	            	
+	                
+	            	table.find('td').filter(function(){
+	            		alert("ok");
+	                    return $(this).index() === thIndex;
+	                    
+	                }).sortElements(function(a, b){
+	                    
+	                    return $.text([a]) > $.text([b]) ?
+	                        inverse ? -1 : 1
+	                        : inverse ? 1 : -1;
+	                    
+	                }, function(){
+	                    
+	                    // parentNode is the element we want to move
+	                    return this.parentNode; 
+	                    
+	                });
+	                
+	                inverse = !inverse;
+	                    
+	            });
+	                
+	        });
+	    
 </script>
 <style>
 .table-scroll {

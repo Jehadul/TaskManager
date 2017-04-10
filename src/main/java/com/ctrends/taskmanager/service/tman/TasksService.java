@@ -58,6 +58,8 @@ public class TasksService implements ITasksService {
 		tasks.setDescription(requestMap.get("description")[0]);
 		tasks.setStoryCode(requestMap.get("story_code")[0]);
 		tasks.setStoryTitle(requestMap.get("story_title")[0]);
+		tasks.setSprintId(requestMap.get("sprint_id")[0]);
+		
 		tasks.setEmpCode(requestMap.get("emp_code")[0]);
 		tasks.setEmpName(requestMap.get("emp_name")[0]);
 		tasks.setUsername(requestMap.get("username")[0]);
@@ -101,8 +103,7 @@ public class TasksService implements ITasksService {
 		User currentUser = userService.getCurrentUser();
 		taskLog.setTaskId(requestMap.get("id"));
 		taskLog.setTaskTitle(requestMap.get("taskTitle"));
-
-		System.out.println(requestMap.get("startTime") + "::::::::::::::::p:::::::::::::::::");
+		taskLog.setSprintId(UUID.fromString(requestMap.get("sprintId")));
 		SimpleDateFormat dsf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 		Date s;
 		try {
@@ -113,8 +114,7 @@ public class TasksService implements ITasksService {
 			Timestamp hh = new Timestamp(calendar.getTime().getTime());
 			taskLog.setStartTime(hh);
 		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			e1.getMessage();
 		}
 
 		taskLog.setStartStopStatus(false);
@@ -258,7 +258,7 @@ public class TasksService implements ITasksService {
 			}else{
 				
 			}
-			double totalRemaininghours = tasksDao.sprintRemaingHours(UUID.fromString(requestMap.get("id")));
+			double totalRemaininghours = tasksDao.sprintRemaingHours(UUID.fromString(requestMap.get("sprintId")));
 			System.out.println(totalRemaininghours);
 			taskLog.setRemainingTime((stopTaskRemainingHoursplus==0)?totalRemaininghours-stopTaskRemainingHours:totalRemaininghours+stopTaskRemainingHoursplus);
 			
