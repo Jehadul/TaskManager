@@ -81,6 +81,7 @@ if(!window.jQuery){window.location = "/?desturl=" + window.location.href;}
 		if (mode == "success") {
 			mode = "doc";
 		}
+		
 		$('.searchresult').text("");
     	var action = GetParameterByName(modalUrl, 'action_type_code');
     	var html = '<div class="table-responsive">';
