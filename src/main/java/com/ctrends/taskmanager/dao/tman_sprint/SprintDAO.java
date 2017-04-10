@@ -18,6 +18,7 @@ import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,6 +47,7 @@ public class SprintDAO implements ISprintDAO {
 
 	@Autowired
 	IUserService userService;
+	
 
 	@Transactional
 	@Override
@@ -274,6 +276,22 @@ public class SprintDAO implements ISprintDAO {
 		query.setParameter("sprintId", sprintId);
 		List<SprintManagerDetails> sprintDetails = query.list();
 		return sprintDetails;
+	}
+	
+	@Override
+	@Transactional
+	public SprintManagerDetails getSprintDetailsById(UUID id) {
+		Query query = sessionfactory.getCurrentSession()
+				.createQuery("from SprintManagerDetails where id =:id ");
+		query.setParameter("id", id);
+		SprintManagerDetails sprintManagerDetails = (SprintManagerDetails) query.uniqueResult();
+		if (sprintManagerDetails == null) {
+			throw new UsernameNotFoundException("User with username '" + id + "' does not exist.");
+		}
+		/* System.out.println(user.getEmpName()); */
+		return sprintManagerDetails;
+		
+		
 	}
 
 	@SuppressWarnings("unchecked")
