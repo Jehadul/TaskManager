@@ -412,7 +412,7 @@
 									+ '<td><input name="sprint-story-code" type="text" class="sprint-story-code width-50" value="'+ code  + '"/></td>'
 									+ '<td class="width-300"><input name="sprint-story-name" type="text" class="sprint-story-name" value="'+ name  + '" /></td>'
 									+ '<td>'
-									+ '<button type="button" onclick="reviewToDone(this);" class="btn btn-xs fa fa-arrow-right"><span style="width:20px;"></span></button>&nbsp;'
+									+ '<button type="button" onclick="qaToDone(this);" class="btn btn-xs fa fa-arrow-right"><span style="width:20px;"></span></button>&nbsp;'
 									+ '<button type="button" onclick="fromQAToStory(this);" class="btn btn-xs"><span class="fa fa-arrow-left trash">'
 									+ '</td>' + '</tr>';
 							InitHandlers();
@@ -457,6 +457,9 @@
 				});
 	}
 	
+	
+	
+	
 	//From QA To Done
 	function qaToDone(el) {
 		var count1 = ($("#done tr ").length) - 1;
@@ -470,7 +473,7 @@
 					url : '/taskman/sprintboard/storystatus/update/' + id
 					+ '/Done',
 					success : function(data, status, xhr) {
-						//console.log(status);
+						console.log(status);
 						if (status == "success") {
 							html = ""
 									+ '<tr>'
