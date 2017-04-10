@@ -15,7 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ctrends.taskmanager.bean.WSResponse;
+import com.ctrends.taskmanager.model.tman.Tasks;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManager;
+import com.ctrends.taskmanager.model.tman_sprint.SprintManagerDetails;
+import com.ctrends.taskmanager.service.task_status.ITaskStatusService;
+import com.ctrends.taskmanager.service.tman.ITasksService;
 import com.ctrends.taskmanager.service.tman_sprint.ISprintService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -23,9 +27,13 @@ import com.google.gson.GsonBuilder;
 @RestController
 @RequestMapping("/taskman/sprintboard")
 public class StoryViewController implements IStoryViewController {
+
 	
 	@Autowired
 	ISprintService sprintservice;
+	
+	@Autowired
+	ITasksService tasksService;
 
 	@RequestMapping(value = "/storyview", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Override
@@ -112,6 +120,45 @@ public class StoryViewController implements IStoryViewController {
 	public ModelAndView create() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	
+
+	@RequestMapping(value="storyview/loadsprintmanager", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE) 
+	@Override
+	public String loadSprintManager(HttpServletRequest request) {
+		
+		String sprintCode = request.getParameter("sprint_code");
+		
+		Map<String, Object> data = new HashMap<String, Object>();
+		
+		List<SprintManagerDetails> sprintManagerDetails = sprintservice.getByIdSprintCode(sprintCode);
+		/*
+		Map<String, Object> sprintManagerDetails = taskStatusService.getSprintManagerBySprintCode(sprintCode);
+		*/
+		
+		GsonBuilder gson = new GsonBuilder();
+		Gson g = gson.create();
+		data.put("sprintManagerDetails", g.toJson(sprintManagerDetails));
+		System.out.println(g.toJson(sprintManagerDetails)+"Okkkkkkkkkkkkkkkkkkkkkkkkk");
+		return g.toJson(sprintManagerDetails);
+	}
+	
+	@RequestMapping(value="storyview/loadtask", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE) 
+	@Override
+	public String loadStory(HttpServletRequest request) {
+		
+		String storyCode = request.getParameter("story_code");
+		
+		Map<String, Object> data = new HashMap<String, Object>();
+		
+		List<Tasks> taskList = tasksService.getTaskByStoryCode(storyCode);
+		
+		GsonBuilder gson = new GsonBuilder();
+		Gson g = gson.create();
+		data.put("taskList", g.toJson(taskList));
+		System.out.println(g.toJson(taskList)+"Okkkkkkkkkkkkkkkkkkkkkkkkk");
+		return g.toJson(taskList);
 	}
 
 }
