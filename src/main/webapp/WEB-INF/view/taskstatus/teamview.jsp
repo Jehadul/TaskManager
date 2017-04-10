@@ -37,8 +37,8 @@
 				<div class="table-responsive">
 					<table class="table">
 						<tbody>
-							<tr>
-								<td>
+							<tr style="vertical-align: baseline;">
+								<td style="vertical-align: top;">
 									<div class="width-300">
 										<fieldset>
 											<legend>
@@ -62,7 +62,7 @@
 										</fieldset>
 									</div>
 								</td>
-								<td>
+								<td style="vertical-align: top;">
 									<div class="width-300">
 										<fieldset>
 											<legend>
@@ -85,7 +85,7 @@
 										</fieldset>
 									</div>
 								</td>
-								<td>
+								<td style="vertical-align: top;">
 									<div class="width-300">
 										<fieldset>
 											<legend>
@@ -97,7 +97,7 @@
 													<thead>
 														<tr>
 															<th id="inprogress" class="code-item">Item Code</th>
-															<th>Item Name</th>
+															<th id="story_code_sort">Item Name</th>
 															<th>Action</th>
 														</tr>
 													</thead>
@@ -108,7 +108,7 @@
 										</fieldset>
 									</div>
 								</td>
-								<td>
+								<td style="vertical-align: top;">
 									<div class="width-300">
 										<fieldset>
 											<legend>
@@ -131,7 +131,7 @@
 										</fieldset>
 									</div>
 								</td>
-								<td>
+								<td style="vertical-align: top;">
 									<div class="width-300">
 										<fieldset>
 											<legend>
@@ -154,7 +154,7 @@
 										</fieldset>
 									</div>
 								</td>
-								<td>
+								<td style="vertical-align: top;">
 									<div class="width-300">
 										<fieldset>
 											<legend>
@@ -620,7 +620,7 @@
 	
 	 var table = $('#inProgressTask');
 	    
-	    $("#inprogress")
+	    $("#story_code_sort,#inprogress")
 	        .wrapInner('<span title="sort this column"/>')
 	        .each(function(){
 	            
@@ -632,7 +632,7 @@
 	            	
 	                
 	            	table.find('td').filter(function(){
-	            		alert("ok");
+	            		
 	                    return $(this).index() === thIndex;
 	                    
 	                }).sortElements(function(a, b){
@@ -649,8 +649,9 @@
 	                });
 	                
 	                inverse = !inverse;
-	                    
+	                //alert(inverse);
 	            });
+	           
 	                
 	        });
 	    

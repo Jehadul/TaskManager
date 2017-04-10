@@ -30,6 +30,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ctrends.taskmanager.bean.WSResponse;
 import com.ctrends.taskmanager.dao.tman_sprint.ISprintDAO;
 import com.ctrends.taskmanager.service.tman_sprint.ISprintService;
+import com.google.gson.JsonArray;
 
 import static org.mockito.Mockito.*;
 
@@ -180,6 +181,25 @@ public class SprintControllerTest {
 		this.mockMvc.perform(get("/taskman/tman/sprint/spentchart/" + id))
 				.andExpect(status().isOk())
 				.andExpect(view().name("sprintmanager/spentchart"));
+	}
+	
+	@Test
+	public void testshowSearch_returnModelAndView() throws Exception{
+		this.mockMvc.perform(get("/taskman/tman/sprint/searchsprint"))
+		.andExpect(status().isOk())
+		.andExpect(view().name("sprintmanager/searchsprint"));
+		
+	}
+	
+	@Test
+	public void testsearch_returndata(){
+		request.setParameter("sprintCode", "xvbhxf");
+		request.setParameter("sprintStoryCode","abc");
+		request.setParameter("sprintStoryName", "def");
+		
+		 String data= sprintController.search(request);
+		assertTrue(true);
+		
 	}
 	
 
