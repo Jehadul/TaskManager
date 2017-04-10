@@ -66,7 +66,7 @@ if(!window.jQuery){window.location = "/?desturl=" + window.location.href;}
 		<c:otherwise>
 		<div class="row" >
 			<div class="col-md-12">
-				<cts:Button name=" New" cssClass="new pull-right" spanClass="plus" dAjax="true" dHref="user/create"/>	
+				<cts:Button name=" New" cssClass="new pull-right" spanClass="plus" dAjax="true" dHref="/taskman/tman/sprint/create"/>	
 			</div>
 		</div>
 		</c:otherwise>

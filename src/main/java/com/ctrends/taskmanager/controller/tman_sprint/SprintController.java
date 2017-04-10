@@ -1,10 +1,6 @@
 package com.ctrends.taskmanager.controller.tman_sprint;
 
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -24,7 +20,6 @@ import com.ctrends.taskmanager.bean.WSResponse;
 import com.ctrends.taskmanager.dao.tman_sprint.ISprintDAO;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManager;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManagerDetails;
-import com.ctrends.taskmanager.model.userstory.UserStory;
 import com.ctrends.taskmanager.service.tman_sprint.ISprintService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

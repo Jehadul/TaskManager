@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.poi.util.SystemOutLogger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -110,8 +111,27 @@ public class TaskStatusController implements ITaskStatusController {
 		GsonBuilder gson = new GsonBuilder();
 		Gson g = gson.create();
 		data.put("sprintManagerDetails", g.toJson(sprintManagerDetails));
-		
+		System.out.println(g.toJson(sprintManagerDetails)+"Okkkkkkkkkkkkkkkkkkkkkkkkk");
 		return g.toJson(sprintManagerDetails);
+	
+	}
+	
+	@RequestMapping(value="/tstatus/{id}/{status}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE) 
+	@Override
+	public String taskStatus(@PathVariable( value="id") UUID id,@PathVariable( value="status") String status) {
+		
+		System.out.println(id);
+		
+		UUID returnId = taskStatusService.updateStatus(id,status);
+		GsonBuilder gson = new GsonBuilder();
+		Gson g = gson.create();
+		
+		if(returnId !=null){
+			return g.toJson("success");
+		}else{
+			return g.toJson("null");
+		}
+		
 	
 	}
 
@@ -133,9 +153,9 @@ public class TaskStatusController implements ITaskStatusController {
 		}
 		
 
-		if (sprintCode == null || sprintCode.isEmpty()) {
+		/*if (sprintCode == null || sprintCode.isEmpty()) {
 			sprintCodes.put("-1", "--SELECT--");
-		}
+		}*/
 		
 		/*List<SprintManager> userStory = taskStatusService.getSprintByStoryTitle(storyTytle);*/
 		

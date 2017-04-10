@@ -2,6 +2,7 @@ package com.ctrends.taskmanager.service.task_status;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import com.ctrends.taskmanager.model.task_status.TaskDetails;
 import com.ctrends.taskmanager.model.tman.Tasks;
@@ -16,5 +17,7 @@ public interface ITaskStatusService extends ICommonService<TaskDetails> {
 	List<Tasks> getTaskByStoryCode(Map<String, String> allStoryCode);
 
 	Map<String, String> manageselection(Map<String, String[]> map);
+
+	UUID updateStatus(UUID id, String status);
 
 }
