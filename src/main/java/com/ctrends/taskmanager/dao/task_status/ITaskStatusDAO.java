@@ -19,4 +19,6 @@ public interface ITaskStatusDAO extends ICommonDAO<TaskDetails> {
 	
 	UUID updateTaskStatus(Tasks task);
 
+	UUID updateStoryStatus(SprintManagerDetails story);
+
 }
