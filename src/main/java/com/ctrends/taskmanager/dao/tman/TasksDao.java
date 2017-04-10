@@ -20,6 +20,7 @@ import com.ctrends.taskmanager.model.taskmanage.Privilege;
 import com.ctrends.taskmanager.model.taskmanage.Suite;
 import com.ctrends.taskmanager.model.tman.TaskLog;
 import com.ctrends.taskmanager.model.tman.Tasks;
+import com.ctrends.taskmanager.model.tman_sprint.SprintManagerDetails;
 import com.ctrends.taskmanager.model.user.User;
 import com.ctrends.taskmanager.service.user.IUserService;
 
@@ -283,5 +284,7 @@ public class TasksDao implements ITasksDao {
 		return remDaily;
 
 	}
+	
+
 
 }

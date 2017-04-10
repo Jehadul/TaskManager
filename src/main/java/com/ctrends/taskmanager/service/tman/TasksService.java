@@ -299,4 +299,10 @@ public class TasksService implements ITasksService {
 		return tasksDao.getRunningTaskByCurrentUser1();
 	}
 
+	@Override
+	public List<Tasks> getTaskByStoryCode(String storyCode) {
+		// TODO Auto-generated method stub
+		return tasksDao.getTaskByStoryCode(storyCode);
+	}
+
 }
