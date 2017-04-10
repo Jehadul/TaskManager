@@ -306,8 +306,7 @@ public class SprintDAO implements ISprintDAO {
 
 		List<Date> sprintAllDays = sprintAllDays(sprint.get(0).getStartDate(), sprint.get(0).getEndDate());
 
-		String sqltask = "select id, remainingTime from Tasks  where storyCode = ANY(select userStoryCode from UserStory where userStoryCode=ANY(select sprintStoryCode from SprintManagerDetails where sprintId=ANY(select id from SprintManager where id='"
-				+ id + "')))";
+		String sqltask = "select id, remainingTime from Tasks  where sprintId ='"+id+"'";
 		Query crtask = sessionfactory.getCurrentSession().createQuery(sqltask);
 
 		List<Object> burnHours = new ArrayList<>();

@@ -54,6 +54,7 @@
 				<value>com.ctrends.taskmanager.model.userstory</value>
 				<value>com.ctrends.taskmanager.model.tman_sprint</value>
 				<value>com.ctrends.taskmanager.model.team</value>
+				<value>com.ctrends.taskmanager.model.impedimentmanager</value>
 			</list>
 		</property>
 		
