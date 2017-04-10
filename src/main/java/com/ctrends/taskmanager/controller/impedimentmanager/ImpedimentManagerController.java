@@ -1,48 +1,18 @@
-package com.ctrends.taskmanager.controller.sprintboard;
+package com.ctrends.taskmanager.controller.impedimentmanager;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ctrends.taskmanager.bean.WSResponse;
-import com.ctrends.taskmanager.model.tman_sprint.SprintManager;
-import com.ctrends.taskmanager.service.tman_sprint.ISprintService;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 @RestController
-@RequestMapping("/taskman/tman/sprintboard")
-public class SprintBoardController implements ISprintBoardController {
-	
-	@Autowired
-	ISprintService sprintservice;
-
-	@RequestMapping(value = "/create", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@Override
-	public ModelAndView create(){
-		
-		Map<String, Object> data = new HashMap<String, Object>();
-		List<SprintManager> sprintboardlist = sprintservice.getAll();
-		
-		System.out.println(sprintboardlist.get(0).getSprintGoal()+" hello");
-		GsonBuilder gson = new GsonBuilder();
-		Gson g = gson.create();
-
-		data.put("sprintboardlist", sprintboardlist);
-		
-		return new ModelAndView("sprintboard/sprintboard", "data", data);
-		
-	}
+@RequestMapping("/taskman/impedimentmanager")
+public class ImpedimentManagerController implements IImpedimentManagerController {
 
 	@Override
 	public ModelAndView index() {
@@ -62,7 +32,11 @@ public class SprintBoardController implements ISprintBoardController {
 		return null;
 	}
 
-	
+	@Override
+	public ModelAndView create() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	@Override
 	public WSResponse store(HttpServletRequest request) {

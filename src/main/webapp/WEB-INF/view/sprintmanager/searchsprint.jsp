@@ -27,7 +27,7 @@ if(!window.jQuery){window.location = "/?desturl=" + window.location.href;}
 				</div>
 				<div class="col-md-9">
 					<cts:Hidden name="sprint_name"/>
-										<cts:Select list="${data.sprintCodes}" name = "sprint_code" value="${data.sprintCode}"/>
+					<cts:Select list="${data.sprintCodes}" name = "sprint_code" value="-1" emptyValue="--SELECT--" cssClass="sync-option-text"/>
 					
 				</div>
 			</div>	
@@ -81,6 +81,7 @@ if(!window.jQuery){window.location = "/?desturl=" + window.location.href;}
 		if (mode == "success") {
 			mode = "doc";
 		}
+		
 		$('.searchresult').text("");
     	var action = GetParameterByName(modalUrl, 'action_type_code');
     	var html = '<div class="table-responsive">';
