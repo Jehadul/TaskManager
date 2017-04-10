@@ -16,5 +16,7 @@ public interface ITaskStatusController extends ICommonController<TaskDetails> {
 	ModelAndView create(HttpServletRequest request);
 	WSResponse manageselection(HttpServletRequest request);
 	String taskStatus(@PathVariable( value="id") UUID id,@PathVariable( value="status") String status);
+	ModelAndView sprintTeamView(HttpServletRequest request);
+	String storyStatus(UUID id, String status);
 	
 }
