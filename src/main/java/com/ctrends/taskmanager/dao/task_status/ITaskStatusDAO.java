@@ -2,6 +2,7 @@ package com.ctrends.taskmanager.dao.task_status;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import com.ctrends.taskmanager.dao.ICommonDAO;
 import com.ctrends.taskmanager.model.task_status.TaskDetails;
@@ -15,5 +16,7 @@ public interface ITaskStatusDAO extends ICommonDAO<TaskDetails> {
 	Map<String, Object> getSprintManager(Map<String, String> request);
 
 	List<Tasks> getTaskByStoryCode(Map<String, String> request);
+	
+	UUID updateTaskStatus(Tasks task);
 
 }

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ctrends.taskmanager.dao.task_status.ITaskStatusDAO;
+import com.ctrends.taskmanager.dao.tman.ITasksDao;
 import com.ctrends.taskmanager.model.task_status.TaskDetails;
 import com.ctrends.taskmanager.model.tman.Tasks;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManagerDetails;
@@ -18,6 +19,9 @@ public class TaskStatusService implements ITaskStatusService {
 	
 	@Autowired
 	ITaskStatusDAO taskStatusDAO;
+	
+	@Autowired
+	ITasksDao tasksDao;
 
 	@Override
 	public Map<String, String> insert(Map<String, String[]> requestMap) {
@@ -73,6 +77,14 @@ public class TaskStatusService implements ITaskStatusService {
 	public Map<String, String> manageselection(Map<String, String[]> map) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public UUID updateStatus(UUID id, String status) {
+		Tasks task = tasksDao.getDocById(id);
+		task.setTaskStatus(status);
+		UUID returnId = taskStatusDAO.updateTaskStatus(task);
+		return returnId;
 	}
 
 }
