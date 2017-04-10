@@ -53,6 +53,9 @@ public class SprintManagerDetails {
 	@Column(name = "sprint_code")
 	private String sprintCode;
 	
+	@Column(name = "sprint_name")
+	private String sprintName;
+	
 	@Column(name = "sprint_id")
 	private UUID sprintId;
 	
@@ -146,6 +149,15 @@ public class SprintManagerDetails {
 
 	public String getSprintCode() {
 		return sprintCode;
+	}
+
+	
+	public String getSprintName() {
+		return sprintName;
+	}
+
+	public void setSprintName(String sprintName) {
+		this.sprintName = sprintName;
 	}
 
 	public void setSprintCode(String sprintCode) {

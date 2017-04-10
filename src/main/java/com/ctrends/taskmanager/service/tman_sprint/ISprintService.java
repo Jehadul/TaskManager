@@ -20,4 +20,8 @@ public interface ISprintService extends ICommonService<SprintManager> {
 
 	Map<String, Object> getDocByBurnDownChartData(UUID id);
 
+	List<SprintManagerDetails> getAllSprintDetailsDoc();
+
+	List<SprintManagerDetails> find(Map<String, String> searchingKey);
+
 }

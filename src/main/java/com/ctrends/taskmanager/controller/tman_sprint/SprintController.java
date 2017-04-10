@@ -1,10 +1,6 @@
 package com.ctrends.taskmanager.controller.tman_sprint;
 
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -166,16 +162,60 @@ public class SprintController implements ISprintController {
 		return new ModelAndView("sprintmanager/sprintlist", "data", data);
 	}
 
+	@RequestMapping(value = "/searchsprint", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Override
 	public ModelAndView showSearch(HttpServletRequest request) {
-		// TODO Auto-generated method stub
-		return null;
+		String sprintCode = request.getParameter("sprint_code"); 
+		String actionTypeCode = request.getParameter("action_type_code");
+		Map<String, Object> data = new HashMap<String, Object>();
+		Map<String, String> sprintCodes = new HashMap<String, String>();
+		List<SprintManagerDetails> sprintManagerDetails = sprintService.getAllSprintDetailsDoc();
+		if(sprintCode == null || sprintCode.isEmpty()){
+			sprintCodes.put("", "--SELECT--");
+		}
+		
+		for(int i =0; i<sprintManagerDetails.size(); i++){
+			sprintCodes.put(String.valueOf(sprintManagerDetails.get(i).getSprintCode()), sprintManagerDetails.get(i).getSprintName());
+		}
+		data.put("sprintCodes", sprintCodes);
+		data.put("sprintCode", sprintCode);
+		data.put("action_type_code", actionTypeCode);
+		return new ModelAndView("sprintmanager/searchsprint","data",data);
 	}
 
+	@RequestMapping(value = "/sprintstorysearch", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Override
 	public String search(HttpServletRequest request) {
-		// TODO Auto-generated method stub
-		return null;
+		Map<String, String> searchingKey = new HashMap<String, String>();
+		System.out.println("Hello");
+		// if user input is null than convart it into empty String
+		
+		if(request.getParameter("sprint_code")==null){
+			searchingKey.put("sprintCode", "");
+		}else{
+			searchingKey.put("sprintCode", request.getParameter("sprint_code"));
+		}
+		
+		if(request.getParameter("story_code")==null){
+			searchingKey.put("sprintStoryCode", "");
+		}else{
+			searchingKey.put("sprintStoryCode", request.getParameter("story_code"));
+		}
+		
+		if(request.getParameter("story_name")==null){
+			searchingKey.put("sprintStoryName", "");
+		}else{
+			searchingKey.put("sprintStoryName", request.getParameter("story_name"));
+		}
+
+		System.out.println("story_code::"+request.getParameter("story_code"));
+		List<SprintManagerDetails> data = sprintService.find(searchingKey);
+		//jeson convert
+		GsonBuilder gBuilder = new GsonBuilder();
+		Gson gson = gBuilder.create();
+		
+		System.out.println(":::"+gson.toJson(data));
+		return gson.toJson(data);
 	}
 
 	@ResponseBody

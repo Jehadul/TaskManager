@@ -50,13 +50,13 @@
 						<table class="data-grid width-full" id="LevelTable">
 							<thead>
 								
-								<tr>
-									<td id="id">Story Title</td>
-									<td id="id">Task Title</td>
-									<td id="id">Task Code</td>
-									<td id="id">Start Time</td>	
-									<td id="id">End Time</td>	
-									<td id="id">Spent Time</td>
+								<tr id="title">
+									<th>Story Title</th>
+									<th>Task Title</th>
+									<th>Task Code</th>
+									<th>Start Time</th>	
+									<th>End Time</th>	
+									<th>Spent Time</th>
 								</tr>		
 							</thead>
 							<tbody>
@@ -136,6 +136,6 @@ console.log(miltoTime(1200000));
 	th {color:#3B3B3B}
 	thead th {text-align: center;}
 	/* td {text-align: center;} */
-	#id{text-align: center;}
+	tr#title th{text-align: center;}
 }
 </style>
