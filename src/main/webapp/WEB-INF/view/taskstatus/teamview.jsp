@@ -36,7 +36,7 @@
 				</div>
 				<div class="table-responsive">
 					<table class="table">
-						<tbody>
+						<tbody style="overflow-y: auto;overflow-x: auto;">
 							<tr style="vertical-align: baseline;">
 								<td style="vertical-align: top;">
 									<div class="width-300">
