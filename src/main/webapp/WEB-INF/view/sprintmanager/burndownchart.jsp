@@ -48,7 +48,7 @@ $(function () {
 	
 	  $('#burndown').highcharts({
 		  chart: {
-			     backgroundColor: '#080808',
+			     backgroundColor: '#fff',
 			     polar: true,
 			     type: 'line'
 		},

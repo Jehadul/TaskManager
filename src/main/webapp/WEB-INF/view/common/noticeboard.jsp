@@ -88,8 +88,8 @@
 											class="btn-del btn btn-xs pull-left" id="stop-timer">
 											<span class="fa fa-stop"></span>
 										</button> <input type="hidden" name="id1" class="task_id"
-										value="${currentTasklist.getId()}" /> <input type="hidden"
-										name="sprint_id" class="sprint_id"
+										value="${currentTasklist.getId()}" /> 
+										<input type="hidden" name="sprint_id" class="sprint_id"
 										value="${currentTasklist.getSprintId()}" />
 									</td>
 								</tr>
@@ -127,7 +127,9 @@
 								<c:if test="${task.getId().toString() != data.running_taskId}">
 									<tr>
 										<td style="display: none"><input type="hidden" name="id1"
-											class="task_id" value="${task.getId()}" /></td>
+											class="task_id" value="${task.getId()}" />
+											<input type="hidden" name="sprint_id"
+											class="sprint_id" value="${task.getSprintId()}" /></td>
 
 										<td><c:out value="${task.getTaskCode()}" /></td>
 										<td><c:out value="${task.getTaskTitle()}" /></td>
@@ -150,7 +152,9 @@
 												id="start" class="btn-timer btn btn-xs time-start">
 												<span class="fa fa-play"></span>
 											</button> <input type="hidden" name="id[]" class="task_id1"
-											value="${task.getId()}" /> <input type="hidden"
+											value="${task.getId()}" /> 
+											
+											<input type="hidden"
 											name="task_code[]" class="task_code"
 											value="${task.getTaskCode()}" /> <input type="hidden"
 											name="task_title[]" class="task_title"
@@ -548,6 +552,7 @@
 						$(el).addClass("hidden");
 						var id = $(el).closest('tr').find('td')
 								.find('.task_id').val();
+						var sprintId = $(el).closest('tr').find('td').find('.sprint_id').val();
 						console.log(id + "::::::::::::::::::id::::::;;");
 						var dt = new Date();
 
@@ -576,7 +581,7 @@
 						$.ajax({
 							type : 'GET',
 							url : '/taskman/tman/tasks/timeLog/' + id + '/'
-									+ startTime + '/' + taskTitle + '/' + day,
+									+ startTime + '/' + taskTitle + '/' + day+'/'+sprintId,
 							success : function(response, status, xhr) {
 								LoadMainContent("/");
 							}
@@ -599,7 +604,7 @@
 	function stopTimer(el, rem) {
 		//alert(rem);
 		var id = $(el).closest('tr').find('td').find('.task_id').val();
-
+		var sprintId = $(el).closest('tr').find('td').find('.sprint_id').val();
 		clearTimeout(t);
 		//$(".time-start").removeClass("hidden");
 		$("#start-timer").remove();
@@ -627,7 +632,7 @@
 		$.ajax({
 			type : 'GET',
 			url : '/taskman/tman/tasks/timeLogUpdate/' + id + '/' + stopTime
-					+ '/' + day + '/' + rem,
+					+ '/' + day + '/' + rem+'/'+sprintId,
 			success : function(response, status, xhr) {
 				LoadMainContent("/");
 			}

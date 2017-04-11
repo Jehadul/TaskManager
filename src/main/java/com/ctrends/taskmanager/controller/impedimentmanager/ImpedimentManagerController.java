@@ -4,7 +4,9 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -32,10 +34,11 @@ public class ImpedimentManagerController implements IImpedimentManagerController
 		return null;
 	}
 
+	@RequestMapping(value="/create", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Override
 	public ModelAndView create() {
 		// TODO Auto-generated method stub
-		return null;
+		return new ModelAndView("impedimentmanager/create");
 	}
 
 	@Override

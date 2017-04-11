@@ -36,9 +36,9 @@
 				</div>
 				<div class="table-responsive">
 					<table class="table">
-						<tbody>
-							<tr>
-								<td>
+						<tbody style="overflow-y: auto;overflow-x: auto;">
+							<tr style="vertical-align: baseline;">
+								<td style="vertical-align: top;">
 									<div class="width-300">
 										<fieldset>
 											<legend>
@@ -62,7 +62,7 @@
 										</fieldset>
 									</div>
 								</td>
-								<td>
+								<td style="vertical-align: top;">
 									<div class="width-300">
 										<fieldset>
 											<legend>
@@ -85,7 +85,7 @@
 										</fieldset>
 									</div>
 								</td>
-								<td>
+								<td style="vertical-align: top;">
 									<div class="width-300">
 										<fieldset>
 											<legend>
@@ -97,7 +97,7 @@
 													<thead>
 														<tr>
 															<th id="inprogress" class="code-item">Item Code</th>
-															<th>Item Name</th>
+															<th id="story_code_sort">Item Name</th>
 															<th>Action</th>
 														</tr>
 													</thead>
@@ -108,7 +108,7 @@
 										</fieldset>
 									</div>
 								</td>
-								<td>
+								<td style="vertical-align: top;">
 									<div class="width-300">
 										<fieldset>
 											<legend>
@@ -131,7 +131,7 @@
 										</fieldset>
 									</div>
 								</td>
-								<td>
+								<td style="vertical-align: top;">
 									<div class="width-300">
 										<fieldset>
 											<legend>
@@ -154,7 +154,7 @@
 										</fieldset>
 									</div>
 								</td>
-								<td>
+								<td style="vertical-align: top;">
 									<div class="width-300">
 										<fieldset>
 											<legend>
@@ -412,7 +412,7 @@
 									+ '<td><input name="sprint-story-code" type="text" class="sprint-story-code width-50" value="'+ code  + '"/></td>'
 									+ '<td class="width-300"><input name="sprint-story-name" type="text" class="sprint-story-name" value="'+ name  + '" /></td>'
 									+ '<td>'
-									+ '<button type="button" onclick="reviewToDone(this);" class="btn btn-xs fa fa-arrow-right"><span style="width:20px;"></span></button>&nbsp;'
+									+ '<button type="button" onclick="qaToDone(this);" class="btn btn-xs fa fa-arrow-right"><span style="width:20px;"></span></button>&nbsp;'
 									+ '<button type="button" onclick="fromQAToStory(this);" class="btn btn-xs"><span class="fa fa-arrow-left trash">'
 									+ '</td>' + '</tr>';
 							InitHandlers();
@@ -457,6 +457,9 @@
 				});
 	}
 	
+	
+	
+	
 	//From QA To Done
 	function qaToDone(el) {
 		var count1 = ($("#done tr ").length) - 1;
@@ -470,7 +473,7 @@
 					url : '/taskman/sprintboard/storystatus/update/' + id
 					+ '/Done',
 					success : function(data, status, xhr) {
-						//console.log(status);
+						console.log(status);
 						if (status == "success") {
 							html = ""
 									+ '<tr>'
@@ -620,7 +623,7 @@
 	
 	 var table = $('#inProgressTask');
 	    
-	    $("#inprogress")
+	    $("#story_code_sort,#inprogress")
 	        .wrapInner('<span title="sort this column"/>')
 	        .each(function(){
 	            
@@ -632,7 +635,7 @@
 	            	
 	                
 	            	table.find('td').filter(function(){
-	            		alert("ok");
+	            		
 	                    return $(this).index() === thIndex;
 	                    
 	                }).sortElements(function(a, b){
@@ -649,8 +652,9 @@
 	                });
 	                
 	                inverse = !inverse;
-	                    
+	                //alert(inverse);
 	            });
+	           
 	                
 	        });
 	    
