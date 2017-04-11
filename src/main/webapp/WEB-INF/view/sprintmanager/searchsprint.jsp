@@ -91,6 +91,7 @@ if(!window.jQuery){window.location = "/?desturl=" + window.location.href;}
 		html += '					<th>Story Code</th>';
 		html += '					<th>Story Title</th>';
 		html += '					<th>&nbsp;</th>';
+		html += '					<th>&nbsp;</th>';
 		html += '				</tr>'
 		html += '			</thead>';
 		html += '			</tbody>';
