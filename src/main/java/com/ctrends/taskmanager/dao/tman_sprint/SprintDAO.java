@@ -510,6 +510,18 @@ public class SprintDAO implements ISprintDAO {
 				
 		return sprintStoryLi;
 	}
+
+	@Transactional
+	@Override
+	public SprintManager getSprintBySprintCode(String sprintCode) {
+		Query query = sessionfactory.getCurrentSession().createQuery("From SprintManager WHERE sprintCode = :sprintCode");
+		query.setParameter("sprintCode", sprintCode);
+		List<SprintManager> pt = query.list();
+		if (pt.size() > 0) {
+			return pt.get(0);
+		}
+		return null;
+	}
 	
 	
 

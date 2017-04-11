@@ -55,6 +55,7 @@ public class StoryViewController implements IStoryViewController {
 
 		data.put("sprintCodes", sprintCodes);
 		data.put("sprintCode", sprintCode);
+		data.put("sprintboardlist", sprintboardlist);
 		
 		return new ModelAndView("storyview/storyview", "data", data);
 		
@@ -161,4 +162,23 @@ public class StoryViewController implements IStoryViewController {
 		return g.toJson(taskList);
 	}
 
+	@RequestMapping(value="storyview/loadsprint", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE) 
+	@Override
+	public String loadSprint(HttpServletRequest request) {
+		
+		String sprintCode = request.getParameter("sprint_code");
+		
+		Map<String, Object> data = new HashMap<String, Object>();
+		
+		SprintManager sprintManager = sprintservice.getSprintBySprintCode(sprintCode);
+		/*
+		Map<String, Object> sprintManagerDetails = taskStatusService.getSprintManagerBySprintCode(sprintCode);
+		*/
+		
+		GsonBuilder gson = new GsonBuilder();
+		Gson g = gson.create();
+		data.put("sprintManagerDetails", g.toJson(sprintManager));
+		System.out.println(g.toJson(sprintManager)+"Okkkkkkkkkkkkkkkkkkkkkkkkk");
+		return g.toJson(sprintManager);
+	}
 }
