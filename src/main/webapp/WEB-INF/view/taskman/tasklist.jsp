@@ -283,8 +283,7 @@
 						console.log(startTime);
 						$.ajax({
 							type : 'GET',
-							url : '/taskman/tman/tasks/timeLog/' + id + '/'
-									+ startTime + '/' + taskTitle + '/' + day+'/'+sprintId
+							url : '/taskman/tman/tasks/timeLog/' + id + '/'+ startTime + '/' + taskTitle + '/' + day+'/'+sprintId
 						});
 					});
 
