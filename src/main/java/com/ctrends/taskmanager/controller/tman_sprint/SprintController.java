@@ -243,5 +243,5 @@ public class SprintController implements ISprintController {
 		System.out.println(g.toJson(map));
 		return new ModelAndView("sprintmanager/burndownchart", "map", g.toJson(map));
 	}
-
+	
 }

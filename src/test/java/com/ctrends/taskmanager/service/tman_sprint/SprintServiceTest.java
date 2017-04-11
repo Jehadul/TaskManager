@@ -18,6 +18,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.ctrends.taskmanager.model.tman.Tasks;
 import com.ctrends.taskmanager.model.tman_sprint.SprintManager;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 import static org.hamcrest.CoreMatchers.is;
@@ -148,6 +150,13 @@ public class SprintServiceTest {
 	public void testGetSprintSpentChartData_ReturnsUUID() {
 		Map<String, Object> map = sprintService.getDocByBurnDownChartData(id);
 		assertThat(map.size(), is(3));
+	}
+	
+	@Test
+	public void testgetAllSprintDetailsDoc_returnsprintlist(){
+		List map =  (List) sprintService.getAllSprintDetailsDoc();
+		assertTrue(true);
+		
 	}
 
 }

@@ -23,6 +23,17 @@ public class TaskLog {
 	@Column(name="task_id")
 	private String taskId;
 	
+	@Column(name="sprint_id")
+	private UUID sprintId;
+	
+	public UUID getSprintId() {
+		return sprintId;
+	}
+
+	public void setSprintId(UUID sprintId) {
+		this.sprintId = sprintId;
+	}
+
 	@Column(name="task_title")
 	private String taskTitle;
 	
@@ -748,7 +759,6 @@ public class TaskLog {
 	public void setRemainingTime(double remainingTime) {
 		this.remainingTime = remainingTime;
 	}
-	
 	
 
 }

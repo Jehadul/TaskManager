@@ -19,4 +19,6 @@ public interface ITasksService extends ICommonService<Tasks>{
 
 	public List<Tasks> getCurrentTaskByCurrentUser();
 	public TaskLog getRunningTaskLogByCurrentUser();
+
+	public List<Tasks> getTaskByStoryCode(String storyCode);
 }

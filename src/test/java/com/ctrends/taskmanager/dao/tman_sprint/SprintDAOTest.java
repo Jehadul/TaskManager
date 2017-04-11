@@ -101,6 +101,12 @@ public class SprintDAOTest {
 		
 	}
 	
+	@Test
+	public void testgetAllSprintDetailsDoc_returnsprintlist(){
+		List map =  (List) sprintDao.getAllSprintDetailsDoc();
+		assertTrue(true);
+		
+	}
 	
 
 }

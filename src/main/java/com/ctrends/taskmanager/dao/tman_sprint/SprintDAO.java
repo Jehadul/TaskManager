@@ -18,6 +18,7 @@ import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,6 +47,7 @@ public class SprintDAO implements ISprintDAO {
 
 	@Autowired
 	IUserService userService;
+	
 
 	@Transactional
 	@Override
@@ -275,6 +277,22 @@ public class SprintDAO implements ISprintDAO {
 		List<SprintManagerDetails> sprintDetails = query.list();
 		return sprintDetails;
 	}
+	
+	@Override
+	@Transactional
+	public SprintManagerDetails getSprintDetailsById(UUID id) {
+		Query query = sessionfactory.getCurrentSession()
+				.createQuery("from SprintManagerDetails where id =:id ");
+		query.setParameter("id", id);
+		SprintManagerDetails sprintManagerDetails = (SprintManagerDetails) query.uniqueResult();
+		if (sprintManagerDetails == null) {
+			throw new UsernameNotFoundException("User with username '" + id + "' does not exist.");
+		}
+		/* System.out.println(user.getEmpName()); */
+		return sprintManagerDetails;
+		
+		
+	}
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -288,8 +306,7 @@ public class SprintDAO implements ISprintDAO {
 
 		List<Date> sprintAllDays = sprintAllDays(sprint.get(0).getStartDate(), sprint.get(0).getEndDate());
 
-		String sqltask = "select id, remainingTime from Tasks  where storyCode = ANY(select userStoryCode from UserStory where userStoryCode=ANY(select sprintStoryCode from SprintManagerDetails where sprintId=ANY(select id from SprintManager where id='"
-				+ id + "')))";
+		String sqltask = "select id, remainingTime from Tasks  where sprintId ='"+id+"'";
 		Query crtask = sessionfactory.getCurrentSession().createQuery(sqltask);
 
 		List<Object> burnHours = new ArrayList<>();

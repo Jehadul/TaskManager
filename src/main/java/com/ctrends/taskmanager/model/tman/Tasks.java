@@ -79,6 +79,9 @@ public class Tasks {
 	@Column(name="description")
 	private String description;
 	
+	@Column(name="sprint_id")
+	private String sprintId;
+	
 	@Column(name="doa_type_code")
 	private String doaTypeCode;
 
@@ -881,6 +884,16 @@ public class Tasks {
 	public void setCostcenterName(String costcenterName) {
 		this.costcenterName = costcenterName;
 	}
+
+	public String getSprintId() {
+		return sprintId;
+	}
+
+	public void setSprintId(String sprintId) {
+		this.sprintId = sprintId;
+	}
+	
+	
 
 		
 }

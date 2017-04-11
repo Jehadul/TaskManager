@@ -161,6 +161,7 @@ public class SprintService implements ISprintService {
 			stroyDetails.setPrivGrpName(privGrpName[i]);
 			stroyDetails.setPrivilegeCode(privilegeCode[i]);
 			stroyDetails.setPrivilegeName(privilegeName[i]);
+			stroyDetails.setStoryStatus("Story");
 			stroyDetails.setCreatedByCode(currentUser.getCreatedByCode());
 			stroyDetails.setCreatedByName(currentUser.getCreatedByName());
 			stroyDetails.setCreatedByUsername(currentUser.getCreatedByUsername());
@@ -180,6 +181,7 @@ public class SprintService implements ISprintService {
 			stroyDetails.setUpdatedByEmail(currentUser.getEmail());
 			stroyDetails.setUpdatedByCompanyCode(currentUser.getCompanyCode());
 			stroyDetails.setUpdatedByCompanyName(currentUser.getCompanyName());
+			
 			storyDetailsList.add(i, stroyDetails);
 		}
 		sprint.setSteps(storyDetailsList);

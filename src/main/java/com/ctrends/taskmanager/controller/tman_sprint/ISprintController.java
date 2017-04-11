@@ -17,4 +17,5 @@ public interface ISprintController extends ICommonController<SprintManager> {
 	ModelAndView showChart(UUID id);
 	
 	public ModelAndView showSpentChart(UUID id);
+
 }

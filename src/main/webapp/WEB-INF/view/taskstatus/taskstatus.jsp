@@ -1,68 +1,158 @@
- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="cts" uri="/WEB-INF/custom.tld"%>
 <div class="wrap-content container" id="container">
-   <section id="page-title" class="padding-top-10 padding-bottom-10">
-      <div class="row">
-         <div class="col-sm-8">
-            <h1 class="mainTitle">Sprint Board</h1>
-         </div>
-         <ol class="breadcrumb padding-top-20">
-            <li><span>Sprint Board</span></li>
-            <li class="active"><span>Sprint Board</span></li>
-         </ol>
-      </div>
-   </section>
-   <center>
-	    <a style="margin-right:15px" href="http://localhost:8080">Dashboard</a>
-	</center>
-   <!-- start: USER PROFILE -->
-   <div class="container-fluid  bg-white">
-   		
-      <cts:AjaxForm action="/taskman/sprintboard/ui/manageSprintselection" dataHandler="showMessage">
-         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"  />
-         <div>
-            <div class="alert alert-block alert-danger hidden">
-               Please check the fields marked with 
-               <span class="text-red fa fa-close"></span>.
-            </div>
-            <!-- <div class="denotes-required">denotes a required field.</div> -->
-            <div class="row">
-               <div class="col-md-6">
-                  <div class="form-group">
-                     <cts:Label name="Sprint Name" labelFor="sprint_code"/>
-                     <cts:Select list="${data.sprintCodes}" name="sprint_code" value="${data.sprintCode}" cssClass="required"/>
-                     <input name="sprint_name" type="hidden" value=""> 
-                  </div>
-               </div>
-            </div>
-            <div class="row">
-	            <div class="col-md-6">
-	                  <div class="form-group">
-	                     <cts:Label name="Sprint Goal" labelFor="sprint_goal"/> : <p id="sprint_goal"></p>
-	                     <!--<cts:TextBox name="sprint_goal" value="Hello Goal" readonly="readonly"/> -->
-	                  </div>
-	            </div>
-            </div>
-			
-			<div id="story_list">
-			
+	<section id="page-title" class="padding-top-10 padding-bottom-10">
+		<div class="row">
+			<div class="col-sm-8">
+				<h1 class="mainTitle">Task Status</h1>
 			</div>
-			
-			
-			
-         </div>
-         <div class="row margin-top-10">
-            <div class="col-md-8">
-               <cts:Button dAjax="true" dHref="/toc?type=privgrp&currprivgrp=3&currmodcode=PR" cssClass="back" spanClass="arrow-left"/>
-               <cts:Button cssClass="refresh" spanClass="refresh"/>
-               <cts:Button cssClass="help" spanClass="question"/>
-            </div>
-            <div class="col-md-4">
-               <cts:Submit cssClass="save pull-right" name="Save" spanClass="save"/>
-            </div>
-         </div>
-      </cts:AjaxForm>
-   </div>
+			<ol class="breadcrumb padding-top-20">
+				<li><span>Taskman</span></li>
+				<li class="active"><span>Task Status</span></li>
+			</ol>
+		</div>
+	</section>
+	<center>
+		<a style="margin-right: 15px" href="http://localhost:8080">Dashboard</a>
+	</center>
+	<!-- start: USER PROFILE -->
+	<div class="container-fluid  bg-white">
+		<cts:AjaxForm action="/taskman/sprintboard/ui/manageSprintselection"
+			dataHandler="showMessage">
+			<input type="hidden" name="${_csrf.parameterName}"
+				value="${_csrf.token}" />
+			<div>
+				<div class="alert alert-block alert-danger hidden">
+					Please check the fields marked with <span
+						class="text-red fa fa-close"></span>.
+				</div>
+				<!-- <div class="denotes-required">denotes a required field.</div> -->
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<cts:Label name="Sprint Name" labelFor="sprint_code" />
+							<cts:Select list="${data.sprintCodes}" name="sprint_code"
+								value="${data.sprintCode}" cssClass="required"
+								emptyValue="--SELECT--" />
+							<input name="sprint_name" type="hidden" value="">
+						</div>
+					</div>
+				</div>
+				<div class="table-responsive">
+					<table class="table">
+						<tbody>
+							<tr>
+								<td>
+									<div class="width-300">
+										<fieldset>
+											<legend>
+												Stories&nbsp;&nbsp;
+												<!--                                     <button type="button" class="btn btn-find"><span class="fa fa-plus"></span></button>   -->
+											</legend>
+											<div class="table-responsive">
+												<table class="data-grid" id="sprintmanagerdetail">
+													<thead>
+														<tr>
+															<th class="code-item">Story Code</th>
+															<th>Story Name</th>
+															
+														</tr>
+													</thead>
+													<tbody>
+
+													</tbody>
+												</table>
+											</div>
+										</fieldset>
+									</div>
+								</td>
+								<td>
+									<div class="width-300">
+										<fieldset>
+											<legend>
+												Tasks&nbsp;&nbsp;
+												<!--                                     <button type="button" class="btn btn-find"><span class="fa fa-plus"></span></button>   -->
+											</legend>
+											<div class="table-responsive">
+												<table class="data-grid" id="taskAll">
+													<thead>
+														<tr>
+															<th class="code-item">Task Code</th>
+															<th>Task Name</th>
+															<th>Action</th>
+														</tr>
+													</thead>
+													<tbody>
+													</tbody>
+												</table>
+											</div>
+										</fieldset>
+									</div>
+								</td>
+								<td>
+									<div class="width-300">
+										<fieldset>
+											<legend>
+												Progress&nbsp;&nbsp;
+												<!--                                     <button type="button" class="btn btn-find"><span class="fa fa-plus"></span></button>   -->
+											</legend>
+											<div class="table-responsive">
+												<table class="data-grid" id="inProgressTask">
+													<thead>
+														<tr>
+															<th class="code-item">Item Code</th>
+															<th>Item Name</th>
+															<th>Action</th>
+														</tr>
+													</thead>
+													<tbody>
+													</tbody>
+												</table>
+											</div>
+										</fieldset>
+									</div>
+								</td>
+								<td>
+									<div class="width-300">
+										<fieldset>
+											<legend>
+												Review&nbsp;&nbsp;
+												<!--                                     <button type="button" class="btn btn-find"><span class="fa fa-plus"></span></button>   -->
+											</legend>
+											<div class="table-responsive">
+												<table class="data-grid" id="inReviewTask">
+													<thead>
+														<tr>
+															<th class="code-item">Item Code</th>
+															<th>Item Name</th>
+															<th>Action</th>
+														</tr>
+													</thead>
+													<tbody>
+													</tbody>
+												</table>
+											</div>
+										</fieldset>
+									</div>
+								</td>
+								
+								
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="row margin-top-10">
+				<div class="col-md-8">
+					<cts:Button dAjax="true"
+						dHref="/toc?type=privgrp&currprivgrp=3&currmodcode=PR"
+						cssClass="back" spanClass="arrow-left" />
+					<cts:Button cssClass="refresh" spanClass="refresh" />
+					<cts:Button cssClass="help" spanClass="question" />
+				</div>
+			</div>
+		</cts:AjaxForm>
+	</div>
 </div>
 <script>
 	InitHandlers();
@@ -73,70 +163,29 @@
 	$("input[name='sprint_name']")
 			.val($("#sprint_code option:selected").text());
 
-
 	$("#sprint_code").on('change',function() {
 						var newSprintCode = $("#sprint_code").val();
-							$.ajax({
-									url : "/taskman/sprintboard/storyview/loadsprintmanager?sprint_code="
-											+ newSprintCode,
-									success : function(data) {
+						$.ajax({
+								url : "/taskman/sprintboard/loaddedsprintmanagerdetail?sprint_code="
+										+ newSprintCode,
+							success : function(data) {
 										console.log(data);
-										
-										var mainRow = '';
-										
-										$.each(data, function(i, item){
-											//alert(item.sprintStoryName);
-											var rowId = 'row_'+i
-											mainRow += '<div class="row" id="'+ rowId +'"><div class="col-md-3">'+ item.sprintStoryName +'</div>';
-											$.ajax({
-												url : "/taskman/sprintboard/storyview/loadtask?story_code="
-														+ item.sprintStoryCode,
-													success : function(taskData) {
-														console.log(taskData);
-														var tempToDo = '<div class="col-md-3 todo"><ul>';
-														var tempProgress = '<div class="col-md-3 porgress"><ul>';
-														var tempReview = '<div class="col-md-3 review"><ul>';
-														$.each(taskData, function(j, taskItem){
-															//alert(taskItem.id+ " "+taskItem.storyCode + " " + taskItem.taskStatus);
-															
-															if(taskItem.taskStatus == 'To Do'){
-																tempToDo += '<li>'+ taskItem.taskTitle+'</li>';
-															}else if(taskItem.taskStatus == 'In Progress'){
-																tempProgress += '<li>'+taskItem.taskTitle+'</li>';
-															}else if(taskItem.taskStatus == 'To Be Review'){
-																tempReview += '<li>'+taskItem.taskTitle+'</li>';
-															}
+										var objType = eval(data.sprintManagerDetail);
+										var objType2 = eval(data.toDoAllTask);
+										var inProgressTask = eval(data.toInProgressAllTask);
+										var toReviewAllTask = eval(data.toReviewAllTask);
+	
+										addRowStory(objType);
+										addRowTasks(objType2);
+										addInProgress(inProgressTask);
+										addReviewAllTask(toReviewAllTask);
 
-														});
-														tempReview += '</ul></div>';
-														tempProgress += '</ul></div>';
-														tempToDo += '</ul></div>';
-														console.log(tempToDo);
-														console.log(tempProgress);
-														console.log(tempReview);
-														//mainRow += tempToDo + tempProgress +tempReview;
-														$("#"+rowId).append(tempToDo + tempProgress +tempReview);
-														console.log("#"+rowId);
-													}
-														
-											});
-											
-											mainRow += '</div>';
-											
-											
-											$('#story_list').html(mainRow);
-											
-											
-										}); // end inner each loop
-										
-										
 									}
-							});
+								});
 
-	});
+					});
 
 	//FOR STORY BOARD TABLE
-	/*
 	function addRowStory(objType) {
 
 		var html = "";
@@ -150,9 +199,6 @@
 					+ '<tr>'
 					+ '<td><input type="text" class="sprint-story-code width-50" readonly value="'+ code  + '"/></td>'
 					+ '<td class="width-300"><input type="text" class="sprint-story-name" readonly value="'+ name  + '" /></td>'
-					+ '<td>'
-					+ '<button type="button" class="btn btn-xs fa fa-arrow-right"><span style="width:20px;"></span></button>&nbsp;'
-					+ '</td>'
 					+ '<input type="hidden" class="sprint-Code" readonly value="'+ sprintCode  + '" /></td>'
 					+ '<input type="hidden" class="sprint-id" readonly value="'+ sprintId  + '" /></td>'
 					+ '</tr>';
@@ -248,7 +294,7 @@
 		var name = qaval.find(".task-name").val();
 				$.ajax({
 					type : 'GET',
-					url : '/taskman/sprintboard/ui/tstatus/' + id
+					url : '/taskman/sprintboard/taskstatus/update/' + id
 							+ '/In Progress',
 					success : function(data, status, xhr) {
 						console.log(status);
@@ -281,7 +327,7 @@
 		var name = qaval.find(".task-name").val();
 				$.ajax({
 					type : 'GET',
-					url : '/taskman/sprintboard/ui/tstatus/' + id+ '/To Be Review',
+					url : '/taskman/sprintboard/taskstatus/update/' + id+ '/To Be Review',
 					success : function(data, status, xhr) {
 						console.log(status);
 						if (status == "success") {
@@ -311,7 +357,7 @@
 		var name = qaval.find(".task-name").val();
 				$.ajax({
 					type : 'GET',
-					url : '/taskman/sprintboard/ui/tstatus/' + id
+					url : '/taskman/sprintboard/taskstatus/update/' + id
 							+ '/In Progress',
 					success : function(data, status, xhr) {
 						console.log(status);
@@ -344,7 +390,7 @@
 		var name = qaval.find(".task-name").val();
 				$.ajax({
 					type : 'GET',
-					url : '/taskman/sprintboard/ui/tstatus/' + id
+					url : '/taskman/sprintboard/taskstatus/update/' + id
 							+ '/To Do',
 					success : function(data, status, xhr) {
 						console.log(status);
@@ -366,8 +412,7 @@
 				});
 	}
 	
-	 */
-
+	
 	//$("#taskAll").find("button.fa-arrow-right").on('click',toDoToInProgress);
 </script>
 <style>
