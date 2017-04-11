@@ -45,7 +45,7 @@
 	var sp = mapAll.sprint;
 	var chart = Highcharts.chart('spentChart', {
 		 chart: {
-		     backgroundColor: '#0c0c0c',
+		     backgroundColor: '#fff',
 		     polar: true,
 		     type: 'line'
 		  },
