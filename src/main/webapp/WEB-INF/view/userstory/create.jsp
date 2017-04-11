@@ -189,7 +189,8 @@ InitHandlers();
 		 var newModuleCode = $("#module_code").val();
 		 var newPrivGroupCode = $("#priv_grp_code").val();
 		 var newPrivilegeCode = $("#privilege_code").val();
-		 var newUserStoryCode = newSuiteCode+ "_" + newModuleCode + "_" + newPrivGroupCode + "_" + newPrivilegeCode + ".";
+		 var res = newPrivilegeCode.substr(5, 7);
+		 var newUserStoryCode = newSuiteCode+ "_" + newModuleCode + "_" + newPrivGroupCode + "_" + res + ".";
 		 $("#user_story_code").val(newUserStoryCode);
 		 
 	 }); 

@@ -170,7 +170,7 @@
 							<cts:Label name="Story Code" labelFor="user_story_code" />
 							<cts:TextBox name="user_story_code"
 								value="${map.userStory.userStoryCode}"
-								cssClass="dirty-check required" readonly="" />
+								cssClass="dirty-check required" readonly="readonly" />
 
 						</div>
 						
