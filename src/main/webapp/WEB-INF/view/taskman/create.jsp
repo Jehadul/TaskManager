@@ -68,6 +68,10 @@
 									readonly="readonly" />
 								<cts:Hidden name="story_code" value="" />
 							</div>
+							
+							<div class="form-group">
+								<input type="hidden" id="sprint_id" name="sprint_id"	class="sprint_id" value="" />
+							</div>
 
 						</fieldset>
 						<div class="form-group">
@@ -190,6 +194,7 @@
 		$("#privilege_name").val(storyList.privilegeName);
 		$("#story_code").val(storyList.sprintStoryCode);
 		$("#story_title").val(storyList.sprintStoryName);
+		$("#sprint_id").val(storyList.sprintId);
 		HideModal('search-modal');
 	}
 
