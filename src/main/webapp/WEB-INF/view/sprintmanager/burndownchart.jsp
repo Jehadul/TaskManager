@@ -48,7 +48,7 @@ $(function () {
 	
 	  $('#burndown').highcharts({
 		  chart: {
-			     backgroundColor: '#fff',
+			     backgroundColor: '#ffffff',
 			     polar: true,
 			     type: 'line'
 		},
@@ -96,7 +96,7 @@ $(function () {
 	    },
 	    series: [{
 	      name: 'Actual Burn',
-	      color: 'black',
+	      color: '#808080',
 	      lineWidth: 2,
 	     // data: [110, 100]
 	    data: burnValues
@@ -111,7 +111,7 @@ $(function () {
 	    } */]
 	  });
 	});
-	avar sp = jsonMap.sprint;
+	var sp = jsonMap.sprint;
 	console.log(sp);
 	var html = '<table class="table table-bordered info">'
 					+'<thead>'
