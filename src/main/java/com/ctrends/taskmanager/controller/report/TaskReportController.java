@@ -174,6 +174,7 @@ public class TaskReportController {
 			System.out.println(d.getSpentTimeTemp());
 		}
 
+		log.put("reportDate", startdate);
 		return new ModelAndView("report/generatedailysummaryreport","log",log);
 
 	}
