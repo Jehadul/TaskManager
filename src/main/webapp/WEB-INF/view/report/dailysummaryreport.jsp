@@ -36,31 +36,7 @@
 								</div>	
 							</div>
 							</div>
-				<%-- <div class="row">
-					<div class="col-md-6">
-						<fieldset>
-							<legend>
-								Select Employee&nbsp;&nbsp;
-								<cts:Button cssClass="find" spanClass="search" id="btnUser" />
-							</legend>
-							<div class="form-group">
-								<cts:Label name="Assignee Code" labelFor="emp_code" />
-								<cts:TextBox name="emp_code" cssClass="dirty-check required"
-									readonly="readonly" />
-							</div>
-							<div class="form-group">
-								<cts:Label name="Assignee Name" labelFor="emp_name" />
-								<cts:TextBox name="emp_name" cssClass="dirty-check"
-									readonly="readonly" />
-							</div>
-							<div class="form-group">
-								<cts:Label name="Username" labelFor="username" />
-								<cts:TextBox name="username" cssClass="dirty-check required"
-									readonly="readonly" />
-							</div>
-						</fieldset>
-					</div>
-				</div> --%>
+				
 
 				<div class="row margin-top-30 margin-bottom-30 margin-right-5">
 
@@ -88,20 +64,6 @@
 <script>
 	InitHandlers();
 
-	$("#btnUser")
-			.on(
-					"click",
-					function() {
-						ShowModal("/ac/user/searchuser/?action_type_code=SELECT&actioncallback=loadUser");
-					});
-
-	function loadUser(userdata) {
-		var emp = JSON.parse(unescape(userdata));
-		$("#emp_code").val(emp.empCode);
-		$("#emp_name").val(emp.empName);
-		$("#username").val(emp.username);
-		HideModal('search-modal');
-	};
 	
 	$("#start_date").datepicker().datepicker("setDate", new Date());
 	
