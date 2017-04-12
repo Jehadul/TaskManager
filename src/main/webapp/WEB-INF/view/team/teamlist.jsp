@@ -51,11 +51,15 @@
 													</div>
 														 
 													</div> --%>
-													
 													<button type="button" onclick="delRow(this);" class="pull-right btn-del btn btn-xs">
 														<span class="fa fa-trash"></span>
 														<input type="hidden" name="team_id" value="${data.teamLi[i].id}" />
 													</button>
+													<button type="button" onclick="editRow(this);" class="pull-right btn-edit btn btn-xs" style="margin-right: 3px;">
+														<span class="fa fa-edit"></span>
+													</button>
+													
+													
 												</span>
 											</a>
 	
