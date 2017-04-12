@@ -289,7 +289,7 @@
 
 		} else {
 			swal({
-				title : "Another Task is already Running",
+				title : "Already running task",
 				text : "Please stop running task",
 				type : "warning",
 				showCancelButton : false,
