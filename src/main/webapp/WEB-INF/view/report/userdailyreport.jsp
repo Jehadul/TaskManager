@@ -24,7 +24,7 @@
 			<div id="step-1">
 				<div class="row">
 					<div class="col-md-6">
-					
+<%-- 					
 						<fieldset>
 							<legend>
 							Company Name
@@ -37,6 +37,8 @@
 									</div>	
 													
 						</fieldset>	
+						
+						 --%>
 						<fieldset>				
 							<div class="form-group">		
 								<cts:Datepicker label="Pick a date" name="start_date" cssClass="start-date-picker required"/>
