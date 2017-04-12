@@ -33,10 +33,10 @@ if(!window.jQuery){window.location = "/?desturl=" + window.location.href;}
 		<div class="form-group">
 			<div class="row">
 				<div class="col-md-3">
-					<cts:Label labelFor="username" name="User Name"/>
+					<cts:Label labelFor="emp_name" name="User Name"/>
 				</div>
 				<div class="col-md-9">
-					<cts:TextBox name="username"/>
+					<cts:TextBox name="emp_name"/>
 				</div>
 			</div>	
 		</div>
