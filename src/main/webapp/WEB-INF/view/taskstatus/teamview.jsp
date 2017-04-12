@@ -89,7 +89,7 @@
 									<div class="width-300">
 										<fieldset>
 											<legend>
-												Progress&nbsp;&nbsp;
+												In Progress&nbsp;&nbsp;
 												<!--                                     <button type="button" class="btn btn-find"><span class="fa fa-plus"></span></button>   -->
 											</legend>
 											<div class="table-responsive">
