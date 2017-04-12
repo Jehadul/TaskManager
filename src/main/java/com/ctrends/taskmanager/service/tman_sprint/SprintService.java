@@ -448,5 +448,10 @@ public class SprintService implements ISprintService {
 		return splist;
 	}
 
+	@Override
+	public SprintManager getSprintBySprintCode(String sprintCode) {
+		return sprintDao.getSprintBySprintCode(sprintCode);
+	}
+
 
 }
