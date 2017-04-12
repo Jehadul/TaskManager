@@ -96,7 +96,7 @@ $(function () {
 	    },
 	    series: [{
 	      name: 'Actual Burn',
-	      color: 'white',
+	      color: 'black',
 	      lineWidth: 2,
 	     // data: [110, 100]
 	    data: burnValues
@@ -111,7 +111,7 @@ $(function () {
 	    } */]
 	  });
 	});
-	var sp = jsonMap.sprint;
+	avar sp = jsonMap.sprint;
 	console.log(sp);
 	var html = '<table class="table table-bordered info">'
 					+'<thead>'
