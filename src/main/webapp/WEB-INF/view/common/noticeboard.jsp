@@ -29,7 +29,7 @@
 				Wise Daily Report</a> <a style="margin-right: 15px"
 				href="http://localhost:8080/?desturl=/taskman/report/dailySummary">Daily
 				Summary Report</a> <a style="margin-right: 15px"
-				href="http://localhost:8080/?desturl=/taskman/sprintboard/ui/create">Sprint
+				href="http://localhost:8080/?desturl=/taskman/sprintboard/teamview">Sprint
 				Board</a> <a
 				href="http://localhost:8080/?desturl=/taskman/team/teamlist">Team
 				List</a>
@@ -37,7 +37,7 @@
 
 		<div class="row">
 
-			<fieldset>
+			<fieldset class="hidden">
 				<legend> Current Task&nbsp;&nbsp; </legend>
 				<div class="table-responsive">
 					<table class="table table-striped table-hover">
@@ -659,4 +659,9 @@
 			}
 		});
 	}
+	
+	$(function(){
+		$("#start-timer").closest("fieldset").removeClass("hidden");
+		
+	});
 </script>

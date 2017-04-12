@@ -4,7 +4,7 @@
    <section id="page-title" class="padding-top-10 padding-bottom-10">
       <div class="row">
          <div class="col-sm-8">
-            <h1 class="mainTitle">Sprint Board</h1>
+            <h1 class="mainTitle">Sprint Board Story View</h1>
          </div>
          <ol class="breadcrumb padding-top-20">
             <li><span>Sprint Board</span></li>
@@ -47,16 +47,22 @@
 	                  </div>
 	            </div>
             </div>
-			<div class="row">
-				<div class="col-md-3"><b>Story</b></div>
-				<div class="col-md-3"><b>To Do</b></div>
-				<div class="col-md-3"><b>In Progress</b></div>
-				<div class="col-md-3"><b>To Be Reviewed</b></div>
-				
-			</div>
-			<div id="story_list">
+			<table class="table table-striped table-hover">
+				<thead>
+					<tr>
+						<th>Story</th>
+						<th>To Do</th>
+						<th>In Progress</th>
+						<th>To Be Reviewed</th>
+						<th>QA</th>
+						<th>Done</th>
+					</tr>
+				</thead>
+				<tbody id="story_list">
+					
+				</tbody>
 			
-			</div>
+			</table>
 			
 			
 			
@@ -103,15 +109,35 @@
 										$.each(data, function(i, item){
 											//alert(item.sprintStoryName);
 											var rowId = 'row_'+i
-											mainRow += '<div class="row" id="'+ rowId +'"><div class="col-md-3">'+ item.sprintStoryName +'</div>';
+											mainRow += '<tr class="mainrow" id="'+ rowId +'">';
+											
+											mainRow += '<td class="story">';
+											if(item.storyStatus == 'Story'){
+												mainRow += item.sprintStoryName;
+											}
+											mainRow += '</td>';
+											
+											mainRow += '<td class="qa">';
+											if(item.storyStatus == 'QA'){
+												mainRow += item.sprintStoryName;
+											}
+											mainRow += '</td>';
+											
+											mainRow += '<td class="done">';
+											if(item.storyStatus == 'Done'){
+												mainRow += item.sprintStoryName;
+											}
+											mainRow += '</td>';
+											
+											//mainRow += '<div class="col-md-2 story">'+ item.sprintStoryName +'</div>';
 											$.ajax({
 												url : "/taskman/sprintboard/storyview/loadtask?story_code="
 														+ item.sprintStoryCode,
 													success : function(taskData) {
 														//console.log(taskData);
-														var tempToDo = '<div class="col-md-3 todo"><ul>';
-														var tempProgress = '<div class="col-md-3 porgress"><ul>';
-														var tempReview = '<div class="col-md-3 review"><ul>';
+														var tempToDo = '<td class="todo"><ul>';
+														var tempProgress = '<td class="porgress"><ul>';
+														var tempReview = '<td class="col-md-2 review"><ul>';
 														$.each(taskData, function(j, taskItem){
 															//alert(taskItem.id+ " "+taskItem.storyCode + " " + taskItem.taskStatus);
 															
@@ -124,20 +150,23 @@
 															}
 
 														});
-														tempReview += '</ul></div>';
-														tempProgress += '</ul></div>';
-														tempToDo += '</ul></div>';
+														tempReview += '</ul></td>';
+														tempProgress += '</ul></td>';
+														tempToDo += '</ul></td>';
 														//console.log(tempToDo);
 														//console.log(tempProgress);
 														//console.log(tempReview);
 														//mainRow += tempToDo + tempProgress +tempReview;
-														$("#"+rowId).append(tempToDo + tempProgress +tempReview);
+														$("#"+rowId+" > .qa").before(tempToDo + tempProgress +tempReview);
 														//console.log("#"+rowId);
 													}
 														
 											});
 											
-											mainRow += '</div>';
+
+											
+											
+											mainRow += '</tr>';
 											
 											
 											$('#story_list').html(mainRow);
@@ -175,4 +204,6 @@
 	overflow: auto;
 	height: 350px;
 }
+
+
 </style>
