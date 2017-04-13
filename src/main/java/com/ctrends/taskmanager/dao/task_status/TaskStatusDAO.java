@@ -65,7 +65,7 @@ public class TaskStatusDAO implements ITaskStatusDAO {
 	@SuppressWarnings("unchecked")
 	@Transactional
 	@Override
-	public Map<String, Object> getSprintManager(Map<String, String> request) {
+	public Map<String, Object> getSprintManager (Map<String, String> request) {
 
 		Map<String, Object> allTaskList = new HashMap<String, Object>();
 		
@@ -143,27 +143,6 @@ public class TaskStatusDAO implements ITaskStatusDAO {
 		return allTaskList;
 	}
 
-	@SuppressWarnings("unchecked")
-	@Transactional
-	@Override
-	public List<Tasks> getTaskByStoryCode(Map<String, String> request) {
-
-		System.out.println(request.get("storyCodeAll") + "storyCodeAll");
-		Query query = sessionfactory.getCurrentSession().createQuery("FROM Tasks WHERE storyCode =:storyCode");
-		query.setParameter("storyCode", request.get("storyCode"));
-
-		// query.setBoolean("isEnabled", Boolean.TRUE);
-
-		List<Tasks> taskDetail = query.list();
-
-		System.out.println("taskdetail::::::::::::::" + taskDetail.size());
-
-		if (taskDetail == null) {
-			throw new UsernameNotFoundException("does not exist.");
-		}
-		return taskDetail;
-	}
-	
 	@Transactional
 	@Override
 	public UUID updateTaskStatus(Tasks doc) {
