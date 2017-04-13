@@ -45,6 +45,7 @@
 					  </thead>
 					  <tbody>
 					  <c:forEach var="story" items="${data.userStoryLi}">
+					  
 					    <tr>
 					      <td>
 					      		<input type="hidden" name="id1" class="story_id" value="${story.getId()}" />
@@ -59,7 +60,9 @@
 						 
 						  		<input type="hidden" name="privilege_name" value="${story.getPrivilegeName()}"/>
 					     		<input type="hidden" name="privilege_code" value="${story.getPrivilegeCode()}"/>
-						
+								<input type="hidden" name="story_status" class="story_status1" value="${story.getStoryStatus()}"/>
+								 
+								
 						  		<c:out value="${story.getUserStoryCode()}" />
 						  </td>
 						  <td>
@@ -78,8 +81,11 @@
 						  		<c:out value="${story.getBusinessValue()}"/>
 						  </td>
 						  <td>
-						  		<c:out value="${story.getSize()}"/>
+						  		<c:out value="${story.getStoryStatus()}"/>
 						  </td>
+						  <%-- <td>
+						  		<c:out value="${story.getStoryStatus()}"/>
+						  </td> --%>
 					      <td width="7%">
 									<button type="button" class="btn-edit btn btn-xs">
 										<span class="fa fa-edit"></span>
@@ -105,6 +111,7 @@
 			<input type="hidden" name="${_csrf.parameterName}"
 				value="${_csrf.token}" />
 			<cts:Hidden name="id" value="" />
+			<input type="hidden" name="story_status" value=""/>
 		</form>
 		
 		
@@ -133,34 +140,60 @@
 
 <script>
 	InitHandlers();
-
+	var str=$("#story_status").val();
+	var str1=$("#privilege_name").val();
+	console.log(str);
+	
+	
+	
+	
 	InitDataTable("#user-story");
 	
 	var delRow = function(el) {
-		swal({
-			title : "Are you sure?",
-			text : "Are you sure to delete this user story?",
-			type : "warning",
-			showCancelButton : true,
-			confirmButtonColor : "#007AFF",
-			confirmButtonText : "Yes, delete it!",
-			closeOnConfirm : true
-		}, function() {
-			$("input[name='id']").val(
-					$(el).closest("tr").find(".story_id").val());
-			$(el).closest("tr").remove();
-			$(".delete_form").submit();
-			
-			$.ajax({
-				type : 'GET',
-				url : '/taskman/tman/sprint/sprintlist',
-				success : function(response, status, xhr) {
-					LoadMainContent("/taskman/userstory/story/storylist");
-				}
+		
+		var storyStatus = $(el).closest("tr").find(".story_status1").val();
+		if(storyStatus=="To Do"){
+		console.log(storyStatus);
+			swal({
+				title : "Are you sure?",
+				text : "Are you sure to delete this user story?",
+				type : "warning",
+				showCancelButton : true,
+				confirmButtonColor : "#007AFF",
+				confirmButtonText : "Yes, delete it!",
+				closeOnConfirm : true
+			}, function() {
+				$("input[name='id']").val(
+						$(el).closest("tr").find(".story_id").val());
+				$("input[name='story_status']").val(
+						$(el).closest("tr").find(".story_status1").val());
+				$(el).closest("tr").remove();
+				$(".delete_form").submit();
+				
+				$.ajax({
+					type : 'GET',
+					url : '/taskman/tman/sprint/sprintlist',
+					success : function(response, status, xhr) {
+						LoadMainContent("/taskman/userstory/story/storylist");
+					}
+				});
+				
+				
+			});
+		
+		}else{
+			swal({
+				title : "Can't Delete This Story",
+				text : "Story is in "+ storyStatus,
+				type : "warning",
+				showCancelButton : false,
+				confirmButtonColor : "#007AFF",
+				confirmButtonText : "OK",
+				closeOnConfirm : true
 			});
 			
 			
-		});
+		}
 	};
 
 	$('.btn-edit').on("click", function() {/* console.log($(".task_id").val()) */
