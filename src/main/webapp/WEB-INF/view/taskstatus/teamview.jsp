@@ -36,7 +36,7 @@
 				</div>
 				<div class="table-responsive">
 					<table class="table">
-						<tbody>
+						<tbody style="overflow-y: auto;overflow-x: auto;">
 							<tr style="vertical-align: baseline;">
 								<td style="vertical-align: top;">
 									<div class="width-300">
@@ -89,7 +89,7 @@
 									<div class="width-300">
 										<fieldset>
 											<legend>
-												Progress&nbsp;&nbsp;
+												In Progress&nbsp;&nbsp;
 												<!--                                     <button type="button" class="btn btn-find"><span class="fa fa-plus"></span></button>   -->
 											</legend>
 											<div class="table-responsive">

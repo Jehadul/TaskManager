@@ -12,6 +12,7 @@ public interface IStoryViewController extends ICommonController<SprintManager>{
 	ModelAndView create(HttpServletRequest request);
 	String loadSprintManager(HttpServletRequest request);
 	String loadStory(HttpServletRequest request);
+	String loadSprint(HttpServletRequest request);
 
 	
 	

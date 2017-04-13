@@ -33,4 +33,5 @@ public interface ISprintDAO extends ICommonDAO<SprintManager> {
 	List<SprintManagerDetails> getAllSprintDetailsDoc();
 	List<SprintManagerDetails> find(Map<String, String> params);
 	SprintManagerDetails getSprintDetailsById(UUID id);
+	SprintManager getSprintBySprintCode(String sprintCode);
 }

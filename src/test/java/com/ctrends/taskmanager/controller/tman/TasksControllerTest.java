@@ -1,6 +1,6 @@
 package com.ctrends.taskmanager.controller.tman;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -102,7 +102,7 @@ public class TasksControllerTest {
 		assertTrue(ar.hasView());
 	}
 
-	@Test
+	/*@Test
 	@WithMockUser("CTS0104")
 	public void testStore_ReturnWsResponse() {
 		request.addParameter("suite_code", "HRM");
@@ -124,6 +124,34 @@ public class TasksControllerTest {
 		request.addParameter("estimated_time", String.valueOf(1));
 		WSResponse ar = tasksController.store(request);
 		assertTrue(ar.getClass() == WSResponse.class);
+	}
+	*/
+	@Test
+	@WithMockUser("CTS0104")
+	public void testStore_ValidId_ReturnsWsResponse() {
+		UUID id = UUID.fromString("3fc64424-88d2-4f8e-b86e-e61e8fc24976");
+		request.addParameter("id", String.valueOf(id));
+		request.addParameter("suite_code", "HRM");
+		request.addParameter("suite_name", "Human Resources");
+		request.addParameter("module_code", "ED");
+		request.addParameter("module_name", "Employee Database");
+		request.addParameter("priv_grp_code", String.valueOf(1));
+		request.addParameter("priv_grp_name", "Reporting and Analysis");
+		request.addParameter("privilege_code", "xvbhxf");
+		request.addParameter("privilege_name", "xvbhxf");
+		request.addParameter("description", "xvbhxf");
+		request.addParameter("story_code", "xvbhxf");
+		request.addParameter("story_title", "xvbhxf");
+		request.setParameter("task_code", "xvbhxf");
+		request.addParameter("task_title", "xvbhxf");
+		request.addParameter("emp_code", "xvbhxf");
+		request.addParameter("emp_name", "xvbhxf");
+		request.addParameter("username", "xvbhxf");
+		request.addParameter("estimated_time", String.valueOf(1));
+		WSResponse ar = tasksController.store(request);
+		//assertFalse(ar.getId() != null);
+		assertTrue(ar.getClass() == WSResponse.class);
+		
 	}
 
 	@Test
@@ -234,14 +262,14 @@ public class TasksControllerTest {
 	@Test
 	@WithMockUser("CTS0001")
 	public void testTimeLog_ReturnsModelAndView() throws Exception {
-		this.mockMvc.perform(get("/taskman/tman/tasks/timeLog/65bdbfd4-6ecd-44c8-81cb-783c46545482/"+new Date().toString()+"/abc test/"+new Date().toString()+""))
+		this.mockMvc.perform(get("/taskman/tman/tasks/timeLog/3fc64424-88d2-4f8e-b86e-e61e8fc24976/"+new Date().toString()+"/abc test/"+new Date().toString()+""))
 			.andExpect(status().isOk());
-	}
+	}	
 
 	@Test
 	@WithMockUser("CTS0001")
 	public void testTimeLogUpdate_ReturnsModelAndView() throws Exception {
-		this.mockMvc.perform(get("/taskman/tman/tasks/timeLogUpdate/2c79a04b-7073-4854-9455-62efff25af08/"+new Date().toString()+"/"+new Date().toString()+""))
+		this.mockMvc.perform(get("/taskman/tman/tasks/timeLogUpdate/3fc64424-88d2-4f8e-b86e-e61e8fc24976/"+new Date().toString()+"/"+new Date().toString()+"/4b9a08b2-dc56-4e62-9285-c4ef6b70264e"))
 		.andExpect(status().isOk());
 	}
 

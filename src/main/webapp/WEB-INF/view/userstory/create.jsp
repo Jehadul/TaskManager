@@ -63,7 +63,7 @@
 						</div>
 						<div class="form-group">
 							<cts:Label name="Story Code" labelFor="user_story_code"/>
-							<cts:TextBox name="user_story_code" cssClass="dirty-check required uppercase" readonly=""/>
+							<cts:TextBox name="user_story_code" cssClass="dirty-check required uppercase" readonly="readonly"/>
 						</div>
 						
 						
@@ -189,8 +189,9 @@ InitHandlers();
 		 var newModuleCode = $("#module_code").val();
 		 var newPrivGroupCode = $("#priv_grp_code").val();
 		 var newPrivilegeCode = $("#privilege_code").val();
-		 
-		 var newUserStoryCode = newSuiteCode+ "_" + newModuleCode + "_" + newPrivGroupCode + "_" + newPrivilegeCode + ".";
+
+		 var res = newPrivilegeCode.substr(5, 7);
+		 var newUserStoryCode = newSuiteCode+ "-" + newModuleCode + "-" + newPrivGroupCode + "-" + res + "-";
 		 var storyCodeSeq=newUserStoryCode;
 		 //$("#user_story_code").val(newUserStoryCode);
 		 
@@ -202,8 +203,6 @@ InitHandlers();
 						 $("#user_story_code").val(data);
 					}
 				});
-		 
-		 
 		 
 		 
 	 }); 

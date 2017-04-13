@@ -241,7 +241,7 @@
 		 if (!result) {
 				
 				error +="Please check the fields marked with X";
-				ShowErrorMsg('User Story was not created', "Please check details.");
+				ShowErrorMsg('Team was not created', "Please check details.");
 				InitErrorChange();
 				$(".alert").html(error);
 				$(".alert").removeClass("hidden");
@@ -249,7 +249,7 @@
 		 else if(teamCode == ""|| teamName == ""){
 				
 				error +="Only space is not allowed in required fields";
-				ShowErrorMsg('User Story was not created', "Please check details.");
+				ShowErrorMsg('Team was not created', "Please check details.");
 				InitErrorChange();
 				$(".alert").html(error);
 				$(".alert").removeClass("hidden");

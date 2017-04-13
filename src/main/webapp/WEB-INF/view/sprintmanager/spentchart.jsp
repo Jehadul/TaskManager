@@ -45,7 +45,7 @@
 	var sp = mapAll.sprint;
 	var chart = Highcharts.chart('spentChart', {
 		 chart: {
-		     backgroundColor: '#0c0c0c',
+		     backgroundColor: '#fff',
 		     polar: true,
 		     type: 'line'
 		  },
@@ -88,7 +88,7 @@
 					216.4, 194.1, 95.6, 54.4 ],  */
 			   name: 'Spent Hours',
 			   data : spTime,
-			showInLegend : true
+			showInLegend : false
 		} ]
 		
 		

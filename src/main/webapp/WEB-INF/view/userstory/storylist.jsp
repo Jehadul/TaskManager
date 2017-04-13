@@ -34,14 +34,12 @@
 					<table class="table" id="user-story">
 					  <thead>
 					    <tr>
-					      	<th>Suite</th>
-							<th>Module</th>
-							<th>Privilege Group</th>
-							<th>Privilege NAme</th>
+					      	<th>Code</th>
+							<th>Title</th>
 							<th>Description</th>
-							<th>Story Code</th>
-							<th>Story Title</th>
 							<th>Priority</th>
+							<th>Business Value</th>
+							<th>Size</th>
 							<th data-orderable="false">Action</th>
 					    </tr>
 					  </thead>
@@ -50,37 +48,37 @@
 					    <tr>
 					      <td>
 					      		<input type="hidden" name="id1" class="story_id" value="${story.getId()}" />
-					      		<c:out value="${story.getSuiteName()}" />
+					      		<input type="hidden" name="suite_name" value="${story.getSuiteName()}" />
 					     		<input type="hidden" name="suite_code" value="${story.getSuiteCode()}" />
-					      </td>
-					      <td>
-					      		<c:out value="${story.getModuleName()}"/>
+					    
+					      		<input type="hidden" name="module_name" value="${story.getModuleName()}"/>
 					     		<input type="hidden" name="module_code" value="${story.getModuleCode()}"/>
-						  </td>
-						  <td>
-						  		<c:out  value="${story.getPrivGrpName()}"/>
+						  
+						  		<input type="hidden" name="priv_grp_name" value="${story.getPrivGrpName()}"/>
 					     		<input type="hidden" name="priv_grp_code" value="${story.getPrivGrpCode()}"/>
-						  </td>
-						  <td>
-						  		<c:out value="${story.getPrivilegeName()}"/>
+						 
+						  		<input type="hidden" name="privilege_name" value="${story.getPrivilegeName()}"/>
 					     		<input type="hidden" name="privilege_code" value="${story.getPrivilegeCode()}"/>
-						  </td>
-						  <td>
-						  		<c:out value="${story.getDescription()}"/>
-						  </td>
-						  <td>
+						
 						  		<c:out value="${story.getUserStoryCode()}" />
 						  </td>
 						  <td>
 						  		<c:out value="${story.getUserStoryTitle()}"/>
 						  </td>
 						  <td>
+						  		<c:out value="${story.getDescription()}"/>
+						  </td>
+						  <td>
 						  		<c:out value="${story.getPriority()}"/>
 					     		<input type="hidden" name="priority_code" value="${story.getPriorityCode()}"/>
 					     		<input type="hidden" name="story_order" value="${story.getStoryOrder()}"/>
-					     		<input type="hidden" name="size" value="${story.getSize()}"/>
 					     		<input type="hidden" name="acceptance_criteria" value="${story.getAcceptanceCriteria()}"/>
-					     		<input type="hidden" name="business_value" value="${story.getBusinessValue()}"/>
+						  </td>
+						  <td>
+						  		<c:out value="${story.getBusinessValue()}"/>
+						  </td>
+						  <td>
+						  		<c:out value="${story.getSize()}"/>
 						  </td>
 					      <td width="7%">
 									<button type="button" class="btn-edit btn btn-xs">

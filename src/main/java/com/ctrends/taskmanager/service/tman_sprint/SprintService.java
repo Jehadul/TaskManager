@@ -153,6 +153,7 @@ public class SprintService implements ISprintService {
 			stroyDetails.setSprintCode(requestMap.get("sprint_code")[0]);
 			stroyDetails.setSprintStoryCode(storyCode[i]);
 			stroyDetails.setSprintStoryName(storyName[i]);
+			stroyDetails.setSprintName(requestMap.get("sprint_name")[0]);
 			stroyDetails.setSuiteCode(suiteCode[i]);
 			stroyDetails.setSuiteName(suiteName[i]);
 			stroyDetails.setModuleCode(moduleCode[i]);
@@ -445,6 +446,11 @@ public class SprintService implements ISprintService {
 	public List<SprintManagerDetails> find(Map<String, String> searchingKey) {
 		List<SprintManagerDetails> splist = sprintDao.find(searchingKey);
 		return splist;
+	}
+
+	@Override
+	public SprintManager getSprintBySprintCode(String sprintCode) {
+		return sprintDao.getSprintBySprintCode(sprintCode);
 	}
 
 
