@@ -289,7 +289,7 @@
 		$("#taskAll tbody").html(html);
 	}
 
-	//in progress
+	//FOR In Progress BOARD TABLE
 	function addInProgress(inProgressTask) {
 		var html = "";
 		for (var i = 0; i < inProgressTask.length; i++) {
