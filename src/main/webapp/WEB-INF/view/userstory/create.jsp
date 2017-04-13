@@ -189,8 +189,22 @@ InitHandlers();
 		 var newModuleCode = $("#module_code").val();
 		 var newPrivGroupCode = $("#priv_grp_code").val();
 		 var newPrivilegeCode = $("#privilege_code").val();
+		 
 		 var newUserStoryCode = newSuiteCode+ "_" + newModuleCode + "_" + newPrivGroupCode + "_" + newPrivilegeCode + ".";
-		 $("#user_story_code").val(newUserStoryCode);
+		 var storyCodeSeq=newUserStoryCode;
+		 //$("#user_story_code").val(newUserStoryCode);
+		 
+			$.ajax({
+				url : "/taskman/userstory/story/storyCodeSeq?user_story_code="
+						+ storyCodeSeq,
+			success : function(data) {
+						console.log(data);
+						 $("#user_story_code").val(data);
+					}
+				});
+		 
+		 
+		 
 		 
 	 }); 
 	 
