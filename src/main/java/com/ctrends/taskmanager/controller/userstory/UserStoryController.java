@@ -271,9 +271,51 @@ public class UserStoryController implements IUserStoryController {
 	@RequestMapping(value = "/destroy", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Override
 	public WSResponse destroy(HttpServletRequest request) {
+		
+		/*String[] storyStatus=request.getParameterValues("story_status");*/
+		
+		String values =request.getParameter("story_status");
+		String id1 =request.getParameter("id");
+		
 		Map<String, String[]> userStory = request.getParameterMap();
-		UUID id = userStoryService.delete(userStory);
-		return new WSResponse("success", "User Story deleted successfully", id, null, "doc", null);
+		
+		System.out.println(values+"hhhhhhhh");
+		
+		
+		
+		/*if(values!="In Progress"){
+			UUID id = userStoryService.delete(userStory);
+			return new WSResponse("success", "User Story deleted successfully", id, null, "doc", null);
+			
+		}else{
+			UUID id=UUID.fromString(id1);
+			return new WSResponse("success", "User Story Can not be deleted, Story in Progress", id, null, "doc", null);
+			
+		}*/
+		
+		if(values.equals("To Do")){
+			//return null;
+			UUID id = userStoryService.delete(userStory);
+			return new WSResponse("success", "User Story deleted successfully", id, null, "doc", null);
+			
+			
+		}else{
+			UUID id=UUID.fromString(id1);
+			return new WSResponse("error", "User Story Can not be deleted, Story in Progress", id, null, "doc", null);
+			
+		}
+		
+		
+		
+		/*if(values.equals("In Progress")){
+			
+			return new WSResponse("error", "Story Code Must be Unique",id , null, "doc", null);
+		}
+		else{
+			UUID id = UUID.fromString(id1);
+			return new WSResponse("success", "User Story deleted successfully", id, null, "doc", null);
+			
+		}*/
 	}
 
 
@@ -289,10 +331,10 @@ public class UserStoryController implements IUserStoryController {
 
 		Map<String, Object> data = new HashMap<String, Object>();
 		List<UserStory> userStoryLi = userStoryService.getAll();
+		userStoryLi.get(0).getStoryStatus();
+		System.out.println(userStoryLi.get(0).getStoryStatus()+"kamru");
 		data.put("userStoryLi", userStoryLi);
-		/*
-		 * GsonBuilder gson = new GsonBuilder(); Gson g = gson.create();
-		 */
+		
 		return new ModelAndView("userstory/storylist", "data", data);
 	}
 	
