@@ -11,4 +11,6 @@ public interface IUserStoryController extends ICommonController<UserStory> {
 
 	ModelAndView create(HttpServletRequest request);
 
+	String storyCodeSeq(HttpServletRequest request);
+
 }
