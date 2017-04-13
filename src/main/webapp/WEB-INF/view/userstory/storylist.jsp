@@ -31,7 +31,7 @@
 				
 			<div class="table-responsive">
 
-					<table class="table" id="user-story">
+					<table class="table table-striped table-hover" id="user-story">
 					  <thead>
 					    <tr>
 					      	<th>Code</th>
@@ -140,14 +140,9 @@
 
 <script>
 	InitHandlers();
-	var str=$("#story_status").val();
-	var str1=$("#privilege_name").val();
-	console.log(str);
-	
-	
-	
-	
-	InitDataTable("#user-story");
+
+
+	InitDataTableWithoutSorting("#user-story");
 	
 	var delRow = function(el) {
 		
@@ -204,4 +199,22 @@
 
 		LoadMainContent('/taskman/userstory/story/edit/' + taskId);
 	});
+	
+	function InitDataTableWithoutSorting(table){
+		var oTable = $(table).dataTable({
+			"oLanguage" : {
+				"sSearch" : "",
+				"oPaginate" : {
+					"sPrevious" : "<span class='fa fa-chevron-left'></span>",
+					"sNext" : "<span class='fa fa-chevron-right'></span>"
+				}
+			},
+			"ordering": false,
+			"aLengthMenu" : [[5, 10, 15, 20, -1], [5, 10, 15, 20, "All"] // change per page values here
+			],
+			// set the initial value
+			"iDisplayLength" : 20,
+		});
+		
+	}
 </script>
