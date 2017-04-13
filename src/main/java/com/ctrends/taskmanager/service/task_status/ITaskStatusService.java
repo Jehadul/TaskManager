@@ -14,10 +14,6 @@ public interface ITaskStatusService extends ICommonService<TaskDetails> {
 
 	Map<String, Object> getSprintManagerBySprintCode(String sprintCode);
 
-	List<Tasks> getTaskByStoryCode(Map<String, String> allStoryCode);
-
-	Map<String, String> manageselection(Map<String, String[]> map);
-
 	UUID updateStatus(UUID id, String status);
 
 	UUID updateStoryStatus(UUID id, String status);
