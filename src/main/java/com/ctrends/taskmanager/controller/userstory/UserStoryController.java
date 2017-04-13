@@ -24,6 +24,7 @@ import com.ctrends.taskmanager.model.taskmanage.Module;
 import com.ctrends.taskmanager.model.taskmanage.PrivGroup;
 import com.ctrends.taskmanager.model.taskmanage.Privilege;
 import com.ctrends.taskmanager.model.taskmanage.Suite;
+import com.ctrends.taskmanager.model.tman.Tasks;
 import com.ctrends.taskmanager.model.user.User;
 import com.ctrends.taskmanager.model.userstory.UserStory;
 import com.ctrends.taskmanager.service.userstory.IUserStoryService;
@@ -147,7 +148,18 @@ public class UserStoryController implements IUserStoryController {
 		storyStatus.put("3", "To Be Reviewed");
 		storyStatus.put("4", "QA");
 		storyStatus.put("5", "Done");
-
+		
+		String storyCode;
+		
+		List<UserStory> userStory=userStoryService.getAll();
+		for(int i=0; i<userStory.size(); i++){
+			storyCode=userStory.get(i).getUserStoryCode();
+		}
+		
+		/*for(UserStory u:userStory){
+			System.out.println(u.getUserStoryCode());
+		}*/
+		
 		data.put("suiteCodes", suiteCodes);
 		data.put("moduleCodes", moduleCodes);
 		data.put("privgroups", privgroups);
@@ -323,6 +335,21 @@ public class UserStoryController implements IUserStoryController {
 		
 		System.out.println(":::"+gson.toJson(data));
 		return gson.toJson(data);
+		
+	}
+	
+	
+	@RequestMapping(value="/storyCodeSeq", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE) 
+	@Override
+	public String storyCodeSeq(HttpServletRequest request) {
+		
+		String storyCode = request.getParameter("user_story_code");
+	
+		String storyCodeSeq = userStoryService.getUserStoryCode(storyCode);
+		GsonBuilder gBuilder = new GsonBuilder();
+		Gson gson = gBuilder.create();
+		return gson.toJson(storyCodeSeq);
+		
 		
 	}
 
