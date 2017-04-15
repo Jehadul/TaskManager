@@ -194,10 +194,8 @@
 	$('.btn-edit').on("click", function() {/* console.log($(".task_id").val()) */
 		var currentRow = $(this).closest("tr");
 		currentRow.addClass("current-row");
-
 		var taskId = currentRow.find(".story_id").val();
-
-		LoadMainContent('/taskman/userstory/story/edit/' + taskId);
+		ShowModal('/taskman/userstory/story/edit/' + taskId, "modal-lg");
 	});
 	
 	function InitDataTableWithoutSorting(table){
