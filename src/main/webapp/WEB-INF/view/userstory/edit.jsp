@@ -255,8 +255,6 @@
 	function showMessage(data) {
 		console.log(modalUrl);
 		if (data.outcome == 'success') {
-		
-			
 			if($(".search-modal").is(":visible")){
 				HideModal('search-modal');
 				isDirty = false;
@@ -270,7 +268,6 @@
 				ShowSuccessMsg('User Story Updated', data.message);
 				LoadMainContent('/taskman/userstory/story/show/' + data.id);
 			}
-			
 			
 		} else {
 			ShowErrorMsg('User Story was not updated', data.message);
