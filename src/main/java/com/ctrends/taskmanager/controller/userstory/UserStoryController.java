@@ -24,6 +24,7 @@ import com.ctrends.taskmanager.model.taskmanage.Module;
 import com.ctrends.taskmanager.model.taskmanage.PrivGroup;
 import com.ctrends.taskmanager.model.taskmanage.Privilege;
 import com.ctrends.taskmanager.model.taskmanage.Suite;
+import com.ctrends.taskmanager.model.tman.Tasks;
 import com.ctrends.taskmanager.model.user.User;
 import com.ctrends.taskmanager.model.userstory.UserStory;
 import com.ctrends.taskmanager.service.userstory.IUserStoryService;
@@ -147,7 +148,18 @@ public class UserStoryController implements IUserStoryController {
 		storyStatus.put("3", "To Be Reviewed");
 		storyStatus.put("4", "QA");
 		storyStatus.put("5", "Done");
-
+		
+		String storyCode;
+		
+		List<UserStory> userStory=userStoryService.getAll();
+		for(int i=0; i<userStory.size(); i++){
+			storyCode=userStory.get(i).getUserStoryCode();
+		}
+		
+		/*for(UserStory u:userStory){
+			System.out.println(u.getUserStoryCode());
+		}*/
+		
 		data.put("suiteCodes", suiteCodes);
 		data.put("moduleCodes", moduleCodes);
 		data.put("privgroups", privgroups);
@@ -259,9 +271,51 @@ public class UserStoryController implements IUserStoryController {
 	@RequestMapping(value = "/destroy", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Override
 	public WSResponse destroy(HttpServletRequest request) {
+		
+		/*String[] storyStatus=request.getParameterValues("story_status");*/
+		
+		String values =request.getParameter("story_status");
+		String id1 =request.getParameter("id");
+		
 		Map<String, String[]> userStory = request.getParameterMap();
-		UUID id = userStoryService.delete(userStory);
-		return new WSResponse("success", "User Story deleted successfully", id, null, "doc", null);
+		
+		System.out.println(values+"hhhhhhhh");
+		
+		
+		
+		/*if(values!="In Progress"){
+			UUID id = userStoryService.delete(userStory);
+			return new WSResponse("success", "User Story deleted successfully", id, null, "doc", null);
+			
+		}else{
+			UUID id=UUID.fromString(id1);
+			return new WSResponse("success", "User Story Can not be deleted, Story in Progress", id, null, "doc", null);
+			
+		}*/
+		
+		if(values.equals("To Do")){
+			//return null;
+			UUID id = userStoryService.delete(userStory);
+			return new WSResponse("success", "User Story deleted successfully", id, null, "doc", null);
+			
+			
+		}else{
+			UUID id=UUID.fromString(id1);
+			return new WSResponse("error", "User Story Can not be deleted, Story in Progress", id, null, "doc", null);
+			
+		}
+		
+		
+		
+		/*if(values.equals("In Progress")){
+			
+			return new WSResponse("error", "Story Code Must be Unique",id , null, "doc", null);
+		}
+		else{
+			UUID id = UUID.fromString(id1);
+			return new WSResponse("success", "User Story deleted successfully", id, null, "doc", null);
+			
+		}*/
 	}
 
 
@@ -277,10 +331,10 @@ public class UserStoryController implements IUserStoryController {
 
 		Map<String, Object> data = new HashMap<String, Object>();
 		List<UserStory> userStoryLi = userStoryService.getAll();
+		userStoryLi.get(0).getStoryStatus();
+		System.out.println(userStoryLi.get(0).getStoryStatus()+"kamru");
 		data.put("userStoryLi", userStoryLi);
-		/*
-		 * GsonBuilder gson = new GsonBuilder(); Gson g = gson.create();
-		 */
+		
 		return new ModelAndView("userstory/storylist", "data", data);
 	}
 	
@@ -323,6 +377,21 @@ public class UserStoryController implements IUserStoryController {
 		
 		System.out.println(":::"+gson.toJson(data));
 		return gson.toJson(data);
+		
+	}
+	
+	
+	@RequestMapping(value="/storyCodeSeq", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE) 
+	@Override
+	public String storyCodeSeq(HttpServletRequest request) {
+		
+		String storyCode = request.getParameter("user_story_code");
+	
+		String storyCodeSeq = userStoryService.getUserStoryCode(storyCode);
+		GsonBuilder gBuilder = new GsonBuilder();
+		Gson gson = gBuilder.create();
+		return gson.toJson(storyCodeSeq);
+		
 		
 	}
 

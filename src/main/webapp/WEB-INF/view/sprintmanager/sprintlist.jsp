@@ -125,10 +125,9 @@
 	$('.btn-edit').on("click", function() {
 		var currentRow = $(this).closest("tr");
 		currentRow.addClass("current-row");
-
 		var sprintId = currentRow.find(".sprint_id").val();
-
-		LoadMainContent('/taskman/tman/sprint/edit/' + sprintId);
+		//LoadMainContent('/taskman/tman/sprint/edit/' + sprintId);
+		ShowModal('/taskman/tman/sprint/edit/' + sprintId, "modal-lg", "sprint-modal");
 	});
 	
 	$('.btn-chart').on("click", function() {

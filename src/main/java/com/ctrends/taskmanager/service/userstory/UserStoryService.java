@@ -162,4 +162,28 @@ public class UserStoryService implements IUserStoryService {
 		return userStoryDAO.getDocs(searchingKey);
 	}
 
+
+	@Override
+	public String getUserStoryCode(String storyCode) {
+		// TODO Auto-generated method stub
+		List<UserStory> list = userStoryDAO.getUserStoryCodeSeq(storyCode);
+		if(list.size()==0){
+			String codefinal = storyCode+"0";
+			return codefinal;
+			
+		}else{
+			String code = list.get(0).getUserStoryCode();
+			System.out.println(code);
+			String sqCode[] = code.split("\\.");
+			System.out.println(sqCode[0]);
+			int sqcode =Integer.parseInt(sqCode[1]);
+			sqCode[1]=String.valueOf(++sqcode);
+			String codefinal = sqCode[0]+"."+sqCode[1];
+			return codefinal;
+		}
+		
+		
+		
+	}
+
 }

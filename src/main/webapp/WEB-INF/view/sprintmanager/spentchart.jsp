@@ -88,7 +88,7 @@
 					216.4, 194.1, 95.6, 54.4 ],  */
 			   name: 'Spent Hours',
 			   data : spTime,
-			showInLegend : true
+			showInLegend : false
 		} ]
 		
 		

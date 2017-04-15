@@ -63,14 +63,14 @@
 								<div class="col-md-6">
 									<div class="form-group">
 										<cts:Label name="Team Code" labelFor="team_code" />
-										<cts:TextBox name="team_code" cssClass="dirty-check required"
+										<cts:TextBox name="team_code" cssClass="dirty-check"
 											readonly="readonly" value="${map.sprintManager.teamCode}"/>
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<cts:Label name="Team Name" labelFor="team_name" />
-										<cts:TextBox name="team_name" cssClass="dirty-check required"
+										<cts:TextBox name="team_name" cssClass="dirty-check"
 											readonly="readonly" value="${map.sprintManager.teamName}"/>
 									</div>
 								</div>
@@ -202,22 +202,33 @@
 
 	function showMessage(data) {
 		if (data.outcome == 'success') {
-			isDirty = false;
-			ShowSuccessMsg('Sprint Updated', data.message);
-
-			LoadMainContent('/taskman/tman/sprint/show/' + data.id);
+			if($(".sprint-modal").is(":visible")){
+				HideModal('sprint-modal');
+				isDirty = false;
+				ShowSuccessMsg('Sprint Updated', data.message);
+				LoadMainContent('/taskman/tman/sprint/sprintlist');
+			}
+			
+			else{
+				
+				isDirty = false;
+				ShowSuccessMsg('Sprint Updated', data.message);
+				LoadMainContent('/taskman/tman/sprint/show/' + data.id);
+			}
+			
 		} else {
 			ShowErrorMsg('Sprint was not Updated', data.message);
 			var msg = ConcatWithBR(data.error);
 			$(".alert").html(msg);
 			$(".alert").removeClass("hidden");
 		}
+		
 	}
 
 
 
 	$("#btnAddStories").on("click",function(){
-		ShowModal("/taskman/userstory/story/searchstory/?action_type_code=SELECT&actioncallback=loadUserStory");
+		ShowModal("/taskman/userstory/story/searchstory/?action_type_code=SELECT&actioncallback=loadUserStory", "modal-md");
 	});
 
 	 var i = 0;
@@ -360,6 +371,7 @@
 			result = false;
 
 		}
+		
 		
 		if (!checkProjectDates()) {
 			result = false;

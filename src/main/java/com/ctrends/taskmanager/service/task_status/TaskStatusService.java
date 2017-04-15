@@ -72,19 +72,6 @@ public class TaskStatusService implements ITaskStatusService {
 	}
 
 	@Override
-	public List<Tasks> getTaskByStoryCode(Map<String, String> allStoryCode) {
-		
-		return taskStatusDAO.getTaskByStoryCode(allStoryCode);
-		 
-	}
-
-	@Override
-	public Map<String, String> manageselection(Map<String, String[]> map) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public UUID updateStatus(UUID id, String status) {
 		Tasks task = tasksDao.getDocById(id);
 		task.setTaskStatus(status);

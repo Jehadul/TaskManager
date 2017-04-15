@@ -9,4 +9,6 @@ import com.ctrends.taskmanager.service.ICommonService;
 
 public interface IUserStoryService extends ICommonService<UserStory>{
 	List<UserStory> find(Map<String, String> searchingKey);
+
+	String getUserStoryCode(String storyCode);
 }

@@ -135,7 +135,7 @@
 	var delRow = function(el) {
 
 		swal({
-			title : "Are you sure?",
+			title : "Are you sure delete?",
 			text : "Are you sure to delete this privilege?",
 			type : "warning",
 			showCancelButton : true,
@@ -153,7 +153,7 @@
 		console.log(spentTime + "::::::::::::::::::::spent_time:::::::::::::");
 		if (spentTime == "0") {
 			swal({
-				title : "Are you sure?",
+				title : "Are you sure delete?",
 				text : "Are you sure to delete this task?",
 				type : "warning",
 				showCancelButton : true,
@@ -187,14 +187,28 @@
 		}
 	};
 
-	$('.btn-edit').on("click", function() {/* console.log($(".task_id").val()) */
-		var currentRow = $(this).closest("tr");
-		currentRow.addClass("current-row");
+	//$('.btn-edit').on("click", function() {/* console.log($(".task_id").val()) */
+// 		var currentRow = $(this).closest("tr");
+// 		currentRow.addClass("current-row");
 
-		var taskId = currentRow.find(".task_id").val();
+// 		var taskId = currentRow.find(".task_id").val();
 
-		LoadMainContent('/taskman/tman/tasks/edit/' + taskId);
-	});
+// 		LoadMainContent('/taskman/tman/tasks/edit/' + taskId);
+// 	}); 
+	
+	//Edit Button
+	$(".btn-edit")
+			.on("click",function() {
+							ShowModal("/taskman/tman/tasks/edit/?action_type_code=SELECT&actioncallback=loadUser");
+						});
+	
+	function loadUser(userdata) {
+		var emp = JSON.parse(unescape(userdata));
+		$("#emp_code").val(emp.empCode);
+		$("#emp_name").val(emp.empName);
+		$("#username").val(emp.username);
+		HideModal('search-modal');
+	}
 
 	//start time log
 	var tnn = document.getElementById('tn'), start = document
@@ -289,7 +303,7 @@
 
 		} else {
 			swal({
-				title : "Another Task is already Running",
+				title : "Already running task",
 				text : "Please stop running task",
 				type : "warning",
 				showCancelButton : false,
