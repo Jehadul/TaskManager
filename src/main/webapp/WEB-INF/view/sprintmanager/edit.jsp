@@ -371,12 +371,6 @@
 			result = false;
 
 		}
-		/* 
-		if ($("#story_list").val() =="" ) {
-			error +="Please Select sprint story <br/> ";
-			result = false;
-			
-		} */
 		
 		
 		if (!checkProjectDates()) {
