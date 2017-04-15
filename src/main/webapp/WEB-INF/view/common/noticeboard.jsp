@@ -18,21 +18,13 @@
 	<div class="container-fluid container-fullw bg-white">
 
 		<center>
-			<a style="margin-right: 15px"
-				href="http://localhost:8080/?desturl=/taskman/userstory/story/storylist">Story
-				Manager</a> <a style="margin-right: 15px"
-				href="http://localhost:8080/?desturl=/taskman/tman/sprint/sprintlist">Sprint
-				Manager</a> <a style="margin-right: 15px"
-				href="http://localhost:8080/?desturl=/taskman/tman/tasks/tasklist">Task
-				Manager</a> <a style="margin-right: 15px"
-				href="http://localhost:8080/?desturl=/taskman/report/tasklogreport">User
-				Wise Daily Report</a> <a style="margin-right: 15px"
-				href="http://localhost:8080/?desturl=/taskman/report/dailySummary">Daily
-				Summary Report</a> <a style="margin-right: 15px"
-				href="http://localhost:8080/?desturl=/taskman/sprintboard/teamview">Sprint
-				Board</a> <a
-				href="http://localhost:8080/?desturl=/taskman/team/teamlist">Team
-				List</a>
+				<a style="margin-right: 15px" href="http://localhost:8080/?desturl=/taskman/userstory/story/storylist">Story Manager</a> 
+				<a style="margin-right: 15px" href="http://localhost:8080/?desturl=/taskman/tman/sprint/sprintlist">Sprint Manager</a> 
+				<a style="margin-right: 15px" href="http://localhost:8080/?desturl=/taskman/tman/tasks/tasklist">Task Manager</a> 
+				<a style="margin-right: 15px" href="http://localhost:8080/?desturl=/taskman/report/tasklogreport">User Wise Daily Report</a> 
+				<a style="margin-right: 15px"nhref="http://localhost:8080/?desturl=/taskman/report/dailySummary">Daily Summary Report</a> 
+				<a style="margin-right: 15px" href="http://localhost:8080/?desturl=/taskman/sprintboard/teamview">Sprint Board</a> 
+				<a href="http://localhost:8080/?desturl=/taskman/team/teamlist">Team List</a>
 		</center>
 
 		<div class="row">
@@ -43,10 +35,10 @@
 					<table class="table table-striped table-hover">
 						<thead>
 							<tr>
-								<th>Desc.</th>
 								<th>Suite</th>
 								<th>Module</th>
 								<th>Privilege</th>
+								<th>Desc.</th>
 								<th>Estimated Time(Hours)</th>
 								<th>Spent Time</th>
 								<th style="width: 50px;">Remaining Time</th>
@@ -56,42 +48,35 @@
 						<tbody>
 							<c:forEach var="currentTasklist" items="${data.currentTasklist}">
 								<tr>
-									<%-- <td style="display:nome;"><input type="hidden" name="id1" class="task_id"
-									value="${currentTasklist.getId()}" /></td> --%>
-									<td><cts:TextBox name="curr_task_PrivGrpName"
-											value="${currentTasklist.description}" cssClass="view" /></td>
-									<td><cts:TextBox name="curr_task_SuiteName"
-											value="${currentTasklist.getSuiteName() }" cssClass="view" />
+									<%-- <td style="display:nome;"><input type="hidden" name="id1" class="task_id" value="${currentTasklist.getId()}" /></td> --%>
+									
+									<td><c:out  value="${currentTasklist.getSuiteName() }"/></td>
+									
+									<td><c:out  value="${currentTasklist.getModuleName() }" /></td>
+									
+									<td><c:out value="${currentTasklist.getPrivGrpName() }" /></td>
+									
+									<td>
+										<c:out value="${currentTasklist.description}" />
+										<input type="hidden" />
 									</td>
-									<td><cts:TextBox name="curr_task_ModuleName"
-											value="${currentTasklist.getModuleName() }" cssClass="view" />
-									</td>
-									<td><cts:TextBox name="curr_task_PrivGrpName"
-											value="${currentTasklist.getPrivGrpName() }" cssClass="view" />
-									</td>
-									<td><cts:TextBox name="curr_date_est"
-											value="${currentTasklist.getEstimatedTime() }"
-											cssClass="view" /></td>
-									<td><cts:TextBox name="curr_start_time"
-											value="${data.currentSpentTime }" cssClass="view" /></td>
-									<td style="width: 50px;"><cts:TextBox
-											name="curr_remaining_time"
-											value="${data.currentRemainingTime}" cssClass="view" /></td>
+
+									<td><c:out value="${currentTasklist.getEstimatedTime() }" /></td>
+									
+									<td><c:out value="${data.currentSpentTime }" /></td>
+									
+									<td style="width: 50px;"><c:out value="${data.currentRemainingTime}" /></td>
+									
 									<td style="width: 102px;">
-										<button type="button" class="btn btn-xs pull-left"
-											id="start-timer"
-											style="border: 1px solid #008800; color: #008800">
-											<span id="tn"> <time>${data.spentTime}</time>
-											</span>
+										<button type="button" class="btn btn-xs pull-left" id="start-timer" style="border: 1px solid #008800; color: #008800">
+											<span id="tn"> <time>${data.spentTime}</time></span>
 										</button> <span class="pull-left">&nbsp;</span>
-										<button type="button" onclick="showRemainingHoursModal(this);"
-											class="btn-del btn btn-xs pull-left" id="stop-timer">
+										<button type="button" onclick="showRemainingHoursModal(this);" class="btn-del btn btn-xs pull-left" id="stop-timer">
 											<span class="fa fa-stop"></span>
-										</button> <input type="hidden" name="id1" class="task_id"
-										value="${currentTasklist.getId()}" /> 
-										<input type="hidden" name="sprint_id" class="sprint_id"
-										value="${currentTasklist.getSprintId()}" />
+										</button> <input type="hidden" name="id1" class="task_id" value="${currentTasklist.getId()}" /> 
+										<input type="hidden" name="sprint_id" class="sprint_id" value="${currentTasklist.getSprintId()}" />
 									</td>
+									
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -103,15 +88,13 @@
 				<div class="table-responsive">
 
 					<center>
-						<a
-							href="http://localhost:8080/?desturl=/taskman/tman/tasks/create">Create
-							Task</a>
+						<a href="http://localhost:8080/?desturl=/taskman/tman/tasks/create">Create Task</a>
 					</center>
-					<table class="table table-striped table-hover"
-						id="task_sort_result">
+					<table class="table table-striped table-hover" id="task_sort_result">
 						<thead>
 							<tr>
 								<th style="display: none"></th>
+								<th>Sprint Name</th>
 								<th>Task Id</th>
 								<th>Task Title</th>
 								<th>Estimated Time(Hours)</th>
@@ -126,11 +109,12 @@
 							<c:forEach var="task" items="${data.tasklist}">
 								<c:if test="${task.getId().toString() != data.running_taskId}">
 									<tr>
-										<td style="display: none"><input type="hidden" name="id1"
-											class="task_id" value="${task.getId()}" />
-											<input type="hidden" name="sprint_id"
-											class="sprint_id" value="${task.getSprintId()}" /></td>
-
+										<td style="display: none"><input type="hidden" name="id1" class="task_id" value="${task.getId()}" />
+											<input type="hidden" name="sprint_id" class="sprint_id" value="${task.getSprintId()}" /></td>
+										
+										<!-- SprintManager -->
+										
+										<td><c:out value="${task.getSprintName()}" /></td>
 										<td><c:out value="${task.getTaskCode()}" /></td>
 										<td><c:out value="${task.getTaskTitle()}" /></td>
 										<td><c:out value="${task.getEstimatedTime()}" /></td>
@@ -139,33 +123,25 @@
 
 										<td><c:out value="${task.empName}" /></td>
 										<td>
-											<button type="button" onclick="editRow(this);"
-												class="btn-edit btn btn-xs">
+											<button type="button" onclick="editRow(this);" class="btn-edit btn btn-xs">
 												<span class="fa fa-edit"></span>
 											</button>
-											<button type="button" onclick="delRow(this);"
-												class="btn-del btn btn-xs">
+											<button type="button" onclick="delRow(this);" class="btn-del btn btn-xs">
 												<span class="fa fa-trash"></span>
 											</button>
 
-											<button type="button" onclick="startTimeFromList(this)"
-												id="start" class="btn-timer btn btn-xs time-start">
+											<button type="button" onclick="startTimeFromList(this)" id="start" class="btn-timer btn btn-xs time-start">
 												<span class="fa fa-play"></span>
-											</button> <input type="hidden" name="id[]" class="task_id1"
-											value="${task.getId()}" /> 
+											</button> 
 											
-											<input type="hidden"
-											name="task_code[]" class="task_code"
-											value="${task.getTaskCode()}" /> <input type="hidden"
-											name="task_title[]" class="task_title"
-											value="${task.getTaskTitle()}" /> <input type="hidden"
-											name="estimated_time[]" class="estimated_time"
-											value="${task.getEstimatedTime()}" /> <input type="hidden"
-											name="spent_time[]" class="spent_time"
-											value="${task.getSpentTime()}" /> <input type="hidden"
-											name="remaining_time[]" class="remaining_time"
-											value="${task.getRemainingTime()}" /> <input type="hidden"
-											name="assignee[]" class="assignee" value="${task.empName}" />
+											<input type="hidden" name="id[]" class="task_id1" value="${task.getId()}" /> 
+
+											<input type="hidden" name="task_code[]" class="task_code" value="${task.getTaskCode()}" /> 
+											<input type="hidden" name="task_title[]" class="task_title" value="${task.getTaskTitle()}" /> 
+											<input type="hidden" name="estimated_time[]" class="estimated_time" value="${task.getEstimatedTime()}" /> 
+											<input type="hidden" name="spent_time[]" class="spent_time" value="${task.getSpentTime()}" /> 
+											<input type="hidden" name="remaining_time[]" class="remaining_time" value="${task.getRemainingTime()}" /> 
+											<input type="hidden"name="assignee[]" class="assignee" value="${task.empName}" />
 
 										</td>
 									</tr>
@@ -178,8 +154,7 @@
 			</fieldset>
 			<form method="POST" action="/taskman/tman/tasks/destroy"
 				class="ajax delete_form">
-				<input type="hidden" name="${_csrf.parameterName}"
-					value="${_csrf.token}" />
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 				<cts:Hidden name="id" value="" />
 			</form>
 		</div>
@@ -446,6 +421,15 @@
 						$(el).closest("tr").find(".task_id").val());
 				$(el).closest("tr").remove();
 				$(".delete_form").submit();
+				
+				/* $.ajax({
+	                type : 'GET',
+	                url : '/taskman/tman/tasks/tasklist',
+	                success : function(response, status, xhr) {
+	                    LoadMainContent("/taskman/tman/tasks/tasklist");
+	                }
+	            }); */
+				
 			});
 		} else {
 			swal({
