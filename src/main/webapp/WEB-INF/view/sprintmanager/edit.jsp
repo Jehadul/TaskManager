@@ -202,22 +202,33 @@
 
 	function showMessage(data) {
 		if (data.outcome == 'success') {
-			isDirty = false;
-			ShowSuccessMsg('Sprint Updated', data.message);
-
-			LoadMainContent('/taskman/tman/sprint/show/' + data.id);
+			if($(".sprint-modal").is(":visible")){
+				HideModal('sprint-modal');
+				isDirty = false;
+				ShowSuccessMsg('Sprint Updated', data.message);
+				LoadMainContent('/taskman/tman/sprint/sprintlist');
+			}
+			
+			else{
+				
+				isDirty = false;
+				ShowSuccessMsg('Sprint Updated', data.message);
+				LoadMainContent('/taskman/tman/sprint/show/' + data.id);
+			}
+			
 		} else {
 			ShowErrorMsg('Sprint was not Updated', data.message);
 			var msg = ConcatWithBR(data.error);
 			$(".alert").html(msg);
 			$(".alert").removeClass("hidden");
 		}
+		
 	}
 
 
 
 	$("#btnAddStories").on("click",function(){
-		ShowModal("/taskman/userstory/story/searchstory/?action_type_code=SELECT&actioncallback=loadUserStory");
+		ShowModal("/taskman/userstory/story/searchstory/?action_type_code=SELECT&actioncallback=loadUserStory", "modal-md");
 	});
 
 	 var i = 0;
@@ -360,12 +371,12 @@
 			result = false;
 
 		}
-		
+		/* 
 		if ($("#story_list").val() =="" ) {
 			error +="Please Select sprint story <br/> ";
 			result = false;
 			
-		}
+		} */
 		
 		
 		if (!checkProjectDates()) {
