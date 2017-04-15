@@ -38,6 +38,14 @@
 
 					<table>
 						<tr>
+							<td class="width-150"><cts:Label name="Sprint Name"
+									labelFor="sprint_name" /></td>
+							<td class="width-50">:</td>
+							<td><b>${map.tasks.sprintName}</b></td>
+						</tr>
+					</table>
+					<table>
+						<tr>
 							<td class="width-150"><cts:Label name="Suite Name"
 									labelFor="suite_code" /></td>
 							<td class="width-50">:</td>
@@ -68,14 +76,6 @@
 							<td><b>${map.tasks.storyCode}</b></td>
 						</tr>
 					</table>
-					<table>
-						<tr>
-							<td class="width-150"><cts:Label name="Task Status"
-									labelFor="task_status" /></td>
-							<td class="width-50">:</td>
-							<td><b>${map.tasks.taskStatus}</b></td>
-						</tr>
-					</table>
 
 					<%-- <div class="form-group">
 						<cts:Label name="Branch Name" labelFor="branch_code"/>
@@ -86,6 +86,14 @@
 				<!-- div 2............. -->
 				<div class="col-md-6">
 
+					<table>
+						<tr>
+							<td class="width-150"><cts:Label name="Task Status"
+									labelFor="task_status" /></td>
+							<td class="width-50">:</td>
+							<td><b>${map.tasks.taskStatus}</b></td>
+						</tr>
+					</table>
 					<table>
 						<tr>
 							<td class="width-150"><cts:Label name="Task Code"
