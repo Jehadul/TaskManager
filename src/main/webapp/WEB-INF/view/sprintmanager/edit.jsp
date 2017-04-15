@@ -361,11 +361,10 @@
 
 		}
 		
-		if ($("#story_list").val() =="" ) {
-			error +="Please Select sprint story <br/> ";
-			result = false;
-			
-		}
+		if ($("#story_list").find("tr").find("td").html() ==undefined) {
+			 error +="Please Select story <br/> ";
+			 result = false;
+		} 
 		
 		
 		if (!checkProjectDates()) {

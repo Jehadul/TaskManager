@@ -305,6 +305,11 @@ var checkProjectDates = function()
 		
 	} 
 	
+ 	if ($("#story_list").find("tr").find("td").html() ==undefined) {
+		 error +="Please Select story <br/> ";
+		 result = false;
+	}  
+	
 	
 	if (!checkProjectDates()) {
 		result = false;
