@@ -19,6 +19,7 @@ import com.ctrends.taskmanager.dao.tman.ITasksDao;
 import com.ctrends.taskmanager.dao.tman_sprint.ISprintDAO;
 import com.ctrends.taskmanager.model.tman.TaskLog;
 import com.ctrends.taskmanager.model.tman.Tasks;
+import com.ctrends.taskmanager.model.tman_sprint.SprintManager;
 import com.ctrends.taskmanager.model.user.User;
 import com.ctrends.taskmanager.service.user.IUserService;
 
@@ -47,6 +48,7 @@ public class TasksService implements ITasksService {
 		Tasks tasks = new Tasks();
 		User currentUser = userService.getCurrentUser();
 
+		tasks.setSprintName(requestMap.get("sprint_name")[0]);
 		tasks.setSuiteCode(requestMap.get("suite_code")[0]);
 		tasks.setSuiteName(requestMap.get("suite_name")[0]);
 		tasks.setModuleCode(requestMap.get("module_code")[0]);
@@ -168,6 +170,7 @@ public class TasksService implements ITasksService {
 		// System.out.println(":::::"+requestMap.get("id")[0]);
 		Tasks tasks = tasksDao.getDocById(UUID.fromString(requestMap.get("id")[0]));
 
+		tasks.setSprintName(requestMap.get("sprint_name")[0]);
 		tasks.setSuiteCode(requestMap.get("suite_code")[0]);
 		tasks.setSuiteName(requestMap.get("suite_name")[0]);
 		tasks.setModuleCode(requestMap.get("module_code")[0]);
@@ -288,6 +291,7 @@ public class TasksService implements ITasksService {
 	public List<Tasks> getAllByCurrentUser() {
 		return tasksDao.getDocsByCurrentUser();
 	}
+
 
 	@Override
 	public List<Tasks> getCurrentTaskByCurrentUser() {
