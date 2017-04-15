@@ -39,6 +39,11 @@
 								<cts:Button cssClass="find" spanClass="search" id="btnStory" />
 							</legend>
 							<div class="form-group">
+								<cts:Label labelFor="sprint_name" name="Sprint Name" />
+								<cts:TextBox name="sprint_name" cssClass="dirty-check required" readonly="readonly" />
+								<cts:Hidden name="sprint_name" value="" />
+							</div>
+							<div class="form-group">
 								<cts:Label labelFor="suite_name" name="Suite Name" />
 								<cts:TextBox name="suite_name" cssClass="dirty-check required"
 									readonly="readonly" />
@@ -184,6 +189,7 @@
 
 	function loadSprintStory(story) {
 		var storyList = JSON.parse(unescape(story));
+		$("#sprint_name").val(storyList.sprintName);
 		$("#suite_code").val(storyList.suiteCode);
 		$("#suite_name").val(storyList.suiteName);
 		$("#module_code").val(storyList.moduleCode);
