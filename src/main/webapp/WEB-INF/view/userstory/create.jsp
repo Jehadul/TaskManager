@@ -191,7 +191,7 @@ InitHandlers();
 		 var newPrivilegeCode = $("#privilege_code").val();
 
 		 var res = newPrivilegeCode.substr(5, 7);
-		 var newUserStoryCode = newSuiteCode+ "-" + newModuleCode + "-" + newPrivGroupCode + "-" + res + ".";
+		 var newUserStoryCode = newSuiteCode+ "-" + newModuleCode + "-" + newPrivGroupCode + "-" + res + "-";
 		 var storyCodeSeq=newUserStoryCode;
 		 //$("#user_story_code").val(newUserStoryCode);
 		 
