@@ -24,21 +24,6 @@
 			<div id="step-1">
 				<div class="row">
 					<div class="col-md-6">
-<%-- 					
-						<fieldset>
-							<legend>
-							Company Name
-							</legend>
-
-	
-									<div class="form-group">	
-										<cts:Select list="${data.companyCodes}" name="company_code" value="${data.companyCode}" cssClass="required"/>
-										<input name="company_name" type="hidden" value="">
-									</div>	
-													
-						</fieldset>	
-						
-						 --%>
 						<fieldset>				
 							<div class="form-group">		
 								<cts:Datepicker label="Pick a date" name="start_date" cssClass="start-date-picker required"/>
