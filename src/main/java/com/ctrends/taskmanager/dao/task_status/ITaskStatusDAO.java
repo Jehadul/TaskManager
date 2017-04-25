@@ -15,8 +15,6 @@ public interface ITaskStatusDAO extends ICommonDAO<TaskDetails> {
 
 	Map<String, Object> getSprintManager(Map<String, String> request);
 
-	List<Tasks> getTaskByStoryCode(Map<String, String> request);
-	
 	UUID updateTaskStatus(Tasks task);
 
 	UUID updateStoryStatus(SprintManagerDetails story);

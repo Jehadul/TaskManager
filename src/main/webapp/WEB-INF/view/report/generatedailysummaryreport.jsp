@@ -21,10 +21,11 @@
 
 		<div class="align-center">
 			<h3>Daily Summary</h3>
+			<p>Date : ${log.reportDate}</p>
 		</div>
 		
 		<div class="align-right">
-			Date: <span id="date"></span>
+			Date:  <%= new java.util.Date() %></span>
 		</div>
 
 		<div class="align-left" style="margin-top: -50px;">
@@ -121,13 +122,7 @@
 <script>
 	InitHandlers();
 
-	// InitDataTable("#sprint_sort_result");
-	
-	n =  new Date();
-	y = n.getFullYear();
-	m = n.getMonth() + 1;
-	d = n.getDate();
-	document.getElementById("date").innerHTML = m + "/" + d + "/" + y;
+
 	
 </script>
 

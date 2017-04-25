@@ -111,7 +111,16 @@ public class UserStoryDAO implements IUserStoryDAO {
         	return false;
         }
 		
-		
+	}
+	@Transactional
+	@Override
+	public List<UserStory> getUserStoryCodeSeq(String userStoryCode) {
+		Query query = sessionFactory.getCurrentSession()
+				.createQuery("from UserStory where userStoryCode like :userStoryCode order by createdAt desc");
+		query.setParameter("userStoryCode", userStoryCode);
+		query.setParameter("userStoryCode", "%" +  userStoryCode +"%");
+		List<UserStory> userStoryLi = query.list();
+		return userStoryLi;
 	}
 	
 

@@ -19,6 +19,7 @@ import com.ctrends.taskmanager.dao.tman.ITasksDao;
 import com.ctrends.taskmanager.dao.tman_sprint.ISprintDAO;
 import com.ctrends.taskmanager.model.tman.TaskLog;
 import com.ctrends.taskmanager.model.tman.Tasks;
+import com.ctrends.taskmanager.model.tman_sprint.SprintManager;
 import com.ctrends.taskmanager.model.user.User;
 import com.ctrends.taskmanager.service.user.IUserService;
 
@@ -47,6 +48,7 @@ public class TasksService implements ITasksService {
 		Tasks tasks = new Tasks();
 		User currentUser = userService.getCurrentUser();
 
+		tasks.setSprintName(requestMap.get("sprint_name")[0]);
 		tasks.setSuiteCode(requestMap.get("suite_code")[0]);
 		tasks.setSuiteName(requestMap.get("suite_name")[0]);
 		tasks.setModuleCode(requestMap.get("module_code")[0]);
@@ -168,6 +170,7 @@ public class TasksService implements ITasksService {
 		// System.out.println(":::::"+requestMap.get("id")[0]);
 		Tasks tasks = tasksDao.getDocById(UUID.fromString(requestMap.get("id")[0]));
 
+		tasks.setSprintName(requestMap.get("sprint_name")[0]);
 		tasks.setSuiteCode(requestMap.get("suite_code")[0]);
 		tasks.setSuiteName(requestMap.get("suite_name")[0]);
 		tasks.setModuleCode(requestMap.get("module_code")[0]);
@@ -221,8 +224,8 @@ public class TasksService implements ITasksService {
 			Calendar calendar = Calendar.getInstance();
 
 			calendar.setTime(s);
-			Timestamp hh = new Timestamp(calendar.getTime().getTime());
-			taskLog.setStopTime(hh);
+			Timestamp stoptTimeFontEnd = new Timestamp(calendar.getTime().getTime());
+			taskLog.setStopTime(stoptTimeFontEnd);
 			taskLog.setStartStopStatus(true);
 
 			String dat = requestMap.get("day");
@@ -240,26 +243,23 @@ public class TasksService implements ITasksService {
 
 			
 			
-			long spentTotalTime = tasks.getSpentTime() + (hh.getTime() - taskLog.getStartTime().getTime());
+			long spentTotalTime = tasks.getSpentTime() + (stoptTimeFontEnd.getTime() - taskLog.getStartTime().getTime());
             tasks.setSpentTime(spentTotalTime);
 			
 			tasks.setRemainingTime(Double.parseDouble(requestMap.get("remaininghours")));
 			
-			System.out.println("sqlTaskRemainingHours "+sqlTaskRemainingHours);
 			double stopTaskRemainingHours = Double.parseDouble(requestMap.get("remaininghours"));
 			double stopTaskRemainingHoursplus = 0;
-			System.out.println("stopTaskRemainingHours "+stopTaskRemainingHours);
+			
 			if(sqlTaskRemainingHours>stopTaskRemainingHours){
 				stopTaskRemainingHours =sqlTaskRemainingHours-stopTaskRemainingHours;
 				System.out.println("stopTaskRemainingHour big "+stopTaskRemainingHours);
 			}else if(sqlTaskRemainingHours<stopTaskRemainingHours){
 				stopTaskRemainingHoursplus =stopTaskRemainingHours-sqlTaskRemainingHours;
-				System.out.println("stopTaskRemainingHours small "+stopTaskRemainingHours);
 			}else{
 				
 			}
 			double totalRemaininghours = tasksDao.sprintRemaingHours(UUID.fromString(requestMap.get("sprintId")));
-			System.out.println(totalRemaininghours);
 			taskLog.setRemainingTime((stopTaskRemainingHoursplus==0)?totalRemaininghours-stopTaskRemainingHours:totalRemaininghours+stopTaskRemainingHoursplus);
 			
 			tasksDao.updateTaskLogDoc(taskLog);
@@ -288,6 +288,7 @@ public class TasksService implements ITasksService {
 	public List<Tasks> getAllByCurrentUser() {
 		return tasksDao.getDocsByCurrentUser();
 	}
+
 
 	@Override
 	public List<Tasks> getCurrentTaskByCurrentUser() {

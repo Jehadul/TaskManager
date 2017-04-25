@@ -95,5 +95,6 @@ public class TaskReportController {
 
 		return new ModelAndView("report/generatedailysummaryreport", "log", log);
 
+
 	}
 }

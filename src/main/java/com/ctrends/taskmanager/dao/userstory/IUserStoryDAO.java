@@ -13,4 +13,8 @@ import com.ctrends.taskmanager.model.userstory.UserStory;
 public interface IUserStoryDAO extends ICommonDAO<UserStory> {
 
 	boolean checkUnique(Map<String, String> requestMap);
+
+	List<UserStory> getUserStoryCodeSeq(String userStoryCode);
+
+	
 }

@@ -85,6 +85,7 @@
 			
 			colorByPoint : true,
 			  data : spTime,
+
 			showInLegend : false
 		} ]
 		
