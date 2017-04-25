@@ -40,9 +40,9 @@
 				</div>
 				<div class="table-responsive">
 					<table class="table">
-						<tbody>
+						<tbody style="overflow-y: auto;overflow-x: auto;">
 							<tr>
-								<td>
+								<td style="vertical-align: top;">
 									<div class="width-300">
 										<fieldset>
 											<legend>
@@ -66,7 +66,7 @@
 										</fieldset>
 									</div>
 								</td>
-								<td>
+								<td style="vertical-align: top;">
 									<div class="width-300">
 										<fieldset>
 											<legend>
@@ -89,11 +89,11 @@
 										</fieldset>
 									</div>
 								</td>
-								<td>
+								<td style="vertical-align: top;">
 									<div class="width-300">
 										<fieldset>
 											<legend>
-												Progress&nbsp;&nbsp;
+												In Progress&nbsp;&nbsp;
 												<!--                                     <button type="button" class="btn btn-find"><span class="fa fa-plus"></span></button>   -->
 											</legend>
 											<div class="table-responsive">
@@ -112,7 +112,7 @@
 										</fieldset>
 									</div>
 								</td>
-								<td>
+								<td style="vertical-align: top;">
 									<div class="width-300">
 										<fieldset>
 											<legend>
@@ -412,9 +412,8 @@
 				});
 	}
 	
-	
-	//$("#taskAll").find("button.fa-arrow-right").on('click',toDoToInProgress);
 </script>
+
 <style>
 .table-scroll {
 	overflow: auto;

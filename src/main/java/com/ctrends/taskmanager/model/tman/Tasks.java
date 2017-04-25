@@ -82,6 +82,9 @@ public class Tasks {
 	@Column(name="sprint_id")
 	private String sprintId;
 	
+	@Column(name="sprint_name")
+	private String sprintName;
+	
 	@Column(name="doa_type_code")
 	private String doaTypeCode;
 
@@ -117,7 +120,6 @@ public class Tasks {
 	
 	@Column(name="created_at")
 	private Timestamp createdAt;
-	
 
 	@Column(name="updated_by_code")
 	private String updatedByCode;
@@ -211,7 +213,6 @@ public class Tasks {
 
 	@Column(name="wf_status")
 	private String wfStatus;
-	
 
 	@Column(name="client_code")
 	private String clientCode;
@@ -239,30 +240,10 @@ public class Tasks {
 	
 	@Column(name="department_code")
 	private String departmentCode;
-	
-	public double getRemainingTime() {
-		return remainingTime;
-	}
 
-	public void setRemainingTime(double remainingTime) {
-		this.remainingTime = remainingTime;
-	}
-
-	@Column(name="department_name")
-	private String departmentName;
-
-	@Column(name="profitcenter_code")
-	private String profitcenterCode;
 	
-	@Column(name="profitcenter_name")
-	private String profitcenterName;
 	
-	@Column(name="costcenter_code")
-	private String costcenterCode;
 	
-	@Column(name="costcenter_name")
-	private String costcenterName;
-
 	public UUID getId() {
 		return id;
 	}
@@ -383,10 +364,6 @@ public class Tasks {
 		this.estimatedTime = estimatedTime;
 	}
 
-	
-	
-	
-
 	public long getSpentTime() {
 		return spentTime;
 	}
@@ -395,7 +372,13 @@ public class Tasks {
 		this.spentTime = spentTime;
 	}
 
-	
+	public double getRemainingTime() {
+		return remainingTime;
+	}
+
+	public void setRemainingTime(double remainingTime) {
+		this.remainingTime = remainingTime;
+	}
 
 	public String getEmpCode() {
 		return empCode;
@@ -427,6 +410,22 @@ public class Tasks {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getSprintId() {
+		return sprintId;
+	}
+
+	public void setSprintId(String sprintId) {
+		this.sprintId = sprintId;
+	}
+
+	public String getSprintName() {
+		return sprintName;
+	}
+
+	public void setSprintName(String sprintName) {
+		this.sprintName = sprintName;
 	}
 
 	public String getDoaTypeCode() {
@@ -844,54 +843,9 @@ public class Tasks {
 	public void setDepartmentCode(String departmentCode) {
 		this.departmentCode = departmentCode;
 	}
-
-	public String getDepartmentName() {
-		return departmentName;
-	}
-
-	public void setDepartmentName(String departmentName) {
-		this.departmentName = departmentName;
-	}
-
-	public String getProfitcenterCode() {
-		return profitcenterCode;
-	}
-
-	public void setProfitcenterCode(String profitcenterCode) {
-		this.profitcenterCode = profitcenterCode;
-	}
-
-	public String getProfitcenterName() {
-		return profitcenterName;
-	}
-
-	public void setProfitcenterName(String profitcenterName) {
-		this.profitcenterName = profitcenterName;
-	}
-
-	public String getCostcenterCode() {
-		return costcenterCode;
-	}
-
-	public void setCostcenterCode(String costcenterCode) {
-		this.costcenterCode = costcenterCode;
-	}
-
-	public String getCostcenterName() {
-		return costcenterName;
-	}
-
-	public void setCostcenterName(String costcenterName) {
-		this.costcenterName = costcenterName;
-	}
-
-	public String getSprintId() {
-		return sprintId;
-	}
-
-	public void setSprintId(String sprintId) {
-		this.sprintId = sprintId;
-	}
+	
+	
+	
 	
 	
 
