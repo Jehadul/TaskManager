@@ -221,8 +221,8 @@ public class TasksService implements ITasksService {
 			Calendar calendar = Calendar.getInstance();
 
 			calendar.setTime(s);
-			Timestamp hh = new Timestamp(calendar.getTime().getTime());
-			taskLog.setStopTime(hh);
+			Timestamp stoptTimeFontEnd = new Timestamp(calendar.getTime().getTime());
+			taskLog.setStopTime(stoptTimeFontEnd);
 			taskLog.setStartStopStatus(true);
 
 			String dat = requestMap.get("day");
@@ -240,26 +240,23 @@ public class TasksService implements ITasksService {
 
 			
 			
-			long spentTotalTime = tasks.getSpentTime() + (hh.getTime() - taskLog.getStartTime().getTime());
+			long spentTotalTime = tasks.getSpentTime() + (stoptTimeFontEnd.getTime() - taskLog.getStartTime().getTime());
             tasks.setSpentTime(spentTotalTime);
 			
 			tasks.setRemainingTime(Double.parseDouble(requestMap.get("remaininghours")));
 			
-			System.out.println("sqlTaskRemainingHours "+sqlTaskRemainingHours);
 			double stopTaskRemainingHours = Double.parseDouble(requestMap.get("remaininghours"));
 			double stopTaskRemainingHoursplus = 0;
-			System.out.println("stopTaskRemainingHours "+stopTaskRemainingHours);
+			
 			if(sqlTaskRemainingHours>stopTaskRemainingHours){
 				stopTaskRemainingHours =sqlTaskRemainingHours-stopTaskRemainingHours;
 				System.out.println("stopTaskRemainingHour big "+stopTaskRemainingHours);
 			}else if(sqlTaskRemainingHours<stopTaskRemainingHours){
 				stopTaskRemainingHoursplus =stopTaskRemainingHours-sqlTaskRemainingHours;
-				System.out.println("stopTaskRemainingHours small "+stopTaskRemainingHours);
 			}else{
 				
 			}
 			double totalRemaininghours = tasksDao.sprintRemaingHours(UUID.fromString(requestMap.get("sprintId")));
-			System.out.println(totalRemaininghours);
 			taskLog.setRemainingTime((stopTaskRemainingHoursplus==0)?totalRemaininghours-stopTaskRemainingHours:totalRemaininghours+stopTaskRemainingHoursplus);
 			
 			tasksDao.updateTaskLogDoc(taskLog);
