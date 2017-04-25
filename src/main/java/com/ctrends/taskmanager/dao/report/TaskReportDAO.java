@@ -146,11 +146,8 @@ public class TaskReportDAO implements ITaskReportDAO {
 		TaskReportView taskReportView = null;
 
 		Query query = sessionfactory.getCurrentSession().createQuery(
-				"FROM Tasks WHERE companyCode = :companyCode and empCode=:empCode and empName=:empName and username=:username");
+				"FROM Tasks WHERE username=:username");
 
-		query.setParameter("companyCode", request.get("companyCode"));
-		query.setParameter("empCode", request.get("empCode"));
-		query.setParameter("empName", request.get("empName"));
 		query.setParameter("username", request.get("username"));
 
 		List<Tasks> tlist = query.list();
