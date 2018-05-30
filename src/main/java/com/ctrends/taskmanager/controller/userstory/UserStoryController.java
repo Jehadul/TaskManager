@@ -331,8 +331,12 @@ public class UserStoryController implements IUserStoryController {
 
 		Map<String, Object> data = new HashMap<String, Object>();
 		List<UserStory> userStoryLi = userStoryService.getAll();
-		userStoryLi.get(0).getStoryStatus();
-		System.out.println(userStoryLi.get(0).getStoryStatus()+"kamru");
+		for (int i = 0; i < userStoryLi.size(); i++) {
+			userStoryLi.get(i).getStoryStatus();
+			System.out.println(userStoryLi.get(i).getStoryStatus()+" ................ Jihad");
+		}
+		//userStoryLi.get(0).getStoryStatus();
+		
 		data.put("userStoryLi", userStoryLi);
 		
 		return new ModelAndView("userstory/storylist", "data", data);
